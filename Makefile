@@ -3,7 +3,7 @@ TESTS = \
 
 test: $(addsuffix .run,$(TESTS))
 
-experiments/%/main: experiments/%/prog.gpr
+experiments/%/main: experiments/%/prog.gpr experiments/%/*.ad? src/*.ad?
 	@gprbuild -P $<
 
 experiments/%/main.run: experiments/%/main
