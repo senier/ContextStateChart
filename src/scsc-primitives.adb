@@ -8,10 +8,11 @@ is
 
    function Arc return SCSC.SVG.Element_Type
    is
+      use SCSC.SVG;
       use SXML.Generator;
    begin
-      return SCSC.SVG.Element_Type (E ("path", A ("d", "M50,50 A30,50 0 0,1 100,100")
-                                             + A ("style", "stroke:#660000; fill:none;")));
+      return To_Element (((M_oveto, False, 50, 50),
+                          (A_rc, False, 30, 50, 0, False, True, 100, 100)), Style => "stroke:#660000; fill:none;");
    end Arc;
 
 end SCSC.Primitives;
