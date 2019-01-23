@@ -1,9 +1,9 @@
 with Ada.Text_IO; use Ada.Text_IO;
-with SSVG;
+with SCSC.SVG;
 
 procedure Main
 is
-   SVG : SSVG.Document_Type := SSVG.SVG;
+   SVG : SCSC.SVG.Document_Type := SCSC.SVG.SVG;
 begin
-   Put_Line (SSVG.To_String (SVG));
+   Put_Line (SCSC.SVG.To_String (SVG));
 end Main;

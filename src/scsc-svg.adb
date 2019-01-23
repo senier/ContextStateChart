@@ -1,7 +1,7 @@
 with SXML.Generator;
 with SXML.Serialize;
 
-package body SSVG is
+package body SCSC.SVG is
 
    XML_String : String (1 .. 100000);
 
@@ -45,16 +45,4 @@ package body SSVG is
       end if;
    end To_String;
 
-   ---------
-   -- Arc --
-   ---------
-
-   function Arc return Element_Type
-   is
-      use SXML.Generator;
-   begin
-      return Element_Type (E ("path", A ("d", "M50,50 A30,50 0 0,1 100,100")
-                                    + A ("style", "stroke:#660000; fill:none;")));
-   end Arc;
-
-end SSVG;
+end SCSC.SVG;
