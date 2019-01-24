@@ -9,48 +9,50 @@ is
    Null_Element : constant Element_Type;
 
    type Path_Command_Kind is
-      (M_oveto,
-       L_ineto,
-       H_orizontal,
-       V_ertical,
-       C_urveto,
-       S_mooth,
-       Q_uadratic,
-       T_Shorthand,
-       A_rc,
-       Z_Closepath,
+      (Moveto,
+       Lineto,
+       Horizontal,
+       Vertical,
+       Curveto,
+       Smooth,
+       Quadratic,
+       TShorthand,
+       Arc,
+       ZClosepath,
        Invalid);
 
+   type Mode_Type is (Absolute, Relative);
+
    type Path_Command_Type (Command  : Path_Command_Kind := Invalid;
-                           Relative : Boolean           := False)
+                           Mode     : Mode_Type         := Absolute)
    is
    record
       case Command is
-         when M_oveto | L_ineto | T_Shorthand =>
+         when Moveto | Lineto | TShorthand =>
             X          : Natural;
             Y          : Natural;
-         when H_orizontal =>
+         when Horizontal =>
             H_X        : Natural;
-         when V_ertical =>
+         when Vertical =>
             V_Y        : Natural;
-         when Q_uadratic =>
+         when Quadratic =>
             Q_X1       : Natural;
             Q_Y1       : Natural;
             Q_X        : Natural;
             Q_Y        : Natural;
-         when C_urveto =>
+         when Curveto =>
             C_X1       : Natural;
             C_Y1       : Natural;
             C_X2       : Natural;
             C_Y2       : Natural;
             C_X        : Natural;
             C_Y        : Natural;
-         when S_mooth =>
+         when Smooth =>
             S_X2       : Natural;
             S_Y2       : Natural;
             S_X        : Natural;
             S_Y        : Natural;
-         when A_rc =>
+         when Arc =>
             RX         : Natural;
             RY         : Natural;
             X_Rotation : Natural;
@@ -58,7 +60,7 @@ is
             Sweep      : Boolean;
             AX         : Natural;
             AY         : Natural;
-         when Z_Closepath | Invalid =>
+         when ZClosepath | Invalid =>
             null;
       end case;
    end record;
@@ -66,7 +68,9 @@ is
    type Path_Commands_Type is array (Natural range <>) of Path_Command_Type;
 
 
-   function SVG (Child : Element_Type := Null_Element) return Document_Type;
+   function SVG (Width  : Natural;
+                 Height : Natural;
+                 Child  : Element_Type := Null_Element) return Document_Type;
    --  SVG document
 
    function To_Element (Commands : Path_Commands_Type;

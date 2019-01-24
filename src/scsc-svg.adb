@@ -9,14 +9,19 @@ package body SCSC.SVG is
    -- SVG --
    ---------
 
-   function SVG (Child : Element_Type := Null_Element) return Document_Type
+   function SVG (Width  : Natural;
+                 Height : Natural;
+                 Child  : Element_Type := Null_Element) return Document_Type
    is
       use SXML.Generator;
    begin
       return Document_Type
          (E ("svg",
-          A ("xmlns", "http://www.w3.org/2000/svg") + A ("xmlns:xlink", "http://www.w3.org/1999/xlink"),
-          SXML.Document_Type (Child)));
+             A ("width", Width) +
+             A ("height", Height) +
+             A ("xmlns", "http://www.w3.org/2000/svg") +
+             A ("xmlns:xlink", "http://www.w3.org/1999/xlink"),
+             SXML.Document_Type (Child)));
    end SVG;
 
    ---------------
@@ -58,43 +63,43 @@ package body SCSC.SVG is
       end Img;
    begin
       case C.Command is
-         when M_oveto =>
-            return (if C.Relative then "m" else "M")
+         when Moveto =>
+            return (case C.Mode is when Relative => "m", when Absolute => "M")
                & Img (C.X) & "," & Img (C.Y);
-         when L_ineto =>
-            return (if C.Relative then "l" else "L")
+         when Lineto =>
+            return (case C.Mode is when Relative => "l", when Absolute => "L")
                & Img (C.X) & "," & Img (C.Y);
-         when T_Shorthand =>
-            return (if C.Relative then "t" else "T")
+         when TShorthand =>
+            return (case C.Mode is when Relative => "t", when Absolute => "T")
                & Img (C.X) & "," & Img (C.Y);
-         when H_orizontal =>
-            return (if C.Relative then "h" else "H")
+         when Horizontal =>
+            return (case C.Mode is when Relative => "h", when Absolute => "H")
                & Img (C.H_X);
-         when V_ertical =>
-            return (if C.Relative then "v" else "V")
+         when Vertical =>
+            return (case C.Mode is when Relative => "v", when Absolute => "V")
                & Img (C.V_Y);
-         when C_urveto =>
-            return (if C.Relative then "c" else "C")
+         when Curveto =>
+            return (case C.Mode is when Relative => "c", when Absolute => "C")
                & Img (C.C_X1) & "," & Img (C.C_Y1) & " "
                & Img (C.C_X2) & "," & Img (C.C_Y2) & " "
                & Img (C.C_X) & "," & Img (C.C_Y);
-         when S_mooth =>
-            return (if C.Relative then "s" else "S")
+         when Smooth =>
+            return (case C.Mode is when Relative => "s", when Absolute => "S")
                & Img (C.S_X2) & "," & Img (C.S_Y2) & " "
                & Img (C.S_X) & "," & Img (C.S_Y);
-         when Q_uadratic =>
-            return (if C.Relative then "q" else "Q")
+         when Quadratic =>
+            return (case C.Mode is when Relative => "q", when Absolute => "Q")
                & Img (C.Q_X1) & "," & Img (C.Q_Y1) & " "
                & Img (C.Q_X) & "," & Img (C.Q_Y);
-         when A_rc =>
-            return (if C.Relative then "a" else "A")
+         when Arc =>
+            return (case C.Mode is when Relative => "a", when Absolute => "A")
                & Img (C.RX) & "," & Img (C.RY) & " "
                & Img (C.X_Rotation) & " "
                & (if C.Large then "1" else "0") & " "
                & (if C.Sweep then "1" else "0") & " "
                & Img (C.AX) & "," & Img (C.AY);
-         when Z_Closepath =>
-            return (if C.Relative then "z" else "Z");
+         when ZClosepath =>
+            return (case C.Mode is when Relative => "z", when Absolute => "Z");
          when Invalid =>
             return "INVALID";
       end case;
