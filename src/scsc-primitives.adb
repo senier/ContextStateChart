@@ -12,7 +12,8 @@ is
                  Y_Radius   : Natural;
                  X_Rotation : Natural := 0;
                  Large      : Boolean := False;
-                 Sweep      : Boolean := False) return SCSC.SVG.Element_Type
+                 Sweep      : Boolean := False;
+                 Style      : String  := "") return SCSC.SVG.Element_Type
    is
       use SCSC.SVG;
       use SXML.Generator;
@@ -28,7 +29,7 @@ is
                                           AX         => To.X,
                                           AY         => To.Y)
                          ),
-                         Style => "stroke:#660000; fill:none;");
+                         Style => Style);
    end Arc;
 
 end SCSC.Primitives;

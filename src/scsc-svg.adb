@@ -4,6 +4,7 @@ with SXML.Serialize;
 package body SCSC.SVG is
 
    XML_String : String (1 .. 100000);
+   use SXML.Generator;
 
    ---------
    -- SVG --
@@ -138,5 +139,22 @@ package body SCSC.SVG is
                                                 + A ("style", Style)));
       end;
    end To_Element;
+
+   -------
+   -- + --
+   -------
+
+   function "+" (Left, Right : Element_Type) return Element_Type is
+      (Element_Type (SXML.Document_Type (Left) + SXML.Document_Type (Right)));
+
+   -----------
+   -- Group --
+   -----------
+
+   function Group (Element : Element_Type) return Element_Type
+   is
+   begin
+      return Element_Type (E ("g", SXML.Document_Type (Element)));
+   end Group;
 
 end SCSC.SVG;

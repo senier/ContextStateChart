@@ -80,6 +80,12 @@ is
    function To_String (Document : Document_Type) return String;
    --  Serialize SVG document
 
+   function Group (Element : Element_Type) return Element_Type;
+   --  Group elements
+
+   function "+" (Left, Right : Element_Type) return Element_Type;
+   --  Join elements
+
 private
    Null_Element : constant Element_Type := Element_Type (SXML.Null_Document);
 end SCSC.SVG;
