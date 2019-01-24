@@ -1,6 +1,7 @@
 TESTS = \
 	experiments/010_empty_svg/main \
-	experiments/020_arc/main
+	experiments/020_arc/main \
+	experiments/021_circle/main
 
 test: $(addsuffix .run,$(TESTS))
 

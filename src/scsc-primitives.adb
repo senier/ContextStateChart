@@ -6,8 +6,8 @@ is
    -- Arc --
    ---------
 
-   function Arc (From       : Point;
-                 To         : Point;
+   function Arc (From       : SVG.Point;
+                 To         : SVG.Point;
                  X_Radius   : Natural;
                  Y_Radius   : Natural;
                  X_Rotation : Natural := 0;

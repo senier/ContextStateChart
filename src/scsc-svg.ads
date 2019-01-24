@@ -6,6 +6,12 @@ is
    type Document_Type is new SXML.Document_Type;
    type Element_Type is new SXML.Document_Type;
 
+   type Point is
+   record
+      X : Natural;
+      Y : Natural;
+   end record;
+
    Null_Element : constant Element_Type;
 
    type Path_Command_Kind is
@@ -85,6 +91,11 @@ is
 
    function "+" (Left, Right : Element_Type) return Element_Type;
    --  Join elements
+
+   function Circle (Center : Point;
+                    Radius : Natural;
+                    Style  : String := ";") return Element_Type;
+   --  Circle
 
 private
    Null_Element : constant Element_Type := Element_Type (SXML.Null_Document);

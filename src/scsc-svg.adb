@@ -157,4 +157,21 @@ package body SCSC.SVG is
       return Element_Type (E ("g", SXML.Document_Type (Element)));
    end Group;
 
+   ------------
+   -- Circle --
+   ------------
+
+   function Circle (Center : Point;
+                    Radius : Natural;
+                    Style  : String := ";") return Element_Type
+   is
+   begin
+      return Element_Type
+         (E ("circle",
+             A ("cx", Center.X) +
+             A ("cy", Center.Y) +
+             A ("r", Radius) +
+             A ("style", Style)));
+   end Circle;
+
 end SCSC.SVG;
