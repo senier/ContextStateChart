@@ -1,9 +1,10 @@
 with SXML.Generator;
 with SXML.Serialize;
 
-package body SCSC.SVG is
+package body SCSC.SVG
+   with SPARK_Mode => On
+is
 
-   XML_String : String (1 .. 100000);
    use SXML.Generator;
 
    ---------
@@ -36,16 +37,17 @@ package body SCSC.SVG is
 
       Result : Result_Type;
       Last   : Natural;
+      Temp   : String (1 .. 100000);
    begin
       SXML.Serialize.To_String
          (Document => SXML.Document_Type (Document),
-          Data     => XML_String,
+          Data     => Temp,
           Last     => Last,
           Result   => Result);
 
       if Result = Result_OK
       then
-         return XML_String (1 .. Last);
+         return Temp (1 .. Last);
       else
          return "#INVALID#";
       end if;

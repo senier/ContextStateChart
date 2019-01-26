@@ -2,6 +2,7 @@ with SXML;
 with SCSC.Types;
 
 package SCSC.SVG
+   with SPARK_Mode => On
 is
 
    type Document_Type is new SXML.Document_Type;

@@ -1,71 +1,100 @@
 with SXML.Generator;
-with Ada.Numerics.Generic_Elementary_Functions;
-with Ada.Text_IO; use Ada.Text_IO;
+with SCSC.Math;
 
 package body SCSC.Primitives
+   with SPARK_Mode => On
 is
+   ----------
+   -- Cart --
+   ----------
+
+   function Cartesian (From       : Types.Point;
+                       To         : Types.Point;
+                       X_Radius   : Natural;
+                       Y_Radius   : Natural;
+                       X_Rotation : Natural := 0;
+                       Large      : Boolean := False;
+                       Sweep      : Boolean := False) return Arc_Params_Type
+   is
+   begin
+      return
+        (From       => From,
+         To         => To,
+         X_Radius   => X_Radius,
+         Y_Radius   => Y_Radius,
+         X_Rotation => X_Rotation,
+         Large      => Large,
+         Sweep      => Sweep);
+   end Cartesian;
+
+   -----------
+   -- Polar --
+   -----------
+
+   function Polar (Center     : Types.Point;
+                   Radius     : Natural;
+                   Start      : Types.Angle;
+                   Angle      : Types.Angle) return Arc_Params_Type
+   is
+      use Math;
+      use type Types.Angle;
+   begin
+      return
+        (From       => (X => Center.X + Integer (Sin (Start) * Types.Angle (Radius)),
+                        Y => Center.Y + Integer (-Cos (Start) * Types.Angle (Radius))),
+         To         => (X => Center.X + Integer (Sin (Start + Angle) * Types.Angle (Radius)),
+                        Y => Center.Y + Integer (-Cos (Start + Angle) * Types.Angle (Radius))),
+         X_Radius   => Radius,
+         Y_Radius   => Radius,
+         X_Rotation => 0,
+         Large      => False,
+         Sweep      => Angle >= 0.0);
+   end Polar;
+
    ---------
    -- Arc --
    ---------
 
-   function Arc (From       : Types.Point;
-                 To         : Types.Point;
-                 X_Radius   : Natural;
-                 Y_Radius   : Natural;
-                 X_Rotation : Natural := 0;
-                 Large      : Boolean := False;
-                 Sweep      : Boolean := False;
-                 Style      : String  := "";
-                 ID         : String  := "") return SCSC.SVG.Element_Type
+   function Arc (Params : Arc_Params_Type;
+                 Style  : String  := "";
+                 ID     : String  := "") return SCSC.SVG.Element_Type
    is
       use SCSC.SVG;
       use SXML.Generator;
    begin
       --  FIXME: Create style object to set style
       return To_Element (Commands =>
-                         ((Moveto, Absolute, From.X, From.Y),
-                          (Arc, Absolute, RX         => X_Radius,
-                                          RY         => Y_Radius,
-                                          X_Rotation => X_Rotation,
-                                          Large      => Large,
-                                          Sweep      => Sweep,
-                                          AX         => To.X,
-                                          AY         => To.Y)
+                         ((Moveto, Absolute, Params.From.X, Params.From.Y),
+                          (Arc, Absolute, RX         => Params.X_Radius,
+                                          RY         => Params.Y_Radius,
+                                          X_Rotation => Params.X_Rotation,
+                                          Large      => Params.Large,
+                                          Sweep      => Params.Sweep,
+                                          AX         => Params.To.X,
+                                          AY         => Params.To.Y)
                          ),
                          Style => Style,
                          ID    => ID);
    end Arc;
 
-   ---------
-   -- Arc --
-   ---------
+   ----------
+   -- From --
+   ----------
 
-   function Arc (Center     : Types.Point;
-                 Radius     : Natural;
-                 Start      : Types.Angle;
-                 Angle      : Types.Angle;
-                 From       : out Types.Point;
-                 To         : out Types.Point;
-                 Style      : String  := "";
-                 ID         : String  := "") return SCSC.SVG.Element_Type
+   function From (Params : Arc_Params_Type) return Types.Point
    is
-      package EF is new Ada.Numerics.Generic_Elementary_Functions (Types.Angle);
-      use EF;
-      use type Types.Angle;
    begin
-      From.X := Center.X + Integer (Sin (Start, Cycle => 360.0) * Types.Angle (Radius));
-      From.Y := Center.Y + Integer (-Cos (Start, Cycle => 360.0) * Types.Angle (Radius));
-      To.X   := Center.X + Integer (Sin (Start + Angle, Cycle => 360.0) * Types.Angle (Radius));
-      To.Y   := Center.Y + Integer (-Cos (Start + Angle, Cycle => 360.0) * Types.Angle (Radius));
+      return Params.From;
+   end From;
 
-      return Arc (From       => From,
-                  To         => To,
-                  X_Radius   => Radius,
-                  Y_Radius   => Radius,
-                  X_Rotation => 0,
-                  Large      => False,
-                  Sweep      => Angle >= 0.0,
-                  Style      => Style,
-                  ID         => ID);
-   end Arc;
+   --------
+   -- To --
+   --------
+
+   function To (Params : Arc_Params_Type) return Types.Point
+   is
+   begin
+      return Params.To;
+   end To;
+
 end SCSC.Primitives;

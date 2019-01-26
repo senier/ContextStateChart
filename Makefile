@@ -9,7 +9,7 @@ TESTS = \
 test: $(addsuffix .run,$(TESTS))
 
 experiments/%/main: experiments/%/prog.gpr experiments/%/*.ad? src/*.ad?
-	@gprbuild -P $<
+	@gprbuild -p -q -P $<
 
 experiments/%/main.run: experiments/%/main
 	@mkdir -p obj

@@ -1,4 +1,5 @@
 package SCSC.Types
+   with SPARK_Mode => On
 is
 
    type Point is
