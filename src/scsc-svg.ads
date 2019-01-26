@@ -96,7 +96,10 @@ is
 
    function Text (Position : Types.Point;
                   Text     : String;
+                  DX       : Natural := 0;
+                  DY       : Natural := 0;
                   Style    : String := "";
+                  Path     : String := "";
                   ID       : String := "") return Element_Type;
    --  Text
 

@@ -187,17 +187,25 @@ package body SCSC.SVG is
 
    function Text (Position : Types.Point;
                   Text     : String;
+                  DX       : Natural := 0;
+                  DY       : Natural := 0;
                   Style    : String := "";
+                  Path     : String := "";
                   ID       : String := "") return Element_Type
    is
+      T : SXML.Document_Type := (if Path /= ""
+                                 then E ("textPath", A ("xlink:href", "#" & Path), C (Text))
+                                 else C (Text));
    begin
       return Element_Type
          (E ("text",
              (if ID /= "" then A ("id", ID) else Null_Attributes) +
              A ("x", Position.X) +
              A ("y", Position.Y) +
+             (if DX > 0 then A ("dx", DX) else Null_Attributes) +
+             (if DY > 0 then A ("dy", DY) else Null_Attributes) +
              A ("style", Style),
-             C (Text)));
+             T));
    end Text;
 
 end SCSC.SVG;
