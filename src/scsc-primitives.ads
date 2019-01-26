@@ -1,9 +1,10 @@
 with SCSC.SVG;
+with SCSC.Types;
 
 package SCSC.Primitives
 is
-   function Arc (From       : SVG.Point;
-                 To         : SVG.Point;
+   function Arc (From       : Types.Point;
+                 To         : Types.Point;
                  X_Radius   : Natural;
                  Y_Radius   : Natural;
                  X_Rotation : Natural := 0;
@@ -12,10 +13,13 @@ is
                  Style      : String  := "") return SCSC.SVG.Element_Type;
    --  Return arc
 
-   -- function Arc (Center     : SVG.Point;
-   --               From       : SVG.Point;
-   --               To         : SVG.Point;
-   --               Style      : String  := "") return SCSC.SVG.Element_Type;
+   function Arc (Center     : Types.Point;
+                 Radius     : Natural;
+                 Start      : Types.Angle;
+                 Angle      : Types.Angle;
+                 From       : out Types.Point;
+                 To         : out Types.Point;
+                 Style      : String  := "") return SCSC.SVG.Element_Type;
    --  Return arc using three points
 
 end SCSC.Primitives;

@@ -136,7 +136,7 @@ package body SCSC.SVG is
             end;
          end loop;
          return SCSC.SVG.Element_Type (E ("path", A ("d", D)
-                                                + A ("style", Style)));
+                                                + (if Style /= "" then A ("style", Style) else Null_Attributes)));
       end;
    end To_Element;
 
@@ -161,7 +161,7 @@ package body SCSC.SVG is
    -- Circle --
    ------------
 
-   function Circle (Center : Point;
+   function Circle (Center : Types.Point;
                     Radius : Natural;
                     Style  : String := ";") return Element_Type
    is
