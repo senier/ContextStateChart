@@ -15,7 +15,8 @@ is
                  X_Rotation : Natural := 0;
                  Large      : Boolean := False;
                  Sweep      : Boolean := False;
-                 Style      : String  := "") return SCSC.SVG.Element_Type
+                 Style      : String  := "";
+                 ID         : String  := "") return SCSC.SVG.Element_Type
    is
       use SCSC.SVG;
       use SXML.Generator;
@@ -31,7 +32,8 @@ is
                                           AX         => To.X,
                                           AY         => To.Y)
                          ),
-                         Style => Style);
+                         Style => Style,
+                         ID    => ID);
    end Arc;
 
    ---------
@@ -44,7 +46,8 @@ is
                  Angle      : Types.Angle;
                  From       : out Types.Point;
                  To         : out Types.Point;
-                 Style      : String  := "") return SCSC.SVG.Element_Type
+                 Style      : String  := "";
+                 ID         : String  := "") return SCSC.SVG.Element_Type
    is
       package EF is new Ada.Numerics.Generic_Elementary_Functions (Types.Angle);
       use EF;
@@ -62,6 +65,7 @@ is
                   X_Rotation => 0,
                   Large      => False,
                   Sweep      => Angle >= 0.0,
-                  Style      => Style);
+                  Style      => Style,
+                  ID         => ID);
    end Arc;
 end SCSC.Primitives;

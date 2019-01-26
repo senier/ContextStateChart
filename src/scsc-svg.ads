@@ -74,13 +74,15 @@ is
    --  SVG document
 
    function To_Element (Commands : Path_Commands_Type;
-                        Style    : String) return Element_Type;
+                        Style    : String := "";
+                        ID       : String := "") return Element_Type;
    --  Create element from path commands
 
    function To_String (Document : Document_Type) return String;
    --  Serialize SVG document
 
-   function Group (Element : Element_Type) return Element_Type;
+   function Group (Element : Element_Type;
+                   ID      : String := "") return Element_Type;
    --  Group elements
 
    function "+" (Left, Right : Element_Type) return Element_Type;
@@ -88,12 +90,14 @@ is
 
    function Circle (Center : Types.Point;
                     Radius : Natural;
-                    Style  : String := ";") return Element_Type;
+                    Style  : String := "";
+                    ID     : String := "") return Element_Type;
    --  Circle
 
    function Text (Position : Types.Point;
                   Text     : String;
-                  Style    : String := ";") return Element_Type;
+                  Style    : String := "";
+                  ID       : String := "") return Element_Type;
    --  Text
 
 private

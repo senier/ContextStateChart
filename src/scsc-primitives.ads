@@ -10,7 +10,8 @@ is
                  X_Rotation : Natural := 0;
                  Large      : Boolean := False;
                  Sweep      : Boolean := False;
-                 Style      : String  := "") return SCSC.SVG.Element_Type;
+                 Style      : String  := "";
+                 ID         : String  := "") return SCSC.SVG.Element_Type;
    --  Return arc
 
    function Arc (Center     : Types.Point;
@@ -19,7 +20,8 @@ is
                  Angle      : Types.Angle;
                  From       : out Types.Point;
                  To         : out Types.Point;
-                 Style      : String  := "") return SCSC.SVG.Element_Type;
+                 Style      : String  := "";
+                 ID         : String  := "") return SCSC.SVG.Element_Type;
    --  Return arc using three points
 
 end SCSC.Primitives;

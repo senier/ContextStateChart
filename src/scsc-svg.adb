@@ -111,7 +111,8 @@ package body SCSC.SVG is
    ----------------
 
    function To_Element (Commands : Path_Commands_Type;
-                        Style    : String) return Element_Type
+                        Style    : String := "";
+                        ID       : String := "") return Element_Type
    is
       use SXML.Generator;
       Length : Natural := 0;
@@ -136,6 +137,7 @@ package body SCSC.SVG is
             end;
          end loop;
          return SCSC.SVG.Element_Type (E ("path", A ("d", D)
+                                                + (if ID /= "" then A ("id", ID) else Null_Attributes)
                                                 + (if Style /= "" then A ("style", Style) else Null_Attributes)));
       end;
    end To_Element;
@@ -151,10 +153,13 @@ package body SCSC.SVG is
    -- Group --
    -----------
 
-   function Group (Element : Element_Type) return Element_Type
+   function Group (Element : Element_Type;
+                   ID      : String := "") return Element_Type
    is
    begin
-      return Element_Type (E ("g", SXML.Document_Type (Element)));
+      return Element_Type (E ("g",
+                           (if ID /= "" then A ("id", ID) else Null_Attributes),
+                           SXML.Document_Type (Element)));
    end Group;
 
    ------------
@@ -163,11 +168,13 @@ package body SCSC.SVG is
 
    function Circle (Center : Types.Point;
                     Radius : Natural;
-                    Style  : String := ";") return Element_Type
+                    Style  : String := "";
+                    ID     : String := "") return Element_Type
    is
    begin
       return Element_Type
          (E ("circle",
+             (if ID /= "" then A ("id", ID) else Null_Attributes) +
              A ("cx", Center.X) +
              A ("cy", Center.Y) +
              A ("r", Radius) +
@@ -180,11 +187,13 @@ package body SCSC.SVG is
 
    function Text (Position : Types.Point;
                   Text     : String;
-                  Style    : String := ";") return Element_Type
+                  Style    : String := "";
+                  ID       : String := "") return Element_Type
    is
    begin
       return Element_Type
          (E ("text",
+             (if ID /= "" then A ("id", ID) else Null_Attributes) +
              A ("x", Position.X) +
              A ("y", Position.Y) +
              A ("style", Style),
