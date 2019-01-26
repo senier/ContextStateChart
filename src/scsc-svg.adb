@@ -174,4 +174,21 @@ package body SCSC.SVG is
              A ("style", Style)));
    end Circle;
 
+   ----------
+   -- Text --
+   ----------
+
+   function Text (Position : Types.Point;
+                  Text     : String;
+                  Style    : String := ";") return Element_Type
+   is
+   begin
+      return Element_Type
+         (E ("text",
+             A ("x", Position.X) +
+             A ("y", Position.Y) +
+             A ("style", Style),
+             C (Text)));
+   end Text;
+
 end SCSC.SVG;

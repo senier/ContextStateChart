@@ -91,6 +91,11 @@ is
                     Style  : String := ";") return Element_Type;
    --  Circle
 
+   function Text (Position : Types.Point;
+                  Text     : String;
+                  Style    : String := ";") return Element_Type;
+   --  Text
+
 private
    Null_Element : constant Element_Type := Element_Type (SXML.Null_Document);
 end SCSC.SVG;
