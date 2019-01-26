@@ -189,14 +189,31 @@ is
 
    function Text (Position : Types.Point;
                   Text     : String;
+                  Align    : Align_Type := Align_Centered;
                   DX       : Natural := 0;
                   DY       : Natural := 0;
-                  Style    : String := "";
-                  Path     : String := "";
-                  ID       : String := "") return Element_Type
+                  Style    : String  := "";
+                  Path     : String  := "";
+                  ID       : String  := "") return Element_Type
    is
+      use SXML.Generator;
+
+      Offset : Attributes_Type := A ("startOffset",
+                                     (case Align is
+                                         when Align_Start    => "0%",
+                                         when Align_Centered => "50%",
+                                         when Align_End      => "100%"));
+
+      S : String := "text-anchor: " &
+         (case Align is
+             when Align_Start    => "start",
+             when Align_Centered => "middle",
+             when Align_End      => "end");
+
       T : SXML.Document_Type := (if Path /= ""
-                                 then E ("textPath", A ("xlink:href", "#" & Path), C (Text))
+                                 then E ("textPath",
+                                         A ("xlink:href", "#" & Path) + Offset + A ("style", S),
+                                         C (Text))
                                  else C (Text));
    begin
       return Element_Type

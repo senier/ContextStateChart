@@ -95,8 +95,11 @@ is
                     ID     : String := "") return Element_Type;
    --  Circle
 
+   type Align_Type is (Align_Start, Align_Centered, Align_End);
+
    function Text (Position : Types.Point;
                   Text     : String;
+                  Align    : Align_Type := Align_Centered;
                   DX       : Natural := 0;
                   DY       : Natural := 0;
                   Style    : String := "";

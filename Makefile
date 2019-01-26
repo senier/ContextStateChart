@@ -13,6 +13,7 @@ experiments/%/main: experiments/%/prog.gpr experiments/%/*.ad? src/*.ad?
 
 experiments/%/main.run: experiments/%/main
 	@mkdir -p obj
+	@echo "[Running] $*"
 	@./experiments/$*/main > obj/$*.svg
 	@xmllint --noout --dtdvalid experiments/svg11-flat-20110816.dtd obj/$*.svg
 
