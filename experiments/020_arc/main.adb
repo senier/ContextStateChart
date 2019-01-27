@@ -14,13 +14,11 @@ is
                                         To       => (400, 200),
                                         X_Radius => 200,
                                         Y_Radius => 200,
-                                        Sweep    => True)) +
-                        Arc (Cartesian (From     => (50, 50),
-                                        To       => (51, 50),
-                                        X_Radius => 3,
-                                        Y_Radius => 3,
-                                        Large    => True),
-                             Style    => "fill")));
+                                        Sweep    => False),
+                             Style => "fill: none; stroke: black") +
+                        Circle (Center => (50, 50),
+                                Radius => 2,
+                                Style  => "fill: black")));
 begin
    Put_Line (SCSC.SVG.To_String (SVG));
 end Main;

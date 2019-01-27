@@ -14,21 +14,21 @@ is
    Params1 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 100,
                                        Start  => 0.0,
-                                       Angle  => -90.0);
+                                       Stop   => -90.0);
 
    Arc1 : Element_Type := Arc (Params1, Style  => "stroke: #ff0000; fill: none");
 
    Params2 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 60,
                                        Start  => 30.0,
-                                       Angle  => 70.0);
+                                       Stop   => 100.0);
 
    Arc2 : Element_Type := Arc (Params2, Style  => "stroke: #00ffff; fill: none");
 
    Params3 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 30,
                                        Start  => 120.0,
-                                       Angle  => 20.0);
+                                       Stop   => 140.0);
 
    Arc3 : Element_Type := Arc (Params3, Style  => "stroke: #00ff00; fill: none");
 

@@ -190,13 +190,14 @@ is
    function Text (Position : Types.Point;
                   Text     : String;
                   Align    : Align_Type := Align_Centered;
-                  DX       : Natural := 0;
-                  DY       : Natural := 0;
+                  DX       : Types.Length := Types.Invalid_Length;
+                  DY       : Types.Length := Types.Invalid_Length;
                   Style    : String  := "";
                   Path     : String  := "";
                   ID       : String  := "") return Element_Type
    is
       use SXML.Generator;
+      use type Types.Length;
 
       Offset : Attributes_Type := A ("startOffset",
                                      (case Align is
@@ -221,8 +222,8 @@ is
              (if ID /= "" then A ("id", ID) else Null_Attributes) +
              A ("x", Position.X) +
              A ("y", Position.Y) +
-             (if DX > 0 then A ("dx", DX) else Null_Attributes) +
-             (if DY > 0 then A ("dy", DY) else Null_Attributes) +
+             (if DX /= Types.Invalid_Length then A ("dx", DX.Image) else Null_Attributes) +
+             (if DY /= Types.Invalid_Length then A ("dy", DY.Image) else Null_Attributes) +
              A ("style", Style),
              T));
    end Text;

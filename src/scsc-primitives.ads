@@ -29,7 +29,7 @@ is
    function Polar (Center     : Types.Point;
                    Radius     : Natural;
                    Start      : Types.Angle;
-                   Angle      : Types.Angle) return Arc_Params_Type;
+                   Stop       : Types.Angle) return Arc_Params_Type;
    --  Create arc parameters from center point, radius and two angles
 
 private

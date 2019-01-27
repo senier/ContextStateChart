@@ -100,8 +100,8 @@ is
    function Text (Position : Types.Point;
                   Text     : String;
                   Align    : Align_Type := Align_Centered;
-                  DX       : Natural := 0;
-                  DY       : Natural := 0;
+                  DX       : Types.Length := Types.Invalid_Length;
+                  DY       : Types.Length := Types.Invalid_Length;
                   Style    : String := "";
                   Path     : String := "";
                   ID       : String := "") return Element_Type;

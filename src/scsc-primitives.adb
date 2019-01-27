@@ -34,7 +34,7 @@ is
    function Polar (Center     : Types.Point;
                    Radius     : Natural;
                    Start      : Types.Angle;
-                   Angle      : Types.Angle) return Arc_Params_Type
+                   Stop       : Types.Angle) return Arc_Params_Type
    is
       use Math;
       use type Types.Angle;
@@ -42,13 +42,13 @@ is
       return
         (From       => (X => Center.X + Integer (Sin (Start) * Types.Angle (Radius)),
                         Y => Center.Y + Integer (-Cos (Start) * Types.Angle (Radius))),
-         To         => (X => Center.X + Integer (Sin (Start + Angle) * Types.Angle (Radius)),
-                        Y => Center.Y + Integer (-Cos (Start + Angle) * Types.Angle (Radius))),
+         To         => (X => Center.X + Integer (Sin (Stop) * Types.Angle (Radius)),
+                        Y => Center.Y + Integer (-Cos (Stop) * Types.Angle (Radius))),
          X_Radius   => Radius,
          Y_Radius   => Radius,
          X_Rotation => 0,
          Large      => False,
-         Sweep      => Angle >= 0.0);
+         Sweep      => Start > Stop);
    end Polar;
 
    ---------
