@@ -38,7 +38,9 @@ is
    is
       use Math;
       use type Types.Angle;
+      Angle : Types.Angle := (if Start < Stop then Stop - Start else 360.0 - Start + Stop);
    begin
+
       return
         (From       => (X => Center.X + Integer (Sin (Start) * Types.Angle (Radius)),
                         Y => Center.Y + Integer (-Cos (Start) * Types.Angle (Radius))),
@@ -47,8 +49,8 @@ is
          X_Radius   => Radius,
          Y_Radius   => Radius,
          X_Rotation => 0,
-         Large      => False,
-         Sweep      => Start > Stop);
+         Large      => Angle > 180.0,
+         Sweep      => True);
    end Polar;
 
    ---------

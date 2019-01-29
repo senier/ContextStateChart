@@ -4,7 +4,8 @@ TESTS = \
 	experiments/021_circle/main \
 	experiments/022_arc/main \
 	experiments/025_text/main \
-	experiments/026_text_along_path/main
+	experiments/026_text_along_path/main \
+	experiments/027_labeled_circle/main
 
 test: $(addsuffix .run,$(TESTS))
 
