@@ -53,6 +53,26 @@ is
          Sweep      => True);
    end Polar;
 
+   -----------
+   -- Polar --
+   -----------
+
+   function Polar (Center     : Types.Point;
+                   Start      : Natural;
+                   Stop       : Natural;
+                   Angle      : Types.Angle) return Line_Params_Type
+   is
+      use Math;
+      use type Types.Angle;
+   begin
+
+      return
+        (From       => (X => Center.X + Integer (Sin (Angle) * Types.Angle (Start)),
+                        Y => Center.Y + Integer (-Cos (Angle) * Types.Angle (Start))),
+         To         => (X => Center.X + Integer (Sin (Angle) * Types.Angle (Stop)),
+                        Y => Center.Y + Integer (-Cos (Angle) * Types.Angle (Stop))));
+   end Polar;
+
    ---------
    -- Arc --
    ---------
@@ -80,10 +100,31 @@ is
    end Arc;
 
    ----------
+   -- Line --
+   ----------
+
+   function Line (Params : Line_Params_Type;
+                  Style  : String  := "";
+                  ID     : String  := "") return SCSC.SVG.Element_Type
+   is
+      use SCSC.SVG;
+      use SXML.Generator;
+   begin
+      --  FIXME: Create style object to set style
+      return To_Element (Commands =>
+                         ((Moveto, Absolute, Params.From.X, Params.From.Y),
+                          (Lineto, Absolute, X => Params.To.X,
+                                             Y => Params.To.Y)
+                         ),
+                         Style => Style,
+                         ID    => ID);
+   end Line;
+
+   ----------
    -- From --
    ----------
 
-   function From (Params : Arc_Params_Type) return Types.Point
+   function From (Params : Params_Type) return Types.Point
    is
    begin
       return Params.From;
@@ -93,7 +134,7 @@ is
    -- To --
    --------
 
-   function To (Params : Arc_Params_Type) return Types.Point
+   function To (Params : Params_Type) return Types.Point
    is
    begin
       return Params.To;
