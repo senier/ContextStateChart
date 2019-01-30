@@ -20,9 +20,11 @@ is
                  ID     : String  := "") return SVG.Element_Type;
    --  Return arc
 
-   function Line (Params : Line_Params_Type;
-                  Style  : String  := "";
-                  ID     : String  := "") return SVG.Element_Type;
+   function Line (Params       : Line_Params_Type;
+                  Marker_Start : String  := "";
+                  Marker_End   : String  := "";
+                  Style        : String  := "";
+                  ID           : String  := "") return SVG.Element_Type;
    --  Return line
 
    function Cartesian (From       : Types.Point;

@@ -13,9 +13,11 @@ is
 
    function SVG (Width  : Natural;
                  Height : Natural;
-                 Child  : Element_Type := Null_Element) return Document_Type
+                 Child  : Element_Type := Null_Element;
+                 Defs   : Element_Type := Null_Element) return Document_Type
    is
       use SXML.Generator;
+      D : SXML.Document_Type := E ("defs", SXML.Document_Type (Defs));
    begin
       return Document_Type
          (E ("svg",
@@ -23,7 +25,9 @@ is
              A ("height", Height) +
              A ("xmlns", "http://www.w3.org/2000/svg") +
              A ("xmlns:xlink", "http://www.w3.org/1999/xlink"),
-             SXML.Document_Type (Child)));
+             (if Child /= Null_Element or Defs /= Null_Element
+              then D + SXML.Document_Type (Child)
+              else SXML.Null_Document)));
    end SVG;
 
    ---------------
@@ -112,9 +116,11 @@ is
    -- Path --
    ----------
 
-   function Path (Commands : Path_Commands_Type;
-                  Style    : String := "";
-                  ID       : String := "") return Element_Type
+   function Path (Commands     : Path_Commands_Type;
+                  Marker_Start : String := "";
+                  Marker_End   : String := "";
+                  Style        : String := "";
+                  ID           : String := "") return Element_Type
    is
       use SXML.Generator;
       Length : Natural := 0;
@@ -138,9 +144,12 @@ is
                L := L + C'Length + 1;
             end;
          end loop;
-         return SCSC.SVG.Element_Type (E ("path", A ("d", D)
-                                                + (if ID /= "" then A ("id", ID) else Null_Attributes)
-                                                + (if Style /= "" then A ("style", Style) else Null_Attributes)));
+         return SCSC.SVG.Element_Type
+            (E ("path", A ("d", D)
+                       + (if Marker_Start /= "" then A ("marker-start", "url(#" & Marker_Start & ")") else Null_Attributes)
+                       + (if Marker_End /= "" then A ("marker-end", "url(#" & Marker_End & ")") else Null_Attributes)
+                       + (if ID /= "" then A ("id", ID) else Null_Attributes)
+                       + (if Style /= "" then A ("style", Style) else Null_Attributes)));
       end;
    end Path;
 
@@ -227,5 +236,29 @@ is
              A ("style", Style),
              T));
    end Text;
+
+   ------------
+   -- Marker --
+   ------------
+
+   function Marker (Element : Element_Type;
+                    Width   : Natural;
+                    Height  : Natural;
+                    RefX    : Float;
+                    RefY    : Float;
+                    ID      : String) return Element_Type
+   is
+   begin
+      return Element_Type
+         (E ("marker",
+             A ("id", ID) +
+             A ("orient", "auto") +
+             A ("markerWidth", Width) +
+             A ("markerHeight", Height) +
+             A ("refX", RefX) +
+             A ("refY", RefY),
+             SXML.Document_Type (Element)
+         ));
+   end Marker;
 
 end SCSC.SVG;

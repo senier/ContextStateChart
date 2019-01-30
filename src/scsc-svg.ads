@@ -71,16 +71,19 @@ is
 
    function SVG (Width  : Natural;
                  Height : Natural;
-                 Child  : Element_Type := Null_Element) return Document_Type;
+                 Child  : Element_Type := Null_Element;
+                 Defs   : Element_Type := Null_Element) return Document_Type;
    --  SVG document
-
-   function Path (Commands : Path_Commands_Type;
-                  Style    : String := "";
-                  ID       : String := "") return Element_Type;
-   --  Create element from path commands
 
    function To_String (Document : Document_Type) return String;
    --  Serialize SVG document
+
+   function Path (Commands     : Path_Commands_Type;
+                  Marker_Start : String := "";
+                  Marker_End   : String := "";
+                  Style        : String := "";
+                  ID           : String := "") return Element_Type;
+   --  Create element from path commands
 
    function Group (Element : Element_Type;
                    ID      : String := "") return Element_Type;
@@ -106,6 +109,14 @@ is
                   Path     : String := "";
                   ID       : String := "") return Element_Type;
    --  Text
+
+   function Marker (Element : Element_Type;
+                    Width   : Natural;
+                    Height  : Natural;
+                    RefX    : Float;
+                    RefY    : Float;
+                    ID      : String) return Element_Type;
+   --  Return marker
 
 private
    Null_Element : constant Element_Type := Element_Type (SXML.Null_Document);

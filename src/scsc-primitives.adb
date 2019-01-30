@@ -103,9 +103,11 @@ is
    -- Line --
    ----------
 
-   function Line (Params : Line_Params_Type;
-                  Style  : String  := "";
-                  ID     : String  := "") return SCSC.SVG.Element_Type
+   function Line (Params       : Line_Params_Type;
+                  Marker_Start : String  := "";
+                  Marker_End   : String  := "";
+                  Style        : String  := "";
+                  ID           : String  := "") return SCSC.SVG.Element_Type
    is
       use SCSC.SVG;
       use SXML.Generator;
@@ -116,8 +118,10 @@ is
                     (Lineto, Absolute, X => Params.To.X,
                                        Y => Params.To.Y)
                    ),
-                   Style => Style,
-                   ID    => ID);
+                   Marker_Start => Marker_Start,
+                   Marker_End   => Marker_End,
+                   Style        => Style,
+                   ID           => ID);
    end Line;
 
    ----------
