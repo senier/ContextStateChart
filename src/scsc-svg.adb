@@ -108,13 +108,13 @@ is
       end case;
    end To_String;
 
-   ----------------
-   -- To_Element --
-   ----------------
+   ----------
+   -- Path --
+   ----------
 
-   function To_Element (Commands : Path_Commands_Type;
-                        Style    : String := "";
-                        ID       : String := "") return Element_Type
+   function Path (Commands : Path_Commands_Type;
+                  Style    : String := "";
+                  ID       : String := "") return Element_Type
    is
       use SXML.Generator;
       Length : Natural := 0;
@@ -142,7 +142,7 @@ is
                                                 + (if ID /= "" then A ("id", ID) else Null_Attributes)
                                                 + (if Style /= "" then A ("style", Style) else Null_Attributes)));
       end;
-   end To_Element;
+   end Path;
 
    -------
    -- + --

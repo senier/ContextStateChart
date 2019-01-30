@@ -85,18 +85,18 @@ is
       use SXML.Generator;
    begin
       --  FIXME: Create style object to set style
-      return To_Element (Commands =>
-                         ((Moveto, Absolute, Params.From.X, Params.From.Y),
-                          (Arc, Absolute, RX         => Params.X_Radius,
-                                          RY         => Params.Y_Radius,
-                                          X_Rotation => Params.X_Rotation,
-                                          Large      => Params.Large,
-                                          Sweep      => Params.Sweep,
-                                          AX         => Params.To.X,
-                                          AY         => Params.To.Y)
-                         ),
-                         Style => Style,
-                         ID    => ID);
+      return Path (Commands =>
+                   ((Moveto, Absolute, Params.From.X, Params.From.Y),
+                    (Arc, Absolute, RX         => Params.X_Radius,
+                                    RY         => Params.Y_Radius,
+                                    X_Rotation => Params.X_Rotation,
+                                    Large      => Params.Large,
+                                    Sweep      => Params.Sweep,
+                                    AX         => Params.To.X,
+                                    AY         => Params.To.Y)
+                   ),
+                   Style => Style,
+                   ID    => ID);
    end Arc;
 
    ----------
@@ -111,13 +111,13 @@ is
       use SXML.Generator;
    begin
       --  FIXME: Create style object to set style
-      return To_Element (Commands =>
-                         ((Moveto, Absolute, Params.From.X, Params.From.Y),
-                          (Lineto, Absolute, X => Params.To.X,
-                                             Y => Params.To.Y)
-                         ),
-                         Style => Style,
-                         ID    => ID);
+      return Path (Commands =>
+                   ((Moveto, Absolute, Params.From.X, Params.From.Y),
+                    (Lineto, Absolute, X => Params.To.X,
+                                       Y => Params.To.Y)
+                   ),
+                   Style => Style,
+                   ID    => ID);
    end Line;
 
    ----------

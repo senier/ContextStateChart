@@ -74,9 +74,9 @@ is
                  Child  : Element_Type := Null_Element) return Document_Type;
    --  SVG document
 
-   function To_Element (Commands : Path_Commands_Type;
-                        Style    : String := "";
-                        ID       : String := "") return Element_Type;
+   function Path (Commands : Path_Commands_Type;
+                  Style    : String := "";
+                  ID       : String := "") return Element_Type;
    --  Create element from path commands
 
    function To_String (Document : Document_Type) return String;
