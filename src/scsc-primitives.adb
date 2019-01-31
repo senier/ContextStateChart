@@ -4,9 +4,9 @@ with SCSC.Math;
 package body SCSC.Primitives
    with SPARK_Mode => On
 is
-   ----------
-   -- Cart --
-   ----------
+   ---------------
+   -- Cartesian --
+   ---------------
 
    function Cartesian (From       : Types.Point;
                        To         : Types.Point;
@@ -52,6 +52,27 @@ is
          Large      => Angle > 180.0,
          Sweep      => True);
    end Polar;
+
+   ---------------
+   -- Cartesian --
+   ---------------
+
+   function Cartesian (Center : Types.Point;
+                       Start  : Types.Point;
+                       Radius : Integer) return Line_Params_Type
+   is
+      use Math;
+      use type Types.Angle;
+
+      Angle : constant Types.Angle :=
+         Arctan (Types.Angle (Start.Y - Center.Y) / Types.Angle (Start.X - Center.X));
+
+      Stop : constant Types.Point :=
+         (X => Start.X + Integer (Sin (Angle) * Types.Angle (Radius)),
+          Y => Start.Y + Integer (Cos (Angle) * Types.Angle (Radius)));
+   begin
+      return (From => Start, To => Stop);
+   end Cartesian;
 
    -----------
    -- Polar --

@@ -42,6 +42,11 @@ is
                    Stop       : Types.Angle) return Arc_Params_Type;
    --  Create arc parameters from center point, radius and two angles
 
+   function Cartesian (Center : Types.Point;
+                       Start  : Types.Point;
+                       Radius : Integer) return Line_Params_Type;
+   --  Create line parameters from center point, start point and radius
+
    function Polar (Center : Types.Point;
                    Start  : Natural;
                    Stop   : Natural;
