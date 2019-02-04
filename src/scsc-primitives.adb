@@ -1,9 +1,12 @@
 with SXML.Generator;
 with SCSC.Math;
+with Ada.Numerics.Generic_Elementary_Functions;
 
 package body SCSC.Primitives
    with SPARK_Mode => On
 is
+   package FM is new Ada.Numerics.Generic_Elementary_Functions (Float);
+
    ---------------
    -- Cartesian --
    ---------------
@@ -59,17 +62,19 @@ is
 
    function Cartesian (Center : Types.Point;
                        Start  : Types.Point;
-                       Radius : Integer) return Line_Params_Type
+                       Length : Integer) return Line_Params_Type
    is
       use Math;
+      use FM;
       use type Types.Angle;
 
-      Angle : constant Types.Angle :=
-         Arctan (Types.Angle (Start.Y - Center.Y) / Types.Angle (Start.X - Center.X));
+      X_Len  : constant Integer := Start.X - Center.X;
+      Y_Len  : constant Integer := Start.Y - Center.Y;
 
-      Stop : constant Types.Point :=
-         (X => Start.X + Integer (Sin (Angle) * Types.Angle (Radius)),
-          Y => Start.Y + Integer (Cos (Angle) * Types.Angle (Radius)));
+      Offset : constant Integer := Integer (Sqrt (Float (X_Len ** 2 + Y_Len ** 2)));
+      Last   : constant Integer := Offset + Length;
+      Stop   : constant Types.Point := (X => X_Len * Last / Offset + Center.X,
+                                        Y => Y_Len * Last / Offset + Center.Y);
    begin
       return (From => Start, To => Stop);
    end Cartesian;

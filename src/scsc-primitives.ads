@@ -44,8 +44,8 @@ is
 
    function Cartesian (Center : Types.Point;
                        Start  : Types.Point;
-                       Radius : Integer) return Line_Params_Type;
-   --  Create line parameters from center point, start point and radius
+                       Length : Integer) return Line_Params_Type;
+   --  Create line parameters from center point, start point and length
 
    function Polar (Center : Types.Point;
                    Start  : Natural;
