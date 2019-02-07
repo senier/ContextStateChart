@@ -4,6 +4,9 @@ with SCSC.Types;
 package SCSC.Primitives
    with SPARK_Mode => On
 is
+   type Dir_Type is (Dir_CW, Dir_CCW);
+   type Pos_Type is (Pos_Outer, Pos_Inner);
+
    type Params_Type is tagged private;
 
    function From (Params : Params_Type) return Types.Point;
@@ -61,10 +64,15 @@ is
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
-                       Marker_Start : String  := "";
-                       Marker_End   : String  := "";
-                       Style        : String  := "";
-                       ID           : String  := "") return SVG.Element_Type;
+                       Text         : String         := "";
+                       Textstyle    : String         := "";
+                       Align        : SVG.Align_Type := SVG.Align_Centered;
+                       Direction    : Dir_Type       := Dir_CW;
+                       Position     : Pos_Type       := Pos_Outer;
+                       Marker_Start : String         := "";
+                       Marker_End   : String         := "";
+                       Style        : String         := "";
+                       ID           : String         := "") return SVG.Element_Type;
    --  Return connector
 
 private

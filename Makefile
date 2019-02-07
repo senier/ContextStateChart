@@ -9,7 +9,9 @@ TESTS = \
 	experiments/040_line/main \
 	experiments/041_line_cartesian/main \
 	experiments/050_arrow/main \
-	experiments/060_connector/main
+	experiments/060_connector/main \
+	experiments/061_labeled_connector/main \
+	experiments/062_labeled_connector_inner/main
 
 test: $(addsuffix .run,$(TESTS))
 

@@ -1,12 +1,13 @@
 with SXML.Generator;
 with SCSC.Math;
 with Ada.Numerics.Generic_Elementary_Functions;
-with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Numerics.Discrete_Random;
 
 package body SCSC.Primitives
    with SPARK_Mode => On
 is
    package FM is new Ada.Numerics.Generic_Elementary_Functions (Float);
+   package DR is new Ada.Numerics.Discrete_Random (Natural);
 
    ---------------
    -- Cartesian --
@@ -210,13 +211,19 @@ is
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
-                       Marker_Start : String  := "";
-                       Marker_End   : String  := "";
-                       Style        : String  := "";
-                       ID           : String  := "") return SVG.Element_Type
+                       Text         : String         := "";
+                       Textstyle    : String         := "";
+                       Align        : SVG.Align_Type := SVG.Align_Centered;
+                       Direction    : Dir_Type       := Dir_CW;
+                       Position     : Pos_Type       := Pos_Outer;
+                       Marker_Start : String         := "";
+                       Marker_End   : String         := "";
+                       Style        : String         := "";
+                       ID           : String         := "") return SVG.Element_Type
    is
       use type SVG.Element_Type;
-      use type Types.Angle;
+      use Types;
+
       LP_1    : constant Line_Params_Type := Cartesian (Center, Start, Radius);
       Arc_Off : constant Natural          := Distance (Center, LP_1.To);
       LP_2    : constant Line_Params_Type := Cartesian (Center, Stop, Arc_Off - Distance (Center, Stop));
@@ -229,14 +236,26 @@ is
                                              then Stop_Angle - Start_Angle
                                              else 360.0 - Start_Angle + Stop_Angle);
 
-      Arc_Params  : constant Arc_Params_Type := Cartesian (From     => LP_1.To,
-                                                           To       => LP_2.To,
-                                                           X_Radius => R,
-                                                           Y_Radius => R,
-                                                           Large    => Angle <= 180.0,
-                                                           Sweep    => True);
+      Arc_Params  : constant Arc_Params_Type :=
+         Cartesian (From     => (if Direction = Dir_CW then LP_1.To else LP_2.To),
+                    To       => (if Direction = Dir_CW then LP_2.To else LP_1.To),
+                    X_Radius => R,
+                    Y_Radius => R,
+                    Large    => Angle <= 180.0,
+                    Sweep    => (if Direction = Dir_CW then True else False));
+
+      G         : DR.Generator;
+      Random_ID : Natural;
+      DY        : Types.Length := (if Direction = Dir_CW
+                                   then (if Position = Pos_Outer then (Em, -0.1) else (Em, 1.0))
+                                   else (if Position = Pos_Outer then (Em, 1.0) else (Em, -0.1)));
+
+      function To_ID (Value : Natural) return String is ("ID" & Value'Image (Value'Image'First + 1 .. Value'Image'Last));
 
    begin
+      DR.Reset (G);
+      Random_ID := DR.Random (G);
+
       return Line (Params       => LP_1,
                    Marker_Start => Marker_End,
                    Style        => Style,
@@ -244,7 +263,16 @@ is
 
             + Arc (Params => Arc_Params,
                    Style  => Style,
-                   ID     => (if ID /= "" then ID & "2" else ""))
+                   ID     => (if ID /= "" then ID & "2" else To_ID (Random_ID)))
+
+            + (if Text /= ""
+               then SVG.Text (Center,
+                              Text  => Text,
+                              Style => Textstyle,
+                              Align => Align,
+                              DY    => DY,
+                              Path  => (if ID /= "" then ID & "2" else To_ID (Random_ID)))
+               else SVG.Null_Element)
 
             + Line (Params       => Points (LP_2.From, LP_2.To),
                     Marker_Start => Marker_Start,
