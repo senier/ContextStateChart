@@ -53,6 +53,20 @@ is
                    Angle  : Types.Angle) return Line_Params_Type;
    --  Create line parameters from center point, start radius, end radius and an angle
 
+   function Points (Start : Types.Point;
+                    Stop  : Types.Point) return Line_Params_Type;
+   --  Create line parameters from two points
+
+   function Connector (Center       : Types.Point;
+                       Start        : Types.Point;
+                       Stop         : Types.Point;
+                       Radius       : Integer;
+                       Marker_Start : String  := "";
+                       Marker_End   : String  := "";
+                       Style        : String  := "";
+                       ID           : String  := "") return SVG.Element_Type;
+   --  Return connector
+
 private
    type Params_Type is tagged
    record
