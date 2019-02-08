@@ -287,4 +287,58 @@ is
    function Points (Start : Types.Point;
                     Stop  : Types.Point) return Line_Params_Type is (Start, Stop);
 
+   -----------
+   -- Polar --
+   -----------
+
+   function Polar (Center : Types.Point;
+                   Offset : Natural;
+                   Radius : Natural;
+                   Start  : Types.Angle;
+                   Stop   : Types.Angle) return Annular_Sector_Params_Type
+   is
+   begin
+      return (Inner => (Polar (Center => Center,
+                               Radius => Offset,
+                               Start  => Start,
+                               Stop   => Stop)),
+              Outer => (Polar (Center => Center,
+                               Radius => Offset + Radius,
+                               Start  => Start,
+                               Stop   => Stop)));
+   end Polar;
+
+   --------------------
+   -- Annular_Sector --
+   --------------------
+
+   function Annular_Sector (Params : Annular_Sector_Params_Type;
+                            Style  : String  := "";
+                            ID     : String  := "") return SVG.Element_Type
+   is
+      use SVG;
+   begin
+      return Path (Commands =>
+                   ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
+                    (Arc, Absolute, RX         => Params.Inner.X_Radius,
+                                    RY         => Params.Inner.Y_Radius,
+                                    X_Rotation => Params.Inner.X_Rotation,
+                                    Large      => Params.Inner.Large,
+                                    Sweep      => Params.Inner.Sweep,
+                                    AX         => Params.Inner.To.X,
+                                    AY         => Params.Inner.To.Y),
+                    (Lineto, Absolute, Params.Outer.To.X, Params.Outer.To.Y),
+                    (Arc, Absolute, RX         => Params.Outer.X_Radius,
+                                    RY         => Params.Outer.Y_Radius,
+                                    X_Rotation => Params.Outer.X_Rotation,
+                                    Large      => Params.Outer.Large,
+                                    Sweep      => not Params.Outer.Sweep,
+                                    AX         => Params.Outer.From.X,
+                                    AY         => Params.Outer.From.Y),
+                    (ZClosepath, Absolute)
+                   ),
+                   Style => Style,
+                   ID    => ID);
+   end Annular_Sector;
+
 end SCSC.Primitives;

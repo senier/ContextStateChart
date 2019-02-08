@@ -17,6 +17,7 @@ is
 
    type Arc_Params_Type is new Params_Type with private;
    type Line_Params_Type is new Params_Type with private;
+   type Annular_Sector_Params_Type is tagged private;
 
    function Arc (Params : Arc_Params_Type;
                  Style  : String  := "";
@@ -60,6 +61,13 @@ is
                     Stop  : Types.Point) return Line_Params_Type;
    --  Create line parameters from two points
 
+   function Polar (Center : Types.Point;
+                   Offset : Natural;
+                   Radius : Natural;
+                   Start  : Types.Angle;
+                   Stop   : Types.Angle) return Annular_Sector_Params_Type;
+   --  Create annular sectore parameters from center point, offset, radius and two angles
+
    function Connector (Center       : Types.Point;
                        Start        : Types.Point;
                        Stop         : Types.Point;
@@ -74,6 +82,11 @@ is
                        Style        : String         := "";
                        ID           : String         := "") return SVG.Element_Type;
    --  Return connector
+
+   function Annular_Sector (Params : Annular_Sector_Params_Type;
+                            Style  : String  := "";
+                            ID     : String  := "") return SVG.Element_Type;
+   --  Return annular sector
 
 private
    type Params_Type is tagged
@@ -92,5 +105,11 @@ private
    end record;
 
    type Line_Params_Type is new Params_Type with null record;
+
+   type Annular_Sector_Params_Type is tagged
+   record
+      Inner : Arc_Params_Type;
+      Outer : Arc_Params_Type;
+   end record;
 
 end SCSC.Primitives;

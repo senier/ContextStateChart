@@ -11,7 +11,8 @@ TESTS = \
 	experiments/050_arrow/main \
 	experiments/060_connector/main \
 	experiments/061_labeled_connector/main \
-	experiments/062_labeled_connector_inner/main
+	experiments/062_labeled_connector_inner/main \
+	experiments/070_annular_sector/main
 
 test: $(addsuffix .run,$(TESTS))
 
