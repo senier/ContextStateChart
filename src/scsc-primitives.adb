@@ -9,6 +9,13 @@ is
    package FM is new Ada.Numerics.Generic_Elementary_Functions (Float);
    package DR is new Ada.Numerics.Discrete_Random (Natural);
 
+   -----------
+   -- To_ID --
+   -----------
+
+   function To_ID (Value : Natural) return String is
+      ("ID" & Value'Image (Value'Image'First + 1 .. Value'Image'Last));
+
    ---------------
    -- Cartesian --
    ---------------
@@ -250,8 +257,6 @@ is
                                    then (if Position = Pos_Outer then (Em, -0.1) else (Em, 1.0))
                                    else (if Position = Pos_Outer then (Em, 1.0) else (Em, -0.1)));
 
-      function To_ID (Value : Natural) return String is ("ID" & Value'Image (Value'Image'First + 1 .. Value'Image'Last));
-
    begin
       DR.Reset (G);
       Random_ID := DR.Random (G);
@@ -312,12 +317,21 @@ is
    -- Annular_Sector --
    --------------------
 
-   function Annular_Sector (Params : Annular_Sector_Params_Type;
-                            Style  : String  := "";
-                            ID     : String  := "") return SVG.Element_Type
+   function Annular_Sector (Params    : Annular_Sector_Params_Type;
+                            Text      : String := "";
+                            Textstyle : String := "";
+                            Style     : String := "";
+                            ID        : String := "") return SVG.Element_Type
    is
       use SVG;
+      use Types;
+
+      G         : DR.Generator;
+      Random_ID : Natural;
    begin
+      DR.Reset (G);
+      Random_ID := DR.Random (G);
+
       return Path (Commands =>
                    ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
                     (Arc, Absolute, RX         => Params.Inner.X_Radius,
@@ -338,7 +352,18 @@ is
                     (ZClosepath, Absolute)
                    ),
                    Style => Style,
-                   ID    => ID);
+                   ID    => ID)
+                + (if Text /= ""
+                   then Arc (Params => Params.Inner,
+                             Style  => "fill: none; stroke: none",
+                             ID     => To_ID (Random_ID))
+                      + SVG.Text (Params.Inner.From,
+                                  Text  => Text,
+                                  Style => Textstyle,
+                                  DY    => (Em, -0.5),
+                                  Path  => To_ID (Random_ID))
+                   else SVG.Null_Element);
+
    end Annular_Sector;
 
 end SCSC.Primitives;

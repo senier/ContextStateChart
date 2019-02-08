@@ -83,9 +83,11 @@ is
                        ID           : String         := "") return SVG.Element_Type;
    --  Return connector
 
-   function Annular_Sector (Params : Annular_Sector_Params_Type;
-                            Style  : String  := "";
-                            ID     : String  := "") return SVG.Element_Type;
+   function Annular_Sector (Params    : Annular_Sector_Params_Type;
+                            Text      : String := "";
+                            Textstyle : String := "";
+                            Style     : String := "";
+                            ID        : String := "") return SVG.Element_Type;
    --  Return annular sector
 
 private
