@@ -227,13 +227,12 @@ is
                                  else C (Text));
    begin
       return Element_Type
-         (E ("text",
-             (if ID /= "" then A ("id", ID) else Null_Attributes) +
-             A ("x", Position.X) +
-             A ("y", Position.Y) +
-             (if DX /= Types.Invalid_Length then A ("dx", DX.Image) else Null_Attributes) +
-             (if DY /= Types.Invalid_Length then A ("dy", DY.Image) else Null_Attributes) +
-             A ("style", Style),
+         (E ("text", (if ID /= "" then A ("id", ID) else Null_Attributes)
+                   + (if Path = "" then A ("x", Position.X) else Null_Attributes)
+                   + (if Path = "" then A ("y", Position.Y) else Null_Attributes)
+                   + (if DX /= Types.Invalid_Length then A ("dx", DX.Image) else Null_Attributes)
+                   + (if DY /= Types.Invalid_Length then A ("dy", DY.Image) else Null_Attributes)
+                   + A ("style", Style),
              T));
    end Text;
 
