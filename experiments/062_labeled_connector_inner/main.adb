@@ -33,14 +33,14 @@ is
 
                + Connector (Center, (56, 300), (68, 116),
                             Text      => "Inner/Default",
-                            Textstyle => "fill: blue; stroke: none",
+                            Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 10,
                             Position  => Pos_Inner,
                             Style     => "fill: none; stroke: red")
 
                + Connector (Center, (65, 100), (180, 50),
                             Text      => "Inner/Start/CW",
-                            Textstyle => "fill: blue; stroke: none",
+                            Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 20,
                             Align     => SCSC.SVG.Align_Start,
                             Position  => Pos_Inner,
@@ -48,7 +48,7 @@ is
 
                + Connector (Center, (200, 30), (320, 100),
                             Text      => "Inner/Center/CW",
-                            Textstyle => "fill: blue; stroke: none",
+                            Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
                             Align     => SCSC.SVG.Align_Centered,
                             Position  => Pos_Inner,
@@ -56,7 +56,7 @@ is
 
                + Connector (Center, (340, 130), (380, 240),
                             Text      => "Inner/End/CW",
-                            Textstyle => "fill: blue; stroke: none",
+                            Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
                             Align     => SCSC.SVG.Align_End,
                             Position  => Pos_Inner,
@@ -64,7 +64,7 @@ is
 
                + Connector (Center, (360, 250), (270, 330),
                             Text      => "Inner/Start/CCW",
-                            Textstyle => "fill: blue; stroke: none",
+                            Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
                             Align     => SCSC.SVG.Align_Start,
                             Direction => Dir_CCW,
@@ -73,7 +73,7 @@ is
 
                + Connector (Center, (250, 340), (140, 330),
                             Text      => "Inner/Center/CCW",
-                            Textstyle => "fill: blue; stroke: none",
+                            Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 25,
                             Align     => SCSC.SVG.Align_Centered,
                             Direction => Dir_CCW,
@@ -82,7 +82,7 @@ is
 
                + Connector (Center, (140, 280), (80, 130),
                             Text      => "Inner/End/CCW",
-                            Textstyle => "fill: blue; stroke: none",
+                            Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
                             Align     => SCSC.SVG.Align_End,
                             Direction => Dir_CCW,
