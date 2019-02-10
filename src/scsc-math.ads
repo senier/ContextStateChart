@@ -16,4 +16,14 @@ is
    with
       Global => null;
 
+   function Sqrt (X : Float) return Float
+   with
+      Global => null;
+
+   function Arctan (Y     : Float;
+                    X     : Float;
+                    Cycle : Float) return Float
+   with
+      Global => null;
+
 end SCSC.Math;

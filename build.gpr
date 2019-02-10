@@ -9,4 +9,8 @@ is
    package Compiler is
       for Switches ("Ada") use ("-gnatef", "-gnatU");
    end Compiler;
+
+   package Builder is
+      for Global_Configuration_Pragmas use "scsc.adc";
+   end Builder;
 end Build;

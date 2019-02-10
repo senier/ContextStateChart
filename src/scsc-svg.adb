@@ -123,12 +123,20 @@ is
                   ID           : String := "") return Element_Type
    is
       use SXML.Generator;
-      Length : Natural := 0;
+
+      function Total_Len return Natural
+      is
+         Result : Natural := 0;
+      begin
+         for Command of Commands
+         loop
+            Result := Result + To_String (Command)'Length + 1;
+         end loop;
+         return Result;
+      end Total_Len;
+
+      Length : constant Natural := Total_Len;
    begin
-      for Command of Commands
-      loop
-         Length := Length + To_String (Command)'Length + 1;
-      end loop;
 
       declare
          D : String (1 .. Length);

@@ -1,14 +1,10 @@
 with SXML.Generator;
 with SCSC.Math;
-with Ada.Numerics.Generic_Elementary_Functions;
-with Ada.Numerics.Discrete_Random;
+with SCSC.Random;
 
 package body SCSC.Primitives
    with SPARK_Mode => On
 is
-   package FM is new Ada.Numerics.Generic_Elementary_Functions (Float);
-   package DR is new Ada.Numerics.Discrete_Random (Natural);
-
    -----------
    -- To_ID --
    -----------
@@ -74,7 +70,7 @@ is
    is
       X_Len  : constant Integer := P1.X - P2.X;
       Y_Len  : constant Integer := P1.Y - P2.Y;
-      use FM;
+      use Math;
    begin
       Return Integer (Sqrt (Float (X_Len ** 2 + Y_Len ** 2)));
    end Distance;
@@ -88,7 +84,6 @@ is
                        Length : Integer) return Line_Params_Type
    is
       use Math;
-      use FM;
       use type Types.Angle;
 
       X_Len  : constant Integer := Start.X - Center.X;
@@ -200,7 +195,7 @@ is
    function To_Angle (Center : Types.Point;
                       P      : Types.Point) return Types.Angle
    is
-      use FM;
+      use Math;
       use type Types.Angle;
       Result : Types.Angle;
    begin
@@ -251,16 +246,12 @@ is
                     Large    => Angle <= 180.0,
                     Sweep    => (if Direction = Dir_CW then True else False));
 
-      G         : DR.Generator;
-      Random_ID : Natural;
+      Random_ID : Natural := Random.Random;
       DY        : Types.Length := (if Direction = Dir_CW
                                    then (if Position = Pos_Outer then (Em, -0.1) else (Em, 1.0))
                                    else (if Position = Pos_Outer then (Em, 1.0) else (Em, -0.1)));
 
    begin
-      DR.Reset (G);
-      Random_ID := DR.Random (G);
-
       return Line (Params       => LP_1,
                    Marker_Start => Marker_End,
                    Style        => Style,
@@ -326,12 +317,8 @@ is
       use SVG;
       use Types;
 
-      G         : DR.Generator;
-      Random_ID : Natural;
+      Random_ID : Natural := Random.Random;
    begin
-      DR.Reset (G);
-      Random_ID := DR.Random (G);
-
       return Path (Commands =>
                    ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
                     (Arc, Absolute, RX         => Params.Inner.X_Radius,
