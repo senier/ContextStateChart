@@ -21,12 +21,14 @@ package body SCSC.Graph is
    -----------
 
    function Polar
-     (Center : Types.Point;
-      Offset : Natural;
-      Radius : Natural) return Graph_Params_Type is
-      (Graph_Params_Type'(Center => Center,
-                          Offset => Offset,
-                          Radius => Radius));
+     (Center  : Types.Point;
+      Offset  : Natural;
+      Radius  : Natural;
+      Padding : Natural := 0) return Graph_Params_Type is
+      (Graph_Params_Type'(Center  => Center,
+                          Offset  => Offset,
+                          Radius  => Radius,
+                          Padding => Padding));
 
    ------------
    -- Center --
@@ -53,6 +55,7 @@ package body SCSC.Graph is
    function Graph
      (Params : Graph_Params_Type;
       Data   : Data_Type;
+      Layout : Graph_Layout.Layout_Type;
       Style  : String := "") return SVG.Element_Type
    is
       use type SXML.Offset_Type;
@@ -76,6 +79,10 @@ package body SCSC.Graph is
          Start   : Types.Angle := 0.0;
          Weights : Natural     := 0;
          Result  : Params_Type := (Length => 0, Angles => (others => (0.0, 0.0)));
+         Spacing : Types.Angle := Types.Angle
+            (Math.Arcsin (Float (Params.Padding) / Float (Params.Offset + Params.Radius / 2),
+                          Cycle => 360.0));
+         Circle  : Float := 360.0 - (Float (Data'Length) * Float (Spacing));
       begin
          for D of Data
          loop
@@ -86,7 +93,7 @@ package body SCSC.Graph is
          loop
             declare
                use type Types.Angle;
-               Size : Types.Angle := Types.Angle (Float (360 * Data (I).Weight) / Float (Weights));
+               Size : Types.Angle := Types.Angle (Circle * Float (Data (I).Weight) / Float (Weights));
                Stop : Types.Angle := Start + Size;
                AP   : Primitives.Annular_Sector_Params_Type :=
                   Primitives.Polar (Params.Center, Params.Offset, Params.Radius, Start, Start + Size);
@@ -94,7 +101,7 @@ package body SCSC.Graph is
             begin
                Result.Angles (I) := (Start, Stop);
                Result.Length     := Result.Length + AS'Length;
-               Start := Stop;
+               Start := Stop + Spacing;
             end;
          end loop;
          return Result;

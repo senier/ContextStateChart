@@ -26,4 +26,9 @@ is
    with
       Global => null;
 
+   function Arcsin (X     : Float;
+                    Cycle : Float) return Float
+   with
+      Global => null;
+
 end SCSC.Math;

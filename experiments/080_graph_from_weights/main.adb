@@ -3,27 +3,27 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
+with SCSC.Graph_Layout;
 
 procedure Main
 is
-   use SCSC.Primitives;
-   use SCSC.SVG;
-   use SCSC.Types;
-   use SCSC.Graph;
+   use SCSC;
+   use type SVG.Element_Type;
 
-   Center : Point := (200, 200);
+   Center : Types.Point := (200, 200);
 
-   SVG : SCSC.SVG.Document_Type := SCSC.SVG.SVG
+   Doc : SVG.Document_Type := SVG.SVG
       (Width  => 400,
        Height => 400,
-       Child  => Circle (Center, 2, Style => "fill: black; stroke: none")
-               + Graph (Params => Polar (Center, 120, 50),
-                        Data   => (Node (5),
-                                   Node (3),
-                                   Node (7),
-                                   Node (2)),
-                        Style  => "fill: yellow; stroke: green")
+       Child  => SVG.Circle (Center, 2, Style => "fill: black; stroke: none")
+               + Graph.Graph (Params => Graph.Polar (Center, 120, 20, 20),
+                              Data   => (Graph.Node (5),
+                                         Graph.Node (3),
+                                         Graph.Node (7),
+                                         Graph.Node (2)),
+                              Layout => Graph_Layout.Initialize,
+                              Style  => "fill: yellow; stroke: green")
       );
 begin
-   Put_Line (SCSC.SVG.To_String (SVG));
+   Put_Line (SVG.To_String (Doc));
 end Main;

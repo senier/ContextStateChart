@@ -8,7 +8,7 @@ is
       Y : Integer;
    end record;
 
-   type Angle is digits 4 range -360.0 .. 360.0;
+   type Angle is digits 4 range -360.0 .. 360.0001;
 
    type Unit_Type is (Invalid, Px, Em);
 

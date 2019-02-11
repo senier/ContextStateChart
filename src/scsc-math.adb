@@ -30,4 +30,7 @@ is
                     X     : Float;
                     Cycle : Float) return Float is (FM.Arctan (Y, X, Cycle));
 
+   function Arcsin (X     : Float;
+                    Cycle : Float) return Float is (FM.Arcsin (X, Cycle));
+
 end SCSC.Math;
