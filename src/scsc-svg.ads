@@ -1,56 +1,59 @@
 with SXML;
+with SCSC.Types;
 
 package SCSC.SVG
+   with SPARK_Mode => On
 is
 
    type Document_Type is new SXML.Document_Type;
    type Element_Type is new SXML.Document_Type;
-
    Null_Element : constant Element_Type;
 
    type Path_Command_Kind is
-      (M_oveto,
-       L_ineto,
-       H_orizontal,
-       V_ertical,
-       C_urveto,
-       S_mooth,
-       Q_uadratic,
-       T_Shorthand,
-       A_rc,
-       Z_Closepath,
+      (Moveto,
+       Lineto,
+       Horizontal,
+       Vertical,
+       Curveto,
+       Smooth,
+       Quadratic,
+       TShorthand,
+       Arc,
+       ZClosepath,
        Invalid);
 
+   type Mode_Type is (Absolute, Relative);
+
    type Path_Command_Type (Command  : Path_Command_Kind := Invalid;
-                           Relative : Boolean           := False)
+                           Mode     : Mode_Type         := Absolute)
    is
    record
       case Command is
-         when M_oveto | L_ineto | T_Shorthand =>
+         when Moveto | Lineto | TShorthand =>
             X          : Natural;
             Y          : Natural;
-         when H_orizontal =>
+         when Horizontal =>
             H_X        : Natural;
-         when V_ertical =>
+         when Vertical =>
             V_Y        : Natural;
-         when Q_uadratic =>
+         when Quadratic =>
             Q_X1       : Natural;
             Q_Y1       : Natural;
             Q_X        : Natural;
             Q_Y        : Natural;
-         when C_urveto =>
+         when Curveto =>
             C_X1       : Natural;
             C_Y1       : Natural;
             C_X2       : Natural;
             C_Y2       : Natural;
             C_X        : Natural;
             C_Y        : Natural;
-         when S_mooth =>
+         when Smooth =>
             S_X2       : Natural;
             S_Y2       : Natural;
             S_X        : Natural;
             S_Y        : Natural;
-         when A_rc =>
+         when Arc =>
             RX         : Natural;
             RY         : Natural;
             X_Rotation : Natural;
@@ -58,7 +61,7 @@ is
             Sweep      : Boolean;
             AX         : Natural;
             AY         : Natural;
-         when Z_Closepath | Invalid =>
+         when ZClosepath | Invalid =>
             null;
       end case;
    end record;
@@ -66,15 +69,54 @@ is
    type Path_Commands_Type is array (Natural range <>) of Path_Command_Type;
 
 
-   function SVG (Child : Element_Type := Null_Element) return Document_Type;
+   function SVG (Width  : Natural;
+                 Height : Natural;
+                 Child  : Element_Type := Null_Element;
+                 Defs   : Element_Type := Null_Element) return Document_Type;
    --  SVG document
-
-   function To_Element (Commands : Path_Commands_Type;
-                        Style    : String) return Element_Type;
-   --  Create element from path commands
 
    function To_String (Document : Document_Type) return String;
    --  Serialize SVG document
+
+   function Path (Commands     : Path_Commands_Type;
+                  Marker_Start : String := "";
+                  Marker_End   : String := "";
+                  Style        : String := "";
+                  ID           : String := "") return Element_Type;
+   --  Create element from path commands
+
+   function Group (Element : Element_Type;
+                   ID      : String := "") return Element_Type;
+   --  Group elements
+
+   function "+" (Left, Right : Element_Type) return Element_Type;
+   --  Join elements
+
+   function Circle (Center : Types.Point;
+                    Radius : Natural;
+                    Style  : String := "";
+                    ID     : String := "") return Element_Type;
+   --  Circle
+
+   type Align_Type is (Align_Start, Align_Centered, Align_End);
+
+   function Text (Position : Types.Point;
+                  Text     : String;
+                  Align    : Align_Type := Align_Centered;
+                  DX       : Types.Length := Types.Invalid_Length;
+                  DY       : Types.Length := Types.Invalid_Length;
+                  Style    : String := "";
+                  Path     : String := "";
+                  ID       : String := "") return Element_Type;
+   --  Text
+
+   function Marker (Element : Element_Type;
+                    Width   : Natural;
+                    Height  : Natural;
+                    RefX    : Float;
+                    RefY    : Float;
+                    ID      : String) return Element_Type;
+   --  Return marker
 
 private
    Null_Element : constant Element_Type := Element_Type (SXML.Null_Document);
