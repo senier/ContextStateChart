@@ -14,7 +14,8 @@ TESTS = \
 	experiments/062_labeled_connector_inner/main \
 	experiments/070_annular_sector/main \
 	experiments/071_labeled_annular_sector/main \
-	experiments/080_graph_from_weights/main
+	experiments/080_graph_from_weights/main \
+	experiments/090_labeled_graph/main \
 
 test: $(addsuffix .run,$(TESTS))
 

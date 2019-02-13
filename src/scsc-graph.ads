@@ -9,11 +9,15 @@ is
    type Node_Type is tagged private;
    type Data_Type is array (Natural range <>) of Node_Type;
 
-   function Node (Weight : Positive) return Node_Type;
+   function Node (Weight : Positive := 1;
+                  Label  : String   := "") return Node_Type;
    --  Create node
 
    function Weight (Node : Node_Type) return Positive;
    --  Return weight of node
+
+   function Label (Node : Node_Type) return String;
+   --  Return Label
 
    function Polar (Center  : Types.Point;
                    Offset  : Natural;
@@ -31,17 +35,22 @@ is
    function Radius (Params : Graph_Params_Type) return Natural;
    --  Return radius from graph parameters
 
-   function Graph (Params : Graph_Params_Type;
-                   Data   : Data_Type;
-                   Layout : Graph_Layout.Layout_Type;
-                   Style  : String := "") return SVG.Element_Type;
+   function Graph (Params    : Graph_Params_Type;
+                   Data      : Data_Type;
+                   Layout    : Graph_Layout.Layout_Type;
+                   Style     : String := "";
+                   Textstyle : String := "") return SVG.Element_Type;
    --  Return graph
 
 private
 
+   subtype Label_Type is String (1 .. 100);
+
    type Node_Type is tagged
    record
-      Weight : Positive;
+      Weight    : Positive;
+      Label     : Label_Type;
+      Label_Len : Natural;
    end record;
 
    type Graph_Params_Type is

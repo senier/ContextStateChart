@@ -7,14 +7,23 @@ package body SCSC.Graph is
    -- Node --
    ----------
 
-   function Node (Weight : Positive) return Node_Type is
-      (Node_Type'(Weight => Weight));
+   function Node (Weight : Positive := 1;
+                  Label  : String   := "") return Node_Type is
+      (Node_Type'(Weight    => Weight,
+                  Label     => Label & (Label_Type'First + Label'Length .. Label_Type'Last => ' '),
+                  Label_Len => Label'Length));
 
    ------------
    -- Weight --
    ------------
 
    function Weight (Node : Node_Type) return Positive is (Node.Weight);
+
+   -----------
+   -- Label --
+   -----------
+
+   function Label (Node : Node_Type) return String is (Node.Label (1 .. Node.Label_Len));
 
    -----------
    -- Polar --
@@ -53,10 +62,11 @@ package body SCSC.Graph is
    -----------
 
    function Graph
-     (Params : Graph_Params_Type;
-      Data   : Data_Type;
-      Layout : Graph_Layout.Layout_Type;
-      Style  : String := "") return SVG.Element_Type
+     (Params    : Graph_Params_Type;
+      Data      : Data_Type;
+      Layout    : Graph_Layout.Layout_Type;
+      Style     : String := "";
+      Textstyle : String := "") return SVG.Element_Type
    is
       use type SXML.Offset_Type;
 
@@ -97,7 +107,10 @@ package body SCSC.Graph is
                Stop : Types.Angle := Start + Size;
                AP   : Primitives.Annular_Sector_Params_Type :=
                   Primitives.Polar (Params.Center, Params.Offset, Params.Radius, Start, Start + Size);
-               AS   : SVG.Element_Type := Primitives.Annular_Sector (AP, Style => Style);
+               AS   : SVG.Element_Type := Primitives.Annular_Sector (Params    => AP,
+                                                                     Text      => Data (I).Label,
+                                                                     Style     => Style,
+                                                                     Textstyle => Textstyle);
             begin
                Result.Angles (I) := (Start, Stop);
                Result.Length     := Result.Length + AS'Length;
@@ -124,7 +137,10 @@ package body SCSC.Graph is
                                  Radius => Params.Radius,
                                  Start  => P.Angles (I).Start,
                                  Stop   => P.Angles (I).Stop);
-            Sector : SVG.Element_Type := Primitives.Annular_Sector (Parameters, Style => Style);
+            Sector : SVG.Element_Type := Primitives.Annular_Sector (Params    => Parameters,
+                                                                    Text      => Data (I).Label,
+                                                                    Style     => Style,
+                                                                    Textstyle => Textstyle);
          begin
             if Offset > 0
             then
