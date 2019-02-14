@@ -9,9 +9,9 @@ package body SCSC.Graph is
 
    function Node (Weight : Positive := 1;
                   Label  : String   := "") return Node_Type is
-      (Node_Type'(Weight    => Weight,
-                  Label     => Label & (Label_Type'First + Label'Length .. Label_Type'Last => ' '),
-                  Label_Len => Label'Length));
+      (Node_Type'(Weight     => Weight,
+                  Label_Text => Label & (Label_Type'First + Label'Length .. Label_Type'Last => ' '),
+                  Label_Len  => Label'Length));
 
    ------------
    -- Weight --
@@ -23,7 +23,7 @@ package body SCSC.Graph is
    -- Label --
    -----------
 
-   function Label (Node : Node_Type) return String is (Node.Label (1 .. Node.Label_Len));
+   function Label (Node : Node_Type) return String is (Node.Label_Text (1 .. Node.Label_Len));
 
    -----------
    -- Polar --
