@@ -1,32 +1,37 @@
 TESTS = \
-	experiments/010_empty_svg/main \
-	experiments/020_arc/main \
-	experiments/021_circle/main \
-	experiments/022_arc/main \
-	experiments/025_text/main \
-	experiments/026_text_along_path/main \
-	experiments/027_labeled_circle/main \
-	experiments/040_line/main \
-	experiments/041_line_cartesian/main \
-	experiments/050_arrow/main \
-	experiments/060_connector/main \
-	experiments/061_labeled_connector/main \
-	experiments/062_labeled_connector_inner/main \
-	experiments/070_annular_sector/main \
-	experiments/071_labeled_annular_sector/main \
-	experiments/080_graph_from_weights/main \
-	experiments/090_labeled_graph/main \
+	obj/010_empty_svg/document.svg \
+	obj/020_arc/document.svg \
+	obj/021_circle/document.svg \
+	obj/022_arc/document.svg \
+	obj/025_text/document.svg \
+	obj/026_text_along_path/document.svg \
+	obj/027_labeled_circle/document.svg \
+	obj/040_line/document.svg \
+	obj/041_line_cartesian/document.svg \
+	obj/050_arrow/document.svg \
+	obj/060_connector/document.svg \
+	obj/061_labeled_connector/document.svg \
+	obj/062_labeled_connector_inner/document.svg \
+	obj/070_annular_sector/document.svg \
+	obj/071_labeled_annular_sector/document.svg \
+	obj/080_graph_from_weights/document.svg \
+	obj/090_labeled_graph/document.svg \
 
-test: $(addsuffix .run,$(TESTS))
+VERBOSE ?= @
 
-experiments/%/main: experiments/%/prog.gpr experiments/%/*.ad? src/*.ad?
-	@gprbuild -p -q -P $<
+test: $(TESTS)
 
-experiments/%/main.run: experiments/%/main
-	@mkdir -p obj
+obj/%/main: experiments/%/prog.gpr experiments/%/*.ad? src/*.ad?
+	@echo "[Building] $*"
+	$(VERBOSE)gprbuild -XNAME=$* -p -q -P $<
+
+obj/%/document.svg: obj/%/main
+	$(VERBOSE)mkdir -p obj
 	@echo "[Running] $*"
-	@./experiments/$*/main > obj/$*.svg
-	@xmllint --noout --dtdvalid experiments/svg11-flat-20110816.dtd obj/$*.svg
+	$(VERBOSE)./obj/$*/main > $@
+	$(VERBOSE)xmllint --noout --dtdvalid experiments/svg11-flat-20110816.dtd obj/$*/document.svg
 
 clean:
-	@rm -rf obj $(TESTS)
+	$(VERBOSE)rm -rf obj $(TESTS)
+
+.PHONY: test
