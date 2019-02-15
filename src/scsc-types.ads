@@ -8,7 +8,12 @@ is
       Y : Integer;
    end record;
 
-   type Angle is digits 4 range -360.0 .. 360.0001;
+   function Distance (P1 : Types.Point;
+                      P2 : Types.Point) return Natural;
+
+   type Angle is digits 4 range -360.0 .. 360.0;
+
+   function Difference (Start, Stop : Angle) return Angle;
 
    type Unit_Type is (Invalid, Px, Em);
 

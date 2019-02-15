@@ -44,7 +44,7 @@ is
    is
       use Math;
       use type Types.Angle;
-      Angle : Types.Angle := (if Start < Stop then Stop - Start else 360.0 - Start + Stop);
+      Angle : Types.Angle := Types.Difference (Start, Stop);
    begin
 
       return
@@ -57,20 +57,6 @@ is
          Large      => Angle > 180.0,
          Sweep      => True);
    end Polar;
-
-   --------------
-   -- Distance --
-   --------------
-
-   function Distance (P1 : Types.Point;
-                      P2 : Types.Point) return Natural
-   is
-      X_Len  : constant Integer := P1.X - P2.X;
-      Y_Len  : constant Integer := P1.Y - P2.Y;
-      use Math;
-   begin
-      Return Integer (Sqrt (Float (X_Len ** 2 + Y_Len ** 2)));
-   end Distance;
 
    ---------------
    -- Cartesian --
@@ -86,7 +72,7 @@ is
       X_Len  : constant Integer := Start.X - Center.X;
       Y_Len  : constant Integer := Start.Y - Center.Y;
 
-      Offset : constant Natural := Distance (Center, Start);
+      Offset : constant Natural := Types.Distance (Center, Start);
       Last   : constant Integer := Offset + Length;
       Stop   : constant Types.Point := (X => X_Len * Last / Offset + Center.X,
                                         Y => Y_Len * Last / Offset + Center.Y);
@@ -224,16 +210,13 @@ is
       use Types;
 
       LP_1    : constant Line_Params_Type := Cartesian (Center, Start, Radius);
-      Arc_Off : constant Natural          := Distance (Center, LP_1.To);
-      LP_2    : constant Line_Params_Type := Cartesian (Center, Stop, Arc_Off - Distance (Center, Stop));
-      R       : constant Natural          := Distance (Center, LP_1.To);
+      Arc_Off : constant Natural          := Types.Distance (Center, LP_1.To);
+      LP_2    : constant Line_Params_Type := Cartesian (Center, Stop, Arc_Off - Types.Distance (Center, Stop));
+      R       : constant Natural          := Types.Distance (Center, LP_1.To);
 
       Start_Angle : constant Types.Angle := To_Angle (Center, LP_1.To);
       Stop_Angle  : constant Types.Angle := To_Angle (Center, LP_2.To);
-
-      Angle       : constant Types.Angle := (if Start_Angle < Stop_Angle
-                                             then Stop_Angle - Start_Angle
-                                             else 360.0 - Start_Angle + Stop_Angle);
+      Angle       : constant Types.Angle := Difference (Start_Angle, Stop_Angle);
 
       Arc_Params  : constant Arc_Params_Type :=
          Cartesian (From   => (if Direction = Dir_CW then LP_1.To else LP_2.To),
