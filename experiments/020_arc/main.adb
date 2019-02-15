@@ -10,11 +10,10 @@ is
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.SVG
       (Width  => 400,
        Height => 400,
-       Child  => Group (Arc (Cartesian (From     => (200, 400),
-                                        To       => (400, 200),
-                                        X_Radius => 200,
-                                        Y_Radius => 200,
-                                        Sweep    => False),
+       Child  => Group (Arc (Cartesian (From   => (200, 400),
+                                        To     => (400, 200),
+                                        Radius => 200,
+                                        Sweep  => False),
                              Style => "fill: none; stroke: black") +
                         Circle (Center => (50, 50),
                                 Radius => 2,

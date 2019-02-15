@@ -33,8 +33,7 @@ is
 
    function Cartesian (From       : Types.Point;
                        To         : Types.Point;
-                       X_Radius   : Natural;
-                       Y_Radius   : Natural;
+                       Radius     : Natural;
                        X_Rotation : Natural := 0;
                        Large      : Boolean := False;
                        Sweep      : Boolean := False) return Arc_Params_Type;
@@ -99,8 +98,7 @@ private
 
    type Arc_Params_Type is new Params_Type with
    record
-      X_Radius   : Natural;
-      Y_Radius   : Natural;
+      Radius     : Natural;
       X_Rotation : Natural;
       Large      : Boolean;
       Sweep      : Boolean;

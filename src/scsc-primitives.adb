@@ -18,8 +18,7 @@ is
 
    function Cartesian (From       : Types.Point;
                        To         : Types.Point;
-                       X_Radius   : Natural;
-                       Y_Radius   : Natural;
+                       Radius     : Natural;
                        X_Rotation : Natural := 0;
                        Large      : Boolean := False;
                        Sweep      : Boolean := False) return Arc_Params_Type
@@ -28,8 +27,7 @@ is
       return
         (From       => From,
          To         => To,
-         X_Radius   => X_Radius,
-         Y_Radius   => Y_Radius,
+         Radius     => Radius,
          X_Rotation => X_Rotation,
          Large      => Large,
          Sweep      => Sweep);
@@ -54,8 +52,7 @@ is
                         Y => Center.Y + Integer (-Cos (Start) * Types.Angle (Radius))),
          To         => (X => Center.X + Integer (Sin (Stop) * Types.Angle (Radius)),
                         Y => Center.Y + Integer (-Cos (Stop) * Types.Angle (Radius))),
-         X_Radius   => Radius,
-         Y_Radius   => Radius,
+         Radius     => Radius,
          X_Rotation => 0,
          Large      => Angle > 180.0,
          Sweep      => True);
@@ -131,8 +128,8 @@ is
       --  FIXME: Create style object to set style
       return Path (Commands =>
                    ((Moveto, Absolute, Params.From.X, Params.From.Y),
-                    (Arc, Absolute, RX         => Params.X_Radius,
-                                    RY         => Params.Y_Radius,
+                    (Arc, Absolute, RX         => Params.Radius,
+                                    RY         => Params.Radius,
                                     X_Rotation => Params.X_Rotation,
                                     Large      => Params.Large,
                                     Sweep      => Params.Sweep,
@@ -239,12 +236,11 @@ is
                                              else 360.0 - Start_Angle + Stop_Angle);
 
       Arc_Params  : constant Arc_Params_Type :=
-         Cartesian (From     => (if Direction = Dir_CW then LP_1.To else LP_2.To),
-                    To       => (if Direction = Dir_CW then LP_2.To else LP_1.To),
-                    X_Radius => R,
-                    Y_Radius => R,
-                    Large    => Angle <= 180.0,
-                    Sweep    => (if Direction = Dir_CW then True else False));
+         Cartesian (From   => (if Direction = Dir_CW then LP_1.To else LP_2.To),
+                    To     => (if Direction = Dir_CW then LP_2.To else LP_1.To),
+                    Radius => R,
+                    Large  => Angle <= 180.0,
+                    Sweep  => (if Direction = Dir_CW then True else False));
 
       Random_ID : Natural := Random.Random;
       DY        : Types.Length := (if Direction = Dir_CW
@@ -321,16 +317,16 @@ is
    begin
       return Path (Commands =>
                    ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
-                    (Arc, Absolute, RX         => Params.Inner.X_Radius,
-                                    RY         => Params.Inner.Y_Radius,
+                    (Arc, Absolute, RX         => Params.Inner.Radius,
+                                    RY         => Params.Inner.Radius,
                                     X_Rotation => Params.Inner.X_Rotation,
                                     Large      => Params.Inner.Large,
                                     Sweep      => Params.Inner.Sweep,
                                     AX         => Params.Inner.To.X,
                                     AY         => Params.Inner.To.Y),
                     (Lineto, Absolute, Params.Outer.To.X, Params.Outer.To.Y),
-                    (Arc, Absolute, RX         => Params.Outer.X_Radius,
-                                    RY         => Params.Outer.Y_Radius,
+                    (Arc, Absolute, RX         => Params.Outer.Radius,
+                                    RY         => Params.Outer.Radius,
                                     X_Rotation => Params.Outer.X_Rotation,
                                     Large      => Params.Outer.Large,
                                     Sweep      => not Params.Outer.Sweep,
