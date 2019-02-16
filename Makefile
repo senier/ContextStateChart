@@ -21,7 +21,7 @@ VERBOSE ?= @
 
 test: $(TESTS)
 
-obj/%/main: experiments/%/prog.gpr experiments/%/*.ad? src/*.ad?
+obj/%/main: tests/%/prog.gpr tests/%/*.ad? src/*.ad?
 	@echo "[Building] $*"
 	$(VERBOSE)gprbuild -XNAME=$* -p -q -P $<
 
@@ -29,7 +29,7 @@ obj/%/document.svg: obj/%/main
 	$(VERBOSE)mkdir -p obj
 	@echo "[Running] $*"
 	$(VERBOSE)./obj/$*/main > $@.tmp
-	$(VERBOSE)xmllint --noout --dtdvalid experiments/svg11-flat-20110816.dtd obj/$*/document.svg
+	$(VERBOSE)xmllint --noout --dtdvalid tests/svg11-flat-20110816.dtd $@.tmp
 	$(VERBOSE)mv $@.tmp $@
 
 clean:
