@@ -1,4 +1,5 @@
 TESTS = \
+	obj/tests.run \
 	obj/010_empty_svg/document.svg \
 	obj/020_arc/document.svg \
 	obj/021_circle/document.svg \
@@ -21,14 +22,22 @@ VERBOSE ?= @
 
 test: $(TESTS)
 
+obj/tests.run: obj/tests
+	@echo "[Running] $@"
+	$(VERBOSE)./$<
+
+obj/tests: tests/tests.gpr tests/tests.adb tests/test_cases.adb tests/test_suite.adb
+	@echo "[Building] $@"
+	$(VERBOSE)gprbuild -p -q -P $<
+
 obj/%/main: tests/%/prog.gpr tests/%/*.ad? src/*.ad?
 	@echo "[Building] $*"
 	$(VERBOSE)gprbuild -XNAME=$* -p -q -P $<
 
 obj/%/document.svg: obj/%/main
-	$(VERBOSE)mkdir -p obj
+	$(VERBOSE)mkdir -p $(dir $@)
 	@echo "[Running] $*"
-	$(VERBOSE)./obj/$*/main > $@.tmp
+	$(VERBOSE)./$< > $@.tmp
 	$(VERBOSE)xmllint --noout --dtdvalid tests/svg11-flat-20110816.dtd $@.tmp
 	$(VERBOSE)mv $@.tmp $@
 
