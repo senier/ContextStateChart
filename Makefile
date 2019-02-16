@@ -28,8 +28,9 @@ obj/%/main: experiments/%/prog.gpr experiments/%/*.ad? src/*.ad?
 obj/%/document.svg: obj/%/main
 	$(VERBOSE)mkdir -p obj
 	@echo "[Running] $*"
-	$(VERBOSE)./obj/$*/main > $@
+	$(VERBOSE)./obj/$*/main > $@.tmp
 	$(VERBOSE)xmllint --noout --dtdvalid experiments/svg11-flat-20110816.dtd obj/$*/document.svg
+	$(VERBOSE)mv $@.tmp $@
 
 clean:
 	$(VERBOSE)rm -rf obj $(TESTS)
