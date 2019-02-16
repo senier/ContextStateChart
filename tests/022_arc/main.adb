@@ -14,7 +14,7 @@ is
    Params1 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 100,
                                        Start  => 0.0,
-                                       Stop   => -90.0);
+                                       Stop   => 240.0);
 
    Arc1 : Element_Type := Arc (Params1, Style  => "stroke: #ff0000; fill: none");
 

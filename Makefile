@@ -17,6 +17,7 @@ TESTS = \
 	obj/071_labeled_annular_sector/document.svg \
 	obj/080_graph_from_weights/document.svg \
 	obj/090_labeled_graph/document.svg \
+	obj/100_annular_sector_ports/document.svg \
 
 VERBOSE ?= @
 
@@ -26,7 +27,7 @@ obj/tests.run: obj/tests
 	@echo "[Running] $@"
 	$(VERBOSE)./$<
 
-obj/tests: tests/tests.gpr tests/tests.adb tests/test_cases.adb tests/test_suite.adb
+obj/tests: tests/tests.gpr tests/tests.adb tests/test_cases.adb tests/test_suite.adb src/*.ad?
 	@echo "[Building] $@"
 	$(VERBOSE)gprbuild -p -q -P $<
 

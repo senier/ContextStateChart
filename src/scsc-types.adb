@@ -45,4 +45,18 @@ is
    function Difference (Start, Stop : Angle) return Angle
       is (if Start < Stop then Stop - Start else 360.0 - Start + Stop);
 
+
+   -------
+   -- + --
+   -------
+
+   function "+" (Left, Right : Angle) return Angle
+   is
+   begin
+      return
+         (if Left > Angle'Last - Right
+          then Angle ((Angle_Base (-Angle'Last) + Angle_Base (Left) + Angle_Base (Right)))
+          else Angle (Angle_Base (Left) + Angle_Base (Right)));
+   end "+";
+
 end SCSC.Types;

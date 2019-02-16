@@ -4,11 +4,11 @@ package SCSC.Math
    with SPARK_Mode => On
 is
 
-   function Sin (X : Types.Angle) return Types.Angle
+   function Sin (X : Types.Angle) return Float
    with
       Global => null;
 
-   function Cos (X : Types.Angle) return Types.Angle
+   function Cos (X : Types.Angle) return Float
    with
       Global => null;
 

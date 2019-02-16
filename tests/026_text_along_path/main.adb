@@ -18,7 +18,7 @@ is
                  Text ((200, 200), Text => "Left aligned (60->240)", Style => "font-size: 10px; fill: green", Path => "path2", Align => Align_Start) +
                  Arc (Polar ((200, 200), 30, 120.0, 300.0), ID => "path3", Style => "fill: none; stroke: blue") +
                  Text ((200, 200), Text => "Centered (120->300)", Style => "font-size: 10px; fill: green", Path => "path3", Align => Align_Centered) +
-                 Arc (Polar ((200, 200), 50, 180.0, 360.0), ID => "path4", Style => "fill: none; stroke: blue") +
+                 Arc (Polar ((200, 200), 50, 180.0, 0.0), ID => "path4", Style => "fill: none; stroke: blue") +
                  Text ((200, 200), Text => "Right aligned (180->360)", Style => "font-size: 10px; fill: green", Path => "path4", Align => Align_End) +
                  Arc (Polar ((200, 200), 130, 240.0, 20.0), ID => "path5", Style => "fill: none; stroke: blue") +
                  Text ((200, 200), Text => "Base middle (240->20)", Style => "font-size: 10px; fill: green", Path => "path5", DY => (Em, 0.4)) +

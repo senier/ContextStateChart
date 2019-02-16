@@ -11,7 +11,11 @@ is
    function Distance (P1 : Types.Point;
                       P2 : Types.Point) return Natural;
 
-   type Angle is digits 4 range -360.0 .. 360.0;
+   type Angle_Base is digits 4 range -360.0 .. 359.9999;
+   type Angle is new Angle_Base range 0.0 .. Angle_Base'Last;
+
+   function "+" (Left, Right : Angle) return Angle;
+   --  Modular addition of Angles
 
    function Difference (Start, Stop : Angle) return Angle;
 

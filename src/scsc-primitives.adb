@@ -5,6 +5,8 @@ with SCSC.Random;
 package body SCSC.Primitives
    with SPARK_Mode => On
 is
+   use type Types.Angle;
+
    -----------
    -- To_ID --
    -----------
@@ -27,11 +29,27 @@ is
       return
         (From       => From,
          To         => To,
+         Center     => (0, 0),  -- FIXME
          Radius     => Radius,
          X_Rotation => X_Rotation,
          Large      => Large,
          Sweep      => Sweep);
    end Cartesian;
+
+   -----------
+   -- Polar --
+   -----------
+
+   function Polar (Center  : Types.Point;
+                   Radius  : Natural;
+                   Angle   : Types.Angle) return Types.Point
+   is
+      Result : Types.Point;
+   begin
+      Result := (X => Center.X + Integer (Math.Sin (Angle) * Float (Radius)),
+              Y => Center.Y + Integer (-Math.Cos (Angle) * Float (Radius)));
+      return Result;
+   end Polar;
 
    -----------
    -- Polar --
@@ -46,12 +64,10 @@ is
       use type Types.Angle;
       Angle : Types.Angle := Types.Difference (Start, Stop);
    begin
-
       return
-        (From       => (X => Center.X + Integer (Sin (Start) * Types.Angle (Radius)),
-                        Y => Center.Y + Integer (-Cos (Start) * Types.Angle (Radius))),
-         To         => (X => Center.X + Integer (Sin (Stop) * Types.Angle (Radius)),
-                        Y => Center.Y + Integer (-Cos (Stop) * Types.Angle (Radius))),
+        (From       => Polar (Center, Radius, Start),
+         To         => Polar (Center, Radius, Stop),
+         Center     => Center,
          Radius     => Radius,
          X_Rotation => 0,
          Large      => Angle > 180.0,
@@ -94,10 +110,8 @@ is
    begin
 
       return
-        (From       => (X => Center.X + Integer (Sin (Angle) * Types.Angle (Start)),
-                        Y => Center.Y + Integer (-Cos (Angle) * Types.Angle (Start))),
-         To         => (X => Center.X + Integer (Sin (Angle) * Types.Angle (Stop)),
-                        Y => Center.Y + Integer (-Cos (Angle) * Types.Angle (Stop))));
+        (From       => Polar (Center, Start, Angle),
+         To         => Polar (Center, Stop, Angle));
    end Polar;
 
    ---------
@@ -180,12 +194,12 @@ is
    is
       use Math;
       use type Types.Angle;
-      Result : Types.Angle;
+      Result : Float;
    begin
-      Result := -Types.Angle (Arctan (Y     => Float (P.Y - Center.Y),
-                                      X     => Float (P.X - Center.X),
-                                      Cycle => 360.0)) + 90.0;
-      return (if Result < 0.0 then Result + 360.0 else Result);
+      Result := Arctan (Y     => Float (P.Y - Center.Y),
+                        X     => Float (P.X - Center.X),
+                        Cycle => 360.0) + 90.0;
+      return Types.Angle ((if Result < 0.0 then 360.0 + Result else Result));
    end To_Angle;
 
    ---------------
@@ -222,7 +236,7 @@ is
          Cartesian (From   => (if Direction = Dir_CW then LP_1.To else LP_2.To),
                     To     => (if Direction = Dir_CW then LP_2.To else LP_1.To),
                     Radius => R,
-                    Large  => Angle <= 180.0,
+                    Large  => Angle > 180.0,
                     Sweep  => (if Direction = Dir_CW then True else False));
 
       Random_ID : Natural := Random.Random;
@@ -331,5 +345,35 @@ is
                    else SVG.Null_Element);
 
    end Annular_Sector;
+
+   ----------
+   -- Port --
+   ----------
+
+   function Port (Params    : Arc_Params_Type;
+                  Port_No   : Positive;
+                  Num_Ports : Positive) return Types.Point
+   is
+      use type Types.Angle;
+      Start      : constant Types.Angle := To_Angle (Params.Center, Params.From);
+      Stop       : constant Types.Angle := To_Angle (Params.Center, Params.To);
+      Difference : constant Types.Angle := Types.Difference (Start, Stop);
+      Step       : constant Types.Angle := Difference / Types.Angle (Num_Ports);
+      Angle      : Types.Angle := Start + Step / 2.0 + Step * (Types.Angle (Port_No) - 1.0);
+   begin
+      return Polar (Params.Center, Params.Radius, Angle);
+   end Port;
+
+   ----------
+   -- Port --
+   ----------
+
+   function Port (Params    : Annular_Sector_Params_Type;
+                  Position  : Pos_Type;
+                  Port_No   : Positive;
+                  Num_Ports : Positive) return Types.Point
+   is (case Position is
+       when Pos_Inner => Params.Inner.Port (Port_No, Num_Ports),
+       when Pos_Outer => Params.Outer.Port (Port_No, Num_Ports));
 
 end SCSC.Primitives;
