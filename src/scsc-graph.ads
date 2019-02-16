@@ -48,9 +48,9 @@ private
 
    type Node_Type is tagged
    record
-      Weight    : Positive;
-      Label     : Label_Type;
-      Label_Len : Natural;
+      Weight     : Positive;
+      Label_Text : Label_Type;
+      Label_Len  : Natural;
    end record;
 
    type Graph_Params_Type is

@@ -33,12 +33,16 @@ is
 
    function Cartesian (From       : Types.Point;
                        To         : Types.Point;
-                       X_Radius   : Natural;
-                       Y_Radius   : Natural;
+                       Radius     : Natural;
                        X_Rotation : Natural := 0;
                        Large      : Boolean := False;
                        Sweep      : Boolean := False) return Arc_Params_Type;
    --  Create arc parameters from cartesian coordinates
+
+   function Polar (Center  : Types.Point;
+                   Radius  : Natural;
+                   Angle   : Types.Angle) return Types.Point;
+   --  Create point from center point, radius and angle
 
    function Polar (Center     : Types.Point;
                    Radius     : Natural;
@@ -90,6 +94,12 @@ is
                             ID        : String := "") return SVG.Element_Type;
    --  Return annular sector
 
+   function Port (Params    : Annular_Sector_Params_Type;
+                  Position  : Pos_Type;
+                  Port_No   : Positive;
+                  Num_Ports : Positive) return Types.Point;
+   --  Return coordinate of port
+
 private
    type Params_Type is tagged
    record
@@ -99,8 +109,8 @@ private
 
    type Arc_Params_Type is new Params_Type with
    record
-      X_Radius   : Natural;
-      Y_Radius   : Natural;
+      Center     : Types.Point;
+      Radius     : Natural;
       X_Rotation : Natural;
       Large      : Boolean;
       Sweep      : Boolean;

@@ -5,6 +5,8 @@ with SCSC.Random;
 package body SCSC.Primitives
    with SPARK_Mode => On
 is
+   use type Types.Angle;
+
    -----------
    -- To_ID --
    -----------
@@ -18,8 +20,7 @@ is
 
    function Cartesian (From       : Types.Point;
                        To         : Types.Point;
-                       X_Radius   : Natural;
-                       Y_Radius   : Natural;
+                       Radius     : Natural;
                        X_Rotation : Natural := 0;
                        Large      : Boolean := False;
                        Sweep      : Boolean := False) return Arc_Params_Type
@@ -28,12 +29,27 @@ is
       return
         (From       => From,
          To         => To,
-         X_Radius   => X_Radius,
-         Y_Radius   => Y_Radius,
+         Center     => (0, 0),  -- FIXME
+         Radius     => Radius,
          X_Rotation => X_Rotation,
          Large      => Large,
          Sweep      => Sweep);
    end Cartesian;
+
+   -----------
+   -- Polar --
+   -----------
+
+   function Polar (Center  : Types.Point;
+                   Radius  : Natural;
+                   Angle   : Types.Angle) return Types.Point
+   is
+      Result : Types.Point;
+   begin
+      Result := (X => Center.X + Integer (Math.Sin (Angle) * Float (Radius)),
+              Y => Center.Y + Integer (-Math.Cos (Angle) * Float (Radius)));
+      return Result;
+   end Polar;
 
    -----------
    -- Polar --
@@ -46,34 +62,17 @@ is
    is
       use Math;
       use type Types.Angle;
-      Angle : Types.Angle := (if Start < Stop then Stop - Start else 360.0 - Start + Stop);
+      Angle : Types.Angle := Types.Difference (Start, Stop);
    begin
-
       return
-        (From       => (X => Center.X + Integer (Sin (Start) * Types.Angle (Radius)),
-                        Y => Center.Y + Integer (-Cos (Start) * Types.Angle (Radius))),
-         To         => (X => Center.X + Integer (Sin (Stop) * Types.Angle (Radius)),
-                        Y => Center.Y + Integer (-Cos (Stop) * Types.Angle (Radius))),
-         X_Radius   => Radius,
-         Y_Radius   => Radius,
+        (From       => Polar (Center, Radius, Start),
+         To         => Polar (Center, Radius, Stop),
+         Center     => Center,
+         Radius     => Radius,
          X_Rotation => 0,
          Large      => Angle > 180.0,
          Sweep      => True);
    end Polar;
-
-   --------------
-   -- Distance --
-   --------------
-
-   function Distance (P1 : Types.Point;
-                      P2 : Types.Point) return Natural
-   is
-      X_Len  : constant Integer := P1.X - P2.X;
-      Y_Len  : constant Integer := P1.Y - P2.Y;
-      use Math;
-   begin
-      Return Integer (Sqrt (Float (X_Len ** 2 + Y_Len ** 2)));
-   end Distance;
 
    ---------------
    -- Cartesian --
@@ -89,7 +88,7 @@ is
       X_Len  : constant Integer := Start.X - Center.X;
       Y_Len  : constant Integer := Start.Y - Center.Y;
 
-      Offset : constant Natural := Distance (Center, Start);
+      Offset : constant Natural := Types.Distance (Center, Start);
       Last   : constant Integer := Offset + Length;
       Stop   : constant Types.Point := (X => X_Len * Last / Offset + Center.X,
                                         Y => Y_Len * Last / Offset + Center.Y);
@@ -111,10 +110,8 @@ is
    begin
 
       return
-        (From       => (X => Center.X + Integer (Sin (Angle) * Types.Angle (Start)),
-                        Y => Center.Y + Integer (-Cos (Angle) * Types.Angle (Start))),
-         To         => (X => Center.X + Integer (Sin (Angle) * Types.Angle (Stop)),
-                        Y => Center.Y + Integer (-Cos (Angle) * Types.Angle (Stop))));
+        (From       => Polar (Center, Start, Angle),
+         To         => Polar (Center, Stop, Angle));
    end Polar;
 
    ---------
@@ -131,8 +128,8 @@ is
       --  FIXME: Create style object to set style
       return Path (Commands =>
                    ((Moveto, Absolute, Params.From.X, Params.From.Y),
-                    (Arc, Absolute, RX         => Params.X_Radius,
-                                    RY         => Params.Y_Radius,
+                    (Arc, Absolute, RX         => Params.Radius,
+                                    RY         => Params.Radius,
                                     X_Rotation => Params.X_Rotation,
                                     Large      => Params.Large,
                                     Sweep      => Params.Sweep,
@@ -197,12 +194,12 @@ is
    is
       use Math;
       use type Types.Angle;
-      Result : Types.Angle;
+      Result : Float;
    begin
-      Result := -Types.Angle (Arctan (Y     => Float (P.Y - Center.Y),
-                                      X     => Float (P.X - Center.X),
-                                      Cycle => 360.0)) + 90.0;
-      return (if Result < 0.0 then Result + 360.0 else Result);
+      Result := Arctan (Y     => Float (P.Y - Center.Y),
+                        X     => Float (P.X - Center.X),
+                        Cycle => 360.0) + 90.0;
+      return Types.Angle ((if Result < 0.0 then 360.0 + Result else Result));
    end To_Angle;
 
    ---------------
@@ -227,24 +224,20 @@ is
       use Types;
 
       LP_1    : constant Line_Params_Type := Cartesian (Center, Start, Radius);
-      Arc_Off : constant Natural          := Distance (Center, LP_1.To);
-      LP_2    : constant Line_Params_Type := Cartesian (Center, Stop, Arc_Off - Distance (Center, Stop));
-      R       : constant Natural          := Distance (Center, LP_1.To);
+      Arc_Off : constant Natural          := Types.Distance (Center, LP_1.To);
+      LP_2    : constant Line_Params_Type := Cartesian (Center, Stop, Arc_Off - Types.Distance (Center, Stop));
+      R       : constant Natural          := Types.Distance (Center, LP_1.To);
 
       Start_Angle : constant Types.Angle := To_Angle (Center, LP_1.To);
       Stop_Angle  : constant Types.Angle := To_Angle (Center, LP_2.To);
-
-      Angle       : constant Types.Angle := (if Start_Angle < Stop_Angle
-                                             then Stop_Angle - Start_Angle
-                                             else 360.0 - Start_Angle + Stop_Angle);
+      Angle       : constant Types.Angle := Difference (Start_Angle, Stop_Angle);
 
       Arc_Params  : constant Arc_Params_Type :=
-         Cartesian (From     => (if Direction = Dir_CW then LP_1.To else LP_2.To),
-                    To       => (if Direction = Dir_CW then LP_2.To else LP_1.To),
-                    X_Radius => R,
-                    Y_Radius => R,
-                    Large    => Angle <= 180.0,
-                    Sweep    => (if Direction = Dir_CW then True else False));
+         Cartesian (From   => (if Direction = Dir_CW then LP_1.To else LP_2.To),
+                    To     => (if Direction = Dir_CW then LP_2.To else LP_1.To),
+                    Radius => R,
+                    Large  => Angle > 180.0,
+                    Sweep  => (if Direction = Dir_CW then True else False));
 
       Random_ID : Natural := Random.Random;
       DY        : Types.Length := (if Direction = Dir_CW
@@ -321,16 +314,16 @@ is
    begin
       return Path (Commands =>
                    ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
-                    (Arc, Absolute, RX         => Params.Inner.X_Radius,
-                                    RY         => Params.Inner.Y_Radius,
+                    (Arc, Absolute, RX         => Params.Inner.Radius,
+                                    RY         => Params.Inner.Radius,
                                     X_Rotation => Params.Inner.X_Rotation,
                                     Large      => Params.Inner.Large,
                                     Sweep      => Params.Inner.Sweep,
                                     AX         => Params.Inner.To.X,
                                     AY         => Params.Inner.To.Y),
                     (Lineto, Absolute, Params.Outer.To.X, Params.Outer.To.Y),
-                    (Arc, Absolute, RX         => Params.Outer.X_Radius,
-                                    RY         => Params.Outer.Y_Radius,
+                    (Arc, Absolute, RX         => Params.Outer.Radius,
+                                    RY         => Params.Outer.Radius,
                                     X_Rotation => Params.Outer.X_Rotation,
                                     Large      => Params.Outer.Large,
                                     Sweep      => not Params.Outer.Sweep,
@@ -352,5 +345,35 @@ is
                    else SVG.Null_Element);
 
    end Annular_Sector;
+
+   ----------
+   -- Port --
+   ----------
+
+   function Port (Params    : Arc_Params_Type;
+                  Port_No   : Positive;
+                  Num_Ports : Positive) return Types.Point
+   is
+      use type Types.Angle;
+      Start      : constant Types.Angle := To_Angle (Params.Center, Params.From);
+      Stop       : constant Types.Angle := To_Angle (Params.Center, Params.To);
+      Difference : constant Types.Angle := Types.Difference (Start, Stop);
+      Step       : constant Types.Angle := Difference / Types.Angle (Num_Ports);
+      Angle      : Types.Angle := Start + Step / 2.0 + Step * (Types.Angle (Port_No) - 1.0);
+   begin
+      return Polar (Params.Center, Params.Radius, Angle);
+   end Port;
+
+   ----------
+   -- Port --
+   ----------
+
+   function Port (Params    : Annular_Sector_Params_Type;
+                  Position  : Pos_Type;
+                  Port_No   : Positive;
+                  Num_Ports : Positive) return Types.Point
+   is (case Position is
+       when Pos_Inner => Params.Inner.Port (Port_No, Num_Ports),
+       when Pos_Outer => Params.Outer.Port (Port_No, Num_Ports));
 
 end SCSC.Primitives;

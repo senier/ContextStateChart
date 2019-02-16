@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Ada.Strings.Fixed;
+with SCSC.Math;
 
 package body SCSC.Types
    with SPARK_Mode => Off
@@ -22,5 +23,40 @@ is
             return "INVALID";
       end case;
    end Image;
+
+   --------------
+   -- Distance --
+   --------------
+
+   function Distance (P1 : Types.Point;
+                      P2 : Types.Point) return Natural
+   is
+      X_Len  : constant Integer := P1.X - P2.X;
+      Y_Len  : constant Integer := P1.Y - P2.Y;
+      use Math;
+   begin
+      return Integer (Sqrt (Float (X_Len ** 2 + Y_Len ** 2)));
+   end Distance;
+
+   ----------------
+   -- Difference --
+   ----------------
+
+   function Difference (Start, Stop : Angle) return Angle
+      is (if Start < Stop then Stop - Start else 360.0 - Start + Stop);
+
+
+   -------
+   -- + --
+   -------
+
+   function "+" (Left, Right : Angle) return Angle
+   is
+   begin
+      return
+         (if Left > Angle'Last - Right
+          then Angle ((Angle_Base (-Angle'Last) + Angle_Base (Left) + Angle_Base (Right)))
+          else Angle (Angle_Base (Left) + Angle_Base (Right)));
+   end "+";
 
 end SCSC.Types;
