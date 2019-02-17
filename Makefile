@@ -23,9 +23,13 @@ VERBOSE ?= @
 
 test: $(TESTS)
 
-obj/tests.run: obj/tests
+obj/tests.run: obj/tests obj/lib/gnatprove/gnatprove.out
 	@echo "[Running] $@"
 	$(VERBOSE)./$<
+
+obj/lib/gnatprove/gnatprove.out: build.gpr src/*.ad?
+	@echo "[SPARK] $@"
+	$(VERBOSE)gnatprove --mode=check_all -P build.gpr
 
 obj/tests: tests/tests.gpr tests/tests.adb tests/test_cases.adb tests/test_suite.adb src/*.ad?
 	@echo "[Building] $@"
