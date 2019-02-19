@@ -3,15 +3,29 @@ with SCSC.Primitives;
 
 package body SCSC.Graph is
 
+   -----------
+   -- Label --
+   -----------
+
+   function Label (Edge : Edge_Type) return String is (Edge.Label_Text (1 .. Edge.Label_Len));
+
    ----------
    -- Node --
    ----------
 
-   function Node (Weight : Positive := 1;
-                  Label  : String   := "") return Node_Type is
-      (Node_Type'(Weight     => Weight,
-                  Label_Text => Label & (Label_Type'First + Label'Length .. Label_Type'Last => ' '),
-                  Label_Len  => Label'Length));
+   function Node (Weight      : Positive   := 1;
+                  Label       : String     := "";
+                  Inner_Ports : Positive   := 1;
+                  Outer_Ports : Positive   := 1;
+                  Edges       : Edges_Type := Null_Edges) return Node_Type
+   is
+      (Node_Type'(Weight      => Weight,
+                  Inner_Ports => Inner_Ports,
+                  Outer_Ports => Outer_Ports,
+                  Label_Text  => Label & (Label_Type'First + Label'Length .. Label_Type'Last => ' '),
+                  Label_Len   => Label'Length,
+                  Edges_Data  => Edges & Edges_Type'(Edges'Length + 1 .. Edges_Data_Type'Last => Null_Edge),
+                  Edges_Len   => Edges'Length));
 
    ------------
    -- Weight --
@@ -24,6 +38,12 @@ package body SCSC.Graph is
    -----------
 
    function Label (Node : Node_Type) return String is (Node.Label_Text (1 .. Node.Label_Len));
+
+   -----------
+   -- Edges --
+   -----------
+
+   function Edges (Node : Node_Type) return Edges_Type is (Node.Edges_Data (1 .. Node.Edges_Len));
 
    -----------
    -- Polar --
@@ -64,7 +84,6 @@ package body SCSC.Graph is
    function Graph
      (Params    : Graph_Params_Type;
       Data      : Data_Type;
-      Layout    : Graph_Layout.Layout_Type;
       Style     : String := "";
       Textstyle : String := "") return SVG.Element_Type
    is
@@ -122,8 +141,7 @@ package body SCSC.Graph is
 
       P       : constant Params_Type := Calculate_Params;
       Sectors : SVG.Element_Type (1 .. SXML.Index_Type (P.Length)) := (others => SXML.Null_Node);
-
-      Offset : SXML.Offset_Type := 0;
+      Offset  : SXML.Offset_Type := 0;
    begin
       for I in Data'Range
       loop

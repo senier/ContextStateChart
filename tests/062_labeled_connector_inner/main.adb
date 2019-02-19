@@ -9,7 +9,7 @@ is
    use SCSC.SVG;
    use SCSC.Types;
 
-   Center  : Point := (200, 200);
+   Center  : Point := P (200, 200);
 
    Arrow_End : Element_Type := Path (Commands => ((Moveto, Absolute, 0, 0),
                                                  (Vertical, Absolute, 4),
@@ -31,14 +31,14 @@ is
        Child  => Circle (Center,   2, Style => "fill: black; stroke: none")
                + Circle (Center, 200, Style => "fill: none; stroke: black")
 
-               + Connector (Center, (56, 300), (68, 116),
+               + Connector (Center, P (56, 300), P (68, 116),
                             Text      => "Inner/Default",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 10,
                             Position  => Pos_Inner,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, (65, 100), (180, 50),
+               + Connector (Center, P (65, 100), P (180, 50),
                             Text      => "Inner/Start/CW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 20,
@@ -46,7 +46,7 @@ is
                             Position  => Pos_Inner,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, (200, 30), (320, 100),
+               + Connector (Center, P (200, 30), P (320, 100),
                             Text      => "Inner/Center/CW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
@@ -54,7 +54,7 @@ is
                             Position  => Pos_Inner,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, (340, 130), (380, 240),
+               + Connector (Center, P (340, 130), P (380, 240),
                             Text      => "Inner/End/CW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
@@ -62,7 +62,7 @@ is
                             Position  => Pos_Inner,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, (360, 250), (270, 330),
+               + Connector (Center, P (360, 250), P (270, 330),
                             Text      => "Inner/Start/CCW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
@@ -71,7 +71,7 @@ is
                             Position  => Pos_Inner,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, (250, 340), (140, 330),
+               + Connector (Center, P (250, 340), P (140, 330),
                             Text      => "Inner/Center/CCW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 25,
@@ -80,7 +80,7 @@ is
                             Position  => Pos_Inner,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, (140, 280), (80, 130),
+               + Connector (Center, P (140, 280), P (80, 130),
                             Text      => "Inner/End/CCW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,

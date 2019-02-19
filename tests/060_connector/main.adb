@@ -9,15 +9,15 @@ is
    use SCSC.SVG;
    use SCSC.Types;
 
-   Center  : Point := (200, 200);
-   Start_1 : Point := (117, 185);
-   Stop_1  : Point := (238, 100);
-   Start_2 : Point := (100, 160);
-   Stop_2  : Point := (180, 20);
-   Start_3 : Point := (200, 140);
-   Stop_3  : Point := (300, 20);
-   Start_4 : Point := (150, 200);
-   Stop_4  : Point := (180, 250);
+   Center  : Point := P (200, 200);
+   Start_1 : Point := P (117, 185);
+   Stop_1  : Point := P (238, 100);
+   Start_2 : Point := P (100, 160);
+   Stop_2  : Point := P (180, 20);
+   Start_3 : Point := P (200, 140);
+   Stop_3  : Point := P (300, 20);
+   Start_4 : Point := P (150, 200);
+   Stop_4  : Point := P (180, 250);
 
    Arrow_End : Element_Type := Path (Commands => ((Moveto, Absolute, 0, 0),
                                                  (Vertical, Absolute, 4),

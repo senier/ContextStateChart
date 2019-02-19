@@ -29,7 +29,7 @@ is
       return
         (From       => From,
          To         => To,
-         Center     => (0, 0),  -- FIXME
+         Center     => Types.P (0, 0), -- FIXME
          Radius     => Radius,
          X_Rotation => X_Rotation,
          Large      => Large,
@@ -44,11 +44,9 @@ is
                    Radius  : Natural;
                    Angle   : Types.Angle) return Types.Point
    is
-      Result : Types.Point;
    begin
-      Result := (X => Center.X + Integer (Math.Sin (Angle) * Float (Radius)),
-              Y => Center.Y + Integer (-Math.Cos (Angle) * Float (Radius)));
-      return Result;
+      return Types.P (X => Center.X + Integer (Math.Sin (Angle) * Float (Radius)),
+                      Y => Center.Y + Integer (-Math.Cos (Angle) * Float (Radius)));
    end Polar;
 
    -----------
@@ -90,8 +88,8 @@ is
 
       Offset : constant Natural := Types.Distance (Center, Start);
       Last   : constant Integer := Offset + Length;
-      Stop   : constant Types.Point := (X => X_Len * Last / Offset + Center.X,
-                                        Y => Y_Len * Last / Offset + Center.Y);
+      Stop   : constant Types.Point := Types.P (X => X_Len * Last / Offset + Center.X,
+                                                Y => Y_Len * Last / Offset + Center.Y);
    begin
       return (From => Start, To => Stop);
    end Cartesian;
@@ -373,7 +371,8 @@ is
                   Port_No   : Positive;
                   Num_Ports : Positive) return Types.Point
    is (case Position is
-       when Pos_Inner => Params.Inner.Port (Port_No, Num_Ports),
-       when Pos_Outer => Params.Outer.Port (Port_No, Num_Ports));
+       when Pos_Invalid => Params.Inner.Center,
+       when Pos_Inner   => Params.Inner.Port (Port_No, Num_Ports),
+       when Pos_Outer   => Params.Outer.Port (Port_No, Num_Ports));
 
 end SCSC.Primitives;

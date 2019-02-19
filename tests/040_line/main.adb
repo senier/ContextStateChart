@@ -9,7 +9,7 @@ is
    use SCSC.SVG;
    use SCSC.Types;
 
-   Center : Point := (200, 200);
+   Center : Point := P (200, 200);
 
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.SVG
       (

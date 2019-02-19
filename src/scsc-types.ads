@@ -2,11 +2,13 @@ package SCSC.Types
    with SPARK_Mode => On
 is
 
-   type Point is
-   record
-      X : Integer;
-      Y : Integer;
-   end record;
+   type Point is tagged private;
+
+   function P (X : Integer;
+               Y : Integer) return Point;
+
+   function X (P : Point) return Integer;
+   function Y (P : Point) return Integer;
 
    function Distance (P1 : Types.Point;
                       P2 : Types.Point) return Natural;
@@ -36,5 +38,19 @@ is
    function Image (L : Length) return String;
 
    Invalid_Length : Length := (Unit => Invalid);
+
+private
+
+   type Point is tagged
+   record
+      X : Integer;
+      Y : Integer;
+   end record;
+
+   function P (X : Integer;
+               Y : Integer) return Point is (X => X, Y => Y);
+
+   function X (P : Point) return Integer is (P.X);
+   function Y (P : Point) return Integer is (P.Y);
 
 end SCSC.Types;

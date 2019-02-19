@@ -4,8 +4,8 @@ with SCSC.Types;
 package SCSC.Primitives
    with SPARK_Mode => On
 is
-   type Dir_Type is (Dir_CW, Dir_CCW);
-   type Pos_Type is (Pos_Outer, Pos_Inner);
+   type Dir_Type is (Dir_Invalid, Dir_CW, Dir_CCW);
+   type Pos_Type is (Pos_Invalid, Pos_Outer, Pos_Inner);
 
    type Params_Type is tagged private;
 

@@ -3,14 +3,14 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
-with SCSC.Graph_Layout;
 
 procedure Main
 is
    use SCSC;
+   use SCSC.Types;
    use type SVG.Element_Type;
 
-   Center : Types.Point := (200, 200);
+   Center : Types.Point := P (200, 200);
 
    Doc : SVG.Document_Type := SVG.SVG
       (Width  => 400,
@@ -21,7 +21,6 @@ is
                                          Graph.Node (3),
                                          Graph.Node (7),
                                          Graph.Node (2)),
-                              Layout => Graph_Layout.Initialize,
                               Style  => "fill: yellow; stroke: green")
       );
 begin

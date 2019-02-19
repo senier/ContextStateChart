@@ -7,9 +7,10 @@ procedure Main
 is
    use SCSC.Primitives;
    use SCSC.SVG;
+   use SCSC.Types;
    use type SCSC.Types.Angle;
 
-   Center : SCSC.Types.Point := (200, 200);
+   Center : SCSC.Types.Point := P (200, 200);
 
    Params1 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 100,

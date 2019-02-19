@@ -9,7 +9,7 @@ is
    use SCSC.SVG;
    use SCSC.Types;
 
-   Center : Point := (200, 200);
+   Center : Point := P (200, 200);
 
    P01 : Annular_Sector_Params_Type := Polar (Center, 160, 20, 331.0, 359.0);
    P02 : Annular_Sector_Params_Type := Polar (Center, 160, 20, 1.0, 29.0);

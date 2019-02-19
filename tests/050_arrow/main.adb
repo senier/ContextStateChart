@@ -9,7 +9,7 @@ is
    use SCSC.SVG;
    use SCSC.Types;
 
-   Center : Point := (200, 200);
+   Center : Point := P (200, 200);
 
    Arrow_End : Element_Type := Path (Commands => ((Moveto, Absolute, 0, 0),
                                                  (Vertical, Absolute, 4),
