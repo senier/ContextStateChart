@@ -3,7 +3,6 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
-with SCSC.Graph_Layout;
 
 procedure Main
 is
