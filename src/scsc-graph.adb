@@ -160,13 +160,7 @@ package body SCSC.Graph is
                                                                     Style     => Style,
                                                                     Textstyle => Textstyle);
          begin
-            if Offset > 0
-            then
-               Sectors (Sectors'First  .. Sectors'First + SXML.Index_Type (Offset) + Sector'Length - 1) :=
-                  Sectors (Sectors'First .. Sectors'First + SXML.Index_type (Offset) - 1) + Sector;
-            else
-               Sectors (Sectors'First  .. Sectors'First + Sector'Length - 1) := Sector;
-            end if;
+            SXML.Append (SXML.Document_Type (Sectors), Offset, SXML.Document_Type (Sector));
             Offset := Offset + Sector'Length;
          end;
       end loop;
