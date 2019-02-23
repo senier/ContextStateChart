@@ -22,15 +22,15 @@ is
                                          Graph.Node (Label => "Node 3", Weight => 7),
                                          Graph.Node (Label => "Node 4", Weight => 2)),
                               Style  => "fill: yellow; stroke: green")
-               + Graph.Graph (Params    => Graph.Polar (Center, 90, 15, 10),
-                              Data      => (Graph.Node (Label => "In. I", Weight => 1),
+               + Graph.Graph (Params     => Graph.Polar (Center, 90, 15, 10),
+                              Data       => (Graph.Node (Label => "In. I", Weight => 1),
                                             Graph.Node (Label => "In. II", Weight => 1),
                                             Graph.Node (Label => "Inner III", Weight => 5),
                                             Graph.Node (Label => "Inner IV", Weight => 5),
                                             Graph.Node (Label => "Inner V", Weight => 2),
                                             Graph.Node (Label => "Inner VI", Weight => 4)),
-                              Textstyle => "fill: white; stroke: none; font-size: 8px; font-weight: bold",
-                              Style     => "fill: green; stroke: black")
+                              Text_style => "fill: white; stroke: none; font-size: 8px; font-weight: bold",
+                              Style      => "fill: green; stroke: black")
       );
 begin
    Put_Line (SVG.To_String (Doc));

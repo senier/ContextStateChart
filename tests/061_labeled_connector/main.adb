@@ -51,6 +51,9 @@ is
                             Align     => SCSC.SVG.Align_Centered,
                             Style     => "fill: none; stroke: red")
 
+               + Circle (P (340, 130), 5, Style => "fill: red; stroke: none")
+               + Circle (P (380, 240), 5, Style => "fill: green; stroke: none")
+
                + Connector (Center, P (340, 130), P (380, 240),
                             Text      => "Outer/End/CW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
@@ -58,7 +61,10 @@ is
                             Align     => SCSC.SVG.Align_End,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, P (360, 250), P (270, 330),
+               + Circle (P (360, 250), 5, Style => "fill: red; stroke: none")
+               + Circle (P (270, 330), 5, Style => "fill: green; stroke: none")
+
+               + Connector (Center, P (270, 330), P (360, 250),
                             Text      => "Outer/Start/CCW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
@@ -66,7 +72,7 @@ is
                             Direction => Dir_CCW,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, P (250, 340), P (140, 330),
+               + Connector (Center, P (140, 330), P (250, 340),
                             Text      => "Outer/Center/CCW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 25,
@@ -74,7 +80,7 @@ is
                             Direction => Dir_CCW,
                             Style     => "fill: none; stroke: red")
 
-               + Connector (Center, P (140, 280), P (80, 130),
+               + Connector (Center, P (80, 130), P (140, 280),
                             Text      => "Outer/End/CCW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,

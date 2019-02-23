@@ -15,11 +15,14 @@ is
       Pos : Primitives.Pos_Type;
    end record;
 
+   type Ports_Type is array (Primitives.Pos_Type range Primitives.Pos_Outer .. Primitives.Pos_Inner) of Natural;
+
    type Edge_Type is tagged private;
    Null_Edge : constant Edge_Type;
 
    function Edge (Dest        : Natural;
                   Dir         : Primitives.Dir_Type;
+                  Radius      : Integer;
                   Source_Port : Port_Type;
                   Dest_Port   : Port_Type;
                   Label       : String := "") return Edge_Type;
@@ -47,6 +50,9 @@ is
    function Edges (Node : Node_Type) return Edges_Type;
    --  Return edges
 
+   function Ports (Node : Node_Type) return Ports_Type;
+   --  Return ports
+
    function Polar (Center  : Types.Point;
                    Offset  : Natural;
                    Radius  : Natural;
@@ -63,10 +69,11 @@ is
    function Radius (Params : Graph_Params_Type) return Natural;
    --  Return radius from graph parameters
 
-   function Graph (Params    : Graph_Params_Type;
-                   Data      : Data_Type;
-                   Style     : String := "";
-                   Textstyle : String := "") return SVG.Element_Type;
+   function Graph (Params          : Graph_Params_Type;
+                   Data            : Data_Type;
+                   Style           : String := "";
+                   Connector_Style : String := "";
+                   Text_Style      : String := "") return SVG.Element_Type;
    --  Return graph
 
 private
@@ -77,8 +84,7 @@ private
    type Node_Type is tagged
    record
       Weight      : Positive;
-      Inner_Ports : Positive;
-      Outer_Ports : Positive;
+      Ports       : Ports_Type;
       Label_Text  : Label_Type;
       Label_Len   : Natural;
       Edges_Data  : Edges_Data_Type;
@@ -101,6 +107,7 @@ private
       Dest_Port   : Port_Type;
       Label_Text  : Label_Type;
       Label_Len   : Natural;
+      Radius      : Integer;
    end record;
 
    ----------
@@ -109,18 +116,20 @@ private
 
    function Edge (Dest        : Natural;
                   Dir         : Primitives.Dir_Type;
+                  Radius      : Integer;
                   Source_Port : Port_Type;
                   Dest_Port   : Port_Type;
                   Label       : String := "") return Edge_Type
    is
       (Dest        => Dest,
        Dir         => Dir,
+       Radius      => Radius,
        Source_Port => Source_Port,
        Dest_Port   => Dest_Port,
        Label_Text  => Label & (Label_Type'First + Label'Length .. Label_Type'Last => ' '),
        Label_Len   => Label'Length);
 
-   Null_Edge  : constant Edge_Type  := Edge (0, Primitives.Dir_Invalid, (0, Primitives.Pos_Invalid), (0, Primitives.Pos_Invalid));
+   Null_Edge  : constant Edge_Type  := Edge (0, Primitives.Dir_Invalid, 0, (0, Primitives.Pos_Invalid), (0, Primitives.Pos_Invalid));
    Null_Edges : constant Edges_Type := (1 .. 0 => Null_Edge);
 
 end SCSC.Graph;

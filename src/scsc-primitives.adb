@@ -234,17 +234,17 @@ is
          Cartesian (From   => (if Direction = Dir_CW then LP_1.To else LP_2.To),
                     To     => (if Direction = Dir_CW then LP_2.To else LP_1.To),
                     Radius => R,
-                    Large  => Angle > 180.0,
-                    Sweep  => (if Direction = Dir_CW then True else False));
+                    Large  => (if Direction = Dir_CW then Angle >= 180.0 else Angle <= 180.0),
+                    Sweep  => True);
 
       Random_ID : Natural := Random.Random;
       DY        : Types.Length := (if Direction = Dir_CW
-                                   then (if Position = Pos_Outer then (Em, -0.1) else (Em, 1.0))
-                                   else (if Position = Pos_Outer then (Em, 1.0) else (Em, -0.1)));
+                                   then (if Position = Pos_Outer then (Em, -0.3) else (Em, 1.0))
+                                   else (if Position = Pos_Outer then (Em, -0.4) else (Em, 0.3)));
 
    begin
       return Line (Params       => LP_1,
-                   Marker_Start => Marker_End,
+                   Marker_Start => Marker_Start,
                    Style        => Style,
                    ID           => (if ID /= "" then ID & "1" else ""))
 
@@ -262,7 +262,7 @@ is
                else SVG.Null_Element)
 
             + Line (Params       => Points (LP_2.From, LP_2.To),
-                    Marker_Start => Marker_Start,
+                    Marker_Start => Marker_End,
                     Style        => Style,
                     ID           => (if ID /= "" then ID & "3" else ""));
    end Connector;
