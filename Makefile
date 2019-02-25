@@ -19,6 +19,7 @@ TESTS = \
 	obj/090_labeled_graph/document.svg \
 	obj/100_annular_sector_ports/document.svg \
 	obj/110_graph_with_edges/document.svg \
+	obj/120_adjacent_layers/document.svg \
 
 VERBOSE ?= @
 

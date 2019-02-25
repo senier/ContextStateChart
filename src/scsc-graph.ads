@@ -35,6 +35,7 @@ is
    Null_Edges : constant Edges_Type;
 
    function Node (Weight      : Positive   := 1;
+                  Level       : Integer    := 0;
                   Label       : String     := "";
                   Inner_Ports : Positive   := 1;
                   Outer_Ports : Positive   := 1;
@@ -53,12 +54,14 @@ is
    function Ports (Node : Node_Type) return Ports_Type;
    --  Return ports
 
-   function Polar (Center  : Types.Point;
-                   Offset  : Natural;
-                   Radius  : Natural;
-                   Padding : Natural := 0) return Graph_Params_Type;
-   --  Create graph parameters from center point, offset and radius. Ensure
-   --  padding (in pixels) between sectors.
+   function Polar (Center        : Types.Point;
+                   Offset        : Natural;
+                   Radius        : Natural;
+                   Layer_Spacing : Natural;
+                   Padding       : Natural := 0) return Graph_Params_Type;
+   --  Create graph parameters from center point, offset and radius. Different
+   --  layers of the graph have Layer_Spacing pixels of spacing. Ensure padding
+   --  (in pixels) between sectors.
 
    function Center (Params : Graph_Params_Type) return Types.Point;
    --  Return center point from graph parameters
@@ -84,6 +87,7 @@ private
    type Node_Type is tagged
    record
       Weight      : Positive;
+      Level       : Integer;
       Ports       : Ports_Type;
       Label_Text  : Label_Type;
       Label_Len   : Natural;
@@ -93,10 +97,11 @@ private
 
    type Graph_Params_Type is
    record
-      Center  : Types.Point;
-      Offset  : Natural;
-      Radius  : Natural;
-      Padding : Natural;
+      Center        : Types.Point;
+      Offset        : Natural;
+      Radius        : Natural;
+      Layer_Spacing : Natural;
+      Padding       : Natural;
    end record;
 
    type Edge_Type is tagged

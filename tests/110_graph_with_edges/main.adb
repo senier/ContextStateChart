@@ -25,7 +25,7 @@ is
       (Width  => 400,
        Height => 400,
        Child  => Circle (Center, 2, Style => "fill: black; stroke: none")
-               + Graph (Params => Polar (Center => Center, Offset => 120, Radius => 20, Padding => 5),
+               + Graph (Params => Polar (Center => Center, Offset => 120, Radius => 20, Layer_Spacing => 30, Padding => 5),
                         Data   => ( 1 => Node (Label => "Node 1", Weight => 5, Outer_Ports => 4, Inner_Ports => 1,
                                                Edges => (1 => Edge (2, Dir_CW, 20, (4, Pos_Outer), (1, Pos_Outer), "1 ⇒ 2"),
                                                          2 => Edge (3, Dir_CCW, 40, (2, Pos_Outer), (2, Pos_Outer), "1 ⇒ 3"),
