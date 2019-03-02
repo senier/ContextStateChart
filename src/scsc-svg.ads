@@ -30,37 +30,37 @@ is
    record
       case Command is
          when Moveto | Lineto | TShorthand =>
-            X          : Natural;
-            Y          : Natural;
+            X          : Integer;
+            Y          : Integer;
          when Horizontal =>
-            H_X        : Natural;
+            H_X        : Integer;
          when Vertical =>
-            V_Y        : Natural;
+            V_Y        : Integer;
          when Quadratic =>
-            Q_X1       : Natural;
-            Q_Y1       : Natural;
-            Q_X        : Natural;
-            Q_Y        : Natural;
+            Q_X1       : Integer;
+            Q_Y1       : Integer;
+            Q_X        : Integer;
+            Q_Y        : Integer;
          when Curveto =>
-            C_X1       : Natural;
-            C_Y1       : Natural;
-            C_X2       : Natural;
-            C_Y2       : Natural;
-            C_X        : Natural;
-            C_Y        : Natural;
+            C_X1       : Integer;
+            C_Y1       : Integer;
+            C_X2       : Integer;
+            C_Y2       : Integer;
+            C_X        : Integer;
+            C_Y        : Integer;
          when Smooth =>
-            S_X2       : Natural;
-            S_Y2       : Natural;
-            S_X        : Natural;
-            S_Y        : Natural;
+            S_X2       : Integer;
+            S_Y2       : Integer;
+            S_X        : Integer;
+            S_Y        : Integer;
          when Arc =>
-            RX         : Natural;
-            RY         : Natural;
-            X_Rotation : Natural;
+            RX         : Integer;
+            RY         : Integer;
+            X_Rotation : Integer;
             Large      : Boolean;
             Sweep      : Boolean;
-            AX         : Natural;
-            AY         : Natural;
+            AX         : Integer;
+            AY         : Integer;
          when ZClosepath | Invalid =>
             null;
       end case;

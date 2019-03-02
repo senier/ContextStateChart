@@ -17,7 +17,7 @@ is
        Child  => Circle (Center, 2, Style => "fill: black; stroke: none")
                + Annular_Sector (Params => Polar (Center, 100, 50, 315.0, 45.0),
                                  Style  => "fill: yellow; stroke: green")
-               + Annular_Sector (Params => Polar (Center, 80, 30, 89.0, 181.0),
+               + Annular_Sector (Params => Polar (Center, 100, 200, 315.0, 45.0),
                                  Style  => "fill: blue; stroke: red")
                + Annular_Sector (Params => Polar (Center, 120, 20, 179.0, 241.0),
                                  Style  => "fill: gray; stroke: black")

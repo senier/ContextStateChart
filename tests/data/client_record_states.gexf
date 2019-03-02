@@ -1,0 +1,1117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf version="1.2" xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+  <graph defaultedgetype="directed" mode="static" name="">
+    <attributes class="edge" mode="static">
+      <attribute id="4" title="color" type="string" />
+      <attribute id="5" title="xlabel" type="string" />
+    </attributes>
+    <attributes class="node" mode="static">
+      <attribute id="0" title="color" type="string" />
+      <attribute id="1" title="shape" type="string" />
+      <attribute id="2" title="fontname" type="string" />
+      <attribute id="3" title="kind" type="string" />
+    </attributes>
+    <meta>
+      <creator>NetworkX 2.2</creator>
+      <lastmodified>03/03/2019</lastmodified>
+    </meta>
+    <nodes>
+      <node id="INITIAL_START" label="INITIAL_START">
+        <attvalues>
+          <attvalue for="0" value="black" />
+          <attvalue for="1" value="point" />
+        </attvalues>
+      </node>
+      <node id="START" label="START">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="IDLE" label="IDLE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="IDLE.MESSAGE" label="IDLE.MESSAGE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="IDLE.KEY_UPDATE" label="IDLE.KEY_UPDATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="IDLE.HANDSHAKE" label="IDLE.HANDSHAKE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="IDLE.NETWORK" label="IDLE.NETWORK">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="IDLE.APPLICATION" label="IDLE.APPLICATION">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="IDLE.HEARTBEAT" label="IDLE.HEARTBEAT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="IDLE.HEARTBEAT_CONTROL" label="IDLE.HEARTBEAT_CONTROL">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONTROL" label="CONTROL">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SHUTDOWN" label="SHUTDOWN">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="KEY_UPDATE" label="KEY_UPDATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="KEY_UPDATE.CLIENT" label="KEY_UPDATE.CLIENT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="KEY_UPDATE.SERVER" label="KEY_UPDATE.SERVER">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="HANDSHAKE" label="HANDSHAKE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN" label="NETWORK_IN">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.DECRYPT" label="NETWORK_IN.DECRYPT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.DECRYPT.VERIFICATION" label="NETWORK_IN.DECRYPT.VERIFICATION">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.DECRYPT.TRANSFORM" label="NETWORK_IN.DECRYPT.TRANSFORM">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.PARSE" label="NETWORK_IN.PARSE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.APPLICATION" label="NETWORK_IN.APPLICATION">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.HANDSHAKE" label="NETWORK_IN.HANDSHAKE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.HEARTBEAT" label="NETWORK_IN.HEARTBEAT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.ALERT" label="NETWORK_IN.ALERT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.ALERT.CLOSE" label="NETWORK_IN.ALERT.CLOSE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.ALERT.TERMINATE" label="NETWORK_IN.ALERT.TERMINATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_OUT.APPLICATION" label="NETWORK_OUT.APPLICATION">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="HEARTBEAT" label="HEARTBEAT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_OUT.SEND" label="NETWORK_OUT.SEND">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_OUT.ENCRYPT_AND_SEND" label="NETWORK_OUT.ENCRYPT_AND_SEND">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="HEARTBEAT_CONTROL" label="HEARTBEAT_CONTROL">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="ERROR" label="ERROR">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="FINAL" label="FINAL">
+        <attvalues>
+          <attvalue for="0" value="black" />
+          <attvalue for="2" value="bold" />
+        </attvalues>
+      </node>
+      <node id="client_sequence_number" label="client_sequence_number">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="server_sequence_number" label="server_sequence_number">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="record_protection" label="record_protection">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="network_receive_enabled" label="network_receive_enabled">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="network_send_enabled" label="network_send_enabled">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="heartbeat_receive_enabled" label="heartbeat_receive_enabled">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="heartbeat_send_enabled" label="heartbeat_send_enabled">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="control_in" label="control_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="key_in" label="key_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="handshake_in" label="handshake_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="network_in" label="network_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="application_in" label="application_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="heartbeat_in" label="heartbeat_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="heartbeat_control_in" label="heartbeat_control_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="ControlMessage" label="ControlMessage">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="network_out" label="network_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="KeyMessage" label="KeyMessage">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="client_write_key" label="client_write_key">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="server_write_key" label="server_write_key">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_OUT.TLSRecord" label="NETWORK_OUT.TLSRecord">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="NETWORK_IN.TLSRecord" label="NETWORK_IN.TLSRecord">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="TLSInnerPlaintext" label="TLSInnerPlaintext">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="application_out" label="application_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="handshake_out" label="handshake_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="heartbeat_out" label="heartbeat_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="control_out" label="control_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="ApplicationMessage" label="ApplicationMessage">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="TLSCiphertext" label="TLSCiphertext">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="HeartbeatControlMessage" label="HeartbeatControlMessage">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="INITIAL_START" target="START">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="1" source="START" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="2" source="START" target="client_sequence_number">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="3" source="START" target="server_sequence_number">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="4" source="START" target="record_protection">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="5" source="START" target="network_receive_enabled">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="6" source="START" target="network_send_enabled">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="7" source="START" target="heartbeat_receive_enabled">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="8" source="START" target="heartbeat_send_enabled">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="9" source="IDLE" target="IDLE.MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="10" source="IDLE.MESSAGE" target="IDLE.KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="11" source="IDLE.MESSAGE" target="CONTROL">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="control message received" />
+        </attvalues>
+      </edge>
+      <edge id="12" source="IDLE.KEY_UPDATE" target="IDLE.HANDSHAKE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="13" source="IDLE.KEY_UPDATE" target="KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="key message received" />
+        </attvalues>
+      </edge>
+      <edge id="14" source="IDLE.HANDSHAKE" target="IDLE.NETWORK">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="15" source="IDLE.HANDSHAKE" target="HANDSHAKE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="handshake message received" />
+        </attvalues>
+      </edge>
+      <edge id="16" source="IDLE.NETWORK" target="IDLE.APPLICATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="17" source="IDLE.NETWORK" target="NETWORK_IN">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="message received and network_receive_enabled == True" />
+        </attvalues>
+      </edge>
+      <edge id="18" source="IDLE.APPLICATION" target="IDLE.HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="19" source="IDLE.APPLICATION" target="NETWORK_OUT.APPLICATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="message received" />
+        </attvalues>
+      </edge>
+      <edge id="20" source="IDLE.HEARTBEAT" target="IDLE.HEARTBEAT_CONTROL">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="21" source="IDLE.HEARTBEAT" target="HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="message received and heartbeat_send_enabled == True" />
+        </attvalues>
+      </edge>
+      <edge id="22" source="IDLE.HEARTBEAT_CONTROL" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="23" source="IDLE.HEARTBEAT_CONTROL" target="HEARTBEAT_CONTROL">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="message received" />
+        </attvalues>
+      </edge>
+      <edge id="24" source="CONTROL" target="SHUTDOWN">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="shutdown message" />
+        </attvalues>
+      </edge>
+      <edge id="25" source="CONTROL" target="ControlMessage">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="26" source="SHUTDOWN" target="FINAL">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="27" source="SHUTDOWN" target="network_send_enabled">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="28" source="SHUTDOWN" target="network_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="29" source="KEY_UPDATE" target="KEY_UPDATE.CLIENT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="key update message for client" />
+        </attvalues>
+      </edge>
+      <edge id="30" source="KEY_UPDATE" target="KEY_UPDATE.SERVER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="key update message for server" />
+        </attvalues>
+      </edge>
+      <edge id="31" source="KEY_UPDATE" target="KeyMessage">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="32" source="KEY_UPDATE.CLIENT" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="33" source="KEY_UPDATE.CLIENT" target="client_sequence_number">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="34" source="KEY_UPDATE.CLIENT" target="record_protection">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="35" source="KEY_UPDATE.CLIENT" target="client_write_key">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="36" source="KEY_UPDATE.SERVER" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="37" source="KEY_UPDATE.SERVER" target="server_sequence_number">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="38" source="KEY_UPDATE.SERVER" target="server_write_key">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="39" source="HANDSHAKE" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="network_send_enabled == False" />
+        </attvalues>
+      </edge>
+      <edge id="40" source="HANDSHAKE" target="NETWORK_OUT.SEND">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="record_protection == False and network_send_enabled == True" />
+        </attvalues>
+      </edge>
+      <edge id="41" source="HANDSHAKE" target="NETWORK_OUT.ENCRYPT_AND_SEND">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="record_protection == True and network_send_enabled == True" />
+        </attvalues>
+      </edge>
+      <edge id="42" source="HANDSHAKE" target="NETWORK_OUT.TLSRecord">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="43" source="NETWORK_IN" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="44" source="NETWORK_IN" target="NETWORK_IN.DECRYPT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type == application_data" />
+        </attvalues>
+      </edge>
+      <edge id="45" source="NETWORK_IN" target="NETWORK_IN.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type == alert or type == handshake" />
+        </attvalues>
+      </edge>
+      <edge id="46" source="NETWORK_IN" target="NETWORK_IN.HANDSHAKE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type == change_cipher_spec" />
+        </attvalues>
+      </edge>
+      <edge id="47" source="NETWORK_IN" target="NETWORK_IN.HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type == heartbeat and heartbeat_receive_enabled == True" />
+        </attvalues>
+      </edge>
+      <edge id="48" source="NETWORK_IN" target="ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="invalid record" />
+        </attvalues>
+      </edge>
+      <edge id="49" source="NETWORK_IN" target="NETWORK_IN.TLSRecord">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="50" source="NETWORK_IN.DECRYPT" target="NETWORK_IN.DECRYPT.VERIFICATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="decryption successful" />
+        </attvalues>
+      </edge>
+      <edge id="51" source="NETWORK_IN.DECRYPT" target="ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="decryption failed" />
+        </attvalues>
+      </edge>
+      <edge id="52" source="NETWORK_IN.DECRYPT" target="NETWORK_IN.TLSRecord">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="53" source="NETWORK_IN.DECRYPT" target="TLSInnerPlaintext">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="54" source="NETWORK_IN.DECRYPT.VERIFICATION" target="NETWORK_IN.DECRYPT.TRANSFORM">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="verification successful" />
+        </attvalues>
+      </edge>
+      <edge id="55" source="NETWORK_IN.DECRYPT.VERIFICATION" target="ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="only padding, no type field found" />
+        </attvalues>
+      </edge>
+      <edge id="56" source="NETWORK_IN.DECRYPT.TRANSFORM" target="NETWORK_IN.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="57" source="NETWORK_IN.DECRYPT.TRANSFORM" target="server_sequence_number">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="58" source="NETWORK_IN.DECRYPT.TRANSFORM" target="NETWORK_IN.TLSRecord">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="59" source="NETWORK_IN.PARSE" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="60" source="NETWORK_IN.PARSE" target="NETWORK_IN.APPLICATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type == application_data" />
+        </attvalues>
+      </edge>
+      <edge id="61" source="NETWORK_IN.PARSE" target="NETWORK_IN.HANDSHAKE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type == handshake" />
+        </attvalues>
+      </edge>
+      <edge id="62" source="NETWORK_IN.PARSE" target="NETWORK_IN.ALERT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type == alert" />
+        </attvalues>
+      </edge>
+      <edge id="63" source="NETWORK_IN.PARSE" target="ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="invalid type" />
+        </attvalues>
+      </edge>
+      <edge id="64" source="NETWORK_IN.APPLICATION" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="65" source="NETWORK_IN.APPLICATION" target="application_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="66" source="NETWORK_IN.HANDSHAKE" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="67" source="NETWORK_IN.HANDSHAKE" target="handshake_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="68" source="NETWORK_IN.HEARTBEAT" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="69" source="NETWORK_IN.HEARTBEAT" target="heartbeat_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="70" source="NETWORK_IN.ALERT" target="NETWORK_IN.ALERT.CLOSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type == close_notify" />
+        </attvalues>
+      </edge>
+      <edge id="71" source="NETWORK_IN.ALERT" target="NETWORK_IN.ALERT.TERMINATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="type != close_notify" />
+        </attvalues>
+      </edge>
+      <edge id="72" source="NETWORK_IN.ALERT.CLOSE" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="73" source="NETWORK_IN.ALERT.CLOSE" target="network_receive_enabled">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="74" source="NETWORK_IN.ALERT.CLOSE" target="control_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="75" source="NETWORK_IN.ALERT.TERMINATE" target="ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="76" source="NETWORK_IN.ALERT.TERMINATE" target="control_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="77" source="NETWORK_OUT.APPLICATION" target="NETWORK_OUT.ENCRYPT_AND_SEND">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="78" source="NETWORK_OUT.APPLICATION" target="NETWORK_OUT.TLSRecord">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="79" source="NETWORK_OUT.APPLICATION" target="ApplicationMessage">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="80" source="HEARTBEAT" target="NETWORK_OUT.ENCRYPT_AND_SEND">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="81" source="HEARTBEAT" target="NETWORK_OUT.TLSRecord">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="82" source="NETWORK_OUT.SEND" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="83" source="NETWORK_OUT.SEND" target="network_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="84" source="NETWORK_OUT.ENCRYPT_AND_SEND" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="85" source="NETWORK_OUT.ENCRYPT_AND_SEND" target="ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no client_write_key available" />
+        </attvalues>
+      </edge>
+      <edge id="86" source="NETWORK_OUT.ENCRYPT_AND_SEND" target="client_sequence_number">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="87" source="NETWORK_OUT.ENCRYPT_AND_SEND" target="network_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="88" source="NETWORK_OUT.ENCRYPT_AND_SEND" target="NETWORK_OUT.TLSRecord">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="89" source="NETWORK_OUT.ENCRYPT_AND_SEND" target="TLSCiphertext">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="90" source="HEARTBEAT_CONTROL" target="IDLE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="91" source="HEARTBEAT_CONTROL" target="heartbeat_receive_enabled">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="92" source="HEARTBEAT_CONTROL" target="heartbeat_send_enabled">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="93" source="HEARTBEAT_CONTROL" target="HeartbeatControlMessage">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="94" source="ERROR" target="FINAL">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="95" source="client_sequence_number" target="NETWORK_OUT.ENCRYPT_AND_SEND">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="96" source="server_sequence_number" target="NETWORK_IN.DECRYPT.TRANSFORM">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="97" source="record_protection" target="HANDSHAKE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="98" source="network_receive_enabled" target="IDLE.NETWORK">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="99" source="network_send_enabled" target="IDLE.NETWORK">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="100" source="heartbeat_receive_enabled" target="NETWORK_IN">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="101" source="heartbeat_send_enabled" target="IDLE.HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="102" source="control_in" target="IDLE.MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="103" source="control_in" target="CONTROL">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="104" source="key_in" target="IDLE.KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="105" source="key_in" target="KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="106" source="handshake_in" target="IDLE.HANDSHAKE">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="107" source="handshake_in" target="HANDSHAKE">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="108" source="network_in" target="IDLE.NETWORK">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="109" source="network_in" target="NETWORK_IN">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="110" source="application_in" target="IDLE.APPLICATION">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="111" source="application_in" target="NETWORK_OUT.APPLICATION">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="112" source="heartbeat_in" target="IDLE.HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="113" source="heartbeat_in" target="HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="114" source="heartbeat_control_in" target="IDLE.HEARTBEAT_CONTROL">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="115" source="heartbeat_control_in" target="HEARTBEAT_CONTROL">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="116" source="ControlMessage" target="CONTROL">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="117" source="KeyMessage" target="KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="118" source="KeyMessage" target="KEY_UPDATE.CLIENT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="119" source="KeyMessage" target="KEY_UPDATE.SERVER">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="120" source="client_write_key" target="NETWORK_OUT.ENCRYPT_AND_SEND">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="121" source="server_write_key" target="NETWORK_IN.DECRYPT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="122" source="NETWORK_OUT.TLSRecord" target="NETWORK_OUT.APPLICATION">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="123" source="NETWORK_OUT.TLSRecord" target="HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="124" source="NETWORK_OUT.TLSRecord" target="NETWORK_OUT.SEND">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="125" source="NETWORK_OUT.TLSRecord" target="NETWORK_OUT.ENCRYPT_AND_SEND">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="126" source="NETWORK_IN.TLSRecord" target="NETWORK_IN.DECRYPT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="127" source="NETWORK_IN.TLSRecord" target="NETWORK_IN.PARSE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="128" source="NETWORK_IN.TLSRecord" target="NETWORK_IN.APPLICATION">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="129" source="NETWORK_IN.TLSRecord" target="NETWORK_IN.HANDSHAKE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="130" source="NETWORK_IN.TLSRecord" target="NETWORK_IN.HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="131" source="NETWORK_IN.TLSRecord" target="NETWORK_IN.ALERT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="132" source="TLSInnerPlaintext" target="NETWORK_IN.DECRYPT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="133" source="TLSInnerPlaintext" target="NETWORK_IN.DECRYPT.VERIFICATION">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="134" source="TLSInnerPlaintext" target="NETWORK_IN.DECRYPT.TRANSFORM">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="135" source="ApplicationMessage" target="NETWORK_OUT.APPLICATION">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="136" source="TLSCiphertext" target="NETWORK_OUT.ENCRYPT_AND_SEND">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="137" source="HeartbeatControlMessage" target="HEARTBEAT_CONTROL">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

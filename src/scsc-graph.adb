@@ -1,4 +1,5 @@
-with SXML;
+with SXML.Parser;
+with SXML.Query;
 with SCSC.Primitives;
 with Ada.Containers.Generic_Array_Sort;
 

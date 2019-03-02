@@ -63,10 +63,12 @@ is
 
    function To_String (C : Path_Command_Type) return String
    is
-      function Img (N : Natural) return String
+      function Img (N : Integer) return String
       is
       begin
-         return N'Image (N'Image'First + 1 .. N'Image'Last);
+         return (if N >= 0
+                 then N'Image (N'Image'First + 1 .. N'Image'Last)
+                 else N'Image);
       end Img;
    begin
       case C.Command is
