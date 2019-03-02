@@ -20,6 +20,7 @@ TESTS = \
 	obj/100_annular_sector_ports/document.svg \
 	obj/110_graph_with_edges/document.svg \
 	obj/120_adjacent_layers/document.svg \
+	obj/130_load_gexf/document.svg \
 
 VERBOSE ?= @
 

@@ -1,0 +1,3103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf version="1.2" xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+  <graph defaultedgetype="directed" mode="static" name="">
+    <attributes class="edge" mode="static">
+      <attribute id="4" title="color" type="string" />
+      <attribute id="5" title="xlabel" type="string" />
+    </attributes>
+    <attributes class="node" mode="static">
+      <attribute id="0" title="color" type="string" />
+      <attribute id="1" title="shape" type="string" />
+      <attribute id="2" title="fontname" type="string" />
+      <attribute id="3" title="kind" type="string" />
+    </attributes>
+    <meta>
+      <creator>NetworkX 2.2</creator>
+      <lastmodified>03/03/2019</lastmodified>
+    </meta>
+    <nodes>
+      <node id="INITIAL_START" label="INITIAL_START">
+        <attvalues>
+          <attvalue for="0" value="black" />
+          <attvalue for="1" value="point" />
+        </attvalues>
+      </node>
+      <node id="START" label="START">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="START.PSK" label="START.PSK">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="START.PSK_EXTENSIONS" label="START.PSK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="START.DHE" label="START.DHE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="START.DHE_EXTENSIONS" label="START.DHE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="START.SEND" label="START.SEND">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="START.READ_PSK_FOR_EARLY_DATA" label="START.READ_PSK_FOR_EARLY_DATA">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_SH" label="WAIT_SH">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_SH.VERIFY" label="WAIT_SH.VERIFY">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_SH.CHECK_RETRY_REQUEST" label="WAIT_SH.CHECK_RETRY_REQUEST">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_SH.EXTENSIONS" label="WAIT_SH.EXTENSIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_SH.EXTENSIONS_PSK" label="WAIT_SH.EXTENSIONS_PSK">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_SH.EXTENSIONS_DHE" label="WAIT_SH.EXTENSIONS_DHE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_SH.PARSE_HRR" label="WAIT_SH.PARSE_HRR">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE" label="WAIT_EE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE" label="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.CHECK_EXTENSIONS" label="WAIT_EE.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.DISPATCH" label="WAIT_EE.DISPATCH">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE_SERVER_NAME" label="WAIT_EE.PARSE_SERVER_NAME">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE_MAX_FRAGMENT_LENGTH" label="WAIT_EE.PARSE_MAX_FRAGMENT_LENGTH">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE_SUPPORTED_GROUPS" label="WAIT_EE.PARSE_SUPPORTED_GROUPS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE_HEARTBEAT" label="WAIT_EE.PARSE_HEARTBEAT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE_APPLICATION_LAYER_PROTOCOL_NEGOTIATION" label="WAIT_EE.PARSE_APPLICATION_LAYER_PROTOCOL_NEGOTIATION">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE_CLIENT_CERTIFICATE_TYPE" label="WAIT_EE.PARSE_CLIENT_CERTIFICATE_TYPE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE_SERVER_CERTIFICATE_TYPE" label="WAIT_EE.PARSE_SERVER_CERTIFICATE_TYPE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_EE.PARSE_EARLY_DATA" label="WAIT_EE.PARSE_EARLY_DATA">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="NO_EARLY_DATA" label="NO_EARLY_DATA">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_CERT_CR" label="WAIT_CERT_CR">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CR" label="PARSE_CR">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CR.PARSE_STATUS_REQUEST" label="PARSE_CR.PARSE_STATUS_REQUEST">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES" label="PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CR.PARSE_OID_FILTERS" label="PARSE_CR.PARSE_OID_FILTERS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" label="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT" label="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CR.CHECK_EXTENSIONS" label="PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_CERT" label="WAIT_CERT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CERT" label="PARSE_CERT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CERT.PARSE_ENTRIES" label="PARSE_CERT.PARSE_ENTRIES">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CERT.PARSE_EXTENSIONS" label="PARSE_CERT.PARSE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CERT.PARSE_STATUS_REQUEST" label="PARSE_CERT.PARSE_STATUS_REQUEST">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="PARSE_CERT.VERIFY_CERTIFICATE" label="PARSE_CERT.VERIFY_CERTIFICATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_CV" label="WAIT_CV">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="WAIT_FINISHED" label="WAIT_FINISHED">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_END_OF_EARLY_DATA" label="SEND_END_OF_EARLY_DATA">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CHECK_CERTIFICATE_CONDITIONS" label="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_CERTIFICATE" label="SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_EMPTY_CERTIFICATE" label="SEND_EMPTY_CERTIFICATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_CERTIFICATE_VERIFY" label="SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_FINISHED" label="SEND_FINISHED">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED" label="CONNECTED">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.NEW_SESSION_TICKET" label="CONNECTED.NEW_SESSION_TICKET">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.POST_HANDSHAKE_AUTH" label="CONNECTED.POST_HANDSHAKE_AUTH">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_PARSE_CR" label="CONNECTED.PHA_PARSE_CR">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_PARSE_CR.PARSE_STATUS_REQUEST" label="CONNECTED.PHA_PARSE_CR.PARSE_STATUS_REQUEST">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES" label="CONNECTED.PHA_PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_PARSE_CR.PARSE_OID_FILTERS" label="CONNECTED.PHA_PARSE_CR.PARSE_OID_FILTERS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" label="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT" label="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS" label="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS" label="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_SEND_CERTIFICATE" label="CONNECTED.PHA_SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_SEND_EMPTY_CERTIFICATE" label="CONNECTED.PHA_SEND_EMPTY_CERTIFICATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY" label="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.PHA_SEND_FINISHED" label="CONNECTED.PHA_SEND_FINISHED">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.KEY_UPDATE" label="CONNECTED.KEY_UPDATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTED.SEND_KEY_UPDATE" label="CONNECTED.SEND_KEY_UPDATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_ALERT_ILLEGAL_PARAMETER" label="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_ALERT_DECODE_ERROR" label="SEND_ALERT_DECODE_ERROR">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_ALERT_BAD_CERTIFICATE" label="SEND_ALERT_BAD_CERTIFICATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_ALERT_UNEXPECTED_MESSAGE" label="SEND_ALERT_UNEXPECTED_MESSAGE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_ALERT_DECRYPT_ERROR" label="SEND_ALERT_DECRYPT_ERROR">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_ALERT_PROTOCOL_VERSION" label="SEND_ALERT_PROTOCOL_VERSION">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_ALERT_MISSING_EXTENSION" label="SEND_ALERT_MISSING_EXTENSION">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="SEND_ALERT_UNSUPPORTED_CERTIFICATE" label="SEND_ALERT_UNSUPPORTED_CERTIFICATE">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="CONNECTION_TERMINATED" label="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="INVALID_CONFIGURATION" label="INVALID_CONFIGURATION">
+        <attvalues>
+          <attvalue for="0" value="black" />
+        </attvalues>
+      </node>
+      <node id="FINAL" label="FINAL">
+        <attvalues>
+          <attvalue for="2" value="bold" />
+        </attvalues>
+      </node>
+      <node id="datastore_in" label="datastore_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="retry_request_received" label="retry_request_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="certificate_request_received" label="certificate_request_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="server_name_received" label="server_name_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="max_fragment_length_received" label="max_fragment_length_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="early_data_received" label="early_data_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="status_request_received" label="status_request_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="certificate_authorities_received" label="certificate_authorities_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="oid_filters_received" label="oid_filters_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="signature_algorithms_received" label="signature_algorithms_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="signature_algorithms_cert_received" label="signature_algorithms_cert_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="server_certificate_type" label="server_certificate_type">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="configuration" label="configuration">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="extensions_list" label="extensions_list">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="rng_in" label="rng_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="record_out" label="record_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="ClientHello" label="ClientHello">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="transcript_hash" label="transcript_hash">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="keystore_in" label="keystore_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="early_secret" label="early_secret">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="client_early_traffic_secret" label="client_early_traffic_secret">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="record_in" label="record_in">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="ServerHello" label="ServerHello">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="hash_length" label="hash_length">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="client_handshake_traffic_secret" label="client_handshake_traffic_secret">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="derived_handshake_secret" label="derived_handshake_secret">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="EncryptedExtensions" label="EncryptedExtensions">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="server_name" label="server_name">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="max_fragment_length" label="max_fragment_length">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="datastore_out" label="datastore_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="heartbeat_control_out" label="heartbeat_control_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="application_out" label="application_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="CertificateCrMessage" label="CertificateCrMessage">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="CertificateRequest" label="CertificateRequest">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="status_request" label="status_request">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="certificate_authorities" label="certificate_authorities">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="oid_filters" label="oid_filters">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="signature_algorithms" label="signature_algorithms">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="signature_algorithms_cert" label="signature_algorithms_cert">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="Certificate" label="Certificate">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="CertificateEntry" label="CertificateEntry">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="CertificateList" label="CertificateList">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="CertificateVerify" label="CertificateVerify">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="finished_key" label="finished_key">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="client_application_traffic_secret" label="client_application_traffic_secret">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="server_application_traffic_secret" label="server_application_traffic_secret">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="resumption_master_secret" label="resumption_master_secret">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="certificates" label="certificates">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="PostHandshakeMessage" label="PostHandshakeMessage">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="keystore_out" label="keystore_out">
+        <attvalues>
+          <attvalue for="0" value="blue" />
+          <attvalue for="3" value="channel" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="NewSessionTicket" label="NewSessionTicket">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="PhaCertificateRequest" label="PhaCertificateRequest">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_status_request_received" label="pha_status_request_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_status_request" label="pha_status_request">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_certificate_authorities_received" label="pha_certificate_authorities_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_certificate_authorities" label="pha_certificate_authorities">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_oid_filters_received" label="pha_oid_filters_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_oid_filters" label="pha_oid_filters">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_signature_algorithms_received" label="pha_signature_algorithms_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_signature_algorithms" label="pha_signature_algorithms">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_signature_algorithms_cert_received" label="pha_signature_algorithms_cert_received">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_signature_algorithms_cert" label="pha_signature_algorithms_cert">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_transcript_hash" label="pha_transcript_hash">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="pha_certificates" label="pha_certificates">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="PhaCertificate" label="PhaCertificate">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="PhaCertificateVerify" label="PhaCertificateVerify">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+      <node id="KeyUpdate" label="KeyUpdate">
+        <attvalues>
+          <attvalue for="0" value="green" />
+          <attvalue for="3" value="data" />
+          <attvalue for="1" value="box" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="INITIAL_START" target="START">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="1" source="START" target="START.PSK">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="PSK configured" />
+        </attvalues>
+      </edge>
+      <edge id="2" source="START" target="START.DHE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="DHE configured" />
+        </attvalues>
+      </edge>
+      <edge id="3" source="START" target="INVALID_CONFIGURATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no valid cipher suites" />
+        </attvalues>
+      </edge>
+      <edge id="4" source="START" target="retry_request_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="5" source="START" target="certificate_request_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="6" source="START" target="server_name_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="7" source="START" target="max_fragment_length_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="8" source="START" target="early_data_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="9" source="START" target="status_request_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="10" source="START" target="certificate_authorities_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="11" source="START" target="oid_filters_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="12" source="START" target="signature_algorithms_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="13" source="START" target="signature_algorithms_cert_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="14" source="START" target="server_certificate_type">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="15" source="START" target="configuration">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="16" source="START" target="extensions_list">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="17" source="START.PSK" target="START.PSK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="18" source="START.PSK" target="INVALID_CONFIGURATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no valid PSK key exchange modes" />
+        </attvalues>
+      </edge>
+      <edge id="19" source="START.PSK_EXTENSIONS" target="START.DHE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="PSK key exchange mode == psk_dhe_ke" />
+        </attvalues>
+      </edge>
+      <edge id="20" source="START.PSK_EXTENSIONS" target="START.SEND">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="PSK key exchange mode == psk_ke" />
+        </attvalues>
+      </edge>
+      <edge id="21" source="START.PSK_EXTENSIONS" target="extensions_list">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="22" source="START.DHE" target="START.DHE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="valid configuration" />
+        </attvalues>
+      </edge>
+      <edge id="23" source="START.DHE" target="INVALID_CONFIGURATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no valid signature algorithms" />
+        </attvalues>
+      </edge>
+      <edge id="24" source="START.DHE_EXTENSIONS" target="START.SEND">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="25" source="START.DHE_EXTENSIONS" target="extensions_list">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="26" source="START.SEND" target="START.READ_PSK_FOR_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="early data configured" />
+        </attvalues>
+      </edge>
+      <edge id="27" source="START.SEND" target="WAIT_SH">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="early data not configured" />
+        </attvalues>
+      </edge>
+      <edge id="28" source="START.SEND" target="extensions_list">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="29" source="START.SEND" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="30" source="START.SEND" target="ClientHello">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="31" source="START.SEND" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="32" source="START.READ_PSK_FOR_EARLY_DATA" target="WAIT_SH">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="33" source="START.READ_PSK_FOR_EARLY_DATA" target="INVALID_CONFIGURATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no valid PSK" />
+        </attvalues>
+      </edge>
+      <edge id="34" source="START.READ_PSK_FOR_EARLY_DATA" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="35" source="START.READ_PSK_FOR_EARLY_DATA" target="early_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="36" source="START.READ_PSK_FOR_EARLY_DATA" target="client_early_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="37" source="WAIT_SH" target="WAIT_SH.VERIFY">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="38" source="WAIT_SH" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="ServerHello.legacy_compression_method != 0" />
+        </attvalues>
+      </edge>
+      <edge id="39" source="WAIT_SH" target="SEND_ALERT_DECODE_ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="parsing failed" />
+        </attvalues>
+      </edge>
+      <edge id="40" source="WAIT_SH" target="SEND_ALERT_UNEXPECTED_MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no ServerHello received" />
+        </attvalues>
+      </edge>
+      <edge id="41" source="WAIT_SH" target="SEND_ALERT_PROTOCOL_VERSION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="ServerHello.legacy_version != 0" />
+        </attvalues>
+      </edge>
+      <edge id="42" source="WAIT_SH" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="43" source="WAIT_SH" target="ServerHello">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="44" source="WAIT_SH" target="hash_length">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="45" source="WAIT_SH.VERIFY" target="WAIT_SH.CHECK_RETRY_REQUEST">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="46" source="WAIT_SH.VERIFY" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="supported_versions is not [0x0304]" />
+        </attvalues>
+      </edge>
+      <edge id="47" source="WAIT_SH.VERIFY" target="SEND_ALERT_MISSING_EXTENSION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="supported_versions missing" />
+        </attvalues>
+      </edge>
+      <edge id="48" source="WAIT_SH.CHECK_RETRY_REQUEST" target="WAIT_SH.EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="49" source="WAIT_SH.CHECK_RETRY_REQUEST" target="WAIT_SH.PARSE_HRR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="ServerHello.random matches special value for HelloRetryRequest and retry_request_received == False" />
+        </attvalues>
+      </edge>
+      <edge id="50" source="WAIT_SH.CHECK_RETRY_REQUEST" target="SEND_ALERT_UNEXPECTED_MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="ServerHello.random matches special value for HelloRetryRequest and retry_request_received == True" />
+        </attvalues>
+      </edge>
+      <edge id="51" source="WAIT_SH.EXTENSIONS" target="WAIT_SH.EXTENSIONS_PSK">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="PSK configured" />
+        </attvalues>
+      </edge>
+      <edge id="52" source="WAIT_SH.EXTENSIONS" target="WAIT_SH.EXTENSIONS_DHE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="DHE and not PSK configured" />
+        </attvalues>
+      </edge>
+      <edge id="53" source="WAIT_SH.EXTENSIONS_PSK" target="WAIT_SH.EXTENSIONS_DHE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="PSK key exchange mode == psk_dhe_ke" />
+        </attvalues>
+      </edge>
+      <edge id="54" source="WAIT_SH.EXTENSIONS_PSK" target="WAIT_EE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="PSK key exchange mode == psk_ke" />
+        </attvalues>
+      </edge>
+      <edge id="55" source="WAIT_SH.EXTENSIONS_PSK" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="selected_identity != 0 and early_data present" />
+        </attvalues>
+      </edge>
+      <edge id="56" source="WAIT_SH.EXTENSIONS_DHE" target="WAIT_EE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="57" source="WAIT_SH.EXTENSIONS_DHE" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="key_share not present" />
+        </attvalues>
+      </edge>
+      <edge id="58" source="WAIT_SH.PARSE_HRR" target="WAIT_SH">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="59" source="WAIT_SH.PARSE_HRR" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="key_share in ServerHello.extensions exists and selected group corresponds to a group which was provided in the key_share extension in ClientHello.extensions" />
+        </attvalues>
+      </edge>
+      <edge id="60" source="WAIT_SH.PARSE_HRR" target="retry_request_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="61" source="WAIT_SH.PARSE_HRR" target="extensions_list">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="62" source="WAIT_SH.PARSE_HRR" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="63" source="WAIT_SH.PARSE_HRR" target="ClientHello">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="64" source="WAIT_SH.PARSE_HRR" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="65" source="WAIT_EE" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="66" source="WAIT_EE" target="SEND_ALERT_UNEXPECTED_MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no EncryptedExtensions received" />
+        </attvalues>
+      </edge>
+      <edge id="67" source="WAIT_EE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="68" source="WAIT_EE" target="early_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="69" source="WAIT_EE" target="client_handshake_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="70" source="WAIT_EE" target="derived_handshake_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="71" source="WAIT_EE" target="EncryptedExtensions">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="72" source="WAIT_EE.PARSE" target="WAIT_EE.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no further extensions" />
+        </attvalues>
+      </edge>
+      <edge id="73" source="WAIT_EE.PARSE" target="WAIT_EE.PARSE_SERVER_NAME">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="server_name extension found" />
+        </attvalues>
+      </edge>
+      <edge id="74" source="WAIT_EE.PARSE" target="WAIT_EE.PARSE_MAX_FRAGMENT_LENGTH">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="max_fragment_length extension found" />
+        </attvalues>
+      </edge>
+      <edge id="75" source="WAIT_EE.PARSE" target="WAIT_EE.PARSE_SUPPORTED_GROUPS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="supported_groups extension found" />
+        </attvalues>
+      </edge>
+      <edge id="76" source="WAIT_EE.PARSE" target="WAIT_EE.PARSE_HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="heartbeat extension found" />
+        </attvalues>
+      </edge>
+      <edge id="77" source="WAIT_EE.PARSE" target="WAIT_EE.PARSE_APPLICATION_LAYER_PROTOCOL_NEGOTIATION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="application_layer_protocol_negotiation extension found" />
+        </attvalues>
+      </edge>
+      <edge id="78" source="WAIT_EE.PARSE" target="WAIT_EE.PARSE_CLIENT_CERTIFICATE_TYPE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="client_certificate_type extension found" />
+        </attvalues>
+      </edge>
+      <edge id="79" source="WAIT_EE.PARSE" target="WAIT_EE.PARSE_SERVER_CERTIFICATE_TYPE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="server_certificate_type extension found" />
+        </attvalues>
+      </edge>
+      <edge id="80" source="WAIT_EE.PARSE" target="WAIT_EE.PARSE_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="early_data extension found" />
+        </attvalues>
+      </edge>
+      <edge id="81" source="WAIT_EE.PARSE" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="forbidden extension (status_request, signature_algorithms, signed_certificate_timestamp, padding, key_share, pre_shared_key, psk_key_exchange_modes, cookie, supported_versions, certificate_authorities, oid_filters, post_handshake_auth, signature_algorithms_cert) found" />
+        </attvalues>
+      </edge>
+      <edge id="82" source="WAIT_EE.CHECK_EXTENSIONS" target="WAIT_EE.DISPATCH">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="83" source="WAIT_EE.CHECK_EXTENSIONS" target="NO_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="configuration.early_data is set and early_data_received = False" />
+        </attvalues>
+      </edge>
+      <edge id="84" source="WAIT_EE.CHECK_EXTENSIONS" target="SEND_ALERT_MISSING_EXTENSION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="configuration.max_fragment_length is set and max_fragment_length_received = False" />
+        </attvalues>
+      </edge>
+      <edge id="85" source="WAIT_EE.CHECK_EXTENSIONS" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="86" source="WAIT_EE.DISPATCH" target="WAIT_CERT_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="certificates are used" />
+        </attvalues>
+      </edge>
+      <edge id="87" source="WAIT_EE.DISPATCH" target="WAIT_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="only PSK is used" />
+        </attvalues>
+      </edge>
+      <edge id="88" source="WAIT_EE.PARSE_SERVER_NAME" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="89" source="WAIT_EE.PARSE_SERVER_NAME" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="server_name not empty" />
+        </attvalues>
+      </edge>
+      <edge id="90" source="WAIT_EE.PARSE_SERVER_NAME" target="server_name_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="91" source="WAIT_EE.PARSE_SERVER_NAME" target="server_name">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="92" source="WAIT_EE.PARSE_MAX_FRAGMENT_LENGTH" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="93" source="WAIT_EE.PARSE_MAX_FRAGMENT_LENGTH" target="max_fragment_length">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="94" source="WAIT_EE.PARSE_SUPPORTED_GROUPS" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="95" source="WAIT_EE.PARSE_SUPPORTED_GROUPS" target="datastore_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="96" source="WAIT_EE.PARSE_HEARTBEAT" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="97" source="WAIT_EE.PARSE_HEARTBEAT" target="heartbeat_control_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="98" source="WAIT_EE.PARSE_APPLICATION_LAYER_PROTOCOL_NEGOTIATION" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="99" source="WAIT_EE.PARSE_APPLICATION_LAYER_PROTOCOL_NEGOTIATION" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="more than one or invalid protocol selected" />
+        </attvalues>
+      </edge>
+      <edge id="100" source="WAIT_EE.PARSE_APPLICATION_LAYER_PROTOCOL_NEGOTIATION" target="application_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="101" source="WAIT_EE.PARSE_CLIENT_CERTIFICATE_TYPE" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="102" source="WAIT_EE.PARSE_CLIENT_CERTIFICATE_TYPE" target="SEND_ALERT_UNSUPPORTED_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="invalid certificate type" />
+        </attvalues>
+      </edge>
+      <edge id="103" source="WAIT_EE.PARSE_SERVER_CERTIFICATE_TYPE" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="104" source="WAIT_EE.PARSE_SERVER_CERTIFICATE_TYPE" target="SEND_ALERT_UNSUPPORTED_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="invalid certificate type" />
+        </attvalues>
+      </edge>
+      <edge id="105" source="WAIT_EE.PARSE_SERVER_CERTIFICATE_TYPE" target="server_certificate_type">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="106" source="WAIT_EE.PARSE_EARLY_DATA" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="107" source="WAIT_EE.PARSE_EARLY_DATA" target="early_data_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="108" source="NO_EARLY_DATA" target="WAIT_EE.DISPATCH">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="109" source="NO_EARLY_DATA" target="application_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="110" source="WAIT_CERT_CR" target="PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="CertificateRequest received" />
+        </attvalues>
+      </edge>
+      <edge id="111" source="WAIT_CERT_CR" target="PARSE_CERT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="Certificate received" />
+        </attvalues>
+      </edge>
+      <edge id="112" source="WAIT_CERT_CR" target="SEND_ALERT_UNEXPECTED_MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no Certificate or CertificateRequest received" />
+        </attvalues>
+      </edge>
+      <edge id="113" source="PARSE_CR" target="PARSE_CR.PARSE_STATUS_REQUEST">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="status_request extension found" />
+        </attvalues>
+      </edge>
+      <edge id="114" source="PARSE_CR" target="PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="certificate_authorities extension found" />
+        </attvalues>
+      </edge>
+      <edge id="115" source="PARSE_CR" target="PARSE_CR.PARSE_OID_FILTERS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="oid_filters extension found" />
+        </attvalues>
+      </edge>
+      <edge id="116" source="PARSE_CR" target="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="signature_algorithms extension found" />
+        </attvalues>
+      </edge>
+      <edge id="117" source="PARSE_CR" target="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="signature_algorithms_cert extension found" />
+        </attvalues>
+      </edge>
+      <edge id="118" source="PARSE_CR" target="PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no further extensions" />
+        </attvalues>
+      </edge>
+      <edge id="119" source="PARSE_CR" target="certificate_request_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="120" source="PARSE_CR" target="CertificateRequest">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="121" source="PARSE_CR.PARSE_STATUS_REQUEST" target="PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="122" source="PARSE_CR.PARSE_STATUS_REQUEST" target="status_request_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="123" source="PARSE_CR.PARSE_STATUS_REQUEST" target="status_request">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="124" source="PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES" target="PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="125" source="PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES" target="certificate_authorities_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="126" source="PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES" target="certificate_authorities">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="127" source="PARSE_CR.PARSE_OID_FILTERS" target="PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="128" source="PARSE_CR.PARSE_OID_FILTERS" target="oid_filters_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="129" source="PARSE_CR.PARSE_OID_FILTERS" target="oid_filters">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="130" source="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" target="PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="131" source="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no supported signature algorithm" />
+        </attvalues>
+      </edge>
+      <edge id="132" source="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" target="signature_algorithms_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="133" source="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" target="signature_algorithms">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="134" source="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT" target="PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="135" source="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT" target="signature_algorithms_cert_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="136" source="PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT" target="signature_algorithms_cert">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="137" source="PARSE_CR.CHECK_EXTENSIONS" target="WAIT_CERT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="138" source="PARSE_CR.CHECK_EXTENSIONS" target="SEND_ALERT_MISSING_EXTENSION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="signature_algorithms_received = False" />
+        </attvalues>
+      </edge>
+      <edge id="139" source="PARSE_CR.CHECK_EXTENSIONS" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="140" source="WAIT_CERT" target="PARSE_CERT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="Certificate received" />
+        </attvalues>
+      </edge>
+      <edge id="141" source="WAIT_CERT" target="SEND_ALERT_DECODE_ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="Certificate empty" />
+        </attvalues>
+      </edge>
+      <edge id="142" source="WAIT_CERT" target="SEND_ALERT_UNEXPECTED_MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no Certificate received" />
+        </attvalues>
+      </edge>
+      <edge id="143" source="WAIT_CERT" target="CertificateCrMessage">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="144" source="PARSE_CERT" target="PARSE_CERT.PARSE_ENTRIES">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="145" source="PARSE_CERT" target="SEND_ALERT_DECODE_ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="CertificateRequest.certificate_list is empty" />
+        </attvalues>
+      </edge>
+      <edge id="146" source="PARSE_CERT" target="SEND_ALERT_BAD_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="server_certificate_type != X509 and server_certificate_type != RawPublicKey" />
+        </attvalues>
+      </edge>
+      <edge id="147" source="PARSE_CERT" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="148" source="PARSE_CERT" target="Certificate">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="149" source="PARSE_CERT.PARSE_ENTRIES" target="PARSE_CERT.PARSE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="150" source="PARSE_CERT.PARSE_ENTRIES" target="PARSE_CERT.VERIFY_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no further entries" />
+        </attvalues>
+      </edge>
+      <edge id="151" source="PARSE_CERT.PARSE_ENTRIES" target="CertificateEntry">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="152" source="PARSE_CERT.PARSE_ENTRIES" target="CertificateList">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="153" source="PARSE_CERT.PARSE_EXTENSIONS" target="PARSE_CERT.PARSE_ENTRIES">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no further extensions" />
+        </attvalues>
+      </edge>
+      <edge id="154" source="PARSE_CERT.PARSE_EXTENSIONS" target="PARSE_CERT.PARSE_STATUS_REQUEST">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="status_request extension found and was requested by configuration.status_request" />
+        </attvalues>
+      </edge>
+      <edge id="155" source="PARSE_CERT.PARSE_STATUS_REQUEST" target="PARSE_CERT.PARSE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="156" source="PARSE_CERT.VERIFY_CERTIFICATE" target="WAIT_CV">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="certificate valid" />
+        </attvalues>
+      </edge>
+      <edge id="157" source="PARSE_CERT.VERIFY_CERTIFICATE" target="SEND_ALERT_BAD_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="Certificate uses MD5 or is invalid" />
+        </attvalues>
+      </edge>
+      <edge id="158" source="WAIT_CV" target="WAIT_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="159" source="WAIT_CV" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="invalid algorithm" />
+        </attvalues>
+      </edge>
+      <edge id="160" source="WAIT_CV" target="SEND_ALERT_UNEXPECTED_MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="other message than CertificateVerify received" />
+        </attvalues>
+      </edge>
+      <edge id="161" source="WAIT_CV" target="SEND_ALERT_DECRYPT_ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="signature invalid" />
+        </attvalues>
+      </edge>
+      <edge id="162" source="WAIT_CV" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="163" source="WAIT_CV" target="CertificateVerify">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="164" source="WAIT_FINISHED" target="SEND_END_OF_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="early_data_received = True" />
+        </attvalues>
+      </edge>
+      <edge id="165" source="WAIT_FINISHED" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="early_data_received = False" />
+        </attvalues>
+      </edge>
+      <edge id="166" source="WAIT_FINISHED" target="SEND_ALERT_DECRYPT_ERROR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="Finished invalid" />
+        </attvalues>
+      </edge>
+      <edge id="167" source="WAIT_FINISHED" target="derived_handshake_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="168" source="WAIT_FINISHED" target="finished_key">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="169" source="WAIT_FINISHED" target="client_application_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="170" source="WAIT_FINISHED" target="server_application_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="171" source="WAIT_FINISHED" target="resumption_master_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="172" source="SEND_END_OF_EARLY_DATA" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="173" source="SEND_END_OF_EARLY_DATA" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="174" source="CHECK_CERTIFICATE_CONDITIONS" target="SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="certificate_request_received = True and certificates is non-empty" />
+        </attvalues>
+      </edge>
+      <edge id="175" source="CHECK_CERTIFICATE_CONDITIONS" target="SEND_EMPTY_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="certificate_request_received = True and certificates is empty" />
+        </attvalues>
+      </edge>
+      <edge id="176" source="CHECK_CERTIFICATE_CONDITIONS" target="SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="177" source="CHECK_CERTIFICATE_CONDITIONS" target="certificates">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="178" source="SEND_CERTIFICATE" target="SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="179" source="SEND_CERTIFICATE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="180" source="SEND_CERTIFICATE" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="181" source="SEND_CERTIFICATE" target="Certificate">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="182" source="SEND_CERTIFICATE" target="certificates">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="183" source="SEND_EMPTY_CERTIFICATE" target="SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="184" source="SEND_EMPTY_CERTIFICATE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="185" source="SEND_EMPTY_CERTIFICATE" target="transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="186" source="SEND_EMPTY_CERTIFICATE" target="Certificate">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="187" source="SEND_CERTIFICATE_VERIFY" target="SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="188" source="SEND_CERTIFICATE_VERIFY" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="189" source="SEND_CERTIFICATE_VERIFY" target="CertificateVerify">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="190" source="SEND_FINISHED" target="CONNECTED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="191" source="SEND_FINISHED" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="192" source="SEND_FINISHED" target="finished_key">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="193" source="SEND_FINISHED" target="client_application_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="194" source="SEND_FINISHED" target="server_application_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="195" source="CONNECTED" target="CONNECTED.NEW_SESSION_TICKET">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="NewSessionTicket received" />
+        </attvalues>
+      </edge>
+      <edge id="196" source="CONNECTED" target="CONNECTED.POST_HANDSHAKE_AUTH">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="CertificateRequest received and configuration.post_handshake_auth_enabled = True" />
+        </attvalues>
+      </edge>
+      <edge id="197" source="CONNECTED" target="CONNECTED.KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="KeyUpdate received" />
+        </attvalues>
+      </edge>
+      <edge id="198" source="CONNECTED" target="SEND_ALERT_UNEXPECTED_MESSAGE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="unexpected message received" />
+        </attvalues>
+      </edge>
+      <edge id="199" source="CONNECTED" target="PostHandshakeMessage">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="200" source="CONNECTED.NEW_SESSION_TICKET" target="CONNECTED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="201" source="CONNECTED.NEW_SESSION_TICKET" target="keystore_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="202" source="CONNECTED.NEW_SESSION_TICKET" target="NewSessionTicket">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="203" source="CONNECTED.POST_HANDSHAKE_AUTH" target="CONNECTED.PHA_PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="204" source="CONNECTED.POST_HANDSHAKE_AUTH" target="PhaCertificateRequest">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="205" source="CONNECTED.PHA_PARSE_CR" target="CONNECTED.PHA_PARSE_CR.PARSE_STATUS_REQUEST">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="status_request extension found" />
+        </attvalues>
+      </edge>
+      <edge id="206" source="CONNECTED.PHA_PARSE_CR" target="CONNECTED.PHA_PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="certificate_authorities extension found" />
+        </attvalues>
+      </edge>
+      <edge id="207" source="CONNECTED.PHA_PARSE_CR" target="CONNECTED.PHA_PARSE_CR.PARSE_OID_FILTERS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="oid_filters extension found" />
+        </attvalues>
+      </edge>
+      <edge id="208" source="CONNECTED.PHA_PARSE_CR" target="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="signature_algorithms extension found" />
+        </attvalues>
+      </edge>
+      <edge id="209" source="CONNECTED.PHA_PARSE_CR" target="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="signature_algorithms_cert extension found" />
+        </attvalues>
+      </edge>
+      <edge id="210" source="CONNECTED.PHA_PARSE_CR" target="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no further extensions" />
+        </attvalues>
+      </edge>
+      <edge id="211" source="CONNECTED.PHA_PARSE_CR" target="PhaCertificateRequest">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="212" source="CONNECTED.PHA_PARSE_CR.PARSE_STATUS_REQUEST" target="CONNECTED.PHA_PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="213" source="CONNECTED.PHA_PARSE_CR.PARSE_STATUS_REQUEST" target="pha_status_request_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="214" source="CONNECTED.PHA_PARSE_CR.PARSE_STATUS_REQUEST" target="pha_status_request">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="215" source="CONNECTED.PHA_PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES" target="CONNECTED.PHA_PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="216" source="CONNECTED.PHA_PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES" target="pha_certificate_authorities_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="217" source="CONNECTED.PHA_PARSE_CR.PARSE_CERTIFICATE_AUTHORITIES" target="pha_certificate_authorities">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="218" source="CONNECTED.PHA_PARSE_CR.PARSE_OID_FILTERS" target="CONNECTED.PHA_PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="219" source="CONNECTED.PHA_PARSE_CR.PARSE_OID_FILTERS" target="pha_oid_filters_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="220" source="CONNECTED.PHA_PARSE_CR.PARSE_OID_FILTERS" target="pha_oid_filters">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="221" source="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" target="CONNECTED.PHA_PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="222" source="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="no supported signature algorithm" />
+        </attvalues>
+      </edge>
+      <edge id="223" source="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" target="pha_signature_algorithms_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="224" source="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS" target="pha_signature_algorithms">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="225" source="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT" target="CONNECTED.PHA_PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="226" source="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT" target="pha_signature_algorithms_cert_received">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="227" source="CONNECTED.PHA_PARSE_CR.PARSE_SIGNATURE_ALGORITHMS_CERT" target="pha_signature_algorithms_cert">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="228" source="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="229" source="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS" target="SEND_ALERT_MISSING_EXTENSION">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="signature_algorithms_received = False" />
+        </attvalues>
+      </edge>
+      <edge id="230" source="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS" target="pha_transcript_hash">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="231" source="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS" target="CONNECTED.PHA_SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="pha_certificates is non-empty" />
+        </attvalues>
+      </edge>
+      <edge id="232" source="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS" target="CONNECTED.PHA_SEND_EMPTY_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="pha_certificates is empty" />
+        </attvalues>
+      </edge>
+      <edge id="233" source="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS" target="pha_certificates">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="234" source="CONNECTED.PHA_SEND_CERTIFICATE" target="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="235" source="CONNECTED.PHA_SEND_CERTIFICATE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="236" source="CONNECTED.PHA_SEND_CERTIFICATE" target="pha_certificates">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="237" source="CONNECTED.PHA_SEND_CERTIFICATE" target="PhaCertificate">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="238" source="CONNECTED.PHA_SEND_EMPTY_CERTIFICATE" target="CONNECTED.PHA_SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="239" source="CONNECTED.PHA_SEND_EMPTY_CERTIFICATE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="240" source="CONNECTED.PHA_SEND_EMPTY_CERTIFICATE" target="PhaCertificate">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="241" source="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY" target="CONNECTED.PHA_SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="242" source="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="243" source="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY" target="PhaCertificateVerify">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="244" source="CONNECTED.PHA_SEND_FINISHED" target="CONNECTED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="245" source="CONNECTED.PHA_SEND_FINISHED" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="246" source="CONNECTED.PHA_SEND_FINISHED" target="finished_key">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="247" source="CONNECTED.PHA_SEND_FINISHED" target="client_application_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="248" source="CONNECTED.KEY_UPDATE" target="CONNECTED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="249" source="CONNECTED.KEY_UPDATE" target="CONNECTED.SEND_KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="KeyUpdate.request_update == update_requested" />
+        </attvalues>
+      </edge>
+      <edge id="250" source="CONNECTED.KEY_UPDATE" target="SEND_ALERT_ILLEGAL_PARAMETER">
+        <attvalues>
+          <attvalue for="4" value="black" />
+          <attvalue for="5" value="KeyUpdate.request_update invalid" />
+        </attvalues>
+      </edge>
+      <edge id="251" source="CONNECTED.KEY_UPDATE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="252" source="CONNECTED.KEY_UPDATE" target="server_application_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="253" source="CONNECTED.KEY_UPDATE" target="KeyUpdate">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="254" source="CONNECTED.SEND_KEY_UPDATE" target="CONNECTED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="255" source="CONNECTED.SEND_KEY_UPDATE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="256" source="CONNECTED.SEND_KEY_UPDATE" target="client_application_traffic_secret">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="257" source="CONNECTED.SEND_KEY_UPDATE" target="KeyUpdate">
+        <attvalues>
+          <attvalue for="4" value="orange" />
+        </attvalues>
+      </edge>
+      <edge id="258" source="SEND_ALERT_ILLEGAL_PARAMETER" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="259" source="SEND_ALERT_ILLEGAL_PARAMETER" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="260" source="SEND_ALERT_DECODE_ERROR" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="261" source="SEND_ALERT_DECODE_ERROR" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="262" source="SEND_ALERT_BAD_CERTIFICATE" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="263" source="SEND_ALERT_BAD_CERTIFICATE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="264" source="SEND_ALERT_UNEXPECTED_MESSAGE" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="265" source="SEND_ALERT_UNEXPECTED_MESSAGE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="266" source="SEND_ALERT_DECRYPT_ERROR" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="267" source="SEND_ALERT_DECRYPT_ERROR" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="268" source="SEND_ALERT_PROTOCOL_VERSION" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="269" source="SEND_ALERT_PROTOCOL_VERSION" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="270" source="SEND_ALERT_MISSING_EXTENSION" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="271" source="SEND_ALERT_MISSING_EXTENSION" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="272" source="SEND_ALERT_UNSUPPORTED_CERTIFICATE" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="273" source="SEND_ALERT_UNSUPPORTED_CERTIFICATE" target="record_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="274" source="CONNECTION_TERMINATED" target="FINAL">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="275" source="CONNECTION_TERMINATED" target="application_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="276" source="INVALID_CONFIGURATION" target="CONNECTION_TERMINATED">
+        <attvalues>
+          <attvalue for="4" value="black" />
+        </attvalues>
+      </edge>
+      <edge id="277" source="INVALID_CONFIGURATION" target="application_out">
+        <attvalues>
+          <attvalue for="4" value="magenta" />
+        </attvalues>
+      </edge>
+      <edge id="278" source="datastore_in" target="START">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="279" source="retry_request_received" target="WAIT_SH.CHECK_RETRY_REQUEST">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="280" source="certificate_request_received" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="281" source="server_name_received" target="WAIT_EE.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="282" source="max_fragment_length_received" target="WAIT_EE.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="283" source="early_data_received" target="WAIT_EE.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="284" source="status_request_received" target="SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="285" source="certificate_authorities_received" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="286" source="oid_filters_received" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="287" source="signature_algorithms_received" target="PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="288" source="signature_algorithms_received" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="289" source="signature_algorithms_cert_received" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="290" source="server_certificate_type" target="PARSE_CERT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="291" source="configuration" target="START">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="292" source="configuration" target="START.PSK">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="293" source="configuration" target="START.PSK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="294" source="configuration" target="START.DHE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="295" source="configuration" target="START.DHE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="296" source="configuration" target="START.SEND">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="297" source="configuration" target="WAIT_SH.EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="298" source="configuration" target="WAIT_EE.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="299" source="configuration" target="WAIT_EE.DISPATCH">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="300" source="configuration" target="WAIT_EE.PARSE_HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="301" source="configuration" target="WAIT_EE.PARSE_APPLICATION_LAYER_PROTOCOL_NEGOTIATION">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="302" source="configuration" target="WAIT_EE.PARSE_CLIENT_CERTIFICATE_TYPE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="303" source="configuration" target="WAIT_EE.PARSE_SERVER_CERTIFICATE_TYPE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="304" source="configuration" target="PARSE_CERT.PARSE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="305" source="configuration" target="WAIT_CV">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="306" source="configuration" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="307" source="configuration" target="SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="308" source="configuration" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="309" source="configuration" target="CONNECTED.PHA_SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="310" source="extensions_list" target="START.PSK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="311" source="extensions_list" target="START.DHE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="312" source="extensions_list" target="START.SEND">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="313" source="extensions_list" target="WAIT_SH.EXTENSIONS_PSK">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="314" source="extensions_list" target="WAIT_SH.EXTENSIONS_DHE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="315" source="extensions_list" target="WAIT_SH.PARSE_HRR">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="316" source="rng_in" target="START.SEND">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="317" source="ClientHello" target="WAIT_SH.VERIFY">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="318" source="ClientHello" target="WAIT_SH.EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="319" source="ClientHello" target="WAIT_SH.PARSE_HRR">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="320" source="ClientHello" target="WAIT_EE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="321" source="transcript_hash" target="START.READ_PSK_FOR_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="322" source="transcript_hash" target="WAIT_SH">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="323" source="transcript_hash" target="WAIT_SH.PARSE_HRR">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="324" source="transcript_hash" target="WAIT_EE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="325" source="transcript_hash" target="WAIT_EE.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="326" source="transcript_hash" target="PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="327" source="transcript_hash" target="PARSE_CERT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="328" source="transcript_hash" target="WAIT_CV">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="329" source="transcript_hash" target="WAIT_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="330" source="transcript_hash" target="SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="331" source="transcript_hash" target="SEND_EMPTY_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="332" source="transcript_hash" target="SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="333" source="transcript_hash" target="SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="334" source="transcript_hash" target="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="335" source="keystore_in" target="START.READ_PSK_FOR_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="336" source="early_secret" target="START.READ_PSK_FOR_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="337" source="early_secret" target="WAIT_EE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="338" source="client_early_traffic_secret" target="START.READ_PSK_FOR_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="339" source="record_in" target="WAIT_SH">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="340" source="record_in" target="WAIT_EE">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="341" source="record_in" target="WAIT_CERT_CR">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="342" source="record_in" target="WAIT_CERT">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="343" source="record_in" target="WAIT_CV">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="344" source="record_in" target="WAIT_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="345" source="record_in" target="CONNECTED">
+        <attvalues>
+          <attvalue for="4" value="blue" />
+        </attvalues>
+      </edge>
+      <edge id="346" source="ServerHello" target="WAIT_SH">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="347" source="ServerHello" target="WAIT_SH.VERIFY">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="348" source="ServerHello" target="WAIT_SH.CHECK_RETRY_REQUEST">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="349" source="ServerHello" target="WAIT_SH.EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="350" source="ServerHello" target="WAIT_SH.EXTENSIONS_PSK">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="351" source="ServerHello" target="WAIT_SH.EXTENSIONS_DHE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="352" source="ServerHello" target="WAIT_SH.PARSE_HRR">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="353" source="ServerHello" target="WAIT_EE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="354" source="hash_length" target="WAIT_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="355" source="hash_length" target="CONNECTED.NEW_SESSION_TICKET">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="356" source="client_handshake_traffic_secret" target="WAIT_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="357" source="derived_handshake_secret" target="WAIT_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="358" source="EncryptedExtensions" target="WAIT_EE.PARSE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="359" source="EncryptedExtensions" target="WAIT_EE.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="360" source="EncryptedExtensions" target="WAIT_EE.PARSE_SERVER_NAME">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="361" source="EncryptedExtensions" target="WAIT_EE.PARSE_MAX_FRAGMENT_LENGTH">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="362" source="EncryptedExtensions" target="WAIT_EE.PARSE_SUPPORTED_GROUPS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="363" source="EncryptedExtensions" target="WAIT_EE.PARSE_HEARTBEAT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="364" source="EncryptedExtensions" target="WAIT_EE.PARSE_APPLICATION_LAYER_PROTOCOL_NEGOTIATION">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="365" source="EncryptedExtensions" target="WAIT_EE.PARSE_CLIENT_CERTIFICATE_TYPE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="366" source="EncryptedExtensions" target="WAIT_EE.PARSE_SERVER_CERTIFICATE_TYPE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="367" source="EncryptedExtensions" target="WAIT_EE.PARSE_EARLY_DATA">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="368" source="server_name" target="WAIT_EE.PARSE_SERVER_NAME">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="369" source="max_fragment_length" target="WAIT_EE.PARSE_MAX_FRAGMENT_LENGTH">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="370" source="CertificateCrMessage" target="WAIT_CERT_CR">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="371" source="CertificateCrMessage" target="PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="372" source="CertificateCrMessage" target="PARSE_CERT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="373" source="CertificateRequest" target="PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="374" source="CertificateRequest" target="PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="375" source="CertificateRequest" target="PARSE_CERT.PARSE_ENTRIES">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="376" source="status_request" target="SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="377" source="certificate_authorities" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="378" source="oid_filters" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="379" source="signature_algorithms" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="380" source="signature_algorithms" target="SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="381" source="signature_algorithms_cert" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="382" source="Certificate" target="PARSE_CERT">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="383" source="Certificate" target="WAIT_CV">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="384" source="CertificateEntry" target="PARSE_CERT.PARSE_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="385" source="CertificateEntry" target="PARSE_CERT.PARSE_STATUS_REQUEST">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="386" source="CertificateList" target="PARSE_CERT.VERIFY_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="387" source="CertificateVerify" target="WAIT_CV">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="388" source="CertificateVerify" target="SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="389" source="finished_key" target="SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="390" source="finished_key" target="CONNECTED.PHA_SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="391" source="client_application_traffic_secret" target="SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="392" source="client_application_traffic_secret" target="CONNECTED.PHA_SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="393" source="client_application_traffic_secret" target="CONNECTED.SEND_KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="394" source="server_application_traffic_secret" target="SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="395" source="server_application_traffic_secret" target="CONNECTED.KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="396" source="resumption_master_secret" target="CONNECTED.NEW_SESSION_TICKET">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="397" source="certificates" target="CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="398" source="certificates" target="SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="399" source="PostHandshakeMessage" target="CONNECTED.NEW_SESSION_TICKET">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="400" source="PostHandshakeMessage" target="CONNECTED.POST_HANDSHAKE_AUTH">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="401" source="PostHandshakeMessage" target="CONNECTED.KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="402" source="NewSessionTicket" target="CONNECTED.NEW_SESSION_TICKET">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="403" source="PhaCertificateRequest" target="CONNECTED.POST_HANDSHAKE_AUTH">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="404" source="PhaCertificateRequest" target="CONNECTED.PHA_PARSE_CR">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="405" source="PhaCertificateRequest" target="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="406" source="pha_status_request_received" target="CONNECTED.PHA_SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="407" source="pha_status_request" target="CONNECTED.PHA_SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="408" source="pha_certificate_authorities_received" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="409" source="pha_certificate_authorities" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="410" source="pha_oid_filters_received" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="411" source="pha_oid_filters" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="412" source="pha_signature_algorithms_received" target="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="413" source="pha_signature_algorithms_received" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="414" source="pha_signature_algorithms" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="415" source="pha_signature_algorithms" target="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="416" source="pha_signature_algorithms_cert_received" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="417" source="pha_signature_algorithms_cert" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="418" source="pha_transcript_hash" target="CONNECTED.PHA_PARSE_CR.CHECK_EXTENSIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="419" source="pha_transcript_hash" target="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="420" source="pha_transcript_hash" target="CONNECTED.PHA_SEND_FINISHED">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="421" source="pha_certificates" target="CONNECTED.PHA_CHECK_CERTIFICATE_CONDITIONS">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="422" source="pha_certificates" target="CONNECTED.PHA_SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="423" source="PhaCertificate" target="CONNECTED.PHA_SEND_CERTIFICATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="424" source="PhaCertificateVerify" target="CONNECTED.PHA_SEND_CERTIFICATE_VERIFY">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+      <edge id="425" source="KeyUpdate" target="CONNECTED.KEY_UPDATE">
+        <attvalues>
+          <attvalue for="4" value="green" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

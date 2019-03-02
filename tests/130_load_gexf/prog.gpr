@@ -1,0 +1,10 @@
+with "../../build";
+
+project Prog
+is
+   Name := external ("NAME");
+
+   for Main use ("main.adb");
+   for Object_Dir use "../../obj/" & Name;
+   for Source_Dirs use (".", "..");
+end Prog;
