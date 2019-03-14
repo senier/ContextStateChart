@@ -8,7 +8,6 @@ is
 
    function Sin (X : Types.Angle) return Float
    is
-      use type Types.Angle_Base;
    begin
       return Float (EF.Sin (X => Types.Angle_Base (X), Cycle => 360.0));
    end Sin;

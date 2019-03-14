@@ -24,7 +24,7 @@ is
    P11 : Annular_Sector_Params_Type := Polar (Center, 160, 20, 271.0, 299.0);
    P12 : Annular_Sector_Params_Type := Polar (Center, 160, 20, 301.0, 329.0);
 
-   SVG : SCSC.SVG.Document_Type := SCSC.SVG.SVG
+   SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (Width  => 400,
        Height => 400,
        Child  => Circle (Center, 2, Style => "fill: black; stroke: none")

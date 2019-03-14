@@ -1,6 +1,5 @@
 with SCSC.SVG;
 with SCSC.Types;
-with SCSC.Math;
 with SCSC.Primitives;
 
 package SCSC.Graph
@@ -20,64 +19,64 @@ is
    type Edge_Type is tagged private;
    Null_Edge : constant Edge_Type;
 
-   function Edge (Dest        : Natural;
-                  Dir         : Primitives.Dir_Type;
-                  Radius      : Integer;
-                  Source_Port : Port_Type;
-                  Dest_Port   : Port_Type;
-                  Label       : String := "") return Edge_Type;
+   function Create_Edge (Dest        : Natural;
+                         Dir         : Primitives.Dir_Type;
+                         Radius      : Integer;
+                         Source_Port : Port_Type;
+                         Dest_Port   : Port_Type;
+                         Label       : String := "") return Edge_Type;
    --  Create edge
 
-   function Label (Edge : Edge_Type) return String;
+   function Get_Label (Edge : Edge_Type) return String;
    --  Return Label
 
    type Edges_Type is array (Natural range <>) of Edge_Type;
    Null_Edges : constant Edges_Type;
 
-   function Node (Weight      : Positive   := 1;
-                  Level       : Integer    := 0;
-                  Label       : String     := "";
-                  Inner_Ports : Positive   := 1;
-                  Outer_Ports : Positive   := 1;
-                  Edges       : Edges_Type := Null_Edges) return Node_Type;
+   function Create_Node (Weight      : Positive   := 1;
+                         Level       : Integer    := 0;
+                         Label       : String     := "";
+                         Inner_Ports : Positive   := 1;
+                         Outer_Ports : Positive   := 1;
+                         Edges       : Edges_Type := Null_Edges) return Node_Type;
    --  Create node
 
-   function Weight (Node : Node_Type) return Positive;
+   function Get_Weight (Node : Node_Type) return Positive;
    --  Return weight of node
 
-   function Label (Node : Node_Type) return String;
+   function Get_Label (Node : Node_Type) return String;
    --  Return label
 
-   function Edges (Node : Node_Type) return Edges_Type;
+   function Get_Edges (Node : Node_Type) return Edges_Type;
    --  Return edges
 
-   function Ports (Node : Node_Type) return Ports_Type;
+   function Get_Ports (Node : Node_Type) return Ports_Type;
    --  Return ports
 
-   function Polar (Center        : Types.Point;
-                   Offset        : Natural;
-                   Radius        : Natural;
-                   Layer_Spacing : Natural;
-                   Padding       : Natural := 0) return Graph_Params_Type;
+   function Create_Polar (Center        : Types.Point;
+                          Offset        : Natural;
+                          Radius        : Natural;
+                          Layer_Spacing : Natural;
+                          Padding       : Natural := 0) return Graph_Params_Type;
    --  Create graph parameters from center point, offset and radius. Different
    --  layers of the graph have Layer_Spacing pixels of spacing. Ensure padding
    --  (in pixels) between sectors.
 
-   function Center (Params : Graph_Params_Type) return Types.Point;
+   function Get_Center (Params : Graph_Params_Type) return Types.Point;
    --  Return center point from graph parameters
 
-   function Offset (Params : Graph_Params_Type) return Natural;
+   function Get_Offset (Params : Graph_Params_Type) return Natural;
    --  Return offset from graph parameters
 
-   function Radius (Params : Graph_Params_Type) return Natural;
+   function Get_Radius (Params : Graph_Params_Type) return Natural;
    --  Return radius from graph parameters
 
-   function Graph (Params          : Graph_Params_Type;
-                   Data            : Data_Type;
-                   Style           : String := "";
-                   Connector_Style : String := "";
-                   Text_Style      : String := "") return SVG.Element_Type;
-   --  Return graph
+   function Create_Graph (Params          : Graph_Params_Type;
+                          Data            : Data_Type;
+                          Style           : String := "";
+                          Connector_Style : String := "";
+                          Text_Style      : String := "") return SVG.Element_Type;
+   --  Create graph
 
 private
 
@@ -119,12 +118,12 @@ private
    -- Edge --
    ----------
 
-   function Edge (Dest        : Natural;
-                  Dir         : Primitives.Dir_Type;
-                  Radius      : Integer;
-                  Source_Port : Port_Type;
-                  Dest_Port   : Port_Type;
-                  Label       : String := "") return Edge_Type
+   function Create_Edge (Dest        : Natural;
+                         Dir         : Primitives.Dir_Type;
+                         Radius      : Integer;
+                         Source_Port : Port_Type;
+                         Dest_Port   : Port_Type;
+                         Label       : String := "") return Edge_Type
    is
       (Dest        => Dest,
        Dir         => Dir,
@@ -134,7 +133,11 @@ private
        Label_Text  => Label & (Label_Type'First + Label'Length .. Label_Type'Last => ' '),
        Label_Len   => Label'Length);
 
-   Null_Edge  : constant Edge_Type  := Edge (0, Primitives.Dir_Invalid, 0, (0, Primitives.Pos_Invalid), (0, Primitives.Pos_Invalid));
+   Null_Edge  : constant Edge_Type  := Create_Edge (Dest        => 0,
+                                                    Dir         => Primitives.Dir_Invalid,
+                                                    Radius      => 0,
+                                                    Source_Port => (0, Primitives.Pos_Invalid),
+                                                    Dest_Port   => (0, Primitives.Pos_Invalid));
    Null_Edges : constant Edges_Type := (1 .. 0 => Null_Edge);
 
 end SCSC.Graph;

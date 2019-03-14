@@ -31,7 +31,7 @@ is
                                                   (ZClosepath, Absolute)),
                                      Style => "fill: blue");
 
-   SVG : SCSC.SVG.Document_Type := SCSC.SVG.SVG
+   SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (
        Width  => 400,
        Height => 400,

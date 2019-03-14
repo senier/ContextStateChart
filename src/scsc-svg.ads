@@ -68,11 +68,10 @@ is
 
    type Path_Commands_Type is array (Natural range <>) of Path_Command_Type;
 
-
-   function SVG (Width  : Natural;
-                 Height : Natural;
-                 Child  : Element_Type := Null_Element;
-                 Defs   : Element_Type := Null_Element) return Document_Type;
+   function Create_SVG (Width  : Natural;
+                        Height : Natural;
+                        Child  : Element_Type := Null_Element;
+                        Defs   : Element_Type := Null_Element) return Document_Type;
    --  SVG document
 
    function To_String (Document : Document_Type) return String;
@@ -100,14 +99,14 @@ is
 
    type Align_Type is (Align_Start, Align_Centered, Align_End);
 
-   function Text (Position : Types.Point;
-                  Text     : String;
-                  Align    : Align_Type := Align_Centered;
-                  DX       : Types.Length := Types.Invalid_Length;
-                  DY       : Types.Length := Types.Invalid_Length;
-                  Style    : String := "";
-                  Path     : String := "";
-                  ID       : String := "") return Element_Type;
+   function Text (Position  : Types.Point;
+                  Data      : String;
+                  Align     : Align_Type := Align_Centered;
+                  DX        : Types.Length := Types.Invalid_Length;
+                  DY        : Types.Length := Types.Invalid_Length;
+                  Style     : String := "";
+                  Path_Name : String := "";
+                  ID        : String := "") return Element_Type;
    --  Text
 
    function Marker (Element : Element_Type;

@@ -8,13 +8,12 @@ is
 
    G : DR.Generator;
 
-   function Random return Natural
+   function Get_Random return Natural
    is
    begin
       return DR.Random (G);
-   end Random;
+   end Get_Random;
 
 begin
    DR.Reset (G);
 end SCSC.Random;
-

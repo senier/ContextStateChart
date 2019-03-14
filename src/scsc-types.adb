@@ -9,7 +9,7 @@ is
    function Image (L : Length) return String
    is
       package FIO is new Ada.Text_IO.Float_IO (Float);
-      Buffer : String (1..50);
+      Buffer : String (1 .. 50);
       use Ada.Strings;
       use Ada.Strings.Fixed;
    begin
@@ -17,7 +17,7 @@ is
          when Px =>
             return L.Px'Image;
          when Em =>
-            FIO.Put (To => Buffer, Item => L.Em, Aft => 3, Exp => 0); 
+            FIO.Put (To => Buffer, Item => L.Em, Aft => 3, Exp => 0);
             return Trim (Buffer, Both) & "em";
          when others =>
             return "INVALID";
@@ -45,11 +45,11 @@ is
    function Difference (Start, Stop : Angle) return Angle
       is (if Start < Stop then Stop - Start else 360.0 - Start + Stop);
 
-
    -------
    -- + --
    -------
 
+   overriding
    function "+" (Left, Right : Angle) return Angle
    is
    begin

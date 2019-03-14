@@ -1,26 +1,25 @@
-with SXML.Parser;
-with SXML.Query;
-with SCSC.Primitives;
 with Ada.Containers.Generic_Array_Sort;
+with SCSC.Math;
+with SXML;
 
 package body SCSC.Graph is
 
-   -----------
-   -- Label --
-   -----------
+   ---------------
+   -- Get_Label --
+   ---------------
 
-   function Label (Edge : Edge_Type) return String is (Edge.Label_Text (1 .. Edge.Label_Len));
+   function Get_Label (Edge : Edge_Type) return String is (Edge.Label_Text (1 .. Edge.Label_Len));
 
-   ----------
-   -- Node --
-   ----------
+   -----------------
+   -- Create_Node --
+   -----------------
 
-   function Node (Weight      : Positive   := 1;
-                  Level       : Integer    := 0;
-                  Label       : String     := "";
-                  Inner_Ports : Positive   := 1;
-                  Outer_Ports : Positive   := 1;
-                  Edges       : Edges_Type := Null_Edges) return Node_Type
+   function Create_Node (Weight      : Positive   := 1;
+                         Level       : Integer    := 0;
+                         Label       : String     := "";
+                         Inner_Ports : Positive   := 1;
+                         Outer_Ports : Positive   := 1;
+                         Edges       : Edges_Type := Null_Edges) return Node_Type
    is
       (Node_Type'(Weight      => Weight,
                   Level       => Level,
@@ -30,35 +29,35 @@ package body SCSC.Graph is
                   Edges_Data  => Edges & Edges_Type'(Edges'Length + 1 .. Edges_Data_Type'Last => Null_Edge),
                   Edges_Len   => Edges'Length));
 
-   ------------
-   -- Weight --
-   ------------
+   ----------------
+   -- Get_Weight --
+   ----------------
 
-   function Weight (Node : Node_Type) return Positive is (Node.Weight);
+   function Get_Weight (Node : Node_Type) return Positive is (Node.Weight);
 
-   -----------
-   -- Label --
-   -----------
+   ---------------
+   -- Get_Label --
+   ---------------
 
-   function Label (Node : Node_Type) return String is (Node.Label_Text (1 .. Node.Label_Len));
+   function Get_Label (Node : Node_Type) return String is (Node.Label_Text (1 .. Node.Label_Len));
 
-   -----------
-   -- Edges --
-   -----------
+   ---------------
+   -- Get_Edges --
+   ---------------
 
-   function Edges (Node : Node_Type) return Edges_Type is (Node.Edges_Data (1 .. Node.Edges_Len));
+   function Get_Edges (Node : Node_Type) return Edges_Type is (Node.Edges_Data (1 .. Node.Edges_Len));
 
-   -----------
-   -- Edges --
-   -----------
+   ---------------
+   -- Get_Edges --
+   ---------------
 
-   function Ports (Node : Node_Type) return Ports_Type is (Node.Ports);
+   function Get_Ports (Node : Node_Type) return Ports_Type is (Node.Ports);
 
-   -----------
-   -- Polar --
-   -----------
+   ------------------
+   -- Create_Polar --
+   ------------------
 
-   function Polar
+   function Create_Polar
      (Center        : Types.Point;
       Offset        : Natural;
       Radius        : Natural;
@@ -70,29 +69,29 @@ package body SCSC.Graph is
                           Layer_Spacing => Layer_Spacing,
                           Padding       => Padding));
 
-   ------------
-   -- Center --
-   ------------
+   ----------------
+   -- Get_Center --
+   ----------------
 
-   function Center (Params : Graph_Params_Type) return Types.Point is (Params.Center);
+   function Get_Center (Params : Graph_Params_Type) return Types.Point is (Params.Center);
 
-   ------------
-   -- Offset --
-   ------------
+   ----------------
+   -- Get_Offset --
+   ----------------
 
-   function Offset (Params : Graph_Params_Type) return Natural is (Params.Offset);
+   function Get_Offset (Params : Graph_Params_Type) return Natural is (Params.Offset);
 
-   ------------
-   -- Radius --
-   ------------
+   ----------------
+   -- Get_Radius --
+   ----------------
 
-   function Radius (Params : Graph_Params_Type) return Natural is (Params.Radius);
+   function Get_Radius (Params : Graph_Params_Type) return Natural is (Params.Radius);
 
-   -----------
-   -- Graph --
-   -----------
+   ------------------
+   -- Create_Graph --
+   ------------------
 
-   function Graph
+   function Create_Graph
      (Params          : Graph_Params_Type;
       Data            : Data_Type;
       Style           : String := "";
@@ -121,6 +120,8 @@ package body SCSC.Graph is
       end record;
 
       ------------------------------------------------------------------------
+
+      function Get_Levels return Levels_Type;
 
       function Get_Levels return Levels_Type
       is
@@ -151,6 +152,10 @@ package body SCSC.Graph is
 
       function Create_Connector (P      : Params_Type;
                                  Edge   : Edge_Type;
+                                 Offset : Positive) return SVG.Element_Type;
+
+      function Create_Connector (P      : Params_Type;
+                                 Edge   : Edge_Type;
                                  Offset : Positive) return SVG.Element_Type
       is
          Source_Port : constant Port_Type := Edge.Source_Port;
@@ -167,7 +172,7 @@ package body SCSC.Graph is
                                             Port_No   => Dest_Port.Num,
                                             Num_Ports => Data (Edge.Dest).Ports (Dest_Port.Pos)),
              Radius     => Edge.Radius,
-             Text       => Edge.Label,
+             Text       => Edge.Get_Label,
              Marker_End => "End_Arrow",   -- FIXME: Use global CSS instead
              Textstyle  => Text_Style,
              Direction  => Edge.Dir,
@@ -175,6 +180,8 @@ package body SCSC.Graph is
       end Create_Connector;
 
       ------------------------------------------------------------------------
+
+      function Nodes_Per_Level (Level : Integer) return Natural;
 
       function Nodes_Per_Level (Level : Integer) return Natural
       is
@@ -191,6 +198,8 @@ package body SCSC.Graph is
       end Nodes_Per_Level;
 
       ------------------------------------------------------------------------
+
+      function Calculate_Params return Params_Type;
 
       function Calculate_Params return Params_Type
       is
@@ -223,18 +232,18 @@ package body SCSC.Graph is
                      Spacing : constant Types.Angle := Types.Angle
                         (Math.Arcsin (Float (Params.Padding) / Float (Offset + Params.Radius / 2),
                                       Cycle => 360.0));
-                     Circle  : Float := 360.0 - (Float (Nodes_Per_Level (Levels (L).Value)) * Float (Spacing));
-                     Size : Types.Angle := Types.Angle (Circle * Float (Data (I).Weight) / Float (Weights));
-                     Stop : Types.Angle := Start + Size;
-                     AP   : Annular_Sector_Params_Type := Polar (Center => Params.Center,
-                                                                 Offset => Offset,
-                                                                 Radius => Params.Radius,
-                                                                 Start  => Start,
-                                                                 Stop   => Start + Size);
-                     AS   : SVG.Element_Type := Annular_Sector (Params    => AP,
-                                                                Text      => Data (I).Label,
-                                                                Style     => Style,
-                                                                Textstyle => Text_Style);
+                     Circle  : constant Float := 360.0 - (Float (Nodes_Per_Level (Levels (L).Value)) * Float (Spacing));
+                     Size    : constant Types.Angle := Types.Angle (Circle * Float (Data (I).Weight) / Float (Weights));
+                     Stop    : constant Types.Angle := Start + Size;
+                     AP      : constant Annular_Sector_Params_Type := Polar (Center => Params.Center,
+                                                                      Offset => Offset,
+                                                                      Radius => Params.Radius,
+                                                                      Start  => Start,
+                                                                      Stop   => Start + Size);
+                     AS      : constant SVG.Element_Type := Annular_Sector (Params    => AP,
+                                                                            Text      => Data (I).Get_Label,
+                                                                            Style     => Style,
+                                                                            Textstyle => Text_Style);
                   begin
                      Result.Sectors (I) := AP;
                      Result.Length := Result.Length + AS'Length;
@@ -246,10 +255,10 @@ package body SCSC.Graph is
 
          for I in Data'Range
          loop
-            for E of Data (I).Edges
+            for E of Data (I).Get_Edges
             loop
                declare
-                  C : SVG.Element_Type := Create_Connector (Result, E, I);
+                  C : constant SVG.Element_Type := Create_Connector (Result, E, I);
                begin
                   Result.Length := Result.Length + C'Length;
                end;
@@ -266,20 +275,18 @@ package body SCSC.Graph is
       for I in Data'Range
       loop
          declare
-            use type SXML.Index_Type;
-            use type SVG.Element_Type;
-
-            Sector : SVG.Element_Type := Primitives.Annular_Sector (Params    => P.Sectors (I),
-                                                                    Text      => Data (I).Label,
-                                                                    Style     => Style,
-                                                                    Textstyle => Text_Style);
+            Sector : constant SVG.Element_Type :=
+               Primitives.Annular_Sector (Params    => P.Sectors (I),
+                                          Text      => Data (I).Get_Label,
+                                          Style     => Style,
+                                          Textstyle => Text_Style);
          begin
             SXML.Append (SXML.Document_Type (Sectors), Offset, SXML.Document_Type (Sector));
             Offset := Offset + Sector'Length;
-            for E of Data (I).Edges
+            for E of Data (I).Get_Edges
             loop
                declare
-                  C : SVG.Element_Type := Create_Connector (P, E, I);
+                  C : constant SVG.Element_Type := Create_Connector (P, E, I);
                begin
                   SXML.Append (SXML.Document_Type (Sectors), Offset, SXML.Document_Type (C));
                   Offset := Offset + C'Length;
@@ -288,6 +295,6 @@ package body SCSC.Graph is
          end;
       end loop;
       return Sectors;
-   end Graph;
+   end Create_Graph;
 
 end SCSC.Graph;
