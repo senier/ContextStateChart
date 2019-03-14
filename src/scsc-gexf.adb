@@ -22,8 +22,12 @@ package body SCSC.GEXF is
    -- Parse_Levels --
    ------------------
 
+   function Parse_Levels (Levels : String) return Levels_Type;
+
    function Parse_Levels (Levels : String) return Levels_Type
    is
+      function Get_Num_Levels return Natural;
+
       function Get_Num_Levels return Natural
       is
          Result : Natural := 1;
@@ -73,6 +77,10 @@ package body SCSC.GEXF is
 
    function Get_Level (Levels     : String;
                        Level_List : Levels_Type;
+                       Name       : String) return Natural;
+
+   function Get_Level (Levels     : String;
+                       Level_List : Levels_Type;
                        Name       : String) return Natural
    is
       Default_Pos : Natural := 0;
@@ -96,6 +104,8 @@ package body SCSC.GEXF is
    -- Default_Level --
    -------------------
 
+   function Default_Level (Level_List : Levels_Type) return Natural;
+
    function Default_Level (Level_List : Levels_Type) return Natural is
    begin
       for I in Level_List'Range
@@ -111,14 +121,20 @@ package body SCSC.GEXF is
    -- To_Level --
    --------------
 
-   procedure To_Level (Document   :     SXML.Document_Type;
-                       State      :     SXML.Query.State_Type;
+   procedure To_Level (State      :     SXML.Query.State_Type;
+                       Levels     :     String;
+                       Level_List :     Levels_Type;
+                       ID         :     String;
+                       Level      : out Natural);
+
+   procedure To_Level (State      :     SXML.Query.State_Type;
                        Levels     :     String;
                        Level_List :     Levels_Type;
                        ID         :     String;
                        Level      : out Natural)
    is
-      Kind       : SXML.Query.State_Type := SXML.Query.Path (State, Scratch, "/node/attvalues/attvalue[@for=" & ID & "]");
+      Kind       : SXML.Query.State_Type :=
+                     SXML.Query.Path (State, Scratch, "/node/attvalues/attvalue[@for=" & ID & "]");
       Value      : String (1 .. 100);
       Value_Last : Natural;
       Result     : SXML.Result_Type;
@@ -154,12 +170,15 @@ package body SCSC.GEXF is
 
    function Label (Document : SXML.Document_Type;
                    State    : SXML.Query.State_Type;
+                   Max_Len  : Natural := 100) return String;
+
+   function Label (Document : SXML.Document_Type;
+                   State    : SXML.Query.State_Type;
                    Max_Len  : Natural := 100) return String
    is
       Result    : SXML.Result_Type;
       Tmp_Last  : Natural;
-      Tmp_State : SXML.Query.State_Type := SXML.Query.Find_Attribute (State, Document, "label");
-
+      Tmp_State : constant SXML.Query.State_Type := SXML.Query.Find_Attribute (State, Document, "label");
       Tmp_End   : constant Natural := Max_Len;
       Tmp       : String (1 .. Tmp_End) := (others => ASCII.NUL);
       use type SXML.Result_Type;
@@ -181,11 +200,11 @@ package body SCSC.GEXF is
    -- Import --
    ------------
 
-   procedure Import (GEXF     :     String;
-                     Data     : out Graph.Data_Type;
-                     Last     : out Natural;
-                     Level_ID :     String := "";
-                     Levels   :     String := "")
+   procedure Import (GEXF_Data :     String;
+                     Data      : out Graph.Data_Type;
+                     Last      : out Natural;
+                     Level_ID  :     String := "";
+                     Levels    :     String := "")
    is
       Match      : SXML.Parser.Match_Type;
       Result     : SXML.Result_Type;
@@ -200,16 +219,19 @@ package body SCSC.GEXF is
       use type SXML.Result_Type;
    begin
       Last := 0;
-      Data := (others => Graph.Node);
+      Data := (others => Graph.Create_Node);
 
-      SXML.Parser.Parse (GEXF, Scratch, Match, Position);
+      SXML.Parser.Parse (GEXF_Data, Scratch, Match, Position);
       if Match /= SXML.Parser.Match_OK
       then
          return;
       end if;
 
       State := SXML.Query.Init (Scratch);
-      Kind := SXML.Query.Path (State, Scratch, "/gexf/graph/attributes[@class=node]/attribute[@title=" & Level_ID & "]");
+      Kind := SXML.Query.Path
+                  (State        => State,
+                   Document     => Scratch,
+                   Query_String => "/gexf/graph/attributes[@class=node]/attribute[@title=" & Level_ID & "]");
       if Kind.Result /= SXML.Result_OK
       then
          return;
@@ -243,14 +265,13 @@ package body SCSC.GEXF is
             declare
                Level_Num : Natural;
             begin
-               To_Level (Document   => Scratch,
-                         State      => State,
+               To_Level (State      => State,
                          Levels     => Levels,
                          Level_List => Level_List,
                          ID         => ID (ID'First .. ID_Last),
                          Level      => Level_Num);
-               Data (Data'First + Node_Num) := Graph.Node (Label   => Label (Scratch, State),
-                                                           Level   => Level_Num);
+               Data (Data'First + Node_Num) := Graph.Create_Node (Label   => Label (Scratch, State),
+                                                                  Level   => Level_Num);
             end;
             Node_Num := Node_Num + 1;
          end if;

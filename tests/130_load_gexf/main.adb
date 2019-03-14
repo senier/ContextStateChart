@@ -26,11 +26,11 @@ is
    Data : access Data_Type := new Data_Type (1 .. GEXF_File'Length);
    Last : Natural;
 begin
-   Import (GEXF     => GEXF_File,
-           Data     => Data.all,
-           Last     => Last,
-           Level_ID => "kind",
-           Levels   => "channel<<data");
+   Import (GEXF_Data => GEXF_File,
+           Data      => Data.all,
+           Last      => Last,
+           Level_ID  => "kind",
+           Levels    => "channel<<data");
    if Last = 0
    then
       Put_Line ("!!! Invalid GEXF input data !!!");
@@ -38,14 +38,18 @@ begin
    end if;
 
    declare
-      Doc : Document_Type := SVG
+      Doc : Document_Type := Create_SVG
          (Width  => 2000,
           Height => 2000,
-          Child  => Graph (Params => Polar (Center => P (1000, 1000), Offset => 1000, Radius => 20, Layer_Spacing => 80, Padding => 5),
-                           Data   => Data.all (Data.all'First .. Last),
-                           Style  => "fill: yellow; stroke: black",
-                           Text_Style  => "fill: black; stroke: none; font-size: 10px",
-                           Connector_Style => "fill: none; stroke: blue"),
+          Child  => Create_Graph (Params => Create_Polar (Center        => P (1000, 1000),
+                                                          Offset        => 1000,
+                                                          Radius        => 20,
+                                                          Layer_Spacing => 80,
+                                                          Padding       => 5),
+                                  Data   => Data.all (Data.all'First .. Last),
+                                  Style  => "fill: yellow; stroke: black",
+                                  Text_Style  => "fill: black; stroke: none; font-size: 10px",
+                                  Connector_Style => "fill: none; stroke: blue"),
           Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "End_Arrow"));
    begin
       Put_Line (To_String (Doc));

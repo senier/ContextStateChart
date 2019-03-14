@@ -1,4 +1,3 @@
-with SXML.Generator;
 with SCSC.Math;
 with SCSC.Random;
 
@@ -58,9 +57,7 @@ is
                    Start      : Types.Angle;
                    Stop       : Types.Angle) return Arc_Params_Type
    is
-      use Math;
-      use type Types.Angle;
-      Angle : Types.Angle := Types.Difference (Start, Stop);
+      Angle : constant Types.Angle := Types.Difference (Start, Stop);
    begin
       return
         (From       => Polar (Center, Radius, Start),
@@ -80,9 +77,6 @@ is
                        Start  : Types.Point;
                        Length : Integer) return Line_Params_Type
    is
-      use Math;
-      use type Types.Angle;
-
       X_Len  : constant Integer := Start.X - Center.X;
       Y_Len  : constant Integer := Start.Y - Center.Y;
 
@@ -103,13 +97,10 @@ is
                    Stop       : Natural;
                    Angle      : Types.Angle) return Line_Params_Type
    is
-      use Math;
-      use type Types.Angle;
    begin
-
       return
-        (From       => Polar (Center, Start, Angle),
-         To         => Polar (Center, Stop, Angle));
+        (From => Polar (Center, Start, Angle),
+         To   => Polar (Center, Stop, Angle));
    end Polar;
 
    ---------
@@ -121,7 +112,6 @@ is
                  ID     : String  := "") return SCSC.SVG.Element_Type
    is
       use SCSC.SVG;
-      use SXML.Generator;
    begin
       --  FIXME: Create style object to set style
       return Path (Commands =>
@@ -149,7 +139,6 @@ is
                   ID           : String  := "") return SCSC.SVG.Element_Type
    is
       use SCSC.SVG;
-      use SXML.Generator;
    begin
       --  FIXME: Create style object to set style
       return Path (Commands =>
@@ -188,10 +177,12 @@ is
    --------------
 
    function To_Angle (Center : Types.Point;
+                      P      : Types.Point) return Types.Angle;
+
+   function To_Angle (Center : Types.Point;
                       P      : Types.Point) return Types.Angle
    is
       use Math;
-      use type Types.Angle;
       Result : Float;
    begin
       Result := Arctan (Y     => Float (P.Y - Center.Y),
@@ -228,19 +219,19 @@ is
 
       Start_Angle : constant Types.Angle := To_Angle (Center, LP_1.To);
       Stop_Angle  : constant Types.Angle := To_Angle (Center, LP_2.To);
-      Angle       : constant Types.Angle := Difference (Start_Angle, Stop_Angle);
+      Diff_Angle  : constant Types.Angle := Difference (Start_Angle, Stop_Angle);
 
       Arc_Params  : constant Arc_Params_Type :=
          Cartesian (From   => (if Direction = Dir_CW then LP_1.To else LP_2.To),
                     To     => (if Direction = Dir_CW then LP_2.To else LP_1.To),
                     Radius => R,
-                    Large  => (if Direction = Dir_CW then Angle >= 180.0 else Angle <= 180.0),
+                    Large  => (if Direction = Dir_CW then Diff_Angle >= 180.0 else Diff_Angle <= 180.0),
                     Sweep  => True);
 
-      Random_ID : Natural := Random.Random;
-      DY        : Types.Length := (if Direction = Dir_CW
-                                   then (if Position = Pos_Outer then (Em, -0.3) else (Em, 1.0))
-                                   else (if Position = Pos_Outer then (Em, -0.4) else (Em, 0.3)));
+      Random_ID : constant Natural := Random.Get_Random;
+      DY        : constant Types.Length := (if Direction = Dir_CW
+                                            then (if Position = Pos_Outer then (Em, -0.3) else (Em, 1.0))
+                                            else (if Position = Pos_Outer then (Em, -0.4) else (Em, 0.3)));
 
    begin
       return Line (Params       => LP_1,
@@ -254,11 +245,11 @@ is
 
             + (if Text /= ""
                then SVG.Text (Center,
-                              Text  => Text,
-                              Style => Textstyle,
-                              Align => Align,
-                              DY    => DY,
-                              Path  => (if ID /= "" then ID & "2" else To_ID (Random_ID)))
+                              Data      => Text,
+                              Style     => Textstyle,
+                              Align     => Align,
+                              DY        => DY,
+                              Path_Name => (if ID /= "" then ID & "2" else To_ID (Random_ID)))
                else SVG.Null_Element)
 
             + Line (Params       => Points (LP_2.From, LP_2.To),
@@ -308,7 +299,7 @@ is
       use SVG;
       use Types;
 
-      Random_ID : Natural := Random.Random;
+      Random_ID : constant Natural := Random.Get_Random;
    begin
       return Path (Commands =>
                    ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
@@ -336,10 +327,10 @@ is
                              Style  => "fill: none; stroke: none",
                              ID     => To_ID (Random_ID))
                       + SVG.Text (Params.Inner.From,
-                                  Text  => Text,
-                                  Style => Textstyle,
-                                  DY    => (Em, -0.5),
-                                  Path  => To_ID (Random_ID))
+                                  Data      => Text,
+                                  Style     => Textstyle,
+                                  DY        => (Em, -0.5),
+                                  Path_Name => To_ID (Random_ID))
                    else SVG.Null_Element);
 
    end Annular_Sector;
@@ -350,14 +341,17 @@ is
 
    function Port (Params    : Arc_Params_Type;
                   Port_No   : Positive;
+                  Num_Ports : Positive) return Types.Point;
+
+   function Port (Params    : Arc_Params_Type;
+                  Port_No   : Positive;
                   Num_Ports : Positive) return Types.Point
    is
-      use type Types.Angle;
       Start      : constant Types.Angle := To_Angle (Params.Center, Params.From);
       Stop       : constant Types.Angle := To_Angle (Params.Center, Params.To);
       Difference : constant Types.Angle := Types.Difference (Start, Stop);
       Step       : constant Types.Angle := Difference / Types.Angle (Num_Ports);
-      Angle      : Types.Angle := Start + Step / 2.0 + Step * (Types.Angle (Port_No) - 1.0);
+      Angle      : constant Types.Angle := Start + Step / 2.0 + Step * (Types.Angle (Port_No) - 1.0);
    begin
       return Polar (Params.Center, Params.Radius, Angle);
    end Port;

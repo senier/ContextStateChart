@@ -7,17 +7,16 @@ is
 
    use SXML.Generator;
 
-   ---------
-   -- SVG --
-   ---------
+   ----------------
+   -- Create_SVG --
+   ----------------
 
-   function SVG (Width  : Natural;
-                 Height : Natural;
-                 Child  : Element_Type := Null_Element;
-                 Defs   : Element_Type := Null_Element) return Document_Type
+   function Create_SVG (Width  : Natural;
+                        Height : Natural;
+                        Child  : Element_Type := Null_Element;
+                        Defs   : Element_Type := Null_Element) return Document_Type
    is
-      use SXML.Generator;
-      D : SXML.Document_Type := E ("defs", SXML.Document_Type (Defs));
+      D : constant SXML.Document_Type := E ("defs", SXML.Document_Type (Defs));
    begin
       return Document_Type
          (E ("svg",
@@ -28,7 +27,7 @@ is
              (if Child /= Null_Element or Defs /= Null_Element
               then D + SXML.Document_Type (Child)
               else SXML.Null_Document)));
-   end SVG;
+   end Create_SVG;
 
    ---------------
    -- To_String --
@@ -37,7 +36,6 @@ is
    function To_String (Document : Document_Type) return String
    is
       use SXML;
-      use SXML.Serialize;
 
       Result : Result_Type;
       Last   : Natural;
@@ -61,8 +59,12 @@ is
    -- To_String --
    ---------------
 
+   function To_String (C : Path_Command_Type) return String;
+
    function To_String (C : Path_Command_Type) return String
    is
+      function Img (N : Integer) return String;
+
       function Img (N : Integer) return String
       is
       begin
@@ -124,7 +126,7 @@ is
                   Style        : String := "";
                   ID           : String := "") return Element_Type
    is
-      use SXML.Generator;
+      function Total_Len return Natural;
 
       function Total_Len return Natural
       is
@@ -147,7 +149,7 @@ is
          for Command of Commands
          loop
             declare
-               C : String := To_String (Command);
+               C : constant String := To_String (Command);
             begin
                D (L .. L + C'Length - 1) := C;
                D (L + C'Length) := ' ';
@@ -156,10 +158,21 @@ is
          end loop;
          return SCSC.SVG.Element_Type
             (E ("path", A ("d", D)
-                       + (if Marker_Start /= "" then A ("marker-start", "url(#" & Marker_Start & ")") else Null_Attributes)
-                       + (if Marker_End /= "" then A ("marker-end", "url(#" & Marker_End & ")") else Null_Attributes)
-                       + (if ID /= "" then A ("id", ID) else Null_Attributes)
-                       + (if Style /= "" then A ("style", Style) else Null_Attributes)));
+                        + (if Marker_Start /= ""
+                           then A ("marker-start", "url(#" & Marker_Start & ")")
+                           else Null_Attributes)
+
+                        + (if Marker_End /= ""
+                           then A ("marker-end", "url(#" & Marker_End & ")")
+                           else Null_Attributes)
+
+                        + (if ID /= ""
+                           then A ("id", ID)
+                           else Null_Attributes)
+
+                        + (if Style /= ""
+                           then A ("style", Style)
+                           else Null_Attributes)));
       end;
    end Path;
 
@@ -206,40 +219,39 @@ is
    -- Text --
    ----------
 
-   function Text (Position : Types.Point;
-                  Text     : String;
-                  Align    : Align_Type := Align_Centered;
-                  DX       : Types.Length := Types.Invalid_Length;
-                  DY       : Types.Length := Types.Invalid_Length;
-                  Style    : String  := "";
-                  Path     : String  := "";
-                  ID       : String  := "") return Element_Type
+   function Text (Position  : Types.Point;
+                  Data      : String;
+                  Align     : Align_Type := Align_Centered;
+                  DX        : Types.Length := Types.Invalid_Length;
+                  DY        : Types.Length := Types.Invalid_Length;
+                  Style     : String  := "";
+                  Path_Name : String  := "";
+                  ID        : String  := "") return Element_Type
    is
-      use SXML.Generator;
       use type Types.Length;
 
-      Offset : Attributes_Type := A ("startOffset",
-                                     (case Align is
-                                         when Align_Start    => "0%",
-                                         when Align_Centered => "50%",
-                                         when Align_End      => "100%"));
+      Offset : constant Attributes_Type := A ("startOffset",
+                                               (case Align is
+                                                   when Align_Start    => "0%",
+                                                   when Align_Centered => "50%",
+                                                   when Align_End      => "100%"));
 
-      S : String := "text-anchor: " &
+      S : constant String := "text-anchor: " &
          (case Align is
              when Align_Start    => "start",
              when Align_Centered => "middle",
              when Align_End      => "end");
 
-      T : SXML.Document_Type := (if Path /= ""
-                                 then E ("textPath",
-                                         A ("xlink:href", "#" & Path) + Offset + A ("style", S),
-                                         C (Text))
-                                 else C (Text));
+      T : constant SXML.Document_Type := (if Path_Name /= ""
+                                          then E ("textPath",
+                                                  A ("xlink:href", "#" & Path_Name) + Offset + A ("style", S),
+                                                  C (Data))
+                                          else C (Data));
    begin
       return Element_Type
          (E ("text", (if ID /= "" then A ("id", ID) else Null_Attributes)
-                   + (if Path = "" then A ("x", Position.X) else Null_Attributes)
-                   + (if Path = "" then A ("y", Position.Y) else Null_Attributes)
+                   + (if Path_Name = "" then A ("x", Position.X) else Null_Attributes)
+                   + (if Path_Name = "" then A ("y", Position.Y) else Null_Attributes)
                    + (if DX /= Types.Invalid_Length then A ("dx", DX.Image) else Null_Attributes)
                    + (if DY /= Types.Invalid_Length then A ("dy", DY.Image) else Null_Attributes)
                    + A ("style", Style),

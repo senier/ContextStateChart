@@ -33,7 +33,7 @@ is
 
    Arc3 : Element_Type := Arc (Params3, Style  => "stroke: #00ff00; fill: none");
 
-   SVG : SCSC.SVG.Document_Type := SCSC.SVG.SVG
+   SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (Width  => 400,
        Height => 400,
        Child  => Group (Circle (Center, 5, "fill:red") +

@@ -17,7 +17,7 @@ is
    Style_4 : constant String := "fill: none; stroke: green";
    Style_5 : constant String := "fill: none; stroke: cyan";
 
-   SVG : SCSC.SVG.Document_Type := SCSC.SVG.SVG
+   SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (
        Width  => 400,
        Height => 400,

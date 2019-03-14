@@ -16,6 +16,7 @@ is
    type Angle_Base is digits 10 range -360.0 .. 359.9999999999;
    type Angle is new Angle_Base range 0.0 .. Angle_Base'Last;
 
+   overriding
    function "+" (Left, Right : Angle) return Angle;
    --  Modular addition of Angles
 
