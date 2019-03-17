@@ -135,11 +135,8 @@ package body SCSC.GEXF is
                        ID         :     String;
                        Level      : out Natural)
    is
-      Kind       : SXML.Query.State_Type :=
-                     SXML.Query.Path (State, Document, "/node/attvalues/attvalue[@for=" & ID & "]");
-      Value      : String (1 .. 100);
-      Value_Last : Natural;
-      Result     : SXML.Result_Type;
+      Kind   : constant SXML.Query.State_Type :=
+                  SXML.Query.Path (State, Document, "/node/attvalues/attvalue[@for=" & ID & "]");
       use type SXML.Result_Type;
    begin
       if Kind.Result /= SXML.Result_OK
@@ -148,55 +145,17 @@ package body SCSC.GEXF is
          return;
       end if;
 
-      Kind := SXML.Query.Find_Attribute (Kind, Document, "value");
-      if Kind.Result /= SXML.Result_OK
-      then
-         Level := Default_Level (Level_List);
-         return;
-      end if;
+      declare
+         Value : constant String := SXML.Query.Attribute (Kind, Document, "value");
+      begin
+         if Value = "" then
+            return;
+         end if;
 
-      SXML.Query.Value (Kind, Document, Result, Value, Value_Last);
-      if Result /= SXML.Result_OK
-      then
-         Level := Default_Level (Level_List);
-         return;
-      end if;
-
-      Level := Get_Level (Levels, Level_List, Value (Value'First .. Value_Last));
+         Level := Get_Level (Levels, Level_List, Value);
+      end;
 
    end To_Level;
-
-   -----------
-   -- Label --
-   -----------
-
-   function Label (Document : SXML.Document_Type;
-                   State    : SXML.Query.State_Type;
-                   Max_Len  : Natural := 100) return String;
-
-   function Label (Document : SXML.Document_Type;
-                   State    : SXML.Query.State_Type;
-                   Max_Len  : Natural := 100) return String
-   is
-      Result    : SXML.Result_Type;
-      Tmp_Last  : Natural;
-      Tmp_State : constant SXML.Query.State_Type := SXML.Query.Find_Attribute (State, Document, "label");
-      Tmp_End   : constant Natural := Max_Len;
-      Tmp       : String (1 .. Tmp_End) := (others => ASCII.NUL);
-      use type SXML.Result_Type;
-   begin
-      if Tmp_State.Result /= SXML.Result_OK
-      then
-         return "";
-      end if;
-
-      SXML.Query.Value (Tmp_State, Document, Result, Tmp, Tmp_Last);
-      if Result /= SXML.Result_OK
-      then
-         return "";
-      end if;
-      return Tmp (1 .. Tmp_Last);
-   end Label;
 
    --------------
    -- To_Edges --
@@ -209,53 +168,32 @@ package body SCSC.GEXF is
    function To_Edges (Document : SXML.Document_Type;
                       Root     : SXML.Query.State_Type;
                       Node     : SXML.Query.State_Type) return Graph.Edges_Type is
-      Result  : SXML.Result_Type;
-      ID      : String (1 .. 100);
-      ID_Last : Natural;
-      Attr    : SXML.Query.State_Type;
-      Edge    : SXML.Query.State_Type;
-      use type SXML.Result_Type;
-      use Ada.Text_IO;
+      Edge : SXML.Query.State_Type;
    begin
-      Attr := SXML.Query.Find_Attribute (Node, Document, "id");
-      if Attr.Result /= SXML.Result_OK then
-         return Graph.Null_Edges;
-      end if;
+      declare
+         ID : constant String := SXML.Query.Attribute (Node, Document, "id");
+         use type SXML.Result_Type;
+         use Ada.Text_IO;
+      begin
+         if ID = "" then
+            return Graph.Null_Edges;
+         end if;
 
-      SXML.Query.Value (Attr, Document, Result, ID, ID_Last);
-      if Result /= SXML.Result_OK
-      then
-         return Graph.Null_Edges;
-      end if;
+         Edge := SXML.Query.Path
+                     (State        => Root,
+                      Document     => Document,
+                      Query_String => "/gexf/graph/edges/edge[@source=" & ID & "]");
 
-      Edge := SXML.Query.Path
-                  (State        => Root,
-                   Document     => Document,
-                   Query_String => "/gexf/graph/edges/edge[@source=" & ID (ID'First .. ID_Last) & "]");
-
-      while Edge.Result = SXML.Result_OK
-      loop
-         declare
-            Target      : SXML.Query.State_Type;
-            Target_Last : Natural;
-            Target_ID   : String (1 .. 100);
-         begin
-            Target := SXML.Query.Find_Attribute (Edge, Document, "target");
-            if Target.Result /= SXML.Result_OK
-            then
-               return Graph.Null_Edges;
-            end if;
-
-            SXML.Query.Value (Target, Document, Result, Target_ID, Target_Last);
-            if Result /= SXML.Result_OK
-            then
-               return Graph.Null_Edges;
-            end if;
-
-            Put_Line (Standard_Error, ID (ID'First .. ID_Last) & " => " & Target_ID (Target_ID'First .. Target_Last));
-         end;
-         Edge := SXML.Query.Sibling (Edge, Document);
-      end loop;
+         while Edge.Result = SXML.Result_OK
+         loop
+            declare
+               Target : constant String := SXML.Query.Attribute (Edge, Document, "target");
+            begin
+               Ada.Text_IO.Put_Line (Standard_Error, ID & " => " & Target);
+            end;
+            Edge := SXML.Query.Sibling (Edge, Document);
+         end loop;
+      end;
 
       return Graph.Null_Edges;
    end To_Edges;
@@ -273,13 +211,10 @@ package body SCSC.GEXF is
                      Levels    :     String := "")
    is
       Match      : SXML.Parser.Match_Type;
-      Result     : SXML.Result_Type;
       Root       : SXML.Query.State_Type;
       Node       : SXML.Query.State_Type;
       Kind       : SXML.Query.State_Type;
-      ID         : String (1 .. 3);
       Position   : Natural;
-      ID_Last    : Natural;
       Node_Num   : Natural := 0;
       Level_List : constant Levels_Type := Parse_Levels (Levels);
       use type SXML.Parser.Match_Type;
@@ -304,50 +239,44 @@ package body SCSC.GEXF is
          return;
       end if;
 
-      Kind := SXML.Query.Find_Attribute (Kind, Scratch, "id");
-      if Kind.Result /= SXML.Result_OK
-      then
-         return;
-      end if;
+      declare
+         ID : constant String := SXML.Query.Attribute (Kind, Scratch, "id");
+      begin
 
-      SXML.Query.Value (Kind, Scratch, Result, ID, ID_Last);
-      if Result /= SXML.Result_OK
-      then
-         return;
-      end if;
+         Node := SXML.Query.Path (Root, Scratch, "/gexf/graph/nodes/node");
 
-      Node := SXML.Query.Path (Root, Scratch, "/gexf/graph/nodes/node");
+         loop
+            if (Node.Result /= SXML.Result_OK and Node.Result /= SXML.Result_Not_Found) or
+               Node_Num >= Data'Length
+            then
+               return;
+            end if;
 
-      loop
-         if (Node.Result /= SXML.Result_OK and Node.Result /= SXML.Result_Not_Found) or
-            Node_Num >= Data'Length
-         then
-            return;
-         end if;
+            exit when Node.Result = SXML.Result_Not_Found;
 
-         exit when Node.Result = SXML.Result_Not_Found;
+            if SXML.Query.Is_Open (Scratch, Node)
+            then
+               declare
+                  Level_Num : Natural;
+                  Edges     : constant Graph.Edges_Type := To_Edges (Scratch, Root, Node);
+               begin
+                  To_Level (Document   => Scratch,
+                            State      => Node,
+                            Levels     => Levels,
+                            Level_List => Level_List,
+                            ID         => ID,
+                            Level      => Level_Num);
+                  Data (Data'First + Node_Num) :=
+                     Graph.Create_Node (Label => SXML.Query.Attribute (Node, Scratch, "label"),
+                                        Level => Level_Num,
+                                        Edges => Edges);
+               end;
+               Node_Num := Node_Num + 1;
+            end if;
 
-         if SXML.Query.Is_Open (Scratch, Node)
-         then
-            declare
-               Level_Num : Natural;
-               Edges     : constant Graph.Edges_Type := To_Edges (Scratch, Root, Node);
-            begin
-               To_Level (Document   => Scratch,
-                         State      => Node,
-                         Levels     => Levels,
-                         Level_List => Level_List,
-                         ID         => ID (ID'First .. ID_Last),
-                         Level      => Level_Num);
-               Data (Data'First + Node_Num) := Graph.Create_Node (Label => Label (Scratch, Node),
-                                                                  Level => Level_Num,
-                                                                  Edges => Edges);
-            end;
-            Node_Num := Node_Num + 1;
-         end if;
-
-         Node := SXML.Query.Sibling (Node, Scratch);
-      end loop;
+            Node := SXML.Query.Sibling (Node, Scratch);
+         end loop;
+      end;
 
       Last := Data'First + Node_Num - 1;
 
