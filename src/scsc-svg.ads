@@ -1,4 +1,4 @@
-with SXML;
+with SXML.Serialize;
 with SCSC.Types;
 
 package SCSC.SVG
@@ -75,6 +75,12 @@ is
    --  SVG document
 
    function To_String (Document : Document_Type) return String;
+   --  Serialize SVG document
+
+   procedure To_String (Document :        Document_Type;
+                        Output   :    out String;
+                        Last     :    out Integer;
+                        Stack    : in out SXML.Serialize.Stack_Type);
    --  Serialize SVG document
 
    function Path (Commands     : Path_Commands_Type;

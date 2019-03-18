@@ -1,7 +1,6 @@
+with SCSC.Primitives;
 with SXML.Parser;
 with SXML.Query;
-
-with Ada.Text_IO; --  use Ada.Text_IO;
 
 package body SCSC.GEXF is
 
@@ -157,23 +156,60 @@ package body SCSC.GEXF is
 
    end To_Level;
 
+   -----------------
+   -- Node_Offset --
+   -----------------
+
+   function Node_Offset (Document : SXML.Document_Type;
+                         Root     : SXML.Query.State_Type;
+                         Node_ID  : String) return Integer;
+
+   function Node_Offset (Document : SXML.Document_Type;
+                         Root     : SXML.Query.State_Type;
+                         Node_ID  : String) return Integer
+   is
+      Edge : SXML.Query.State_Type := SXML.Query.Path
+                                        (State        => Root,
+                                         Document     => Document,
+                                         Query_String => "/gexf/graph/nodes/node");
+      Offset : Integer := 0;
+      use type SXML.Result_Type;
+   begin
+      while Edge.Result = SXML.Result_OK loop
+         if SXML.Query.Is_Open (Document, Edge) then
+            declare
+               ID : constant String := SXML.Query.Attribute (Edge, Document, "id");
+            begin
+               if ID = Node_ID then
+                  return Offset;
+               end if;
+            end;
+            Offset := Offset + 1;
+         end if;
+         Edge := SXML.Query.Sibling (Edge, Document);
+      end loop;
+      return -1;
+   end Node_Offset;
+
    --------------
    -- To_Edges --
    --------------
 
-   function To_Edges (Document : SXML.Document_Type;
-                      Root     : SXML.Query.State_Type;
-                      Node     : SXML.Query.State_Type) return Graph.Edges_Type;
+   function To_Edges (Document   : SXML.Document_Type;
+                      Root       : SXML.Query.State_Type;
+                      Node       : SXML.Query.State_Type;
+                      First_Node : Natural) return Graph.Edges_Type;
 
-   function To_Edges (Document : SXML.Document_Type;
-                      Root     : SXML.Query.State_Type;
-                      Node     : SXML.Query.State_Type) return Graph.Edges_Type is
+   function To_Edges (Document   : SXML.Document_Type;
+                      Root       : SXML.Query.State_Type;
+                      Node       : SXML.Query.State_Type;
+                      First_Node : Natural) return Graph.Edges_Type is
       Edge : SXML.Query.State_Type;
    begin
       declare
-         ID : constant String := SXML.Query.Attribute (Node, Document, "id");
+         ID        : constant String := SXML.Query.Attribute (Node, Document, "id");
+         Num_Edges : Natural := 0;
          use type SXML.Result_Type;
-         use Ada.Text_IO;
       begin
          if ID = "" then
             return Graph.Null_Edges;
@@ -182,20 +218,55 @@ package body SCSC.GEXF is
          Edge := SXML.Query.Path
                      (State        => Root,
                       Document     => Document,
-                      Query_String => "/gexf/graph/edges/edge[@source=" & ID & "]");
+                      Query_String => "/gexf/graph/edges/edge");
 
          while Edge.Result = SXML.Result_OK
          loop
-            declare
-               Target : constant String := SXML.Query.Attribute (Edge, Document, "target");
-            begin
-               Ada.Text_IO.Put_Line (Standard_Error, ID & " => " & Target);
-            end;
+            if
+               SXML.Query.Has_Attribute (Edge, Document, "source")
+               and then SXML.Query.Attribute (Edge, Document, "source") = ID
+            then
+               Num_Edges := Num_Edges + 1;
+            end if;
             Edge := SXML.Query.Sibling (Edge, Document);
          end loop;
-      end;
 
-      return Graph.Null_Edges;
+         Edge := SXML.Query.Path
+                     (State        => Root,
+                      Document     => Document,
+                      Query_String => "/gexf/graph/edges/edge");
+
+         declare
+            NE : constant Natural := Num_Edges;
+            Result   : Graph.Edges_Type (1 .. NE) := (others => Graph.Null_Edge);
+            Position : Natural := 1;
+         begin
+            while Edge.Result = SXML.Result_OK
+            loop
+               if
+                  SXML.Query.Has_Attribute (Edge, Document, "source")
+                  and then SXML.Query.Attribute (Edge, Document, "source") = ID
+                  and then SXML.Query.Has_Attribute (Edge, Document, "target")
+               then
+                  declare
+                     Target : constant String := SXML.Query.Attribute (Edge, Document, "target");
+                     Offset : constant Integer := Node_Offset (Document, Root, Target);
+                     Index  : constant Natural := First_Node + Offset;
+                  begin
+                     Result (Position) := Graph.Create_Edge (Dest        => Index,
+                                                             Dir         => Primitives.Dir_CW,
+                                                             Radius      => 20,
+                                                             Source_Port => (1, Primitives.Pos_Outer),
+                                                             Dest_Port   => (1, Primitives.Pos_Outer),
+                                                             Label       => "Invalid");
+                  end;
+                  Position := Position + 1;
+               end if;
+               Edge := SXML.Query.Sibling (Edge, Document);
+            end loop;
+            return Result;
+         end;
+      end;
    end To_Edges;
 
    ------------
@@ -258,7 +329,7 @@ package body SCSC.GEXF is
             then
                declare
                   Level_Num : Natural;
-                  Edges     : constant Graph.Edges_Type := To_Edges (Scratch, Root, Node);
+                  Edges     : constant Graph.Edges_Type := To_Edges (Scratch, Root, Node, Data'First);
                begin
                   To_Level (Document   => Scratch,
                             State      => Node,
@@ -273,7 +344,6 @@ package body SCSC.GEXF is
                end;
                Node_Num := Node_Num + 1;
             end if;
-
             Node := SXML.Query.Sibling (Node, Scratch);
          end loop;
       end;
