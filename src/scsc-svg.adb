@@ -1,5 +1,4 @@
 with SXML.Generator;
-with SXML.Serialize;
 
 package body SCSC.SVG
    with SPARK_Mode => On
@@ -51,7 +50,28 @@ is
       then
          return Temp (1 .. Last);
       else
-         return "#INVALID#";
+         return "#INVALID#: " & Result'Img;
+      end if;
+   end To_String;
+
+   procedure To_String (Document :        Document_Type;
+                        Output   :    out String;
+                        Last     :    out Integer;
+                        Stack    : in out SXML.Serialize.Stack_Type)
+   is
+      use SXML;
+      Result : Result_Type;
+   begin
+      SXML.Serialize.To_String
+         (Document => SXML.Document_Type (Document),
+          Data     => Output,
+          Last     => Last,
+          Result   => Result,
+          Buffer   => Stack);
+
+      if Result /= Result_OK
+      then
+         Last := -1;
       end if;
    end To_String;
 

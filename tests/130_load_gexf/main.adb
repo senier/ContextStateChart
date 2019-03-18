@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Util;
+with SXML.Serialize;
 with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
@@ -23,8 +24,11 @@ is
 
    GEXF_File : String := Util.Read_File ("tests/data/client_handshake_states.gexf").all;
 
-   Data : access Data_Type := new Data_Type (1 .. GEXF_File'Length);
+   Data   : access Data_Type := new Data_Type (1 .. GEXF_File'Length);
+   Output : access String := new String (1 .. 1000000);
+   Stack  : access SXML.Serialize.Stack_Type := new SXML.Serialize.Stack_Type (1 .. 10000);
    Last : Natural;
+   Output_Last : Integer;
 begin
    Import (GEXF_Data => GEXF_File,
            Data      => Data.all,
@@ -52,6 +56,12 @@ begin
                                   Connector_Style => "fill: none; stroke: blue"),
           Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "End_Arrow"));
    begin
-      Put_Line (To_String (Doc));
+      To_String (Doc, Output.all, Output_Last, Stack.all);
+      if Output_Last >= 0 then
+         Put_Line (Output.all (Output'First .. Output_Last));
+      else
+         Put_Line ("#Invalid#");
+      end if;
    end;
+
 end Main;
