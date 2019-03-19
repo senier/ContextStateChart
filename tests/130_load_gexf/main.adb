@@ -33,7 +33,8 @@ begin
    Import (GEXF_Data => GEXF_File,
            Data      => Data.all,
            Last      => Last,
-           Level_ID  => "kind",
+           Label     => "xlabel",
+           Level     => "kind",
            Levels    => "channel<<data");
    if Last = 0
    then
