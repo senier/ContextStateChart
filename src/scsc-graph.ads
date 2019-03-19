@@ -114,30 +114,15 @@ private
       Radius      : Integer;
    end record;
 
-   ----------
-   -- Edge --
-   ----------
+   Null_Edge  : constant Edge_Type :=
+      (Dest        => 0,
+       Dir         => Primitives.Dir_Invalid,
+       Radius      => 0,
+       Source_Port => (0, Primitives.Pos_Invalid),
+       Dest_Port   => (0, Primitives.Pos_Invalid),
+       Label_Text  => (others => ' '),
+       Label_Len   => 0);
 
-   function Create_Edge (Dest        : Natural;
-                         Dir         : Primitives.Dir_Type;
-                         Radius      : Integer;
-                         Source_Port : Port_Type;
-                         Dest_Port   : Port_Type;
-                         Label       : String := "") return Edge_Type
-   is
-      (Dest        => Dest,
-       Dir         => Dir,
-       Radius      => Radius,
-       Source_Port => Source_Port,
-       Dest_Port   => Dest_Port,
-       Label_Text  => Label & (Label_Type'First + Label'Length .. Label_Type'Last => ' '),
-       Label_Len   => Label'Length);
-
-   Null_Edge  : constant Edge_Type  := Create_Edge (Dest        => 0,
-                                                    Dir         => Primitives.Dir_Invalid,
-                                                    Radius      => 0,
-                                                    Source_Port => (0, Primitives.Pos_Invalid),
-                                                    Dest_Port   => (0, Primitives.Pos_Invalid));
    Null_Edges : constant Edges_Type := (1 .. 0 => Null_Edge);
 
 end SCSC.Graph;

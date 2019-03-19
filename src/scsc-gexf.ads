@@ -5,7 +5,8 @@ package SCSC.GEXF is
    procedure Import (GEXF_Data :     String;
                      Data      : out Graph.Data_Type;
                      Last      : out Natural;
-                     Level_ID  :     String := "";
+                     Label     :     String := "";
+                     Level     :     String := "";
                      Levels    :     String := "")
    with
       SPARK_Mode,

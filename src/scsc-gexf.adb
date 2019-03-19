@@ -198,11 +198,13 @@ package body SCSC.GEXF is
    function To_Edges (Document   : SXML.Document_Type;
                       Root       : SXML.Query.State_Type;
                       Node       : SXML.Query.State_Type;
+                      Label_ID   : String;
                       First_Node : Natural) return Graph.Edges_Type;
 
    function To_Edges (Document   : SXML.Document_Type;
                       Root       : SXML.Query.State_Type;
                       Node       : SXML.Query.State_Type;
+                      Label_ID   : String;
                       First_Node : Natural) return Graph.Edges_Type is
       Edge : SXML.Query.State_Type;
    begin
@@ -252,13 +254,19 @@ package body SCSC.GEXF is
                      Target : constant String := SXML.Query.Attribute (Edge, Document, "target");
                      Offset : constant Integer := Node_Offset (Document, Root, Target);
                      Index  : constant Natural := First_Node + Offset;
+
+                     Label_State : constant SXML.Query.State_Type :=
+                        SXML.Query.Path (Edge, Document, "/edge/attvalues/attvalue[@for=" & Label_ID & "]");
+                     Label  : constant String := (if Label_State.Result = SXML.Result_OK
+                                                  then SXML.Query.Attribute (Label_State, Document, "value")
+                                                  else "");
                   begin
                      Result (Position) := Graph.Create_Edge (Dest        => Index,
                                                              Dir         => Primitives.Dir_CW,
                                                              Radius      => 20,
                                                              Source_Port => (1, Primitives.Pos_Outer),
                                                              Dest_Port   => (1, Primitives.Pos_Outer),
-                                                             Label       => "Invalid");
+                                                             Label       => Label);
                   end;
                   Position := Position + 1;
                end if;
@@ -278,16 +286,18 @@ package body SCSC.GEXF is
    procedure Import (GEXF_Data :     String;
                      Data      : out Graph.Data_Type;
                      Last      : out Natural;
-                     Level_ID  :     String := "";
+                     Label     :     String := "";
+                     Level     :     String := "";
                      Levels    :     String := "")
    is
-      Match      : SXML.Parser.Match_Type;
-      Root       : SXML.Query.State_Type;
-      Node       : SXML.Query.State_Type;
-      Kind       : SXML.Query.State_Type;
-      Position   : Natural;
-      Node_Num   : Natural := 0;
-      Level_List : constant Levels_Type := Parse_Levels (Levels);
+      Match       : SXML.Parser.Match_Type;
+      Root        : SXML.Query.State_Type;
+      Node        : SXML.Query.State_Type;
+      Level_State : SXML.Query.State_Type;
+      Label_State : SXML.Query.State_Type;
+      Position    : Natural;
+      Node_Num    : Natural := 0;
+      Level_List  : constant Levels_Type := Parse_Levels (Levels);
       use type SXML.Parser.Match_Type;
       use type SXML.Result_Type;
    begin
@@ -301,17 +311,25 @@ package body SCSC.GEXF is
       end if;
 
       Root := SXML.Query.Init (Scratch);
-      Kind := SXML.Query.Path
-                  (State        => Root,
-                   Document     => Scratch,
-                   Query_String => "/gexf/graph/attributes[@class=node]/attribute[@title=" & Level_ID & "]");
-      if Kind.Result /= SXML.Result_OK
+      Level_State := SXML.Query.Path
+                       (State        => Root,
+                        Document     => Scratch,
+                        Query_String => "/gexf/graph/attributes[@class=node]/attribute[@title=" & Level & "]");
+
+      Label_State := SXML.Query.Path
+                       (State        => Root,
+                        Document     => Scratch,
+                        Query_String => "/gexf/graph/attributes[@class=edge]/attribute[@title=" & Label & "]");
+
+      if Level_State.Result /= SXML.Result_OK
+         or Label_State.Result /= SXML.Result_OK
       then
          return;
       end if;
 
       declare
-         ID : constant String := SXML.Query.Attribute (Kind, Scratch, "id");
+         Level_ID : constant String := SXML.Query.Attribute (Level_State, Scratch, "id");
+         Label_ID : constant String := SXML.Query.Attribute (Label_State, Scratch, "id");
       begin
 
          Node := SXML.Query.Path (Root, Scratch, "/gexf/graph/nodes/node");
@@ -329,13 +347,17 @@ package body SCSC.GEXF is
             then
                declare
                   Level_Num : Natural;
-                  Edges     : constant Graph.Edges_Type := To_Edges (Scratch, Root, Node, Data'First);
+                  Edges     : constant Graph.Edges_Type := To_Edges (Document   => Scratch,
+                                                                     Root       => Root,
+                                                                     Node       => Node,
+                                                                     Label_ID   => Label_ID,
+                                                                     First_Node => Data'First);
                begin
                   To_Level (Document   => Scratch,
                             State      => Node,
                             Levels     => Levels,
                             Level_List => Level_List,
-                            ID         => ID,
+                            ID         => Level_ID,
                             Level      => Level_Num);
                   Data (Data'First + Node_Num) :=
                      Graph.Create_Node (Label => SXML.Query.Attribute (Node, Scratch, "label"),

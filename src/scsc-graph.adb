@@ -297,4 +297,30 @@ package body SCSC.Graph is
       return Sectors;
    end Create_Graph;
 
+   -----------------
+   -- Create_Edge --
+   -----------------
+
+   function Create_Edge (Dest        : Natural;
+                         Dir         : Primitives.Dir_Type;
+                         Radius      : Integer;
+                         Source_Port : Port_Type;
+                         Dest_Port   : Port_Type;
+                         Label       : String := "") return Edge_Type
+   is
+      Label_Length : constant Natural := (if Label'Length > Label_Type'Last - Label_Type'First + 1
+                                          then Label_Type'Last - Label_Type'First + 1
+                                          else Label'Length);
+   begin
+      return
+         (Dest        => Dest,
+          Dir         => Dir,
+          Radius      => Radius,
+          Source_Port => Source_Port,
+          Dest_Port   => Dest_Port,
+          Label_Text  => Label (Label'First .. Label'First + Label_Length - 1)
+                         & (Label_Type'First + Label_Length .. Label_Type'Last => ' '),
+          Label_Len   => Label_Length);
+   end Create_Edge;
+
 end SCSC.Graph;
