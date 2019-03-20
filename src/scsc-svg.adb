@@ -144,7 +144,7 @@ is
                   Marker_Start : String := "";
                   Marker_End   : String := "";
                   Style        : String := "";
-                  ID           : String := "") return Element_Type
+                  PID          : String := "") return Element_Type
    is
       function Total_Len return Natural;
 
@@ -186,8 +186,8 @@ is
                            then A ("marker-end", "url(#" & Marker_End & ")")
                            else Null_Attributes)
 
-                        + (if ID /= ""
-                           then A ("id", ID)
+                        + (if PID /= ""
+                           then A ("id", PID)
                            else Null_Attributes)
 
                         + (if Style /= ""
@@ -208,11 +208,11 @@ is
    -----------
 
    function Group (Element : Element_Type;
-                   ID      : String := "") return Element_Type
+                   GID     : String := "") return Element_Type
    is
    begin
       return Element_Type (E ("g",
-                           (if ID /= "" then A ("id", ID) else Null_Attributes),
+                           (if GID /= "" then A ("id", GID) else Null_Attributes),
                            SXML.Document_Type (Element)));
    end Group;
 
@@ -223,12 +223,12 @@ is
    function Circle (Center : Types.Point;
                     Radius : Natural;
                     Style  : String := "";
-                    ID     : String := "") return Element_Type
+                    CID    : String := "") return Element_Type
    is
    begin
       return Element_Type
          (E ("circle",
-             (if ID /= "" then A ("id", ID) else Null_Attributes) +
+             (if CID /= "" then A ("id", CID) else Null_Attributes) +
              A ("cx", Center.X) +
              A ("cy", Center.Y) +
              A ("r", Radius) +
@@ -246,7 +246,7 @@ is
                   DY        : Types.Length := Types.Invalid_Length;
                   Style     : String  := "";
                   Path_Name : String  := "";
-                  ID        : String  := "") return Element_Type
+                  TID       : String  := "") return Element_Type
    is
       use type Types.Length;
 
@@ -269,7 +269,7 @@ is
                                           else C (Data));
    begin
       return Element_Type
-         (E ("text", (if ID /= "" then A ("id", ID) else Null_Attributes)
+         (E ("text", (if TID /= "" then A ("id", TID) else Null_Attributes)
                    + (if Path_Name = "" then A ("x", Position.X) else Null_Attributes)
                    + (if Path_Name = "" then A ("y", Position.Y) else Null_Attributes)
                    + (if DX /= Types.Invalid_Length then A ("dx", DX.Image) else Null_Attributes)
@@ -287,12 +287,12 @@ is
                     Height  : Natural;
                     RefX    : Float;
                     RefY    : Float;
-                    ID      : String) return Element_Type
+                    MID     : String) return Element_Type
    is
    begin
       return Element_Type
          (E ("marker",
-             A ("id", ID) +
+             A ("id", MID) +
              A ("orient", "auto") +
              A ("markerWidth", Width) +
              A ("markerHeight", Height) +

@@ -48,7 +48,7 @@ package body SCSC.Graph is
    function Get_Edges (Node : Node_Type) return Edges_Type is (Node.Edges_Data (1 .. Node.Edges_Len));
 
    ---------------
-   -- Get_Edges --
+   -- Get_Ports --
    ---------------
 
    function Get_Ports (Node : Node_Type) return Ports_Type is (Node.Ports);
@@ -94,6 +94,7 @@ package body SCSC.Graph is
    function Create_Graph
      (Params          : Graph_Params_Type;
       Data            : Data_Type;
+      GID             : String := "";
       Style           : String := "";
       Connector_Style : String := "";
       Text_Style      : String := "") return SVG.Element_Type
@@ -152,11 +153,13 @@ package body SCSC.Graph is
 
       function Create_Connector (P      : Params_Type;
                                  Edge   : Edge_Type;
-                                 Offset : Positive) return SVG.Element_Type;
+                                 Offset : Positive;
+                                 CID    : String) return SVG.Element_Type;
 
       function Create_Connector (P      : Params_Type;
                                  Edge   : Edge_Type;
-                                 Offset : Positive) return SVG.Element_Type
+                                 Offset : Positive;
+                                 CID    : String) return SVG.Element_Type
       is
          Source_Port : constant Port_Type := Edge.Source_Port;
          Dest_Port   : constant Port_Type := Edge.Dest_Port;
@@ -172,6 +175,7 @@ package body SCSC.Graph is
                                             Port_No   => Dest_Port.Num,
                                             Num_Ports => Data (Edge.Dest).Ports (Dest_Port.Pos)),
              Radius     => Edge.Radius,
+             COID       => CID,
              Text       => Edge.Get_Label,
              Marker_End => "End_Arrow",   -- FIXME: Use global CSS instead
              Textstyle  => Text_Style,
@@ -236,14 +240,15 @@ package body SCSC.Graph is
                      Size    : constant Types.Angle := Types.Angle (Circle * Float (Data (I).Weight) / Float (Weights));
                      Stop    : constant Types.Angle := Start + Size;
                      AP      : constant Annular_Sector_Params_Type := Polar (Center => Params.Center,
-                                                                      Offset => Offset,
-                                                                      Radius => Params.Radius,
-                                                                      Start  => Start,
-                                                                      Stop   => Start + Size);
+                                                                             Offset => Offset,
+                                                                             Radius => Params.Radius,
+                                                                             Start  => Start,
+                                                                             Stop   => Start + Size);
                      AS      : constant SVG.Element_Type := Annular_Sector (Params    => AP,
                                                                             Text      => Data (I).Get_Label,
                                                                             Style     => Style,
-                                                                            Textstyle => Text_Style);
+                                                                            Textstyle => Text_Style,
+                                                                            ASID      => GID & "_AS_" & To_ID (I));
                   begin
                      Result.Sectors (I) := AP;
                      Result.Length := Result.Length + AS'Length;
@@ -258,7 +263,8 @@ package body SCSC.Graph is
             for E of Data (I).Get_Edges
             loop
                declare
-                  C : constant SVG.Element_Type := Create_Connector (Result, E, I);
+                  Connector_ID : constant String := GID & "_C_" & To_ID (I) & "_" & To_ID (E.Dest);
+                  C : constant SVG.Element_Type := Create_Connector (Result, E, I, Connector_ID);
                begin
                   Result.Length := Result.Length + C'Length;
                end;
@@ -279,14 +285,17 @@ package body SCSC.Graph is
                Primitives.Annular_Sector (Params    => P.Sectors (I),
                                           Text      => Data (I).Get_Label,
                                           Style     => Style,
-                                          Textstyle => Text_Style);
+                                          Textstyle => Text_Style,
+                                          ASID      => GID & "_AS_" & To_ID (I));
          begin
             SXML.Append (SXML.Document_Type (Sectors), Offset, SXML.Document_Type (Sector));
             Offset := Offset + Sector'Length;
-            for E of Data (I).Get_Edges
+            for J in Data (I).Get_Edges'Range
             loop
                declare
-                  C : constant SVG.Element_Type := Create_Connector (P, E, I);
+                  E : constant Edge_Type := Data (I).Get_Edges (J);
+                  Connector_ID : constant String := GID & "_C_" & To_ID (I) & "_" & To_ID (J);
+                  C : constant SVG.Element_Type := Create_Connector (P, E, I, Connector_ID);
                begin
                   SXML.Append (SXML.Document_Type (Sectors), Offset, SXML.Document_Type (C));
                   Offset := Offset + C'Length;

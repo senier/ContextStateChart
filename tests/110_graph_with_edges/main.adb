@@ -44,10 +44,11 @@ is
                                                              Edges => (1 => Create_Edge (1, Dir_CW, 20, (1, Pos_Outer), (1, Pos_Outer), "4 ⇒ 1"),
                                                                        2 => Create_Edge (3, Dir_CCW, -30, (1, Pos_Inner), (3, Pos_Inner), "4 ⇒ 3"),
                                                                        3 => Create_Edge (2, Dir_CW, -50, (2, Pos_Inner), (2, Pos_Inner), "4 ⇒ 2")))),
+                               GID => "Graph1",
                                Style  => "fill: yellow; stroke: black",
                                Text_Style  => "fill: green; stroke: none; font-size: 10px",
                                Connector_Style => "fill: none; stroke: blue"),
-       Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "End_Arrow")
+       Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "End_Arrow")
       );
 begin
    Put_Line (To_String (Doc));

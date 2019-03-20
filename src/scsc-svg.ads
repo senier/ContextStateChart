@@ -87,11 +87,11 @@ is
                   Marker_Start : String := "";
                   Marker_End   : String := "";
                   Style        : String := "";
-                  ID           : String := "") return Element_Type;
+                  PID          : String := "") return Element_Type;
    --  Create element from path commands
 
    function Group (Element : Element_Type;
-                   ID      : String := "") return Element_Type;
+                   GID     : String := "") return Element_Type;
    --  Group elements
 
    function "+" (Left, Right : Element_Type) return Element_Type;
@@ -100,7 +100,7 @@ is
    function Circle (Center : Types.Point;
                     Radius : Natural;
                     Style  : String := "";
-                    ID     : String := "") return Element_Type;
+                    CID    : String := "") return Element_Type;
    --  Circle
 
    type Align_Type is (Align_Start, Align_Centered, Align_End);
@@ -112,7 +112,7 @@ is
                   DY        : Types.Length := Types.Invalid_Length;
                   Style     : String := "";
                   Path_Name : String := "";
-                  ID        : String := "") return Element_Type;
+                  TID       : String := "") return Element_Type;
    --  Text
 
    function Marker (Element : Element_Type;
@@ -120,7 +120,7 @@ is
                     Height  : Natural;
                     RefX    : Float;
                     RefY    : Float;
-                    ID      : String) return Element_Type;
+                    MID     : String) return Element_Type;
    --  Return marker
 
 private

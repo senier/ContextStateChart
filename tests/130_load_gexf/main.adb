@@ -55,7 +55,7 @@ begin
                                   Style  => "fill: yellow; stroke: black",
                                   Text_Style  => "fill: black; stroke: none; font-size: 10px",
                                   Connector_Style => "fill: none; stroke: blue"),
-          Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "End_Arrow"));
+          Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "End_Arrow"));
    begin
       To_String (Doc, Output.all, Output_Last, Stack.all);
       if Output_Last >= 0 then
