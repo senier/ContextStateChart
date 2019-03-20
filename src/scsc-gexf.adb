@@ -360,9 +360,10 @@ package body SCSC.GEXF is
                             ID         => Level_ID,
                             Level      => Level_Num);
                   Data (Data'First + Node_Num) :=
-                     Graph.Create_Node (Label => SXML.Query.Attribute (Node, Scratch, "label"),
-                                        Level => Level_Num,
-                                        Edges => Edges);
+                     Graph.Create_Node (Label  => SXML.Query.Attribute (Node, Scratch, "label"),
+                                        Level  => Level_Num,
+                                        Edges  => Edges,
+                                        Weight => (if Edges'Length > 0 then Edges'Length else 1));
                end;
                Node_Num := Node_Num + 1;
             end if;
