@@ -35,21 +35,24 @@ is
                             Text      => "Outer/Default",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 10,
-                            Style     => "fill: none; stroke: red")
+                            Style     => "fill: none; stroke: red",
+                            COID      => "C1")
 
                + Connector (Center, P (65, 100), P (180, 50),
                             Text      => "Outer/Start/CW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 20,
                             Align     => SCSC.SVG.Align_Start,
-                            Style     => "fill: none; stroke: red")
+                            Style     => "fill: none; stroke: red",
+                            COID      => "C2")
 
                + Connector (Center, P (200, 30), P (320, 100),
                             Text      => "Outer/Center/CW",
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
                             Align     => SCSC.SVG.Align_Centered,
-                            Style     => "fill: none; stroke: red")
+                            Style     => "fill: none; stroke: red",
+                            COID      => "C3")
 
                + Circle (P (340, 130), 5, Style => "fill: red; stroke: none")
                + Circle (P (380, 240), 5, Style => "fill: green; stroke: none")
@@ -59,7 +62,8 @@ is
                             Textstyle => "font-size: 10px; fill: blue; stroke: none",
                             Radius    => 15,
                             Align     => SCSC.SVG.Align_End,
-                            Style     => "fill: none; stroke: red")
+                            Style     => "fill: none; stroke: red",
+                            COID      => "C4")
 
                + Circle (P (360, 250), 5, Style => "fill: red; stroke: none")
                + Circle (P (270, 330), 5, Style => "fill: green; stroke: none")
@@ -70,7 +74,8 @@ is
                             Radius    => 15,
                             Align     => SCSC.SVG.Align_Start,
                             Direction => Dir_CCW,
-                            Style     => "fill: none; stroke: red")
+                            Style     => "fill: none; stroke: red",
+                            COID      => "C5")
 
                + Connector (Center, P (140, 330), P (250, 340),
                             Text      => "Outer/Center/CCW",
@@ -78,7 +83,8 @@ is
                             Radius    => 25,
                             Align     => SCSC.SVG.Align_Centered,
                             Direction => Dir_CCW,
-                            Style     => "fill: none; stroke: red")
+                            Style     => "fill: none; stroke: red",
+                            COID      => "C6")
 
                + Connector (Center, P (80, 130), P (140, 280),
                             Text      => "Outer/End/CCW",
@@ -87,11 +93,12 @@ is
                             Align     => SCSC.SVG.Align_End,
                             Direction => Dir_CCW,
                             Position  => Pos_Outer,
-                            Style     => "fill: none; stroke: red")
+                            Style     => "fill: none; stroke: red",
+                            COID      => "C7")
                ,
 
-       Defs   => Marker (Element => Arrow_End,   Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_End")
-               + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_Start")
+       Defs   => Marker (Element => Arrow_End,   Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "Arrow_End")
+               + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "Arrow_Start")
       );
 begin
    Put_Line (SCSC.SVG.To_String (SVG));

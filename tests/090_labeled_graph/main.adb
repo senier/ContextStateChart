@@ -21,6 +21,7 @@ is
                                                 Graph.Create_Node (Label => "Node 2", Weight => 3),
                                                 Graph.Create_Node (Label => "Node 3", Weight => 7),
                                                 Graph.Create_Node (Label => "Node 4", Weight => 2)),
+                                     GID    => "G1",
                                      Style  => "fill: yellow; stroke: green")
                + Graph.Create_Graph (Params     => Graph.Create_Polar (Center, 90, 15, 10),
                                      Data       => (Graph.Create_Node (Label => "In. I", Weight => 1),
@@ -29,6 +30,7 @@ is
                                                     Graph.Create_Node (Label => "Inner IV", Weight => 5),
                                                     Graph.Create_Node (Label => "Inner V", Weight => 2),
                                                     Graph.Create_Node (Label => "Inner VI", Weight => 4)),
+                                     GID    => "G2",
                                      Text_style => "fill: white; stroke: none; font-size: 8px; font-weight: bold",
                                      Style      => "fill: green; stroke: black")
       );

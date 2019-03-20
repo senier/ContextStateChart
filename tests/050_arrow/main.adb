@@ -43,8 +43,8 @@ is
                        Marker_Start => "Arrow_Start",
                        Marker_End   => "Arrow_End"),
 
-       Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_End")
-               + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_Start")
+       Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "Arrow_End")
+               + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "Arrow_Start")
       );
 begin
    Put_Line (SCSC.SVG.To_String (SVG));

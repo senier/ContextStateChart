@@ -41,7 +41,7 @@ is
 
                + Circle (Start_1, 2, Style => "fill: red; stroke: none")
                + Circle (Stop_1, 2, Style => "fill: green; stroke: none")
-               + Connector (Center, Start_1, Stop_1, Radius => 50, Style => "fill: none; stroke: red")
+               + Connector (Center, Start_1, Stop_1, Radius => 50, Style => "fill: none; stroke: red", COID => "C1")
 
                + Circle (Start_2, 2, Style => "fill: red; stroke: none")
                + Circle (Stop_2, 2, Style  => "fill: green; stroke: none")
@@ -49,7 +49,8 @@ is
                             Radius       => 30,
                             Style        => "fill: none; stroke: blue",
                             Marker_Start => "Arrow_Start",
-                            Marker_End   => "Arrow_End")
+                            Marker_End   => "Arrow_End",
+                            COID         => "C2")
 
                + Circle (Start_3, 2, Style => "fill: red; stroke: none")
                + Circle (Stop_3, 2, Style => "fill: green; stroke: none")
@@ -57,7 +58,8 @@ is
                             Radius       => -30,
                             Style        => "fill: none; stroke: green",
                             Marker_Start => "Arrow_Start",
-                            Marker_End   => "Arrow_Start")
+                            Marker_End   => "Arrow_Start",
+                            COID         => "C3")
 
                + Circle (Start_4, 2, Style => "fill: red; stroke: none")
                + Circle (Stop_4, 2, Style => "fill: green; stroke: none")
@@ -65,10 +67,11 @@ is
                             Radius       => -80,
                             Style        => "fill: none; stroke: orange",
                             Marker_Start => "Arrow_Start",
-                            Marker_End   => "Arrow_Start"),
+                            Marker_End   => "Arrow_Start",
+                            COID         => "C4"),
 
-       Defs   => Marker (Element => Arrow_End,   Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_End")
-               + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_Start")
+       Defs   => Marker (Element => Arrow_End,   Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "Arrow_End")
+               + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "Arrow_Start")
       );
 begin
    Put_Line (SCSC.SVG.To_String (SVG));

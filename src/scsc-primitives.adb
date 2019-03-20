@@ -1,17 +1,9 @@
 with SCSC.Math;
-with SCSC.Random;
 
 package body SCSC.Primitives
    with SPARK_Mode => On
 is
    use type Types.Angle;
-
-   -----------
-   -- To_ID --
-   -----------
-
-   function To_ID (Value : Natural) return String is
-      ("ID" & Value'Image (Value'Image'First + 1 .. Value'Image'Last));
 
    ---------------
    -- Cartesian --
@@ -109,7 +101,7 @@ is
 
    function Arc (Params : Arc_Params_Type;
                  Style  : String  := "";
-                 ID     : String  := "") return SCSC.SVG.Element_Type
+                 AID    : String  := "") return SCSC.SVG.Element_Type
    is
       use SCSC.SVG;
    begin
@@ -125,7 +117,7 @@ is
                                     AY         => Params.To.Y)
                    ),
                    Style => Style,
-                   ID    => ID);
+                   PID   => AID);
    end Arc;
 
    ----------
@@ -136,7 +128,7 @@ is
                   Marker_Start : String  := "";
                   Marker_End   : String  := "";
                   Style        : String  := "";
-                  ID           : String  := "") return SCSC.SVG.Element_Type
+                  LID          : String  := "") return SCSC.SVG.Element_Type
    is
       use SCSC.SVG;
    begin
@@ -149,7 +141,7 @@ is
                    Marker_Start => Marker_Start,
                    Marker_End   => Marker_End,
                    Style        => Style,
-                   ID           => ID);
+                   PID          => LID);
    end Line;
 
    ----------
@@ -199,6 +191,7 @@ is
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
+                       COID         : String;
                        Text         : String         := "";
                        Textstyle    : String         := "";
                        Align        : SVG.Align_Type := SVG.Align_Centered;
@@ -206,8 +199,7 @@ is
                        Position     : Pos_Type       := Pos_Outer;
                        Marker_Start : String         := "";
                        Marker_End   : String         := "";
-                       Style        : String         := "";
-                       ID           : String         := "") return SVG.Element_Type
+                       Style        : String         := "") return SVG.Element_Type
    is
       use type SVG.Element_Type;
       use Types;
@@ -228,7 +220,6 @@ is
                     Large  => (if Direction = Dir_CW then Diff_Angle >= 180.0 else Diff_Angle <= 180.0),
                     Sweep  => True);
 
-      Random_ID : constant Natural := Random.Get_Random;
       DY        : constant Types.Length := (if Direction = Dir_CW
                                             then (if Position = Pos_Outer then (Em, -0.3) else (Em, 1.0))
                                             else (if Position = Pos_Outer then (Em, -0.4) else (Em, 0.3)));
@@ -237,11 +228,11 @@ is
       return Line (Params       => LP_1,
                    Marker_Start => Marker_Start,
                    Style        => Style,
-                   ID           => (if ID /= "" then ID & "1" else ""))
+                   LID          => COID & "_1")
 
             + Arc (Params => Arc_Params,
                    Style  => Style,
-                   ID     => (if ID /= "" then ID & "2" else To_ID (Random_ID)))
+                   AID    => COID & "_2")
 
             + (if Text /= ""
                then SVG.Text (Center,
@@ -249,13 +240,13 @@ is
                               Style     => Textstyle,
                               Align     => Align,
                               DY        => DY,
-                              Path_Name => (if ID /= "" then ID & "2" else To_ID (Random_ID)))
+                              Path_Name => COID & "_2")
                else SVG.Null_Element)
 
             + Line (Params       => Points (LP_2.From, LP_2.To),
                     Marker_Start => Marker_End,
                     Style        => Style,
-                    ID           => (if ID /= "" then ID & "3" else ""));
+                    LID          => COID & "_3");
    end Connector;
 
    ------------
@@ -291,15 +282,14 @@ is
    --------------------
 
    function Annular_Sector (Params    : Annular_Sector_Params_Type;
+                            ASID      : String := "";
                             Text      : String := "";
                             Textstyle : String := "";
-                            Style     : String := "";
-                            ID        : String := "") return SVG.Element_Type
+                            Style     : String := "") return SVG.Element_Type
    is
       use SVG;
       use Types;
 
-      Random_ID : constant Natural := Random.Get_Random;
    begin
       return Path (Commands =>
                    ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
@@ -321,16 +311,16 @@ is
                     (ZClosepath, Absolute)
                    ),
                    Style => Style,
-                   ID    => ID)
+                   PID   => ASID & "_Path")
                 + (if Text /= ""
                    then Arc (Params => Params.Inner,
                              Style  => "fill: none; stroke: none",
-                             ID     => To_ID (Random_ID))
+                             AID    => ASID & "_Arc")
                       + SVG.Text (Params.Inner.From,
                                   Data      => Text,
                                   Style     => Textstyle,
                                   DY        => (Em, -0.5),
-                                  Path_Name => To_ID (Random_ID))
+                                  Path_Name => ASID & "_Arc")
                    else SVG.Null_Element);
 
    end Annular_Sector;

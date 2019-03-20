@@ -73,6 +73,7 @@ is
 
    function Create_Graph (Params          : Graph_Params_Type;
                           Data            : Data_Type;
+                          GID             : String := "";
                           Style           : String := "";
                           Connector_Style : String := "";
                           Text_Style      : String := "") return SVG.Element_Type;

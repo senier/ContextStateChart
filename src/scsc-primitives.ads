@@ -21,14 +21,14 @@ is
 
    function Arc (Params : Arc_Params_Type;
                  Style  : String  := "";
-                 ID     : String  := "") return SVG.Element_Type;
+                 AID    : String  := "") return SVG.Element_Type;
    --  Return arc
 
    function Line (Params       : Line_Params_Type;
                   Marker_Start : String  := "";
                   Marker_End   : String  := "";
                   Style        : String  := "";
-                  ID           : String  := "") return SVG.Element_Type;
+                  LID          : String  := "") return SVG.Element_Type;
    --  Return line
 
    function Cartesian (From       : Types.Point;
@@ -76,6 +76,7 @@ is
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
+                       COID         : String;
                        Text         : String         := "";
                        Textstyle    : String         := "";
                        Align        : SVG.Align_Type := SVG.Align_Centered;
@@ -83,15 +84,14 @@ is
                        Position     : Pos_Type       := Pos_Outer;
                        Marker_Start : String         := "";
                        Marker_End   : String         := "";
-                       Style        : String         := "";
-                       ID           : String         := "") return SVG.Element_Type;
+                       Style        : String         := "") return SVG.Element_Type;
    --  Return connector
 
    function Annular_Sector (Params    : Annular_Sector_Params_Type;
+                            ASID      : String := "";
                             Text      : String := "";
                             Textstyle : String := "";
-                            Style     : String := "";
-                            ID        : String := "") return SVG.Element_Type;
+                            Style     : String := "") return SVG.Element_Type;
    --  Return annular sector
 
    function Port (Params    : Annular_Sector_Params_Type;
