@@ -1,4 +1,5 @@
 with SCSC.Primitives;
+with SCSC.Random;
 with SXML.Parser;
 with SXML.Query;
 
@@ -195,6 +196,9 @@ package body SCSC.GEXF is
    -- To_Edges --
    --------------
 
+   subtype Random_Radius is Integer range -100 .. 100;
+   package RNG is new SCSC.Random (Random_Radius);
+
    function To_Edges (Document   : SXML.Document_Type;
                       Root       : SXML.Query.State_Type;
                       Node       : SXML.Query.State_Type;
@@ -260,10 +264,11 @@ package body SCSC.GEXF is
                      Label  : constant String := (if Label_State.Result = SXML.Result_OK
                                                   then SXML.Query.Attribute (Label_State, Document, "value")
                                                   else "");
+                     Radius : constant Random_Radius := RNG.Get_Random;
                   begin
                      Result (Position) := Graph.Create_Edge (Dest        => Index,
                                                              Dir         => Primitives.Dir_CW,
-                                                             Radius      => 20,
+                                                             Radius      => Radius,
                                                              Source_Port => (1, Primitives.Pos_Outer),
                                                              Dest_Port   => (1, Primitives.Pos_Outer),
                                                              Label       => Label);
