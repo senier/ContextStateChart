@@ -196,8 +196,14 @@ package body SCSC.GEXF is
    -- To_Edges --
    --------------
 
-   subtype Random_Radius is Integer range -100 .. 100;
-   package RNG is new SCSC.Random (Random_Radius);
+   subtype Radius is Integer range -100 .. 100;
+   package Random_Radius is new SCSC.Random (Radius);
+
+   subtype Dir is Primitives.Dir_Type range Primitives.Dir_CW .. Primitives.Dir_CCW;
+   package Random_Dir is new SCSC.Random (Dir);
+
+   subtype Pos is Primitives.Pos_Type range Primitives.Pos_Outer .. Primitives.Pos_Inner;
+   package Random_Pos is new SCSC.Random (Pos);
 
    function To_Edges (Document   : SXML.Document_Type;
                       Root       : SXML.Query.State_Type;
@@ -264,13 +270,16 @@ package body SCSC.GEXF is
                      Label  : constant String := (if Label_State.Result = SXML.Result_OK
                                                   then SXML.Query.Attribute (Label_State, Document, "value")
                                                   else "");
-                     Radius : constant Random_Radius := RNG.Get_Random;
+                     R  : constant Radius := Random_Radius.Get_Random;
+                     D  : constant Primitives.Dir_Type := Random_Dir.Get_Random;
+                     SP : constant Primitives.Pos_Type := Random_Pos.Get_Random;
+                     DP : constant Primitives.Pos_Type := Random_Pos.Get_Random;
                   begin
                      Result (Position) := Graph.Create_Edge (Dest        => Index,
-                                                             Dir         => Primitives.Dir_CW,
-                                                             Radius      => Radius,
-                                                             Source_Port => (1, Primitives.Pos_Outer),
-                                                             Dest_Port   => (1, Primitives.Pos_Outer),
+                                                             Dir         => D,
+                                                             Radius      => R,
+                                                             Source_Port => (1, SP),
+                                                             Dest_Port   => (1, DP),
                                                              Label       => Label);
                   end;
                   Position := Position + 1;
