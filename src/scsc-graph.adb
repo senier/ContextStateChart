@@ -97,7 +97,7 @@ package body SCSC.Graph is
       GID             : String := "";
       Style           : String := "";
       Connector_Style : String := "";
-      Text_Style      : String := "") return SVG.Element_Type
+      Text_Style      : String := "") return SXML.Document_Type
    is
       use type SXML.Offset_Type;
 
@@ -154,12 +154,12 @@ package body SCSC.Graph is
       function Create_Connector (P      : Params_Type;
                                  Edge   : Edge_Type;
                                  Offset : Positive;
-                                 CID    : String) return SVG.Element_Type;
+                                 CID    : String) return SXML.Document_Type;
 
       function Create_Connector (P      : Params_Type;
                                  Edge   : Edge_Type;
                                  Offset : Positive;
-                                 CID    : String) return SVG.Element_Type
+                                 CID    : String) return SXML.Document_Type
       is
          Source_Port : constant Port_Type := Edge.Source_Port;
          Dest_Port   : constant Port_Type := Edge.Dest_Port;
@@ -244,7 +244,7 @@ package body SCSC.Graph is
                                                                              Radius => Params.Radius,
                                                                              Start  => Start,
                                                                              Stop   => Start + Size);
-                     AS      : constant SVG.Element_Type := Annular_Sector (Params    => AP,
+                     AS      : constant SXML.Document_Type := Annular_Sector (Params    => AP,
                                                                             Text      => Data (I).Get_Label,
                                                                             Style     => Style,
                                                                             Textstyle => Text_Style,
@@ -264,7 +264,7 @@ package body SCSC.Graph is
             loop
                declare
                   Connector_ID : constant String := GID & "_C_" & To_ID (I) & "_" & To_ID (E.Dest);
-                  C : constant SVG.Element_Type := Create_Connector (Result, E, I, Connector_ID);
+                  C : constant SXML.Document_Type := Create_Connector (Result, E, I, Connector_ID);
                begin
                   Result.Length := Result.Length + C'Length;
                end;
@@ -275,29 +275,29 @@ package body SCSC.Graph is
       end Calculate_Params;
 
       P       : constant Params_Type := Calculate_Params;
-      Sectors : SVG.Element_Type (1 .. SXML.Index_Type (P.Length)) := (others => SXML.Null_Node);
+      Sectors : SXML.Document_Type (1 .. SXML.Index_Type (P.Length)) := (others => SXML.Null_Node);
       Offset  : SXML.Offset_Type := 0;
    begin
       for I in Data'Range
       loop
          declare
-            Sector : constant SVG.Element_Type :=
+            Sector : constant SXML.Document_Type :=
                Primitives.Annular_Sector (Params    => P.Sectors (I),
                                           Text      => Data (I).Get_Label,
                                           Style     => Style,
                                           Textstyle => Text_Style,
                                           ASID      => GID & "_AS_" & To_ID (I));
          begin
-            SXML.Append (SXML.Document_Type (Sectors), Offset, SXML.Document_Type (Sector));
+            SXML.Append (Sectors, Offset, Sector);
             Offset := Offset + Sector'Length;
             for J in Data (I).Get_Edges'Range
             loop
                declare
                   E : constant Edge_Type := Data (I).Get_Edges (J);
                   Connector_ID : constant String := GID & "_C_" & To_ID (I) & "_" & To_ID (J);
-                  C : constant SVG.Element_Type := Create_Connector (P, E, I, Connector_ID);
+                  C : constant SXML.Document_Type := Create_Connector (P, E, I, Connector_ID);
                begin
-                  SXML.Append (SXML.Document_Type (Sectors), Offset, SXML.Document_Type (C));
+                  SXML.Append (SXML.Document_Type (Sectors), Offset, C);
                   Offset := Offset + C'Length;
                end;
             end loop;

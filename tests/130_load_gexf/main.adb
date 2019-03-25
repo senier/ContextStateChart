@@ -14,12 +14,12 @@ is
    use SCSC.Graph;
    use SCSC.GEXF;
    use SCSC.SVG;
-   use type Element_Type;
+   use type Document_Type;
 
-   Arrow_End : Element_Type := Path (Commands => ((Moveto, Absolute, 0, 2),
-                                                 (Lineto, Absolute, 4, 4),
-                                                 (Lineto, Absolute, 4, 0),
-                                                 (ZClosepath, Absolute)),
+   Arrow_End : Document_Type := Path (Commands => ((Moveto, Absolute, 0, 2),
+                                                   (Lineto, Absolute, 4, 4),
+                                                   (Lineto, Absolute, 4, 0),
+                                                   (ZClosepath, Absolute)),
                                     Style => "fill: blue");
 
    GEXF_File : String := Util.Read_File ("tests/data/client_handshake_states.gexf").all;

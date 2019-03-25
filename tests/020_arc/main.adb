@@ -2,12 +2,14 @@ with Ada.Text_IO; use Ada.Text_IO;
 with SCSC.SVG;
 with SCSC.Primitives;
 with SCSC.Types;
+with SXML.Generator;
 
 procedure Main
 is
    use SCSC.Primitives;
    use SCSC.SVG;
    use SCSC.Types;
+   use SXML.Generator;
 
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (Width  => 400,

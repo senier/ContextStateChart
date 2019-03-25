@@ -3,12 +3,16 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
+with SXML.Generator;
+
+with GNAT.Traceback;
+with GNAT.Traceback.Symbolic;
 
 procedure Main
 is
    use SCSC;
    use SCSC.Types;
-   use type SVG.Element_Type;
+   use SXML.Generator;
 
    Center : Types.Point := P (200, 200);
 

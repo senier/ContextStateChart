@@ -12,18 +12,19 @@ is
 
    function Create_SVG (Width  : Natural;
                         Height : Natural;
-                        Child  : Element_Type := Null_Element;
-                        Defs   : Element_Type := Null_Element) return Document_Type
+                        Child  : SXML.Document_Base_Type := SXML.Null_Document;
+                        Defs   : SXML.Document_Base_Type := SXML.Null_Document) return SXML.Document_Type
    is
-      D : constant SXML.Document_Type := E ("defs", SXML.Document_Type (Defs));
+      D : constant SXML.Document_Type := E ("defs", Defs);
+      use type SXML.Document_Base_Type;
    begin
-      return Document_Type
+      return
          (E ("svg",
              A ("width", Width) +
              A ("height", Height) +
              A ("xmlns", "http://www.w3.org/2000/svg") +
              A ("xmlns:xlink", "http://www.w3.org/1999/xlink"),
-             (if Child /= Null_Element or Defs /= Null_Element
+             (if Child /= SXML.Null_Document or Defs /= SXML.Null_Document
               then D + SXML.Document_Type (Child)
               else SXML.Null_Document)));
    end Create_SVG;
@@ -32,7 +33,7 @@ is
    -- To_String --
    ---------------
 
-   function To_String (Document : Document_Type) return String
+   function To_String (Document : SXML.Document_Type) return String
    is
       use SXML;
 
@@ -41,7 +42,7 @@ is
       Temp   : String (1 .. 100000);
    begin
       SXML.Serialize.To_String
-         (Document => SXML.Document_Type (Document),
+         (Document => Document,
           Data     => Temp,
           Last     => Last,
           Result   => Result);
@@ -54,7 +55,7 @@ is
       end if;
    end To_String;
 
-   procedure To_String (Document :        Document_Type;
+   procedure To_String (Document :        SXML.Document_Type;
                         Output   :    out String;
                         Last     :    out Integer;
                         Stack    : in out SXML.Serialize.Stack_Type)
@@ -63,7 +64,7 @@ is
       Result : Result_Type;
    begin
       SXML.Serialize.To_String
-         (Document => SXML.Document_Type (Document),
+         (Document => Document,
           Data     => Output,
           Last     => Last,
           Result   => Result,
@@ -144,7 +145,7 @@ is
                   Marker_Start : String := "";
                   Marker_End   : String := "";
                   Style        : String := "";
-                  PID          : String := "") return Element_Type
+                  PID          : String := "") return SXML.Document_Type
    is
       function Total_Len return Natural;
 
@@ -176,7 +177,7 @@ is
                L := L + C'Length + 1;
             end;
          end loop;
-         return SCSC.SVG.Element_Type
+         return
             (E ("path", A ("d", D)
                         + (if Marker_Start /= ""
                            then A ("marker-start", "url(#" & Marker_Start & ")")
@@ -196,24 +197,15 @@ is
       end;
    end Path;
 
-   -------
-   -- + --
-   -------
-
-   function "+" (Left, Right : Element_Type) return Element_Type is
-      (Element_Type (SXML.Document_Type (Left) + SXML.Document_Type (Right)));
-
    -----------
    -- Group --
    -----------
 
-   function Group (Element : Element_Type;
-                   GID     : String := "") return Element_Type
+   function Group (Element : SXML.Document_Type;
+                   GID     : String := "") return SXML.Document_Type
    is
    begin
-      return Element_Type (E ("g",
-                           (if GID /= "" then A ("id", GID) else Null_Attributes),
-                           SXML.Document_Type (Element)));
+      return E ("g", (if GID /= "" then A ("id", GID) else Null_Attributes), Element);
    end Group;
 
    ------------
@@ -223,10 +215,10 @@ is
    function Circle (Center : Types.Point;
                     Radius : Natural;
                     Style  : String := "";
-                    CID    : String := "") return Element_Type
+                    CID    : String := "") return SXML.Document_Type
    is
    begin
-      return Element_Type
+      return
          (E ("circle",
              (if CID /= "" then A ("id", CID) else Null_Attributes) +
              A ("cx", Center.X) +
@@ -246,7 +238,7 @@ is
                   DY        : Types.Length := Types.Invalid_Length;
                   Style     : String  := "";
                   Path_Name : String  := "";
-                  TID       : String  := "") return Element_Type
+                  TID       : String  := "") return SXML.Document_Type
    is
       use type Types.Length;
 
@@ -268,7 +260,7 @@ is
                                                   C (Data))
                                           else C (Data));
    begin
-      return Element_Type
+      return
          (E ("text", (if TID /= "" then A ("id", TID) else Null_Attributes)
                    + (if Path_Name = "" then A ("x", Position.X) else Null_Attributes)
                    + (if Path_Name = "" then A ("y", Position.Y) else Null_Attributes)
@@ -282,15 +274,15 @@ is
    -- Marker --
    ------------
 
-   function Marker (Element : Element_Type;
+   function Marker (Element : SXML.Document_Type;
                     Width   : Natural;
                     Height  : Natural;
                     RefX    : Float;
                     RefY    : Float;
-                    MID     : String) return Element_Type
+                    MID     : String) return SXML.Document_Type
    is
    begin
-      return Element_Type
+      return
          (E ("marker",
              A ("id", MID) +
              A ("orient", "auto") +
@@ -298,7 +290,7 @@ is
              A ("markerHeight", Height) +
              A ("refX", RefX) +
              A ("refY", RefY),
-             SXML.Document_Type (Element)
+             Element
          ));
    end Marker;
 

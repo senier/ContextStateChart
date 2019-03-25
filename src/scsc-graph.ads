@@ -1,6 +1,7 @@
 with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
+with SXML;
 
 package SCSC.Graph
 is
@@ -76,7 +77,7 @@ is
                           GID             : String := "";
                           Style           : String := "";
                           Connector_Style : String := "";
-                          Text_Style      : String := "") return SVG.Element_Type;
+                          Text_Style      : String := "") return SXML.Document_Type;
    --  Create graph
 
 private

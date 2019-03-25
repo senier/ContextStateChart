@@ -1,3 +1,4 @@
+with SXML.Generator;
 with SCSC.Math;
 
 package body SCSC.Primitives
@@ -101,7 +102,7 @@ is
 
    function Arc (Params : Arc_Params_Type;
                  Style  : String  := "";
-                 AID    : String  := "") return SCSC.SVG.Element_Type
+                 AID    : String  := "") return SXML.Document_Type
    is
       use SCSC.SVG;
    begin
@@ -128,7 +129,7 @@ is
                   Marker_Start : String  := "";
                   Marker_End   : String  := "";
                   Style        : String  := "";
-                  LID          : String  := "") return SCSC.SVG.Element_Type
+                  LID          : String  := "") return SXML.Document_Type
    is
       use SCSC.SVG;
    begin
@@ -199,10 +200,10 @@ is
                        Position     : Pos_Type       := Pos_Outer;
                        Marker_Start : String         := "";
                        Marker_End   : String         := "";
-                       Style        : String         := "") return SVG.Element_Type
+                       Style        : String         := "") return SXML.Document_Type
    is
-      use type SVG.Element_Type;
       use Types;
+      use SXML.Generator;
 
       LP_1    : constant Line_Params_Type := Cartesian (Center, Start, Radius);
       Arc_Off : constant Natural          := Types.Distance (Center, LP_1.To);
@@ -241,7 +242,7 @@ is
                               Align     => Align,
                               DY        => DY,
                               Path_Name => COID & "_2")
-               else SVG.Null_Element)
+               else SXML.Null_Document)
 
             + Line (Params       => Points (LP_2.From, LP_2.To),
                     Marker_Start => Marker_End,
@@ -285,9 +286,10 @@ is
                             ASID      : String := "";
                             Text      : String := "";
                             Textstyle : String := "";
-                            Style     : String := "") return SVG.Element_Type
+                            Style     : String := "") return SXML.Document_Type
    is
       use SVG;
+      use SXML.Generator;
       use Types;
 
    begin
@@ -321,7 +323,7 @@ is
                                   Style     => Textstyle,
                                   DY        => (Em, -0.5),
                                   Path_Name => ASID & "_Arc")
-                   else SVG.Null_Element);
+                   else SXML.Null_Document);
 
    end Annular_Sector;
 

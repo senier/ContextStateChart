@@ -2,12 +2,14 @@ with Ada.Text_IO; use Ada.Text_IO;
 with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
+with SXML.Generator;
 
 procedure Main
 is
    use SCSC.Primitives;
    use SCSC.SVG;
    use SCSC.Types;
+   use SXML.Generator;
    use type SCSC.Types.Angle;
 
    Center : SCSC.Types.Point := P (200, 200);
@@ -17,21 +19,21 @@ is
                                        Start  => 0.0,
                                        Stop   => 240.0);
 
-   Arc1 : Element_Type := Arc (Params1, Style  => "stroke: #ff0000; fill: none");
+   Arc1 : Document_Type := Arc (Params1, Style  => "stroke: #ff0000; fill: none");
 
    Params2 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 60,
                                        Start  => 30.0,
                                        Stop   => 100.0);
 
-   Arc2 : Element_Type := Arc (Params2, Style  => "stroke: #00ffff; fill: none");
+   Arc2 : Document_Type := Arc (Params2, Style  => "stroke: #00ffff; fill: none");
 
    Params3 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 30,
                                        Start  => 120.0,
                                        Stop   => 140.0);
 
-   Arc3 : Element_Type := Arc (Params3, Style  => "stroke: #00ff00; fill: none");
+   Arc3 : Document_Type := Arc (Params3, Style  => "stroke: #00ff00; fill: none");
 
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (Width  => 400,
