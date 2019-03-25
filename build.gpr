@@ -1,5 +1,5 @@
-with "contrib/SXML/SXML";
-with "contrib/SXML/switches";
+with "contrib/SXML/build/SXML";
+with "contrib/SXML/build/switches";
 
 project Build
 is
@@ -8,7 +8,7 @@ is
    for Object_Dir use "obj/lib";
 
    package Compiler is
-      for Switches ("Ada") use Switches.Compiler_Switches;
+      for Switches ("Ada") use Switches.Compiler_Switches & "-gnata" & "-g";
    end Compiler;
 
    package Builder is
