@@ -3,6 +3,7 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
+with SXML.Generator;
 
 procedure Main
 is
@@ -10,14 +11,15 @@ is
    use SCSC.Primitives;
    use SCSC.Graph;
    use SCSC.SVG;
-   use type Element_Type;
+   use SXML.Generator;
+   use type Document_Type;
 
    Center : Point := P (200, 200);
 
-   Arrow_End : Element_Type := Path (Commands => ((Moveto, Absolute, 0, 2),
-                                                 (Lineto, Absolute, 4, 4),
-                                                 (Lineto, Absolute, 4, 0),
-                                                 (ZClosepath, Absolute)),
+   Arrow_End : Document_Type := Path (Commands => ((Moveto, Absolute, 0, 2),
+                                                   (Lineto, Absolute, 4, 4),
+                                                   (Lineto, Absolute, 4, 0),
+                                                   (ZClosepath, Absolute)),
                                     Style => "fill: blue");
 
 

@@ -5,9 +5,7 @@ package SCSC.SVG
    with SPARK_Mode => On
 is
 
-   type Document_Type is new SXML.Document_Type;
-   type Element_Type is new SXML.Document_Type;
-   Null_Element : constant Element_Type;
+   subtype Document_Type is SXML.Document_Type;
 
    type Path_Command_Kind is
       (Moveto,
@@ -70,14 +68,16 @@ is
 
    function Create_SVG (Width  : Natural;
                         Height : Natural;
-                        Child  : Element_Type := Null_Element;
-                        Defs   : Element_Type := Null_Element) return Document_Type;
+                        Child  : SXML.Document_Base_Type := SXML.Null_Document;
+                        Defs   : SXML.Document_Base_Type := SXML.Null_Document) return SXML.Document_Type;
    --  SVG document
 
-   function To_String (Document : Document_Type) return String;
+   function To_String (Document : SXML.Document_Type) return String;
    --  Serialize SVG document
 
-   procedure To_String (Document :        Document_Type;
+   use type SXML.Index_Type;
+
+   procedure To_String (Document :        SXML.Document_Type;
                         Output   :    out String;
                         Last     :    out Integer;
                         Stack    : in out SXML.Serialize.Stack_Type);
@@ -87,20 +87,17 @@ is
                   Marker_Start : String := "";
                   Marker_End   : String := "";
                   Style        : String := "";
-                  PID          : String := "") return Element_Type;
+                  PID          : String := "") return SXML.Document_Type;
    --  Create element from path commands
 
-   function Group (Element : Element_Type;
-                   GID     : String := "") return Element_Type;
+   function Group (Element : SXML.Document_Type;
+                   GID     : String := "") return SXML.Document_Type;
    --  Group elements
-
-   function "+" (Left, Right : Element_Type) return Element_Type;
-   --  Join elements
 
    function Circle (Center : Types.Point;
                     Radius : Natural;
                     Style  : String := "";
-                    CID    : String := "") return Element_Type;
+                    CID    : String := "") return SXML.Document_Type;
    --  Circle
 
    type Align_Type is (Align_Start, Align_Centered, Align_End);
@@ -112,17 +109,15 @@ is
                   DY        : Types.Length := Types.Invalid_Length;
                   Style     : String := "";
                   Path_Name : String := "";
-                  TID       : String := "") return Element_Type;
+                  TID       : String := "") return SXML.Document_Type;
    --  Text
 
-   function Marker (Element : Element_Type;
+   function Marker (Element : SXML.Document_Type;
                     Width   : Natural;
                     Height  : Natural;
                     RefX    : Float;
                     RefY    : Float;
-                    MID     : String) return Element_Type;
+                    MID     : String) return SXML.Document_Type;
    --  Return marker
 
-private
-   Null_Element : constant Element_Type := Element_Type (SXML.Null_Document);
 end SCSC.SVG;

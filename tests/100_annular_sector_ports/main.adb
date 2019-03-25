@@ -2,12 +2,14 @@ with Ada.Text_IO; use Ada.Text_IO;
 with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
+with SXML.Generator;
 
 procedure Main
 is
    use SCSC.Primitives;
    use SCSC.SVG;
    use SCSC.Types;
+   use SXML.Generator;
 
    Center : Point := P (200, 200);
 

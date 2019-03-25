@@ -1,3 +1,4 @@
+with SXML;
 with SCSC.SVG;
 with SCSC.Types;
 
@@ -21,14 +22,14 @@ is
 
    function Arc (Params : Arc_Params_Type;
                  Style  : String  := "";
-                 AID    : String  := "") return SVG.Element_Type;
+                 AID    : String  := "") return SXML.Document_Type;
    --  Return arc
 
    function Line (Params       : Line_Params_Type;
                   Marker_Start : String  := "";
                   Marker_End   : String  := "";
                   Style        : String  := "";
-                  LID          : String  := "") return SVG.Element_Type;
+                  LID          : String  := "") return SXML.Document_Type;
    --  Return line
 
    function Cartesian (From       : Types.Point;

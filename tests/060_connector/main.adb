@@ -2,12 +2,14 @@ with Ada.Text_IO; use Ada.Text_IO;
 with SCSC.SVG;
 with SCSC.Primitives;
 with SCSC.Types;
+with SXML.Generator;
 
 procedure Main
 is
    use SCSC.Primitives;
    use SCSC.SVG;
    use SCSC.Types;
+   use SXML.Generator;
 
    Center  : Point := P (200, 200);
    Start_1 : Point := P (117, 185);
@@ -19,16 +21,16 @@ is
    Start_4 : Point := P (150, 200);
    Stop_4  : Point := P (180, 250);
 
-   Arrow_End : Element_Type := Path (Commands => ((Moveto, Absolute, 0, 0),
-                                                 (Vertical, Absolute, 4),
-                                                 (Lineto, Absolute, 4, 2),
-                                                 (ZClosepath, Absolute)),
+   Arrow_End : Document_Type := Path (Commands => ((Moveto, Absolute, 0, 0),
+                                                   (Vertical, Absolute, 4),
+                                                   (Lineto, Absolute, 4, 2),
+                                                   (ZClosepath, Absolute)),
                                     Style => "fill: blue");
 
-   Arrow_Start : Element_Type := Path (Commands => ((Moveto, Absolute, 0, 2),
-                                                  (Lineto, Absolute, 4, 4),
-                                                  (Lineto, Absolute, 4, 0),
-                                                  (ZClosepath, Absolute)),
+   Arrow_Start : Document_Type := Path (Commands => ((Moveto, Absolute, 0, 2),
+                                                     (Lineto, Absolute, 4, 4),
+                                                     (Lineto, Absolute, 4, 0),
+                                                     (ZClosepath, Absolute)),
                                      Style => "fill: blue");
 
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
