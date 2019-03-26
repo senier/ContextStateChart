@@ -85,20 +85,22 @@ is
                        Position     : Pos_Type       := Pos_Outer;
                        Marker_Start : String         := "";
                        Marker_End   : String         := "";
-                       Style        : String         := "") return SVG.Element_Type;
+                       Style        : String         := "") return SXML.Document_Type;
    --  Return connector
 
    function Annular_Sector (Params    : Annular_Sector_Params_Type;
                             ASID      : String := "";
                             Text      : String := "";
                             Textstyle : String := "";
-                            Style     : String := "") return SVG.Element_Type;
+                            Style     : String := "") return SXML.Document_Type;
    --  Return annular sector
 
    function Port (Params    : Annular_Sector_Params_Type;
                   Position  : Pos_Type;
                   Port_No   : Positive;
-                  Num_Ports : Positive) return Types.Point;
+                  Num_Ports : Natural) return Types.Optional_Point with
+      Pre'Class => Port_No <= Num_Ports,
+      Post      => (if Num_Ports > 0 then Port'Result.Valid);
    --  Return coordinate of port
 
 private

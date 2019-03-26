@@ -333,11 +333,12 @@ is
 
    function Port (Params    : Arc_Params_Type;
                   Port_No   : Positive;
-                  Num_Ports : Positive) return Types.Point;
+                  Num_Ports : Natural) return Types.Point with
+      Pre => Port_No <= Num_Ports;
 
    function Port (Params    : Arc_Params_Type;
                   Port_No   : Positive;
-                  Num_Ports : Positive) return Types.Point
+                  Num_Ports : Natural) return Types.Point
    is
       Start      : constant Types.Angle := To_Angle (Params.Center, Params.From);
       Stop       : constant Types.Angle := To_Angle (Params.Center, Params.To);
@@ -355,10 +356,14 @@ is
    function Port (Params    : Annular_Sector_Params_Type;
                   Position  : Pos_Type;
                   Port_No   : Positive;
-                  Num_Ports : Positive) return Types.Point
+                  Num_Ports : Natural) return Types.Optional_Point
    is (case Position is
-       when Pos_Invalid => Params.Inner.Center,
-       when Pos_Inner   => Params.Inner.Port (Port_No, Num_Ports),
-       when Pos_Outer   => Params.Outer.Port (Port_No, Num_Ports));
+       when Pos_Invalid => Types.OP (Params.Inner.Center),
+       when Pos_Inner   => (if Num_Ports > 0
+                            then Types.OP (Params.Inner.Port (Port_No, Num_Ports))
+                            else Types.Invalid_Point),
+       when Pos_Outer   => (if Num_Ports > 0
+                            then Types.OP (Params.Outer.Port (Port_No, Num_Ports))
+                            else Types.Invalid_Point));
 
 end SCSC.Primitives;

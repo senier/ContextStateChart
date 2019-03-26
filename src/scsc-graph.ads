@@ -1,4 +1,3 @@
-with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SXML;
@@ -31,6 +30,24 @@ is
    function Get_Label (Edge : Edge_Type) return String;
    --  Return Label
 
+   function Get_Dest (Edge : Edge_Type) return Natural;
+   --  Return destination node
+
+   function Get_Dest_Port (Edge : Edge_Type) return Port_Type;
+   --  Return destination port
+
+   procedure Set_Dest_Port (Data       : in out Data_Type;
+                            Node_Index :        Natural;
+                            Edge_Index :        Natural;
+                            Port       :        Port_Type);
+   --  Set destination port
+
+   procedure Set_Source_Port (Data       : in out Data_Type;
+                              Node_Index :        Natural;
+                              Edge_Index :        Natural;
+                              Port       :        Port_Type);
+   --  Set source port
+
    type Edges_Type is array (Natural range <>) of Edge_Type;
    Null_Edges : constant Edges_Type;
 
@@ -45,6 +62,10 @@ is
    function Get_Weight (Node : Node_Type) return Positive;
    --  Return weight of node
 
+   procedure Set_Weight (Node   : in out Node_Type;
+                         Weight : Positive);
+   --  Set weight of node
+
    function Get_Label (Node : Node_Type) return String;
    --  Return label
 
@@ -53,6 +74,10 @@ is
 
    function Get_Ports (Node : Node_Type) return Ports_Type;
    --  Return ports
+
+   procedure Set_Ports (Node  : in out Node_Type;
+                        Ports :        Ports_Type);
+   --  Set ports
 
    function Create_Polar (Center        : Types.Point;
                           Offset        : Natural;

@@ -80,7 +80,8 @@ is
    procedure To_String (Document :        SXML.Document_Type;
                         Output   :    out String;
                         Last     :    out Integer;
-                        Stack    : in out SXML.Serialize.Stack_Type);
+                        Stack    : in out SXML.Serialize.Stack_Type) with
+      Pre => Document'First > 0 and Document'Length > 0;
    --  Serialize SVG document
 
    function Path (Commands     : Path_Commands_Type;

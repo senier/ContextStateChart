@@ -57,6 +57,7 @@ begin
                                   Connector_Style => "fill: none; stroke: blue"),
           Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "End_Arrow"));
    begin
+      SXML.Serialize.Initialize (Stack.all);
       To_String (Doc, Output.all, Output_Last, Stack.all);
       if Output_Last >= 0 then
          Put_Line (Output.all (Output'First .. Output_Last));

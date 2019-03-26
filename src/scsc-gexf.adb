@@ -1,5 +1,6 @@
 with SCSC.Primitives;
 with SCSC.Random;
+with SCSC.Shuffle;
 with SXML.Parser;
 with SXML.Query;
 
@@ -291,6 +292,79 @@ package body SCSC.GEXF is
       end;
    end To_Edges;
 
+   ---------------------
+   -- Calculate_Ports --
+   ---------------------
+
+   package Random_Natural is new SCSC.Random (Natural);
+
+   procedure Calculate_Ports (Data : in out Graph.Data_Type);
+
+   procedure Calculate_Ports (Data : in out Graph.Data_Type) is
+   begin
+      for I in Data'Range loop
+         declare
+            Ports : Natural := Data (I).Get_Edges'Length;
+            Inner, Outer : Natural;
+            R : constant Natural := Random_Natural.Get_Random;
+         begin
+            for J in Data'Range loop
+               for E of Data (J).Get_Edges loop
+                  if E.Get_Dest = I then
+                     Ports := Ports + 1;
+                  end if;
+               end loop;
+            end loop;
+
+            Outer := R mod Ports + 1;
+            Inner := Ports - Outer;
+
+            Graph.Set_Ports (Data (I), (Outer, Inner));
+            Graph.Set_Weight (Data (I), (if Inner > Outer then Inner else Outer));
+
+            declare
+               type Pos_Offset_Type is
+               record
+                  Offset : Natural;
+                  Pos    : Primitives.Pos_Type;
+               end record;
+
+               type Ports_Type is array (Positive range <>) of Pos_Offset_Type;
+               Last : constant Natural := Ports;
+               P : Ports_Type (1 .. Last);
+               M : Natural := P'First;
+
+               use type Primitives.Pos_Type;
+
+               procedure Shuffle_Ports is new SCSC.Shuffle.Generic_Shuffle (Element_Type => Pos_Offset_Type,
+                                                                            Data_Type    => Ports_Type);
+            begin
+               for I in P'Range loop
+                  P (I) := (if I <= Outer
+                            then (I, Primitives.Pos_Outer)
+                             else (I - Outer, Primitives.Pos_Inner));
+               end loop;
+
+               Shuffle_Ports (P);
+
+               for J in Data (I).Get_Edges'Range loop
+                  Graph.Set_Source_Port (Data, I, J, (P (M).Offset, P (M).Pos));
+                  M := M + 1;
+               end loop;
+
+               for K in Data'Range loop
+                  for L in Data (K).Get_Edges'Range loop
+                     if Data (K).Get_Edges (L).Get_Dest = I then
+                        Graph.Set_Dest_Port (Data, K, L, (P (M).Offset, P (M).Pos));
+                        M := M + 1;
+                     end if;
+                  end loop;
+               end loop;
+            end;
+         end;
+      end loop;
+   end Calculate_Ports;
+
    ------------
    -- Import --
    ------------
@@ -374,10 +448,9 @@ package body SCSC.GEXF is
                             ID         => Level_ID,
                             Level      => Level_Num);
                   Data (Data'First + Node_Num) :=
-                     Graph.Create_Node (Label  => SXML.Query.Attribute (Node, Scratch, "label"),
-                                        Level  => Level_Num,
-                                        Edges  => Edges,
-                                        Weight => (if Edges'Length > 0 then Edges'Length else 1));
+                     Graph.Create_Node (Label => SXML.Query.Attribute (Node, Scratch, "label"),
+                                        Level => Level_Num,
+                                        Edges => Edges);
                end;
                Node_Num := Node_Num + 1;
             end if;
@@ -386,6 +459,8 @@ package body SCSC.GEXF is
       end;
 
       Last := Data'First + Node_Num - 1;
+
+      Calculate_Ports (Data (Data'First .. Last));
 
    end Import;
 

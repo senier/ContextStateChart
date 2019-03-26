@@ -1,6 +1,5 @@
 with Ada.Containers.Generic_Array_Sort;
 with SCSC.Math;
-with SXML;
 
 package body SCSC.Graph is
 
@@ -9,6 +8,42 @@ package body SCSC.Graph is
    ---------------
 
    function Get_Label (Edge : Edge_Type) return String is (Edge.Label_Text (1 .. Edge.Label_Len));
+
+   --------------
+   -- Get_Dest --
+   --------------
+
+   function Get_Dest (Edge : Edge_Type) return Natural is (Edge.Dest);
+
+   -------------------
+   -- Get_Dest_Port --
+   -------------------
+
+   function Get_Dest_Port (Edge : Edge_Type) return Port_Type is (Edge.Dest_Port);
+
+   -------------------
+   -- Set_Dest_Port --
+   -------------------
+
+   procedure Set_Dest_Port (Data       : in out Data_Type;
+                            Node_Index :        Natural;
+                            Edge_Index :        Natural;
+                            Port       :        Port_Type) is
+   begin
+      Data (Node_Index).Edges_Data (Edge_Index).Dest_Port := Port;
+   end Set_Dest_Port;
+
+   ---------------------
+   -- Set_Source_Port --
+   ---------------------
+
+   procedure Set_Source_Port (Data       : in out Data_Type;
+                              Node_Index :        Natural;
+                              Edge_Index :        Natural;
+                              Port       :        Port_Type) is
+   begin
+      Data (Node_Index).Edges_Data (Edge_Index).Source_Port := Port;
+   end Set_Source_Port;
 
    -----------------
    -- Create_Node --
@@ -35,6 +70,16 @@ package body SCSC.Graph is
 
    function Get_Weight (Node : Node_Type) return Positive is (Node.Weight);
 
+   ----------------
+   -- Set_Weight --
+   ----------------
+
+   procedure Set_Weight (Node   : in out Node_Type;
+                         Weight :        Positive) is
+   begin
+      Node.Weight := Weight;
+   end Set_Weight;
+
    ---------------
    -- Get_Label --
    ---------------
@@ -52,6 +97,16 @@ package body SCSC.Graph is
    ---------------
 
    function Get_Ports (Node : Node_Type) return Ports_Type is (Node.Ports);
+
+   ---------------
+   -- Set_Ports --
+   ---------------
+
+   procedure Set_Ports (Node  : in out Node_Type;
+                        Ports :        Ports_Type) is
+   begin
+      Node.Ports := Ports;
+   end Set_Ports;
 
    ------------------
    -- Create_Polar --
@@ -166,14 +221,14 @@ package body SCSC.Graph is
       begin
          return Primitives.Connector
             (Center     => Params.Center,
-             Start      => Primitives.Port (Params    => P.Sectors (Offset),
-                                            Position  => Source_Port.Pos,
-                                            Port_No   => Source_Port.Num,
-                                            Num_Ports => Data (Offset).Ports (Source_Port.Pos)),
-             Stop       => Primitives.Port (Params    => P.Sectors (Edge.Dest),
-                                            Position  => Dest_Port.Pos,
-                                            Port_No   => Dest_Port.Num,
-                                            Num_Ports => Data (Edge.Dest).Ports (Dest_Port.Pos)),
+             Start      => Types.P (Primitives.Port (Params    => P.Sectors (Offset),
+                                                     Position  => Source_Port.Pos,
+                                                     Port_No   => Source_Port.Num,
+                                                     Num_Ports => Data (Offset).Ports (Source_Port.Pos))),
+             Stop       => Types.P (Primitives.Port (Params    => P.Sectors (Edge.Dest),
+                                                     Position  => Dest_Port.Pos,
+                                                     Port_No   => Dest_Port.Num,
+                                                     Num_Ports => Data (Edge.Dest).Ports (Dest_Port.Pos))),
              Radius     => Edge.Radius,
              COID       => CID,
              Text       => Edge.Get_Label,
