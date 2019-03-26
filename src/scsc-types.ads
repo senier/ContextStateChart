@@ -4,8 +4,17 @@ is
 
    type Point is tagged private;
 
+   type Optional_Point (Valid : Boolean) is private;
+   Invalid_Point : constant Optional_Point;
+
    function P (X : Integer;
                Y : Integer) return Point;
+
+   function P (Optional : Optional_Point) return Point with
+      Pre'Class => Optional.Valid;
+
+   function OP (P : Point) return Optional_Point with
+      Post => OP'Result.Valid;
 
    function X (P : Point) return Integer;
    function Y (P : Point) return Integer;
@@ -48,8 +57,21 @@ private
       Y : Integer;
    end record;
 
+   type Optional_Point (Valid : Boolean) is
+   record
+      case Valid is
+         when True  => P : Point;
+         when False => null;
+      end case;
+   end record;
+   Invalid_Point : constant Optional_Point := (Valid => False);
+
    function P (X : Integer;
                Y : Integer) return Point is (X => X, Y => Y);
+
+   function P (Optional : Optional_Point) return Point is (Optional.P);
+
+   function OP (P : Point) return Optional_Point is (Valid => True, P => P);
 
    function X (P : Point) return Integer is (P.X);
    function Y (P : Point) return Integer is (P.Y);
