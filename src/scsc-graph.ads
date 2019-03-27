@@ -7,6 +7,7 @@ is
    type Graph_Params_Type is private;
    type Node_Type is tagged private;
    type Data_Type is array (Positive range <>) of Node_Type;
+   type Positions_Type is array (Positive range <>) of Positive;
 
    type Spacing_Index is new Natural range 0 .. 20;
    type Spacing_Type is array (Spacing_Index range <>) of Natural;
@@ -101,10 +102,14 @@ is
 
    function Create_Graph (Params          : Graph_Params_Type;
                           Data            : Data_Type;
+                          Positions       : Positions_Type := (1 .. 0 => 1);
                           GID             : String := "";
                           Style           : String := "";
                           Connector_Style : String := "";
-                          Text_Style      : String := "") return SXML.Document_Type;
+                          Text_Style      : String := "") return SXML.Document_Type with
+      Pre => (if Positions'Length > 0
+              then Data'Length = Positions'Length
+                   and (for all P in Positions'Range => P in Data'Range));
    --  Create graph
 
 private
