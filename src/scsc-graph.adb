@@ -113,16 +113,20 @@ package body SCSC.Graph is
    ------------------
 
    function Create_Polar
-     (Center        : Types.Point;
-      Offset        : Natural;
-      Radius        : Natural;
-      Layer_Spacing : Natural;
-      Padding       : Natural := 0) return Graph_Params_Type is
-      (Graph_Params_Type'(Center        => Center,
-                          Offset        => Offset,
-                          Radius        => Radius,
-                          Layer_Spacing => Layer_Spacing,
-                          Padding       => Padding));
+     (Center  : Types.Point;
+      Radius  : Natural;
+      Spacing : Spacing_Type;
+      Padding : Natural := 0) return Graph_Params_Type
+   is
+      Result : Graph_Params_Type := (Center         => Center,
+                                     Radius         => Radius,
+                                     Spacing        => (others => 0),
+                                     Spacing_Length => Spacing'Length,
+                                     Padding        => Padding);
+   begin
+      Result.Spacing (Spacing'Range) := Spacing;
+      return Result;
+   end Create_Polar;
 
    ----------------
    -- Get_Center --
@@ -130,11 +134,12 @@ package body SCSC.Graph is
 
    function Get_Center (Params : Graph_Params_Type) return Types.Point is (Params.Center);
 
-   ----------------
-   -- Get_Offset --
-   ----------------
+   -----------------
+   -- Get_Spacing --
+   -----------------
 
-   function Get_Offset (Params : Graph_Params_Type) return Natural is (Params.Offset);
+   function Get_Spacing (Params : Graph_Params_Type) return Spacing_Type is
+      (Params.Spacing (Params.Spacing'First .. Params.Spacing'First + Spacing_Index'Val (Params.Spacing_Length) - 1));
 
    ----------------
    -- Get_Radius --
@@ -258,6 +263,25 @@ package body SCSC.Graph is
 
       ------------------------------------------------------------------------
 
+      function Calculate_Offset (Spacing : Spacing_Type;
+                                 Level   : Natural) return Integer;
+
+      function Calculate_Offset (Spacing : Spacing_Type;
+                                 Level   : Natural) return Integer is
+         Result : Integer := 0;
+      begin
+         for I in Natural (Spacing'First) .. Level loop
+            Result := Result + (if I in Natural (Spacing'First) .. Natural (Spacing'Last)
+                                then Integer (Spacing (Spacing_Index (I)))
+                                else 20);
+         end loop;
+
+         return Result;
+
+      end Calculate_Offset;
+
+      ------------------------------------------------------------------------
+
       function Calculate_Params return Params_Type;
 
       function Calculate_Params return Params_Type
@@ -287,7 +311,7 @@ package body SCSC.Graph is
                   declare
                      use type Types.Angle;
                      use Primitives;
-                     Offset  : constant Natural := Params.Offset + Params.Layer_Spacing * L;
+                     Offset  : constant Natural := Calculate_Offset (Params.Spacing, L);
                      Spacing : constant Types.Angle := Types.Angle
                         (Math.Arcsin (Float (Params.Padding) / Float (Offset + Params.Radius / 2),
                                       Cycle => 360.0));

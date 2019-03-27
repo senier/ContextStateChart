@@ -8,6 +8,9 @@ is
    type Node_Type is tagged private;
    type Data_Type is array (Positive range <>) of Node_Type;
 
+   type Spacing_Index is new Natural range 0 .. 20;
+   type Spacing_Type is array (Spacing_Index range <>) of Natural;
+
    type Port_Type is
    record
       Num : Natural;
@@ -80,9 +83,8 @@ is
    --  Set ports
 
    function Create_Polar (Center        : Types.Point;
-                          Offset        : Natural;
                           Radius        : Natural;
-                          Layer_Spacing : Natural;
+                          Spacing       : Spacing_Type;
                           Padding       : Natural := 0) return Graph_Params_Type;
    --  Create graph parameters from center point, offset and radius. Different
    --  layers of the graph have Layer_Spacing pixels of spacing. Ensure padding
@@ -91,8 +93,8 @@ is
    function Get_Center (Params : Graph_Params_Type) return Types.Point;
    --  Return center point from graph parameters
 
-   function Get_Offset (Params : Graph_Params_Type) return Natural;
-   --  Return offset from graph parameters
+   function Get_Spacing (Params : Graph_Params_Type) return Spacing_Type;
+   --  Return spacing array from graph parameters
 
    function Get_Radius (Params : Graph_Params_Type) return Natural;
    --  Return radius from graph parameters
@@ -123,11 +125,11 @@ private
 
    type Graph_Params_Type is
    record
-      Center        : Types.Point;
-      Offset        : Natural;
-      Radius        : Natural;
-      Layer_Spacing : Natural;
-      Padding       : Natural;
+      Center         : Types.Point;
+      Radius         : Natural;
+      Spacing        : Spacing_Type (Spacing_Index);
+      Spacing_Length : Natural;
+      Padding        : Natural;
    end record;
 
    type Edge_Type is tagged

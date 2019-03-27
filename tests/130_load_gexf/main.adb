@@ -20,7 +20,7 @@ is
                                                    (Lineto, Absolute, 4, 4),
                                                    (Lineto, Absolute, 4, 0),
                                                    (ZClosepath, Absolute)),
-                                    Style => "fill: blue");
+                                    Style => "fill: green");
 
    GEXF_File : String := Util.Read_File ("tests/data/client_handshake_states.gexf").all;
 
@@ -46,15 +46,14 @@ begin
       Doc : Document_Type := Create_SVG
          (Width  => 2000,
           Height => 2000,
-          Child  => Create_Graph (Params => Create_Polar (Center        => P (1000, 1000),
-                                                          Offset        => 1000,
-                                                          Radius        => 20,
-                                                          Layer_Spacing => 80,
-                                                          Padding       => 5),
+          Child  => Create_Graph (Params => Create_Polar (Center  => P (1000, 1000),
+                                                          Radius  => 20,
+                                                          Spacing => (150, 300, 450),
+                                                          Padding => 5),
                                   Data   => Data.all (Data.all'First .. Last),
-                                  Style  => "fill: yellow; stroke: black",
+                                  Style  => "fill: gray; stroke: black",
                                   Text_Style  => "fill: black; stroke: none; font-size: 10px",
-                                  Connector_Style => "fill: none; stroke: blue"),
+                                  Connector_Style => "fill: none; stroke: green"),
           Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "End_Arrow"));
    begin
       SXML.Serialize.Initialize (Stack.all);

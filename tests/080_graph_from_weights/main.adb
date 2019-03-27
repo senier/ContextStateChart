@@ -18,7 +18,10 @@ is
       (Width  => 400,
        Height => 400,
        Child  => SVG.Circle (Center, 2, Style => "fill: black; stroke: none")
-               + Graph.Create_Graph (Params => Graph.Create_Polar (Center, 120, 20, 20),
+               + Graph.Create_Graph (Params => Graph.Create_Polar (Center  => Center,
+                                                                   Radius  => 120,
+                                                                   Spacing => (0 => 20),
+                                                                   Padding => 20),
                                      Data   => (Graph.Create_Node (5),
                                                 Graph.Create_Node (3),
                                                 Graph.Create_Node (7),

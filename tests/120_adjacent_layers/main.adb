@@ -27,7 +27,10 @@ is
       (Width  => 400,
        Height => 400,
        Child  => Circle (Center, 2, Style => "fill: black; stroke: none")
-               + Create_Graph (Params => Create_Polar (Center => Center, Offset => 100, Radius => 20, Layer_Spacing => 80, Padding => 5),
+               + Create_Graph (Params => Create_Polar (Center => Center,
+                                                       Radius => 20,
+                                                       Spacing => (100, 80),
+                                                       Padding => 5),
                                Data   => ( 1 => Create_Node (Label => "Inner 1", Level => 1, Weight => 5, Outer_Ports => 3, Inner_Ports => 1,
                                                              Edges => (1 => Create_Edge (2, Dir_CW, -30, (1, Pos_Inner), (1, Pos_Inner), "I1⇒I2"))),
                                            2 => Create_Node (Label => "Inner 2", Level => 1, Weight => 3, Outer_Ports => 1, Inner_Ports => 4,
