@@ -21,6 +21,7 @@ TESTS = \
 	obj/110_graph_with_edges/document.svg \
 	obj/120_adjacent_layers/document.svg \
 	obj/130_load_gexf/document.svg \
+	obj/140_variable_layer_distance/document.svg \
 
 VERBOSE ?= @
 
