@@ -154,6 +154,7 @@ package body SCSC.Graph is
    function Create_Graph
      (Params          : Graph_Params_Type;
       Data            : Data_Type;
+      Positions       : Positions_Type := (1 .. 0 => 1);
       GID             : String := "";
       Style           : String := "";
       Connector_Style : String := "";
@@ -286,6 +287,7 @@ package body SCSC.Graph is
 
       function Calculate_Params return Params_Type
       is
+         I       : Positive;
          Start   : Types.Angle := 0.0;
          Weights : Natural;
          Result  : Params_Type;
@@ -304,8 +306,9 @@ package body SCSC.Graph is
                end if;
             end loop;
 
-            for I in Data'Range
+            for Index in Data'Range
             loop
+               I := (if Positions'Length > 0 then Positions (Index) else Index);
                if Data (I).Level = Levels (L).Value
                then
                   declare
@@ -337,8 +340,9 @@ package body SCSC.Graph is
             end loop;
          end loop;
 
-         for I in Data'Range
+         for Index in Data'Range
          loop
+            I := (if Positions'Length > 0 then Positions (Index) else Index);
             for E of Data (I).Get_Edges
             loop
                declare
@@ -356,12 +360,14 @@ package body SCSC.Graph is
       P       : constant Params_Type := Calculate_Params;
       Sectors : SXML.Document_Type (1 .. SXML.Index_Type (P.Length)) := (others => SXML.Null_Node);
       Offset  : SXML.Offset_Type := 0;
+      I       : Positive;
    begin
-      for I in Data'Range
+      for Index in Data'Range
       loop
+         I := (if Positions'Length > 0 then Positions (Index) else Index);
          declare
             Sector : constant SXML.Document_Type :=
-               Primitives.Annular_Sector (Params    => P.Sectors (I),
+               Primitives.Annular_Sector (Params    => P.Sectors (Index),
                                           Text      => Data (I).Get_Label,
                                           Style     => Style,
                                           Textstyle => Text_Style,
