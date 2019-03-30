@@ -19,7 +19,7 @@ is
    Doc : SVG.Document_Type := SVG.Create_SVG
       (Width  => 400,
        Height => 400,
-       Child  => SVG.Circle (Center, 2, Style => "fill: black; stroke: none")
+       Child  => SVG.Circle (Center, 2, Class => "fill_black")
                + Graph.Create_Graph (Params => Graph.Create_Polar (Center   => Center,
                                                                    Spacing  => (40, 30, 60),
                                                                    Radius   => 20),
@@ -33,8 +33,13 @@ is
                                                 Graph.Create_Node (Label => "Node 8", Weight => 1, Level => 3),
                                                 Graph.Create_Node (Label => "Node 9", Weight => 2, Level => 3),
                                                 Graph.Create_Node (Label => "Node 10", Weight => 4, Level => 3)),
-                                     GID    => "G1",
-                                     Style  => "fill: yellow; stroke: green")
+                                     ID     => "G1"),
+       Style  => ".arrow { fill: blue; } .fill_black { fill: black; stroke: none; } "
+                 & ".connector { fill: none; stroke: blue; } "
+                 & ".text { fill: green; stroke: none; font-size: 10px; } "
+                 & ".graph { fill: yellow; stroke: green; } "
+                 & ".annular_sector { fill: yellow; stroke: red; } "
+                 & ".connector_end { marker-start: url(#End_Arrow); } "
       );
 begin
    Put_Line (SVG.To_String (Doc));

@@ -19,29 +19,33 @@ is
                                        Start  => 0.0,
                                        Stop   => 240.0);
 
-   Arc1 : Document_Type := Arc (Params1, Style  => "stroke: #ff0000; fill: none");
+   Arc1 : Document_Type := Arc (Params1);
 
    Params2 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 60,
                                        Start  => 30.0,
                                        Stop   => 100.0);
 
-   Arc2 : Document_Type := Arc (Params2, Style  => "stroke: #00ffff; fill: none");
+   Arc2 : Document_Type := Arc (Params2);
 
    Params3 : Arc_Params_Type := Polar (Center => Center,
                                        Radius => 30,
                                        Start  => 120.0,
                                        Stop   => 140.0);
 
-   Arc3 : Document_Type := Arc (Params3, Style  => "stroke: #00ff00; fill: none");
+   Arc3 : Document_Type := Arc (Params3);
 
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (Width  => 400,
        Height => 400,
-       Child  => Group (Circle (Center, 5, "fill:red") +
-                        Arc1 + Circle (Params1.From, 2, "fill:green") + Circle (Params1.To, 2, "fill:blue") +
-                        Arc2 + Circle (Params2.From, 2, "fill:orange") + Circle (Params2.To, 2, "fill:purple") +
-                        Arc3 + Circle (Params3.From, 2, "fill:magenta") + Circle (Params3.To, 2, "fill:cyan")));
+       Child  => Group (Circle (Center, 5) +
+                        Arc1 + Circle (Params1.From, 2, ID => "c1") + Circle (Params1.To, 2, ID => "c2") +
+                        Arc2 + Circle (Params2.From, 2, ID => "c3") + Circle (Params2.To, 2, ID => "c4") +
+                        Arc3 + Circle (Params3.From, 2, ID => "c5") + Circle (Params3.To, 2, ID => "c6")),
+       Style => ".arc { stroke: #ff0000; fill: none; } "
+                & "#c1 { fill: green; } #c2 { fill: blue; } "
+                & "#c3 { fill: orange; } #c4 { fill: purple; } "
+                & "#c5 { fill: magenta; } #c6 { fill: cyan; } ");
 begin
    Put_Line (SCSC.SVG.To_String (SVG));
 end Main;

@@ -13,9 +13,17 @@ is
    function Create_SVG (Width  : Natural;
                         Height : Natural;
                         Child  : SXML.Document_Base_Type := SXML.Null_Document;
-                        Defs   : SXML.Document_Base_Type := SXML.Null_Document) return SXML.Document_Type
+                        Defs   : SXML.Document_Base_Type := SXML.Null_Document;
+                        Style  : String := "") return SXML.Document_Type
    is
       D : constant SXML.Document_Type := E ("defs", Defs);
+      S : constant SXML.Document_Base_Type :=
+         E ("style",
+            A ("type", "test/css"),
+            C (Style & " .connector_connector_arc { visiblity: hidden !important; } "
+                     & " .annular_sector_arc { visibility: hidden !important; } "
+                     & " .text { stroke: none !important; } "
+                     & " .scsc_arc { fill: none !important; } "));
       use type SXML.Document_Base_Type;
    begin
       return
@@ -24,8 +32,8 @@ is
              A ("height", Height) +
              A ("xmlns", "http://www.w3.org/2000/svg") +
              A ("xmlns:xlink", "http://www.w3.org/1999/xlink"),
-             (if Child /= SXML.Null_Document or Defs /= SXML.Null_Document
-              then D + SXML.Document_Type (Child)
+             (if Child /= SXML.Null_Document or Defs /= SXML.Null_Document or Style'Length > 0
+              then S + D + SXML.Document_Type (Child)
               else SXML.Null_Document)));
    end Create_SVG;
 
@@ -141,11 +149,9 @@ is
    -- Path --
    ----------
 
-   function Path (Commands     : Path_Commands_Type;
-                  Marker_Start : String := "";
-                  Marker_End   : String := "";
-                  Style        : String := "";
-                  PID          : String := "") return SXML.Document_Type
+   function Path (Commands : Path_Commands_Type;
+                  ID       : String := "";
+                  Class    : String := "") return SXML.Document_Type
    is
       function Total_Len return Natural;
 
@@ -179,20 +185,13 @@ is
          end loop;
          return
             (E ("path", A ("d", D)
-                        + (if Marker_Start /= ""
-                           then A ("marker-start", "url(#" & Marker_Start & ")")
+
+                        + (if Class'Length > 0
+                           then A ("class", Class)
                            else Null_Attributes)
 
-                        + (if Marker_End /= ""
-                           then A ("marker-end", "url(#" & Marker_End & ")")
-                           else Null_Attributes)
-
-                        + (if PID /= ""
-                           then A ("id", PID)
-                           else Null_Attributes)
-
-                        + (if Style /= ""
-                           then A ("style", Style)
+                        + (if ID /= ""
+                           then A ("id", ID)
                            else Null_Attributes)));
       end;
    end Path;
@@ -202,10 +201,10 @@ is
    -----------
 
    function Group (Element : SXML.Document_Type;
-                   GID     : String := "") return SXML.Document_Type
+                   ID      : String := "") return SXML.Document_Type
    is
    begin
-      return E ("g", (if GID /= "" then A ("id", GID) else Null_Attributes), Element);
+      return E ("g", (if ID /= "" then A ("id", ID) else Null_Attributes), Element);
    end Group;
 
    ------------
@@ -214,17 +213,17 @@ is
 
    function Circle (Center : Types.Point;
                     Radius : Natural;
-                    Style  : String := "";
-                    CID    : String := "") return SXML.Document_Type
+                    ID     : String := "";
+                    Class  : String := "") return SXML.Document_Type
    is
    begin
       return
          (E ("circle",
-             (if CID /= "" then A ("id", CID) else Null_Attributes) +
+             (if ID /= "" then A ("id", ID) else Null_Attributes) +
+             A ("class", (if Class /= "" then "circle " & Class else "circle")) +
              A ("cx", Center.X) +
              A ("cy", Center.Y) +
-             A ("r", Radius) +
-             A ("style", Style)));
+             A ("r", Radius)));
    end Circle;
 
    ----------
@@ -236,9 +235,9 @@ is
                   Align     : Align_Type := Align_Centered;
                   DX        : Types.Length := Types.Invalid_Length;
                   DY        : Types.Length := Types.Invalid_Length;
-                  Style     : String  := "";
-                  Path_Name : String  := "";
-                  TID       : String  := "") return SXML.Document_Type
+                  Path_Name : String := "";
+                  ID        : String := "";
+                  Class     : String := "") return SXML.Document_Type
    is
       use type Types.Length;
 
@@ -261,12 +260,12 @@ is
                                           else C (Data));
    begin
       return
-         (E ("text", (if TID /= "" then A ("id", TID) else Null_Attributes)
+         (E ("text", (if ID /= "" then A ("id", ID) else Null_Attributes)
+                   + A ("class", (if Class = "" then "text" else "text " & Class))
                    + (if Path_Name = "" then A ("x", Position.X) else Null_Attributes)
                    + (if Path_Name = "" then A ("y", Position.Y) else Null_Attributes)
                    + (if DX /= Types.Invalid_Length then A ("dx", DX.Image) else Null_Attributes)
-                   + (if DY /= Types.Invalid_Length then A ("dy", DY.Image) else Null_Attributes)
-                   + A ("style", Style),
+                   + (if DY /= Types.Invalid_Length then A ("dy", DY.Image) else Null_Attributes),
              T));
    end Text;
 
@@ -279,12 +278,12 @@ is
                     Height  : Natural;
                     RefX    : Float;
                     RefY    : Float;
-                    MID     : String) return SXML.Document_Type
+                    ID      : String) return SXML.Document_Type
    is
    begin
       return
          (E ("marker",
-             A ("id", MID) +
+             A ("id", ID) +
              A ("orient", "auto") +
              A ("markerWidth", Width) +
              A ("markerHeight", Height) +

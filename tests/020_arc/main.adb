@@ -18,10 +18,10 @@ is
                                         To     => P (400, 200),
                                         Radius => 200,
                                         Sweep  => False),
-                             Style => "fill: none; stroke: black") +
+                             ID => "myarc") +
                         Circle (Center => P (50, 50),
-                                Radius => 2,
-                                Style  => "fill: black")));
+                                Radius => 2)),
+       Style => ".circle { fill: black; } #myarc { fill:none; stroke: green; }");
 begin
    Put_Line (SCSC.SVG.To_String (SVG));
 end Main;

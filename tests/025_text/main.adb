@@ -12,7 +12,7 @@ is
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (Width  => 400,
        Height => 400,
-       Child  => Text (P (200, 200), Data => "This is a text", Style => "fill: green; color: red"));
+       Child  => Text (P (200, 200), Data => "This is a text"), Style => ".text { fill: green; color: red; }");
 begin
    Put_Line (SCSC.SVG.To_String (SVG));
 end Main;

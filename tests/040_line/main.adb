@@ -17,21 +17,23 @@ is
       (
        Width  => 400,
        Height => 400,
-       Child  => Circle (Center, 2,   Style => "fill: black; stroke: black")
-               + Circle (Center, 200, Style => "fill: none; stroke: black")
+       Child  => Circle (Center, 2, ID => "filled_circle")
+               + Circle (Center, 200)
 
-               + Line (Polar (Center, 20, 180, 45.0), Style => "fill: none; stroke: blue")
-               + Line (Polar (Center, 50, 120, 60.0), Style => "fill: none; stroke: red")
-               + Line (Polar (Center,  0,  80, 140.0), Style => "fill: none; stroke: green")
+               + Line (Polar (Center, 20, 180, 45.0), ID => "blue_line")
+               + Line (Polar (Center, 50, 120, 60.0), ID => "red_line")
+               + Line (Polar (Center,  0,  80, 140.0))
 
-               + Line (Polar (Center,  180, 200, 160.0), Style => "fill: none; stroke: green")
-               + Line (Polar (Center,  180, 200, 170.0), Style => "fill: none; stroke: green")
-               + Line (Polar (Center,  180, 200, 180.0), Style => "fill: none; stroke: green")
-               + Line (Polar (Center,  180, 200, 190.0), Style => "fill: none; stroke: green")
-               + Line (Polar (Center,  180, 200, 200.0), Style => "fill: none; stroke: green")
-               + Line (Polar (Center,  180, 200, 210.0), Style => "fill: none; stroke: green")
-               + Line (Polar (Center,  180, 200, 220.0), Style => "fill: none; stroke: green")
-               + Line (Polar (Center,  180, 200, 230.0), Style => "fill: none; stroke: green")
+               + Line (Polar (Center,  180, 200, 160.0))
+               + Line (Polar (Center,  180, 200, 170.0))
+               + Line (Polar (Center,  180, 200, 180.0))
+               + Line (Polar (Center,  180, 200, 190.0))
+               + Line (Polar (Center,  180, 200, 200.0))
+               + Line (Polar (Center,  180, 200, 210.0))
+               + Line (Polar (Center,  180, 200, 220.0))
+               + Line (Polar (Center,  180, 200, 230.0)),
+       Style => ".line { fill: none; stroke: green; } circle { fill: none; stroke: black; } "
+                & "#blue_line { stroke: blue; } #red_line { stroke: red; } #filled_circle { fill: black; }"
       );
 begin
    Put_Line (SCSC.SVG.To_String (SVG));
