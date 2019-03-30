@@ -29,172 +29,174 @@ is
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (Width  => 400,
        Height => 400,
-       Child  => Circle (Center, 2, Style => "fill: black; stroke: none")
+       Child  => Circle (Center, 2, Class => "fill_black")
                + Annular_Sector (Params => P01,
-                                 Text   => "PO/1 PI/1", Textstyle => "font-size: 10px",
-                                 ASID   => "AS1",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/1 PI/1",
+                                 ID     => "AS1",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P01, Pos_Outer, 1, 1)), 2, "fill: red")
-               + Circle (P (Port (P01, Pos_Inner, 1, 1)), 2, "fill: green")
+               + Circle (P (Port (P01, Pos_Outer, 1, 1)), 2, Class => "fill_red")
+               + Circle (P (Port (P01, Pos_Inner, 1, 1)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P02,
-                                 Text   => "PO/2 PI/2", Textstyle => "font-size: 10px",
-                                 ASID   => "AS2",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/2 PI/2",
+                                 ID     => "AS2",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P02, Pos_Outer, 1, 2)), 2, "fill: red")
-               + Circle (P (Port (P02, Pos_Outer, 2, 2)), 2, "fill: red")
-               + Circle (P (Port (P02, Pos_Inner, 1, 2)), 2, "fill: green")
-               + Circle (P (Port (P02, Pos_Inner, 2, 2)), 2, "fill: green")
+               + Circle (P (Port (P02, Pos_Outer, 1, 2)), 2, Class => "fill_red")
+               + Circle (P (Port (P02, Pos_Outer, 2, 2)), 2, Class => "fill_red")
+               + Circle (P (Port (P02, Pos_Inner, 1, 2)), 2, Class => "fill_green")
+               + Circle (P (Port (P02, Pos_Inner, 2, 2)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P03,
-                                 Text   => "PO/3 PI/3", Textstyle => "font-size: 10px",
-                                 ASID   => "AS3",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/3 PI/3",
+                                 ID     => "AS3",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P03, Pos_Outer, 1, 3)), 2, "fill: red")
-               + Circle (P (Port (P03, Pos_Outer, 2, 3)), 2, "fill: red")
-               + Circle (P (Port (P03, Pos_Outer, 3, 3)), 2, "fill: red")
+               + Circle (P (Port (P03, Pos_Outer, 1, 3)), 2, Class => "fill_red")
+               + Circle (P (Port (P03, Pos_Outer, 2, 3)), 2, Class => "fill_red")
+               + Circle (P (Port (P03, Pos_Outer, 3, 3)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P03, Pos_Inner, 1, 3)), 2, "fill: green")
-               + Circle (P (Port (P03, Pos_Inner, 2, 3)), 2, "fill: green")
-               + Circle (P (Port (P03, Pos_Inner, 3, 3)), 2, "fill: green")
+               + Circle (P (Port (P03, Pos_Inner, 1, 3)), 2, Class => "fill_green")
+               + Circle (P (Port (P03, Pos_Inner, 2, 3)), 2, Class => "fill_green")
+               + Circle (P (Port (P03, Pos_Inner, 3, 3)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P04,
-                                 Text   => "PO/4 PI/4", Textstyle => "font-size: 10px",
-                                 ASID   => "AS4",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/4 PI/4",
+                                 ID     => "AS4",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P04, Pos_Outer, 1, 4)), 2, "fill: red")
-               + Circle (P (Port (P04, Pos_Outer, 2, 4)), 2, "fill: red")
-               + Circle (P (Port (P04, Pos_Outer, 3, 4)), 2, "fill: red")
-               + Circle (P (Port (P04, Pos_Outer, 4, 4)), 2, "fill: red")
+               + Circle (P (Port (P04, Pos_Outer, 1, 4)), 2, Class => "fill_red")
+               + Circle (P (Port (P04, Pos_Outer, 2, 4)), 2, Class => "fill_red")
+               + Circle (P (Port (P04, Pos_Outer, 3, 4)), 2, Class => "fill_red")
+               + Circle (P (Port (P04, Pos_Outer, 4, 4)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P04, Pos_Inner, 1, 4)), 2, "fill: green")
-               + Circle (P (Port (P04, Pos_Inner, 2, 4)), 2, "fill: green")
-               + Circle (P (Port (P04, Pos_Inner, 3, 4)), 2, "fill: green")
-               + Circle (P (Port (P04, Pos_Inner, 4, 4)), 2, "fill: green")
+               + Circle (P (Port (P04, Pos_Inner, 1, 4)), 2, Class => "fill_green")
+               + Circle (P (Port (P04, Pos_Inner, 2, 4)), 2, Class => "fill_green")
+               + Circle (P (Port (P04, Pos_Inner, 3, 4)), 2, Class => "fill_green")
+               + Circle (P (Port (P04, Pos_Inner, 4, 4)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P05,
-                                 Text   => "PO/5 PI/5", Textstyle => "font-size: 10px",
-                                 ASID   => "AS5",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/5 PI/5",
+                                 ID     => "AS5",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P05, Pos_Outer, 1, 5)), 2, "fill: red")
-               + Circle (P (Port (P05, Pos_Outer, 2, 5)), 2, "fill: red")
-               + Circle (P (Port (P05, Pos_Outer, 3, 5)), 2, "fill: red")
-               + Circle (P (Port (P05, Pos_Outer, 4, 5)), 2, "fill: red")
-               + Circle (P (Port (P05, Pos_Outer, 5, 5)), 2, "fill: red")
+               + Circle (P (Port (P05, Pos_Outer, 1, 5)), 2, Class => "fill_red")
+               + Circle (P (Port (P05, Pos_Outer, 2, 5)), 2, Class => "fill_red")
+               + Circle (P (Port (P05, Pos_Outer, 3, 5)), 2, Class => "fill_red")
+               + Circle (P (Port (P05, Pos_Outer, 4, 5)), 2, Class => "fill_red")
+               + Circle (P (Port (P05, Pos_Outer, 5, 5)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P05, Pos_Inner, 1, 5)), 2, "fill: green")
-               + Circle (P (Port (P05, Pos_Inner, 2, 5)), 2, "fill: green")
-               + Circle (P (Port (P05, Pos_Inner, 3, 5)), 2, "fill: green")
-               + Circle (P (Port (P05, Pos_Inner, 4, 5)), 2, "fill: green")
-               + Circle (P (Port (P05, Pos_Inner, 5, 5)), 2, "fill: green")
+               + Circle (P (Port (P05, Pos_Inner, 1, 5)), 2, Class => "fill_green")
+               + Circle (P (Port (P05, Pos_Inner, 2, 5)), 2, Class => "fill_green")
+               + Circle (P (Port (P05, Pos_Inner, 3, 5)), 2, Class => "fill_green")
+               + Circle (P (Port (P05, Pos_Inner, 4, 5)), 2, Class => "fill_green")
+               + Circle (P (Port (P05, Pos_Inner, 5, 5)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P06,
-                                 Text   => "PO/6 PI/6", Textstyle => "font-size: 10px",
-                                 ASID   => "AS6",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/6 PI/6",
+                                 ID     => "AS6",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P06, Pos_Outer, 1, 6)), 2, "fill: red")
-               + Circle (P (Port (P06, Pos_Outer, 2, 6)), 2, "fill: red")
-               + Circle (P (Port (P06, Pos_Outer, 3, 6)), 2, "fill: red")
-               + Circle (P (Port (P06, Pos_Outer, 4, 6)), 2, "fill: red")
-               + Circle (P (Port (P06, Pos_Outer, 5, 6)), 2, "fill: red")
-               + Circle (P (Port (P06, Pos_Outer, 6, 6)), 2, "fill: red")
+               + Circle (P (Port (P06, Pos_Outer, 1, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P06, Pos_Outer, 2, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P06, Pos_Outer, 3, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P06, Pos_Outer, 4, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P06, Pos_Outer, 5, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P06, Pos_Outer, 6, 6)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P06, Pos_Inner, 1, 6)), 2, "fill: green")
-               + Circle (P (Port (P06, Pos_Inner, 2, 6)), 2, "fill: green")
-               + Circle (P (Port (P06, Pos_Inner, 3, 6)), 2, "fill: green")
-               + Circle (P (Port (P06, Pos_Inner, 4, 6)), 2, "fill: green")
-               + Circle (P (Port (P06, Pos_Inner, 5, 6)), 2, "fill: green")
-               + Circle (P (Port (P06, Pos_Inner, 6, 6)), 2, "fill: green")
+               + Circle (P (Port (P06, Pos_Inner, 1, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P06, Pos_Inner, 2, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P06, Pos_Inner, 3, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P06, Pos_Inner, 4, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P06, Pos_Inner, 5, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P06, Pos_Inner, 6, 6)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P07,
-                                 Text   => "PO/6 PI/1", Textstyle => "font-size: 10px",
-                                 ASID   => "AS7",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/6 PI/1",
+                                 ID     => "AS7",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P07, Pos_Outer, 1, 6)), 2, "fill: red")
-               + Circle (P (Port (P07, Pos_Outer, 2, 6)), 2, "fill: red")
-               + Circle (P (Port (P07, Pos_Outer, 3, 6)), 2, "fill: red")
-               + Circle (P (Port (P07, Pos_Outer, 4, 6)), 2, "fill: red")
-               + Circle (P (Port (P07, Pos_Outer, 5, 6)), 2, "fill: red")
-               + Circle (P (Port (P07, Pos_Outer, 6, 6)), 2, "fill: red")
+               + Circle (P (Port (P07, Pos_Outer, 1, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P07, Pos_Outer, 2, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P07, Pos_Outer, 3, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P07, Pos_Outer, 4, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P07, Pos_Outer, 5, 6)), 2, Class => "fill_red")
+               + Circle (P (Port (P07, Pos_Outer, 6, 6)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P07, Pos_Inner, 1, 1)), 2, "fill: green")
+               + Circle (P (Port (P07, Pos_Inner, 1, 1)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P08,
-                                 Text   => "PO/5 PI/2", Textstyle => "font-size: 10px",
-                                 ASID   => "AS8",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/5 PI/2",
+                                 ID     => "AS8",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P08, Pos_Outer, 1, 5)), 2, "fill: red")
-               + Circle (P (Port (P08, Pos_Outer, 2, 5)), 2, "fill: red")
-               + Circle (P (Port (P08, Pos_Outer, 3, 5)), 2, "fill: red")
-               + Circle (P (Port (P08, Pos_Outer, 4, 5)), 2, "fill: red")
-               + Circle (P (Port (P08, Pos_Outer, 5, 5)), 2, "fill: red")
+               + Circle (P (Port (P08, Pos_Outer, 1, 5)), 2, Class => "fill_red")
+               + Circle (P (Port (P08, Pos_Outer, 2, 5)), 2, Class => "fill_red")
+               + Circle (P (Port (P08, Pos_Outer, 3, 5)), 2, Class => "fill_red")
+               + Circle (P (Port (P08, Pos_Outer, 4, 5)), 2, Class => "fill_red")
+               + Circle (P (Port (P08, Pos_Outer, 5, 5)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P08, Pos_Inner, 1, 2)), 2, "fill: green")
-               + Circle (P (Port (P08, Pos_Inner, 2, 2)), 2, "fill: green")
+               + Circle (P (Port (P08, Pos_Inner, 1, 2)), 2, Class => "fill_green")
+               + Circle (P (Port (P08, Pos_Inner, 2, 2)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P09,
-                                 Text   => "PO/4 PI/3", Textstyle => "font-size: 10px",
-                                 ASID   => "AS9",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/4 PI/3",
+                                 ID     => "AS9",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P09, Pos_Outer, 1, 4)), 2, "fill: red")
-               + Circle (P (Port (P09, Pos_Outer, 2, 4)), 2, "fill: red")
-               + Circle (P (Port (P09, Pos_Outer, 3, 4)), 2, "fill: red")
-               + Circle (P (Port (P09, Pos_Outer, 4, 4)), 2, "fill: red")
+               + Circle (P (Port (P09, Pos_Outer, 1, 4)), 2, Class => "fill_red")
+               + Circle (P (Port (P09, Pos_Outer, 2, 4)), 2, Class => "fill_red")
+               + Circle (P (Port (P09, Pos_Outer, 3, 4)), 2, Class => "fill_red")
+               + Circle (P (Port (P09, Pos_Outer, 4, 4)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P09, Pos_Inner, 1, 3)), 2, "fill: green")
-               + Circle (P (Port (P09, Pos_Inner, 2, 3)), 2, "fill: green")
-               + Circle (P (Port (P09, Pos_Inner, 3, 3)), 2, "fill: green")
+               + Circle (P (Port (P09, Pos_Inner, 1, 3)), 2, Class => "fill_green")
+               + Circle (P (Port (P09, Pos_Inner, 2, 3)), 2, Class => "fill_green")
+               + Circle (P (Port (P09, Pos_Inner, 3, 3)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P10,
-                                 Text   => "PO/3 PI/4", Textstyle => "font-size: 10px",
-                                 ASID   => "AS10",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/3 PI/4",
+                                 ID     => "AS10",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P10, Pos_Outer, 1, 3)), 2, "fill: red")
-               + Circle (P (Port (P10, Pos_Outer, 2, 3)), 2, "fill: red")
-               + Circle (P (Port (P10, Pos_Outer, 3, 3)), 2, "fill: red")
+               + Circle (P (Port (P10, Pos_Outer, 1, 3)), 2, Class => "fill_red")
+               + Circle (P (Port (P10, Pos_Outer, 2, 3)), 2, Class => "fill_red")
+               + Circle (P (Port (P10, Pos_Outer, 3, 3)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P10, Pos_Inner, 1, 4)), 2, "fill: green")
-               + Circle (P (Port (P10, Pos_Inner, 2, 4)), 2, "fill: green")
-               + Circle (P (Port (P10, Pos_Inner, 3, 4)), 2, "fill: green")
-               + Circle (P (Port (P10, Pos_Inner, 4, 4)), 2, "fill: green")
+               + Circle (P (Port (P10, Pos_Inner, 1, 4)), 2, Class => "fill_green")
+               + Circle (P (Port (P10, Pos_Inner, 2, 4)), 2, Class => "fill_green")
+               + Circle (P (Port (P10, Pos_Inner, 3, 4)), 2, Class => "fill_green")
+               + Circle (P (Port (P10, Pos_Inner, 4, 4)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P11,
-                                 Text   => "PO/2 PI/5", Textstyle => "font-size: 10px",
-                                 ASID   => "AS11",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/2 PI/5",
+                                 ID     => "AS11",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P11, Pos_Outer, 1, 2)), 2, "fill: red")
-               + Circle (P (Port (P11, Pos_Outer, 2, 2)), 2, "fill: red")
+               + Circle (P (Port (P11, Pos_Outer, 1, 2)), 2, Class => "fill_red")
+               + Circle (P (Port (P11, Pos_Outer, 2, 2)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P11, Pos_Inner, 1, 5)), 2, "fill: green")
-               + Circle (P (Port (P11, Pos_Inner, 2, 5)), 2, "fill: green")
-               + Circle (P (Port (P11, Pos_Inner, 3, 5)), 2, "fill: green")
-               + Circle (P (Port (P11, Pos_Inner, 4, 5)), 2, "fill: green")
-               + Circle (P (Port (P11, Pos_Inner, 5, 5)), 2, "fill: green")
+               + Circle (P (Port (P11, Pos_Inner, 1, 5)), 2, Class => "fill_green")
+               + Circle (P (Port (P11, Pos_Inner, 2, 5)), 2, Class => "fill_green")
+               + Circle (P (Port (P11, Pos_Inner, 3, 5)), 2, Class => "fill_green")
+               + Circle (P (Port (P11, Pos_Inner, 4, 5)), 2, Class => "fill_green")
+               + Circle (P (Port (P11, Pos_Inner, 5, 5)), 2, Class => "fill_green")
 
                + Annular_Sector (Params => P12,
-                                 Text   => "PO/1 PI/6", Textstyle => "font-size: 10px",
-                                 ASID   => "AS12",
-                                 Style  => "fill: yellow; stroke: green")
+                                 Text   => "PO/1 PI/6",
+                                 ID     => "AS12",
+                                 Class  => "yellow_green")
 
-               + Circle (P (Port (P12, Pos_Outer, 1, 1)), 2, "fill: red")
+               + Circle (P (Port (P12, Pos_Outer, 1, 1)), 2, Class => "fill_red")
 
-               + Circle (P (Port (P12, Pos_Inner, 1, 6)), 2, "fill: green")
-               + Circle (P (Port (P12, Pos_Inner, 2, 6)), 2, "fill: green")
-               + Circle (P (Port (P12, Pos_Inner, 3, 6)), 2, "fill: green")
-               + Circle (P (Port (P12, Pos_Inner, 4, 6)), 2, "fill: green")
-               + Circle (P (Port (P12, Pos_Inner, 5, 6)), 2, "fill: green")
-               + Circle (P (Port (P12, Pos_Inner, 6, 6)), 2, "fill: green")
+               + Circle (P (Port (P12, Pos_Inner, 1, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P12, Pos_Inner, 2, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P12, Pos_Inner, 3, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P12, Pos_Inner, 4, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P12, Pos_Inner, 5, 6)), 2, Class => "fill_green")
+               + Circle (P (Port (P12, Pos_Inner, 6, 6)), 2, Class => "fill_green"),
+       Style => ".text { font-size: 10px; } .yellow_green { fill: yellow; stroke: green; } "
+                & ".fill_green { fill: green; } .fill_red { fill: red; } .fill_black { fill: black; } "
       );
 begin
    Put_Line (SCSC.SVG.To_String (SVG));

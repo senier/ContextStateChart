@@ -20,13 +20,13 @@ is
                                                    (Lineto, Absolute, 4, 4),
                                                    (Lineto, Absolute, 4, 0),
                                                    (ZClosepath, Absolute)),
-                                    Style => "fill: blue");
+                                      Class => "arrow");
 
 
    Doc : Document_Type := Create_SVG
       (Width  => 400,
        Height => 400,
-       Child  => Circle (Center, 2, Style => "fill: black; stroke: none")
+       Child  => Circle (Center, 2, Class => "fill_black")
                + Create_Graph (Params => Create_Polar (Center => Center,
                                                        Radius => 20,
                                                        Spacing => (100, 80),
@@ -50,11 +50,14 @@ is
                                                                        2 => Create_Edge (1, Dir_CCW, -30, (2, Pos_Inner), (2, Pos_Outer), "O2⇒I1"))),
                                            7 => Create_Node (Label => "Outer 3", Level => 2, Weight => 2, Outer_Ports => 1, Inner_Ports => 1),
                                            8 => Create_Node (Label => "Outer 4", Level => 2, Weight => 3, Outer_Ports => 1, Inner_Ports => 1),
-                                           9 => Create_Node (Label => "Outer 5", Level => 2, Weight => 1, Outer_Ports => 1, Inner_Ports => 1)),
-                               Style  => "fill: yellow; stroke: black",
-                               Text_Style  => "fill: green; stroke: none; font-size: 10px",
-                               Connector_Style => "fill: none; stroke: blue"),
-       Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "End_Arrow")
+                                           9 => Create_Node (Label => "Outer 5", Level => 2, Weight => 1, Outer_Ports => 1, Inner_Ports => 1))),
+       Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "End_Arrow"),
+       Style  => ".arrow { fill: blue; } .fill_black { fill: black; stroke: none; } "
+                 & ".connector { fill: none; stroke: blue; } "
+                 & ".text { fill: green; stroke: none; font-size: 10px; } "
+                 & ".graph { fill: yellow; stroke: black; } "
+                 & ".annular_sector { fill: yellow; stroke: red; } "
+                 & ".connector_end { marker-start: url(#End_Arrow); } "
       );
 begin
    Put_Line (To_String (Doc));

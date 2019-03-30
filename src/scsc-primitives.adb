@@ -101,12 +101,11 @@ is
    ---------
 
    function Arc (Params : Arc_Params_Type;
-                 Style  : String  := "";
-                 AID    : String  := "") return SXML.Document_Type
+                 ID     : String := "";
+                 Class  : String := "") return SXML.Document_Type
    is
       use SCSC.SVG;
    begin
-      --  FIXME: Create style object to set style
       return Path (Commands =>
                    ((Moveto, Absolute, Params.From.X, Params.From.Y),
                     (Arc, Absolute, RX         => Params.Radius,
@@ -117,32 +116,27 @@ is
                                     AX         => Params.To.X,
                                     AY         => Params.To.Y)
                    ),
-                   Style => Style,
-                   PID   => AID);
+                   ID => ID,
+                   Class => (if Class = "" then "scsc_arc arc" else "scsc_arc arc " & Class));
    end Arc;
 
    ----------
    -- Line --
    ----------
 
-   function Line (Params       : Line_Params_Type;
-                  Marker_Start : String  := "";
-                  Marker_End   : String  := "";
-                  Style        : String  := "";
-                  LID          : String  := "") return SXML.Document_Type
+   function Line (Params : Line_Params_Type;
+                  ID     : String := "";
+                  Class  : String := "") return SXML.Document_Type
    is
       use SCSC.SVG;
    begin
-      --  FIXME: Create style object to set style
       return Path (Commands =>
                    ((Moveto, Absolute, Params.From.X, Params.From.Y),
                     (Lineto, Absolute, X => Params.To.X,
                                        Y => Params.To.Y)
                    ),
-                   Marker_Start => Marker_Start,
-                   Marker_End   => Marker_End,
-                   Style        => Style,
-                   PID          => LID);
+                   ID           => ID,
+                   Class        => (if Class = "" then "line" else "line " & Class));
    end Line;
 
    ----------
@@ -192,15 +186,12 @@ is
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
-                       COID         : String;
+                       ID           : String;
+                       Class        : String         := "";
                        Text         : String         := "";
-                       Textstyle    : String         := "";
                        Align        : SVG.Align_Type := SVG.Align_Centered;
                        Direction    : Dir_Type       := Dir_CW;
-                       Position     : Pos_Type       := Pos_Outer;
-                       Marker_Start : String         := "";
-                       Marker_End   : String         := "";
-                       Style        : String         := "") return SXML.Document_Type
+                       Position     : Pos_Type       := Pos_Outer) return SXML.Document_Type
    is
       use Types;
       use SXML.Generator;
@@ -226,28 +217,27 @@ is
                                             else (if Position = Pos_Outer then (Em, -0.4) else (Em, 0.3)));
 
    begin
-      return Line (Params       => LP_1,
-                   Marker_Start => Marker_Start,
-                   Style        => Style,
-                   LID          => COID & "_1")
+      return SVG.Group (Line (Params       => LP_1,
+                              ID           => ID & "_1",
+                              Class        => "connector connector_start" & (if Class = "" then "" else " " & Class))
 
-            + Arc (Params => Arc_Params,
-                   Style  => Style,
-                   AID    => COID & "_2")
+                       + Arc (Params => Arc_Params,
+                              ID     => ID & "_2",
+                              Class        => "connector connector_arc" & (if Class = "" then "" else " " & Class))
 
-            + (if Text /= ""
-               then SVG.Text (Center,
-                              Data      => Text,
-                              Style     => Textstyle,
-                              Align     => Align,
-                              DY        => DY,
-                              Path_Name => COID & "_2")
-               else SXML.Null_Document)
+                       + (if Text /= ""
+                          then SVG.Text (Center,
+                                         Data      => Text,
+                                         Align     => Align,
+                                         DY        => DY,
+                                         Path_Name => ID & "_2",
+                                         Class     => (if Class = "" then "connector" else "connector " & Class))
+                          else SXML.Null_Document)
 
-            + Line (Params       => Points (LP_2.From, LP_2.To),
-                    Marker_Start => Marker_End,
-                    Style        => Style,
-                    LID          => COID & "_3");
+                       + Line (Params => Points (LP_2.From, LP_2.To),
+                               ID     => ID & "_3",
+                               Class  => "connector connector_end" & (if Class = "" then "" else " " & Class)),
+                        ID => ID);
    end Connector;
 
    ------------
@@ -283,47 +273,47 @@ is
    --------------------
 
    function Annular_Sector (Params    : Annular_Sector_Params_Type;
-                            ASID      : String := "";
-                            Text      : String := "";
-                            Textstyle : String := "";
-                            Style     : String := "") return SXML.Document_Type
+                            ID        : String := "";
+                            Class     : String := "";
+                            Text      : String := "") return SXML.Document_Type
    is
       use SVG;
       use SXML.Generator;
       use Types;
 
    begin
-      return Path (Commands =>
-                   ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
-                    (Arc, Absolute, RX         => Params.Inner.Radius,
-                                    RY         => Params.Inner.Radius,
-                                    X_Rotation => Params.Inner.X_Rotation,
-                                    Large      => Params.Inner.Large,
-                                    Sweep      => Params.Inner.Sweep,
-                                    AX         => Params.Inner.To.X,
-                                    AY         => Params.Inner.To.Y),
-                    (Lineto, Absolute, Params.Outer.To.X, Params.Outer.To.Y),
-                    (Arc, Absolute, RX         => Params.Outer.Radius,
-                                    RY         => Params.Outer.Radius,
-                                    X_Rotation => Params.Outer.X_Rotation,
-                                    Large      => Params.Outer.Large,
-                                    Sweep      => not Params.Outer.Sweep,
-                                    AX         => Params.Outer.From.X,
-                                    AY         => Params.Outer.From.Y),
-                    (ZClosepath, Absolute)
-                   ),
-                   Style => Style,
-                   PID   => ASID & "_Path")
-                + (if Text /= ""
-                   then Arc (Params => Params.Inner,
-                             Style  => "fill: none; stroke: none",
-                             AID    => ASID & "_Arc")
-                      + SVG.Text (Params.Inner.From,
-                                  Data      => Text,
-                                  Style     => Textstyle,
-                                  DY        => (Em, -0.5),
-                                  Path_Name => ASID & "_Arc")
-                   else SXML.Null_Document);
+      return Group (Path (Commands =>
+                          ((Moveto, Absolute, Params.Inner.From.X, Params.Inner.From.Y),
+                           (Arc, Absolute, RX         => Params.Inner.Radius,
+                                           RY         => Params.Inner.Radius,
+                                           X_Rotation => Params.Inner.X_Rotation,
+                                           Large      => Params.Inner.Large,
+                                           Sweep      => Params.Inner.Sweep,
+                                           AX         => Params.Inner.To.X,
+                                           AY         => Params.Inner.To.Y),
+                           (Lineto, Absolute, Params.Outer.To.X, Params.Outer.To.Y),
+                           (Arc, Absolute, RX         => Params.Outer.Radius,
+                                           RY         => Params.Outer.Radius,
+                                           X_Rotation => Params.Outer.X_Rotation,
+                                           Large      => Params.Outer.Large,
+                                           Sweep      => not Params.Outer.Sweep,
+                                           AX         => Params.Outer.From.X,
+                                           AY         => Params.Outer.From.Y),
+                           (ZClosepath, Absolute)
+                          ),
+                          ID    => ID & "_Path",
+                          Class => (if Class = "" then "annular_sector" else Class & " annular_sector"))
+                       + (if Text /= ""
+                          then Arc (Params => Params.Inner,
+                                    ID     => ID & "_Arc",
+                                    Class  => "annular_sector_arc")
+                             + SVG.Text (Params.Inner.From,
+                                         Data      => Text,
+                                         DY        => (Em, -0.5),
+                                         Path_Name => ID & "_Arc",
+                                         Class     => "annular_sector_text")
+                          else SXML.Null_Document),
+                    ID    => ID);
 
    end Annular_Sector;
 

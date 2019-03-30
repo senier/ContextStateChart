@@ -69,7 +69,8 @@ is
    function Create_SVG (Width  : Natural;
                         Height : Natural;
                         Child  : SXML.Document_Base_Type := SXML.Null_Document;
-                        Defs   : SXML.Document_Base_Type := SXML.Null_Document) return SXML.Document_Type;
+                        Defs   : SXML.Document_Base_Type := SXML.Null_Document;
+                        Style  : String := "") return SXML.Document_Type;
    --  SVG document
 
    function To_String (Document : SXML.Document_Type) return String;
@@ -84,21 +85,19 @@ is
       Pre => Document'First > 0 and Document'Length > 0;
    --  Serialize SVG document
 
-   function Path (Commands     : Path_Commands_Type;
-                  Marker_Start : String := "";
-                  Marker_End   : String := "";
-                  Style        : String := "";
-                  PID          : String := "") return SXML.Document_Type;
+   function Path (Commands : Path_Commands_Type;
+                  ID       : String := "";
+                  Class    : String := "") return SXML.Document_Type;
    --  Create element from path commands
 
    function Group (Element : SXML.Document_Type;
-                   GID     : String := "") return SXML.Document_Type;
+                   ID      : String := "") return SXML.Document_Type;
    --  Group elements
 
    function Circle (Center : Types.Point;
                     Radius : Natural;
-                    Style  : String := "";
-                    CID    : String := "") return SXML.Document_Type;
+                    ID     : String := "";
+                    Class  : String := "") return SXML.Document_Type;
    --  Circle
 
    type Align_Type is (Align_Start, Align_Centered, Align_End);
@@ -108,9 +107,9 @@ is
                   Align     : Align_Type := Align_Centered;
                   DX        : Types.Length := Types.Invalid_Length;
                   DY        : Types.Length := Types.Invalid_Length;
-                  Style     : String := "";
                   Path_Name : String := "";
-                  TID       : String := "") return SXML.Document_Type;
+                  ID        : String := "";
+                  Class     : String := "") return SXML.Document_Type;
    --  Text
 
    function Marker (Element : SXML.Document_Type;
@@ -118,7 +117,7 @@ is
                     Height  : Natural;
                     RefX    : Float;
                     RefY    : Float;
-                    MID     : String) return SXML.Document_Type;
+                    ID      : String) return SXML.Document_Type;
    --  Return marker
 
 end SCSC.SVG;

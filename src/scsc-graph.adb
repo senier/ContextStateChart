@@ -1,4 +1,5 @@
 with Ada.Containers.Generic_Array_Sort;
+with SCSC.SVG;
 with SCSC.Math;
 
 package body SCSC.Graph is
@@ -152,13 +153,10 @@ package body SCSC.Graph is
    ------------------
 
    function Create_Graph
-     (Params          : Graph_Params_Type;
-      Data            : Data_Type;
-      Positions       : Positions_Type := (1 .. 0 => 1);
-      GID             : String := "";
-      Style           : String := "";
-      Connector_Style : String := "";
-      Text_Style      : String := "") return SXML.Document_Type
+     (Params    : Graph_Params_Type;
+      Data      : Data_Type;
+      Positions : Positions_Type := (1 .. 0 => 1);
+      ID        : String := "") return SXML.Document_Type
    is
       use type SXML.Offset_Type;
 
@@ -236,12 +234,9 @@ package body SCSC.Graph is
                                                      Port_No   => Dest_Port.Num,
                                                      Num_Ports => Data (Edge.Dest).Ports (Dest_Port.Pos))),
              Radius     => Edge.Radius,
-             COID       => CID,
+             ID         => CID,
              Text       => Edge.Get_Label,
-             Marker_End => "End_Arrow",   -- FIXME: Use global CSS instead
-             Textstyle  => Text_Style,
-             Direction  => Edge.Dir,
-             Style      => Connector_Style);
+             Direction  => Edge.Dir);
       end Create_Connector;
 
       ------------------------------------------------------------------------
@@ -327,10 +322,8 @@ package body SCSC.Graph is
                                                                              Start  => Start,
                                                                              Stop   => Start + Size);
                      AS      : constant SXML.Document_Type := Annular_Sector (Params    => AP,
-                                                                            Text      => Data (I).Get_Label,
-                                                                            Style     => Style,
-                                                                            Textstyle => Text_Style,
-                                                                            ASID      => GID & "_AS_" & To_ID (I));
+                                                                            Text => Data (I).Get_Label,
+                                                                            ID   => ID & "_AS_" & To_ID (I));
                   begin
                      Result.Sectors (I) := AP;
                      Result.Length := Result.Length + AS'Length;
@@ -346,7 +339,7 @@ package body SCSC.Graph is
             for E of Data (I).Get_Edges
             loop
                declare
-                  Connector_ID : constant String := GID & "_C_" & To_ID (I) & "_" & To_ID (E.Dest);
+                  Connector_ID : constant String := ID & "_C_" & To_ID (I) & "_" & To_ID (E.Dest);
                   C : constant SXML.Document_Type := Create_Connector (Result, E, I, Connector_ID);
                begin
                   Result.Length := Result.Length + C'Length;
@@ -367,11 +360,9 @@ package body SCSC.Graph is
          I := (if Positions'Length > 0 then Positions (Index) else Index);
          declare
             Sector : constant SXML.Document_Type :=
-               Primitives.Annular_Sector (Params    => P.Sectors (Index),
-                                          Text      => Data (I).Get_Label,
-                                          Style     => Style,
-                                          Textstyle => Text_Style,
-                                          ASID      => GID & "_AS_" & To_ID (I));
+               Primitives.Annular_Sector (Params => P.Sectors (Index),
+                                          Text   => Data (I).Get_Label,
+                                          ID     => ID & "_AS_" & To_ID (I));
          begin
             SXML.Append (Sectors, Offset, Sector);
             Offset := Offset + Sector'Length;
@@ -379,7 +370,7 @@ package body SCSC.Graph is
             loop
                declare
                   E : constant Edge_Type := Data (I).Get_Edges (J);
-                  Connector_ID : constant String := GID & "_C_" & To_ID (I) & "_" & To_ID (J);
+                  Connector_ID : constant String := ID & "_C_" & To_ID (I) & "_" & To_ID (J);
                   C : constant SXML.Document_Type := Create_Connector (P, E, I, Connector_ID);
                begin
                   SXML.Append (SXML.Document_Type (Sectors), Offset, C);
@@ -388,7 +379,8 @@ package body SCSC.Graph is
             end loop;
          end;
       end loop;
-      return Sectors;
+      return SVG.Group (Element => Sectors,
+                        ID      => ID);
    end Create_Graph;
 
    -----------------

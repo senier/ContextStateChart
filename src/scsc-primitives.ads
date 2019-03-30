@@ -21,15 +21,13 @@ is
    type Annular_Sector_Params_Type is tagged private;
 
    function Arc (Params : Arc_Params_Type;
-                 Style  : String  := "";
-                 AID    : String  := "") return SXML.Document_Type;
+                 ID     : String := "";
+                 Class  : String := "") return SXML.Document_Type;
    --  Return arc
 
    function Line (Params       : Line_Params_Type;
-                  Marker_Start : String  := "";
-                  Marker_End   : String  := "";
-                  Style        : String  := "";
-                  LID          : String  := "") return SXML.Document_Type;
+                  ID           : String := "";
+                  Class        : String := "") return SXML.Document_Type;
    --  Return line
 
    function Cartesian (From       : Types.Point;
@@ -40,15 +38,15 @@ is
                        Sweep      : Boolean := False) return Arc_Params_Type;
    --  Create arc parameters from cartesian coordinates
 
-   function Polar (Center  : Types.Point;
-                   Radius  : Natural;
-                   Angle   : Types.Angle) return Types.Point;
+   function Polar (Center : Types.Point;
+                   Radius : Natural;
+                   Angle  : Types.Angle) return Types.Point;
    --  Create point from center point, radius and angle
 
-   function Polar (Center     : Types.Point;
-                   Radius     : Natural;
-                   Start      : Types.Angle;
-                   Stop       : Types.Angle) return Arc_Params_Type;
+   function Polar (Center : Types.Point;
+                   Radius : Natural;
+                   Start  : Types.Angle;
+                   Stop   : Types.Angle) return Arc_Params_Type;
    --  Create arc parameters from center point, radius and two angles
 
    function Cartesian (Center : Types.Point;
@@ -77,22 +75,18 @@ is
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
-                       COID         : String;
+                       ID           : String;
+                       Class        : String         := "";
                        Text         : String         := "";
-                       Textstyle    : String         := "";
                        Align        : SVG.Align_Type := SVG.Align_Centered;
                        Direction    : Dir_Type       := Dir_CW;
-                       Position     : Pos_Type       := Pos_Outer;
-                       Marker_Start : String         := "";
-                       Marker_End   : String         := "";
-                       Style        : String         := "") return SXML.Document_Type;
+                       Position     : Pos_Type       := Pos_Outer) return SXML.Document_Type;
    --  Return connector
 
-   function Annular_Sector (Params    : Annular_Sector_Params_Type;
-                            ASID      : String := "";
-                            Text      : String := "";
-                            Textstyle : String := "";
-                            Style     : String := "") return SXML.Document_Type;
+   function Annular_Sector (Params : Annular_Sector_Params_Type;
+                            ID     : String := "";
+                            Class  : String := "";
+                            Text   : String := "") return SXML.Document_Type;
    --  Return annular sector
 
    function Port (Params    : Annular_Sector_Params_Type;
@@ -106,8 +100,8 @@ is
 private
    type Params_Type is tagged
    record
-      From       : Types.Point;
-      To         : Types.Point;
+      From : Types.Point;
+      To   : Types.Point;
    end record;
 
    type Arc_Params_Type is new Params_Type with

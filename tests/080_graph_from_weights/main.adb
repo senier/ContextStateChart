@@ -17,7 +17,7 @@ is
    Doc : SVG.Document_Type := SVG.Create_SVG
       (Width  => 400,
        Height => 400,
-       Child  => SVG.Circle (Center, 2, Style => "fill: black; stroke: none")
+       Child  => SVG.Circle (Center, 2)
                + Graph.Create_Graph (Params => Graph.Create_Polar (Center  => Center,
                                                                    Radius  => 120,
                                                                    Spacing => (0 => 20),
@@ -25,8 +25,8 @@ is
                                      Data   => (Graph.Create_Node (5),
                                                 Graph.Create_Node (3),
                                                 Graph.Create_Node (7),
-                                                Graph.Create_Node (2)),
-                                     Style  => "fill: yellow; stroke: green")
+                                                Graph.Create_Node (2))),
+       Style => ".circle { fill: black; stroke: none; } .annular_sector { fill: yellow; stroke: green; } "
       );
 begin
    Put_Line (SVG.To_String (Doc));

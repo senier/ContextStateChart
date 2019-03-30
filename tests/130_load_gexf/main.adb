@@ -20,7 +20,7 @@ is
                                                    (Lineto, Absolute, 4, 4),
                                                    (Lineto, Absolute, 4, 0),
                                                    (ZClosepath, Absolute)),
-                                    Style => "fill: green");
+                                      Class => "arrow");
 
    GEXF_File : String := Util.Read_File ("tests/data/client_handshake_states.gexf").all;
 
@@ -50,11 +50,14 @@ begin
                                                           Radius  => 20,
                                                           Spacing => (150, 300, 450),
                                                           Padding => 5),
-                                  Data   => Data.all (Data.all'First .. Last),
-                                  Style  => "fill: gray; stroke: black",
-                                  Text_Style  => "fill: black; stroke: none; font-size: 10px",
-                                  Connector_Style => "fill: none; stroke: green"),
-          Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "End_Arrow"));
+                                  Data   => Data.all (Data.all'First .. Last)),
+          Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "End_Arrow"),
+          Style  => ".arrow { fill: blue; } .fill_black { fill: black; stroke: none; } "
+                    & ".connector { fill: none; stroke: blue; } "
+                    & ".text { fill: green; stroke: none; font-size: 10px; } "
+                    & ".graph { fill: yellow; stroke: black; } "
+                    & ".annular_sector { fill: yellow; stroke: red; } "
+                    & ".connector_end { marker-start: url(#End_Arrow); } ");
    begin
       SXML.Serialize.Initialize (Stack.all);
       To_String (Doc, Output.all, Output_Last, Stack.all);

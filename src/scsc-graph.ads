@@ -100,13 +100,10 @@ is
    function Get_Radius (Params : Graph_Params_Type) return Natural;
    --  Return radius from graph parameters
 
-   function Create_Graph (Params          : Graph_Params_Type;
-                          Data            : Data_Type;
-                          Positions       : Positions_Type := (1 .. 0 => 1);
-                          GID             : String := "";
-                          Style           : String := "";
-                          Connector_Style : String := "";
-                          Text_Style      : String := "") return SXML.Document_Type with
+   function Create_Graph (Params    : Graph_Params_Type;
+                          Data      : Data_Type;
+                          Positions : Positions_Type := (1 .. 0 => 1);
+                          ID        : String := "") return SXML.Document_Type with
       Pre => (if Positions'Length > 0
               then Data'Length = Positions'Length
                    and (for all P in Positions'Range => P in Data'Range));

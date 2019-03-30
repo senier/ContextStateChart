@@ -25,55 +25,48 @@ is
                                                    (Vertical, Absolute, 4),
                                                    (Lineto, Absolute, 4, 2),
                                                    (ZClosepath, Absolute)),
-                                    Style => "fill: blue");
+                                      Class => "arrow");
 
    Arrow_Start : Document_Type := Path (Commands => ((Moveto, Absolute, 0, 2),
                                                      (Lineto, Absolute, 4, 4),
                                                      (Lineto, Absolute, 4, 0),
                                                      (ZClosepath, Absolute)),
-                                     Style => "fill: blue");
+                                        Class => "arrow");
 
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (
        Width  => 400,
        Height => 400,
 
-       Child  => Circle (Center,   2, Style => "fill: black; stroke: none")
-               + Circle (Center, 200, Style => "fill: none; stroke: black")
+       Child  => Circle (Center,   2)
+               + Circle (Center, 200, ID => "border")
 
-               + Circle (Start_1, 2, Style => "fill: red; stroke: none")
-               + Circle (Stop_1, 2, Style => "fill: green; stroke: none")
-               + Connector (Center, Start_1, Stop_1, Radius => 50, Style => "fill: none; stroke: red", COID => "C1")
+               + Circle (Start_1, 2, Class => "red_filled")
+               + Circle (Stop_1, 2, Class => "green_filled")
+               + Connector (Center, Start_1, Stop_1, Radius => 50, Class => "red", ID => "C1")
 
-               + Circle (Start_2, 2, Style => "fill: red; stroke: none")
-               + Circle (Stop_2, 2, Style  => "fill: green; stroke: none")
-               + Connector (Center, Start_2, Stop_2,
-                            Radius       => 30,
-                            Style        => "fill: none; stroke: blue",
-                            Marker_Start => "Arrow_Start",
-                            Marker_End   => "Arrow_End",
-                            COID         => "C2")
+               + Circle (Start_2, 2, Class => "red_filled")
+               + Circle (Stop_2, 2, Class => "green_filled")
+               + Connector (Center, Start_2, Stop_2, Radius => 30, Class => "blue", ID => "C2")
 
-               + Circle (Start_3, 2, Style => "fill: red; stroke: none")
-               + Circle (Stop_3, 2, Style => "fill: green; stroke: none")
-               + Connector (Center, Stop_3, Start_3,
-                            Radius       => -30,
-                            Style        => "fill: none; stroke: green",
-                            Marker_Start => "Arrow_Start",
-                            Marker_End   => "Arrow_Start",
-                            COID         => "C3")
+               + Circle (Start_3, 2, Class => "red_filled")
+               + Circle (Stop_3, 2, Class => "green_filled")
+               + Connector (Center, Stop_3, Start_3, Radius => -30, Class => "green", ID => "C3")
 
-               + Circle (Start_4, 2, Style => "fill: red; stroke: none")
-               + Circle (Stop_4, 2, Style => "fill: green; stroke: none")
-               + Connector (Center, Start_4, Stop_4,
-                            Radius       => -80,
-                            Style        => "fill: none; stroke: orange",
-                            Marker_Start => "Arrow_Start",
-                            Marker_End   => "Arrow_Start",
-                            COID         => "C4"),
+               + Circle (Start_4, 2, Class => "red_filled")
+               + Circle (Stop_4, 2, Class => "green_filled")
+               + Connector (Center, Start_4, Stop_4, Radius => -80, Class => "orange", ID => "C4"),
 
-       Defs   => Marker (Element => Arrow_End,   Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "Arrow_End")
-               + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, MID => "Arrow_Start")
+       Defs   => Marker (Element => Arrow_End,   Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_End")
+               + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_Start"),
+
+       Style => "circle { fill: none; stroke: black; } .arrow { fill: blue; } "
+                & ".connector_end { marker-start: url(#Arrow_Start); } "
+                & ".connector_start { marker-start: url(#Arrow_Start); } "
+                & "#border { fill: none; stroke: black; } .red_filled { fill: red; stroke: none; } "
+                & ".blue { stroke: blue; fill: none; } .orange { stroke: orange; fill: none; } "
+                & ".green_filled { stroke: none; fill: green; } .green { stroke: green; fill: none; } "
+                & ".red { stroke: red; fill: none; }"
       );
 begin
    Put_Line (SCSC.SVG.To_String (SVG));
