@@ -23,6 +23,7 @@ TESTS = \
 	obj/130_load_gexf/document.svg \
 	obj/140_variable_layer_distance/document.svg \
 	obj/150_node_position/document.svg \
+	obj/151_edge_positions/document.svg \
 
 VERBOSE ?= @
 
