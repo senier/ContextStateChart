@@ -33,7 +33,7 @@ is
                                                    Graph.Create_Node (Label => "Node 8", Weight => 1, Level => 3),
                                                    Graph.Create_Node (Label => "Node 9", Weight => 2, Level => 3),
                                                    Graph.Create_Node (Label => "Node 10", Weight => 4, Level => 3)),
-                                     Positions => (4, 5, 3, 7, 8, 10, 9, 6, 1, 2),
+                                     Positions => (6, 5, 3, 9, 8, 10, 7, 4, 1, 2),
                                      ID        => "G1"),
        Style  => ".arrow { fill: blue; } .fill_black { fill: black; stroke: none; } "
                  & ".connector { fill: none; stroke: blue; } "
