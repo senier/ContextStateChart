@@ -24,6 +24,8 @@ TESTS = \
 	obj/140_variable_layer_distance/document.svg \
 	obj/150_node_position/document.svg \
 	obj/151_edge_positions/document.svg \
+	obj/160_sa_annular_sector_radius/document.svg \
+	obj/161_sa_text_length/document.svg
 
 VERBOSE ?= @
 
