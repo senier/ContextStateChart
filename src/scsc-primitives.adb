@@ -1,5 +1,6 @@
 with SXML.Generator;
 with SCSC.Math;
+with Ada.Numerics;
 
 package body SCSC.Primitives
    with SPARK_Mode => On
@@ -22,6 +23,7 @@ is
         (From       => From,
          To         => To,
          Center     => Types.P (0, 0), -- FIXME
+         Length     => 0,
          Radius     => Radius,
          X_Rotation => X_Rotation,
          Large      => Large,
@@ -50,12 +52,14 @@ is
                    Start      : Types.Angle;
                    Stop       : Types.Angle) return Arc_Params_Type
    is
-      Angle : constant Types.Angle := Types.Difference (Start, Stop);
+      Angle  : constant Types.Angle := Types.Difference (Start, Stop);
+      Length : constant Natural     := Natural (Float (Radius) * Float (Angle) / 180.0 * Ada.Numerics.Pi);
    begin
       return
         (From       => Polar (Center, Radius, Start),
          To         => Polar (Center, Radius, Stop),
          Center     => Center,
+         Length     => Length,
          Radius     => Radius,
          X_Rotation => 0,
          Large      => Angle > 180.0,
@@ -78,7 +82,9 @@ is
       Stop   : constant Types.Point := Types.P (X => X_Len * Last / Offset + Center.X,
                                                 Y => Y_Len * Last / Offset + Center.Y);
    begin
-      return (From => Start, To => Stop);
+      return (From   => Start,
+              To     => Stop,
+              Length => Types.Distance (Start, Stop));
    end Cartesian;
 
    -----------
@@ -90,10 +96,13 @@ is
                    Stop       : Natural;
                    Angle      : Types.Angle) return Line_Params_Type
    is
+      From : constant Types.Point := Polar (Center, Start, Angle);
+      To   : constant Types.Point := Polar (Center, Stop, Angle);
    begin
       return
-        (From => Polar (Center, Start, Angle),
-         To   => Polar (Center, Stop, Angle));
+        (From   => From,
+         To     => To,
+         Length => Types.Distance (From, To));
    end Polar;
 
    ---------
@@ -143,21 +152,19 @@ is
    -- From --
    ----------
 
-   function From (Params : Params_Type) return Types.Point
-   is
-   begin
-      return Params.From;
-   end From;
+   function From (Params : Params_Type) return Types.Point is (Params.From);
 
    --------
    -- To --
    --------
 
-   function To (Params : Params_Type) return Types.Point
-   is
-   begin
-      return Params.To;
-   end To;
+   function To (Params : Params_Type) return Types.Point is (Params.To);
+
+   ------------
+   -- Length --
+   ------------
+
+   function Length (Params : Params_Type) return Natural is (Params.Length);
 
    --------------
    -- To_Angle --
@@ -245,7 +252,7 @@ is
    ------------
 
    function Points (Start : Types.Point;
-                    Stop  : Types.Point) return Line_Params_Type is (Start, Stop);
+                    Stop  : Types.Point) return Line_Params_Type is (Start, Stop, 0);
 
    -----------
    -- Polar --

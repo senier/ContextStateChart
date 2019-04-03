@@ -16,6 +16,9 @@ is
    function To (Params : Params_Type) return Types.Point;
    --  Return To point
 
+   function Length (Params : Params_Type) return Natural;
+   --  Return length
+
    type Arc_Params_Type is new Params_Type with private;
    type Line_Params_Type is new Params_Type with private;
    type Annular_Sector_Params_Type is tagged private;
@@ -100,8 +103,9 @@ is
 private
    type Params_Type is tagged
    record
-      From : Types.Point;
-      To   : Types.Point;
+      From   : Types.Point;
+      To     : Types.Point;
+      Length : Natural;
    end record;
 
    type Arc_Params_Type is new Params_Type with
