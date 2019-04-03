@@ -2,7 +2,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
-with SCSC.SA;
+with SCSC.Simulated_Annealing;
 with SXML.Generator;
 
 procedure Main
@@ -14,30 +14,38 @@ is
 
    Center : Point := P (200, 300);
 
+   AS0_Params : Annular_Sector_Params_Type := Polar (Center, 280, 20, 331.0, 359.0);
    AS1_Params : Annular_Sector_Params_Type := Polar (Center, 240, 20, 331.0, 359.0);
    AS2_Params : Annular_Sector_Params_Type := Polar (Center, 200, 20, 331.0, 359.0);
    AS3_Params : Annular_Sector_Params_Type := Polar (Center, 160, 20, 331.0, 359.0);
    AS4_Params : Annular_Sector_Params_Type := Polar (Center, 120, 20, 331.0, 359.0);
    AS5_Params : Annular_Sector_Params_Type := Polar (Center, 80, 20, 331.0, 359.0);
 
-   AS_Text   : constant String := "Annular Sector";
+   AS_Text    : constant String := "Annular Sector";
+
+   Fontsize   : constant Natural := 10;
 
    Style      : constant String := ".annular_sector { fill: yellow; stroke: green; } "
                                    & ".annular_sector_arc { fill: none; } "
-                                   & ".text { font-size: 10px; fill: green; stroke: none; } "
+                                   & ".text { font-size:" & Fontsize'Img & "px; fill: green; stroke: none; } "
                                    & ".circle { fill: black; stroke: none; } ";
 begin
    declare
-      Energy1 : constant Natural := SCSC.SA.Energy (AS1_Params, AS_Text);
-      Energy2 : constant Natural := SCSC.SA.Energy (AS2_Params, AS_Text);
-      Energy3 : constant Natural := SCSC.SA.Energy (AS3_Params, AS_Text);
-      Energy4 : constant Natural := SCSC.SA.Energy (AS4_Params, AS_Text);
-      Energy5 : constant Natural := SCSC.SA.Energy (AS5_Params, AS_Text);
+      package SA is new SCSC.Simulated_Annealing;
+
+      Energy0 : constant Natural := SA.Energy (AS0_Params, AS_Text, Fontsize);
+      Energy1 : constant Natural := SA.Energy (AS1_Params, AS_Text, Fontsize);
+      Energy2 : constant Natural := SA.Energy (AS2_Params, AS_Text, Fontsize);
+      Energy3 : constant Natural := SA.Energy (AS3_Params, AS_Text, Fontsize);
+      Energy4 : constant Natural := SA.Energy (AS4_Params, AS_Text, Fontsize);
+      Energy5 : constant Natural := SA.Energy (AS5_Params, AS_Text, Fontsize);
 
       SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
          (Width  => 400,
           Height => 400,
           Child  => Circle (Center, 2)
+                  + Annular_Sector (Params => AS0_Params, Text => AS_Text, ID => "AS0")
+                  + Text (P (40, 30), Energy0'Img)
                   + Annular_Sector (Params => AS1_Params, Text => AS_Text, ID => "AS1")
                   + Text (P (60, 70), Energy1'Img)
                   + Annular_Sector (Params => AS2_Params, Text => AS_Text, ID => "AS2")

@@ -66,6 +66,12 @@ is
          Sweep      => True);
    end Polar;
 
+   -----------
+   -- Inner --
+   -----------
+
+   function Inner (Params : Annular_Sector_Params_Type) return Arc_Params_Type'Class is (Params.Inner);
+
    ---------------
    -- Cartesian --
    ---------------
