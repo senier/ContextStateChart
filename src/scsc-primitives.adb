@@ -70,7 +70,7 @@ is
    -- Inner --
    -----------
 
-   function Inner (Params : Annular_Sector_Params_Type) return Arc_Params_Type'Class is (Params.Inner);
+   function Inner (Params : Annular_Sector_Params_Type'Class) return Arc_Params_Type is (Params.Inner);
 
    ---------------
    -- Cartesian --

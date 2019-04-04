@@ -74,7 +74,7 @@ is
                    Stop   : Types.Angle) return Annular_Sector_Params_Type;
    --  Create annular sector parameters from center point, offset, radius and two angles
 
-   function Inner (Params : Annular_Sector_Params_Type) return Arc_Params_Type'Class;
+   function Inner (Params : Annular_Sector_Params_Type'Class) return Arc_Params_Type;
    --  Return inner arc parameters
 
    function Connector (Center       : Types.Point;
