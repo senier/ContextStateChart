@@ -145,6 +145,16 @@ private
       Radius      : Integer;
    end record;
 
+   type Annular_Sectors_Type is array (Positive range <>) of Primitives.Annular_Sector_Params_Type;
+
+   function Create_Connector (Params    : Graph_Params_Type;
+                              Data      : Data_Type;
+                              Sectors   : Annular_Sectors_Type;
+                              Positions : Positions_Type;
+                              Edge      : Edge_Type;
+                              Index     : Positive;
+                              ID        : String) return SXML.Document_Type;
+
    Null_Edge  : constant Edge_Type :=
       (Dest        => 0,
        Dir         => Primitives.Dir_Invalid,

@@ -177,6 +177,43 @@ package body SCSC.Graph is
       return Levels (Levels'First .. Last);
    end Get_Levels;
 
+   ----------------------
+   -- Create_Connector --
+   ----------------------
+
+   function Create_Connector (Params    : Graph_Params_Type;
+                              Data      : Data_Type;
+                              Sectors   : Annular_Sectors_Type;
+                              Positions : Positions_Type;
+                              Edge      : Edge_Type;
+                              Index     : Positive;
+                              ID        : String) return SXML.Document_Type
+   is
+      Source_Port : constant Port_Type := Edge.Source_Port;
+      Dest_Port   : constant Port_Type := Edge.Dest_Port;
+      Dest        : constant Natural := (if Positions'Length = Data'Length
+                                         then Positions (Edge.Dest)
+                                         else Edge.Dest);
+      I : constant Natural := (if Positions'Length = Data'Length
+                               then Positions (Index)
+                               else Index);
+   begin
+      return Primitives.Connector
+         (Center     => Params.Center,
+          Start      => Types.P (Primitives.Port (Params    => Sectors (Index),
+                                                  Position  => Source_Port.Pos,
+                                                  Port_No   => Source_Port.Num,
+                                                  Num_Ports => Data (I).Ports (Source_Port.Pos))),
+          Stop       => Types.P (Primitives.Port (Params    => Sectors (Dest),
+                                                  Position  => Dest_Port.Pos,
+                                                  Port_No   => Dest_Port.Num,
+                                                  Num_Ports => Data (Dest).Ports (Dest_Port.Pos))),
+          Radius     => Edge.Radius,
+          ID         => ID,
+          Text       => Edge.Get_Label,
+          Direction  => Edge.Dir);
+   end Create_Connector;
+
    ------------------
    -- Create_Graph --
    ------------------
@@ -188,44 +225,6 @@ package body SCSC.Graph is
       ID        : String := "") return SXML.Document_Type
    is
       use type SXML.Offset_Type;
-      type Annular_Sectors_Type is array (Positive range <>) of Primitives.Annular_Sector_Params_Type;
-
-      ------------------------------------------------------------------------
-
-      function Create_Connector (Sectors : Annular_Sectors_Type;
-                                 Edge    : Edge_Type;
-                                 Index   : Positive;
-                                 CID     : String) return SXML.Document_Type;
-
-      function Create_Connector (Sectors : Annular_Sectors_Type;
-                                 Edge    : Edge_Type;
-                                 Index   : Positive;
-                                 CID     : String) return SXML.Document_Type
-      is
-         Source_Port : constant Port_Type := Edge.Source_Port;
-         Dest_Port   : constant Port_Type := Edge.Dest_Port;
-         Dest        : constant Natural := (if Positions'Length = Data'Length
-                                            then Positions (Edge.Dest)
-                                            else Edge.Dest);
-         I : constant Natural := (if Positions'Length = Data'Length
-                                  then Positions (Index)
-                                  else Index);
-      begin
-         return Primitives.Connector
-            (Center     => Params.Center,
-             Start      => Types.P (Primitives.Port (Params    => Sectors (Index),
-                                                     Position  => Source_Port.Pos,
-                                                     Port_No   => Source_Port.Num,
-                                                     Num_Ports => Data (I).Ports (Source_Port.Pos))),
-             Stop       => Types.P (Primitives.Port (Params    => Sectors (Dest),
-                                                     Position  => Dest_Port.Pos,
-                                                     Port_No   => Dest_Port.Num,
-                                                     Num_Ports => Data (Dest).Ports (Dest_Port.Pos))),
-             Radius     => Edge.Radius,
-             ID         => CID,
-             Text       => Edge.Get_Label,
-             Direction  => Edge.Dir);
-      end Create_Connector;
 
       ------------------------------------------------------------------------
 
@@ -329,7 +328,13 @@ package body SCSC.Graph is
             loop
                declare
                   Connector_ID : constant String := ID & "_C_" & To_ID (I) & "_" & To_ID (E.Dest);
-                  C : constant SXML.Document_Type := Create_Connector (Sectors, E, I, Connector_ID);
+                  C : constant SXML.Document_Type := Create_Connector (Params    => Params,
+                                                                       Data      => Data,
+                                                                       Sectors   => Sectors,
+                                                                       Positions => Positions,
+                                                                       Edge      => E,
+                                                                       Index     => I,
+                                                                       ID        => Connector_ID);
                begin
                   Length := Length + C'Length;
                end;
@@ -365,7 +370,13 @@ package body SCSC.Graph is
                   declare
                      E : constant Edge_Type := Data (I).Get_Edges (J);
                      Connector_ID : constant String := ID & "_C_" & To_ID (I) & "_" & To_ID (J);
-                     C : constant SXML.Document_Type := Create_Connector (Sectors, E, Index, Connector_ID);
+                     C : constant SXML.Document_Type := Create_Connector (Params    => Params,
+                                                                          Data      => Data,
+                                                                          Sectors   => Sectors,
+                                                                          Positions => Positions,
+                                                                          Edge      => E,
+                                                                          Index     => Index,
+                                                                          ID        => Connector_ID);
                   begin
                      SXML.Append (SXML.Document_Type (S), Offset, C);
                      Offset := Offset + C'Length;
