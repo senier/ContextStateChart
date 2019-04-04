@@ -156,4 +156,18 @@ private
 
    Null_Edges : constant Edges_Type := (1 .. 0 => Null_Edge);
 
+   type Level_Type (Valid : Boolean := False) is
+   record
+      case Valid is
+         when False => null;
+         when True  => Value : Integer;
+      end case;
+   end record;
+
+   function "<" (Left, Right : Level_Type) return Boolean is (Left.Value < Right.Value);
+
+   type Levels_Type is array (Natural range <>) of Level_Type;
+
+   function Get_Levels (Data : Data_Type) return Levels_Type;
+
 end SCSC.Graph;

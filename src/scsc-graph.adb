@@ -148,6 +148,35 @@ package body SCSC.Graph is
 
    function Get_Radius (Params : Graph_Params_Type) return Natural is (Params.Radius);
 
+   ----------------
+   -- Get_Levels --
+   ----------------
+
+   function Get_Levels (Data : Data_Type) return Levels_Type
+   is
+      Levels : Levels_Type (0 .. 100) := (others => (Valid => False));
+      Last   : Natural;
+      procedure Sort is new Ada.Containers.Generic_Array_Sort (Natural, Level_Type, Levels_Type);
+   begin
+      for D of Data
+      loop
+         for L in Levels'Range
+         loop
+            if not Levels (L).Valid
+            then
+               Levels (L) := (Valid => True, Value => D.Level);
+               Last := L;
+               exit;
+            elsif Levels (L).Value = D.Level
+            then
+               exit;
+            end if;
+         end loop;
+      end loop;
+      Sort (Levels (Levels'First .. Last));
+      return Levels (Levels'First .. Last);
+   end Get_Levels;
+
    ------------------
    -- Create_Graph --
    ------------------
@@ -159,48 +188,7 @@ package body SCSC.Graph is
       ID        : String := "") return SXML.Document_Type
    is
       use type SXML.Offset_Type;
-
-      type Level_Type (Valid : Boolean := False) is
-      record
-         case Valid is
-            when False => null;
-            when True  => Value : Integer;
-         end case;
-      end record;
-
-      function "<" (Left, Right : Level_Type) return Boolean is (Left.Value < Right.Value);
-
-      type Levels_Type is array (Natural range <>) of Level_Type;
       type Annular_Sectors_Type is array (Positive range <>) of Primitives.Annular_Sector_Params_Type;
-
-      ------------------------------------------------------------------------
-
-      function Get_Levels return Levels_Type;
-
-      function Get_Levels return Levels_Type
-      is
-         Levels : Levels_Type (0 .. 100) := (others => (Valid => False));
-         Last   : Natural;
-         procedure Sort is new Ada.Containers.Generic_Array_Sort (Natural, Level_Type, Levels_Type);
-      begin
-         for D of Data
-         loop
-            for L in Levels'Range
-            loop
-               if not Levels (L).Valid
-               then
-                  Levels (L) := (Valid => True, Value => D.Level);
-                  Last := L;
-                  exit;
-               elsif Levels (L).Value = D.Level
-               then
-                  exit;
-               end if;
-            end loop;
-         end loop;
-         Sort (Levels (Levels'First .. Last));
-         return Levels (Levels'First .. Last);
-      end Get_Levels;
 
       ------------------------------------------------------------------------
 
@@ -287,7 +275,7 @@ package body SCSC.Graph is
          I       : Positive;
          Start   : Types.Angle := 0.0;
          Weights : Natural;
-         Levels  : constant Levels_Type := Get_Levels;
+         Levels  : constant Levels_Type := Get_Levels (Data);
       begin
          Length := 0;
 
