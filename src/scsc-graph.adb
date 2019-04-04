@@ -214,6 +214,25 @@ package body SCSC.Graph is
           Direction  => Edge.Dir);
    end Create_Connector;
 
+   ---------------------
+   -- Nodes_Per_Level --
+   ---------------------
+
+   function Nodes_Per_Level (Data  : Data_Type;
+                             Level : Integer) return Natural
+   is
+      Nodes : Natural := 0;
+   begin
+      for D of Data
+      loop
+         if D.Level = Level
+         then
+            Nodes := Nodes + 1;
+         end if;
+      end loop;
+      return Nodes;
+   end Nodes_Per_Level;
+
    ------------------
    -- Create_Graph --
    ------------------
@@ -225,24 +244,6 @@ package body SCSC.Graph is
       ID        : String := "") return SXML.Document_Type
    is
       use type SXML.Offset_Type;
-
-      ------------------------------------------------------------------------
-
-      function Nodes_Per_Level (Level : Integer) return Natural;
-
-      function Nodes_Per_Level (Level : Integer) return Natural
-      is
-         Nodes : Natural := 0;
-      begin
-         for D of Data
-         loop
-            if D.Level = Level
-            then
-               Nodes := Nodes + 1;
-            end if;
-         end loop;
-         return Nodes;
-      end Nodes_Per_Level;
 
       ------------------------------------------------------------------------
 
@@ -301,7 +302,8 @@ package body SCSC.Graph is
                      Spacing : constant Types.Angle := Types.Angle
                         (Math.Arcsin (Float (Params.Padding) / Float (Offset + Params.Radius / 2),
                                       Cycle => 360.0));
-                     Circle  : constant Float := 360.0 - (Float (Nodes_Per_Level (Levels (L).Value)) * Float (Spacing));
+                     Circle  : constant Float := 360.0 - (Float (Nodes_Per_Level (Data, Levels (L).Value))
+                                                                 * Float (Spacing));
                      Size    : constant Types.Angle := Types.Angle (Circle * Float (Data (I).Weight) / Float (Weights));
                      Stop    : constant Types.Angle := Start + Size;
                      AP      : constant Annular_Sector_Params_Type := Polar (Center => Params.Center,

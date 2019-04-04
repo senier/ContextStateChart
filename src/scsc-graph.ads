@@ -180,4 +180,7 @@ private
 
    function Get_Levels (Data : Data_Type) return Levels_Type;
 
+   function Nodes_Per_Level (Data  : Data_Type;
+                             Level : Integer) return Natural;
+
 end SCSC.Graph;
