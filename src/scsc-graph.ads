@@ -186,4 +186,10 @@ private
    function Calculate_Offset (Spacing : Spacing_Type;
                               Level   : Natural) return Integer;
 
+   procedure Calculate_Params (Params    :     Graph_Params_Type;
+                               Data      :     Data_Type;
+                               Positions :     Positions_Type;
+                               ID        :     String;
+                               Sectors   : out Annular_Sectors_Type;
+                               Length    : out Natural);
 end SCSC.Graph;

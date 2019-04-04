@@ -251,6 +251,90 @@ package body SCSC.Graph is
 
    end Calculate_Offset;
 
+   ----------------------
+   -- Calculate_Params --
+   ----------------------
+
+   procedure Calculate_Params (Params    :     Graph_Params_Type;
+                               Data      :     Data_Type;
+                               Positions :     Positions_Type;
+                               ID        :     String;
+                               Sectors   : out Annular_Sectors_Type;
+                               Length    : out Natural)
+   is
+      I       : Positive;
+      Start   : Types.Angle := 0.0;
+      Weights : Natural;
+      Levels  : constant Levels_Type := Get_Levels (Data);
+   begin
+      Length := 0;
+
+      for L in Levels'Range
+      loop
+         Weights := 0;
+         for D of Data
+         loop
+            if D.Level = Levels (L).Value
+            then
+               Weights := Weights + D.Weight;
+            end if;
+         end loop;
+
+         for Index in Data'Range
+         loop
+            I := (if Positions'Length > 0 then Positions (Index) else Index);
+            if Data (I).Level = Levels (L).Value
+            then
+               declare
+                  use type Types.Angle;
+                  use Primitives;
+                  Offset  : constant Natural := Calculate_Offset (Params.Spacing, L);
+                  Spacing : constant Types.Angle := Types.Angle
+                     (Math.Arcsin (Float (Params.Padding) / Float (Offset + Params.Radius / 2),
+                                   Cycle => 360.0));
+                  Circle  : constant Float := 360.0 - (Float (Nodes_Per_Level (Data, Levels (L).Value))
+                                                              * Float (Spacing));
+                  Size    : constant Types.Angle := Types.Angle (Circle * Float (Data (I).Weight) / Float (Weights));
+                  Stop    : constant Types.Angle := Start + Size;
+                  AP      : constant Annular_Sector_Params_Type := Polar (Center => Params.Center,
+                                                                          Offset => Offset,
+                                                                          Radius => Params.Radius,
+                                                                          Start  => Start,
+                                                                          Stop   => Start + Size);
+                  AS      : constant SXML.Document_Type := Annular_Sector (Params    => AP,
+                                                                         Text => Data (I).Get_Label,
+                                                                         ID   => ID & "_AS_" & To_ID (I));
+               begin
+                  Sectors (Index) := AP;
+                  Length := Length + AS'Length;
+                  Start := Stop + Spacing;
+               end;
+            end if;
+         end loop;
+      end loop;
+
+      for Index in Data'Range
+      loop
+         I := (if Positions'Length > 0 then Positions (Index) else Index);
+         for E of Data (I).Get_Edges
+         loop
+            declare
+               Connector_ID : constant String := ID & "_C_" & To_ID (I) & "_" & To_ID (E.Dest);
+               C : constant SXML.Document_Type := Create_Connector (Params    => Params,
+                                                                    Data      => Data,
+                                                                    Sectors   => Sectors,
+                                                                    Positions => Positions,
+                                                                    Edge      => E,
+                                                                    Index     => I,
+                                                                    ID        => Connector_ID);
+            begin
+               Length := Length + C'Length;
+            end;
+         end loop;
+      end loop;
+
+   end Calculate_Params;
+
    ------------------
    -- Create_Graph --
    ------------------
@@ -263,93 +347,17 @@ package body SCSC.Graph is
    is
       use type SXML.Offset_Type;
 
-      ------------------------------------------------------------------------
-
-      procedure Calculate_Params (Sectors : out Annular_Sectors_Type;
-                                  Length  : out Natural);
-
-      procedure Calculate_Params (Sectors : out Annular_Sectors_Type;
-                                  Length  : out Natural)
-      is
-         I       : Positive;
-         Start   : Types.Angle := 0.0;
-         Weights : Natural;
-         Levels  : constant Levels_Type := Get_Levels (Data);
-      begin
-         Length := 0;
-
-         for L in Levels'Range
-         loop
-            Weights := 0;
-            for D of Data
-            loop
-               if D.Level = Levels (L).Value
-               then
-                  Weights := Weights + D.Weight;
-               end if;
-            end loop;
-
-            for Index in Data'Range
-            loop
-               I := (if Positions'Length > 0 then Positions (Index) else Index);
-               if Data (I).Level = Levels (L).Value
-               then
-                  declare
-                     use type Types.Angle;
-                     use Primitives;
-                     Offset  : constant Natural := Calculate_Offset (Params.Spacing, L);
-                     Spacing : constant Types.Angle := Types.Angle
-                        (Math.Arcsin (Float (Params.Padding) / Float (Offset + Params.Radius / 2),
-                                      Cycle => 360.0));
-                     Circle  : constant Float := 360.0 - (Float (Nodes_Per_Level (Data, Levels (L).Value))
-                                                                 * Float (Spacing));
-                     Size    : constant Types.Angle := Types.Angle (Circle * Float (Data (I).Weight) / Float (Weights));
-                     Stop    : constant Types.Angle := Start + Size;
-                     AP      : constant Annular_Sector_Params_Type := Polar (Center => Params.Center,
-                                                                             Offset => Offset,
-                                                                             Radius => Params.Radius,
-                                                                             Start  => Start,
-                                                                             Stop   => Start + Size);
-                     AS      : constant SXML.Document_Type := Annular_Sector (Params    => AP,
-                                                                            Text => Data (I).Get_Label,
-                                                                            ID   => ID & "_AS_" & To_ID (I));
-                  begin
-                     Sectors (Index) := AP;
-                     Length := Length + AS'Length;
-                     Start := Stop + Spacing;
-                  end;
-               end if;
-            end loop;
-         end loop;
-
-         for Index in Data'Range
-         loop
-            I := (if Positions'Length > 0 then Positions (Index) else Index);
-            for E of Data (I).Get_Edges
-            loop
-               declare
-                  Connector_ID : constant String := ID & "_C_" & To_ID (I) & "_" & To_ID (E.Dest);
-                  C : constant SXML.Document_Type := Create_Connector (Params    => Params,
-                                                                       Data      => Data,
-                                                                       Sectors   => Sectors,
-                                                                       Positions => Positions,
-                                                                       Edge      => E,
-                                                                       Index     => I,
-                                                                       ID        => Connector_ID);
-               begin
-                  Length := Length + C'Length;
-               end;
-            end loop;
-         end loop;
-
-      end Calculate_Params;
-
       Sectors : Annular_Sectors_Type (1 .. Data'Length);
       Length  : Natural;
       Offset  : SXML.Offset_Type := 0;
       I       : Positive;
    begin
-      Calculate_Params (Sectors, Length);
+      Calculate_Params (Params    => Params,
+                        Data      => Data,
+                        Sectors   => Sectors,
+                        ID        => ID,
+                        Positions => Positions,
+                        Length    => Length);
 
       declare
          L : constant Natural := Length;
