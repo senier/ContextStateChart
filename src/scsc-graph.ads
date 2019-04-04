@@ -183,4 +183,7 @@ private
    function Nodes_Per_Level (Data  : Data_Type;
                              Level : Integer) return Natural;
 
+   function Calculate_Offset (Spacing : Spacing_Type;
+                              Level   : Natural) return Integer;
+
 end SCSC.Graph;

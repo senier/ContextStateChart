@@ -233,6 +233,24 @@ package body SCSC.Graph is
       return Nodes;
    end Nodes_Per_Level;
 
+   ----------------------
+   -- Calculate_Offset --
+   ----------------------
+
+   function Calculate_Offset (Spacing : Spacing_Type;
+                              Level   : Natural) return Integer is
+      Result : Integer := 0;
+   begin
+      for I in Natural (Spacing'First) .. Level loop
+         Result := Result + (if I in Natural (Spacing'First) .. Natural (Spacing'Last)
+                             then Integer (Spacing (Spacing_Index (I)))
+                             else 20);
+      end loop;
+
+      return Result;
+
+   end Calculate_Offset;
+
    ------------------
    -- Create_Graph --
    ------------------
@@ -244,25 +262,6 @@ package body SCSC.Graph is
       ID        : String := "") return SXML.Document_Type
    is
       use type SXML.Offset_Type;
-
-      ------------------------------------------------------------------------
-
-      function Calculate_Offset (Spacing : Spacing_Type;
-                                 Level   : Natural) return Integer;
-
-      function Calculate_Offset (Spacing : Spacing_Type;
-                                 Level   : Natural) return Integer is
-         Result : Integer := 0;
-      begin
-         for I in Natural (Spacing'First) .. Level loop
-            Result := Result + (if I in Natural (Spacing'First) .. Natural (Spacing'Last)
-                                then Integer (Spacing (Spacing_Index (I)))
-                                else 20);
-         end loop;
-
-         return Result;
-
-      end Calculate_Offset;
 
       ------------------------------------------------------------------------
 
