@@ -21,10 +21,11 @@ package body SCSC.Simulated_Annealing is
    -- Energy --
    ------------
 
-   function Energy (Params : Graph.Graph_Params_Type;
-                    Data   : Graph.Data_Type) return Natural
+   function Energy (Params  : Graph.Graph_Params_Type;
+                    Data    : Graph.Data_Type;
+                    Sectors : Graph.Annular_Sectors_Type) return Natural
    is
-      pragma Unreferenced (Params, Data);
+      pragma Unreferenced (Params, Data, Sectors);
    begin
       return 0;
    end Energy;

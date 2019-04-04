@@ -8,6 +8,7 @@ is
    type Node_Type is tagged private;
    type Data_Type is array (Positive range <>) of Node_Type;
    type Positions_Type is array (Positive range <>) of Positive;
+   type Annular_Sectors_Type is array (Positive range <>) of Primitives.Annular_Sector_Params_Type;
 
    type Spacing_Index is new Natural range 0 .. 20;
    type Spacing_Type is array (Spacing_Index range <>) of Natural;
@@ -101,13 +102,25 @@ is
    --  Return radius from graph parameters
 
    function Create_Graph (Params    : Graph_Params_Type;
+                          Sectors   : Annular_Sectors_Type;
+                          Length    : Natural;
                           Data      : Data_Type;
                           Positions : Positions_Type := (1 .. 0 => 1);
                           ID        : String := "") return SXML.Document_Type with
-      Pre => (if Positions'Length > 0
-              then Data'Length = Positions'Length
-                   and (for all P in Positions'Range => P in Data'Range));
+      Pre => (Sectors'Length = Data'Length and
+              (if Positions'Length > 0
+               then Data'Length = Positions'Length
+                    and (for all P in Positions'Range => P in Data'Range)));
    --  Create graph
+
+   procedure Calculate_Params (Params    :     Graph_Params_Type;
+                               Data      :     Data_Type;
+                               ID        :     String;
+                               Length    : out Natural;
+                               Sectors   : out Annular_Sectors_Type;
+                               Positions :     Positions_Type := (1 .. 0 => 1)) with
+      Pre => Data'Length = Sectors'Length;
+   --  Calculate graph parameters
 
 private
 
@@ -144,8 +157,6 @@ private
       Label_Len   : Natural;
       Radius      : Integer;
    end record;
-
-   type Annular_Sectors_Type is array (Positive range <>) of Primitives.Annular_Sector_Params_Type;
 
    function Create_Connector (Params    : Graph_Params_Type;
                               Data      : Data_Type;
@@ -185,11 +196,4 @@ private
 
    function Calculate_Offset (Spacing : Spacing_Type;
                               Level   : Natural) return Integer;
-
-   procedure Calculate_Params (Params    :     Graph_Params_Type;
-                               Data      :     Data_Type;
-                               Positions :     Positions_Type;
-                               ID        :     String;
-                               Sectors   : out Annular_Sectors_Type;
-                               Length    : out Natural);
 end SCSC.Graph;

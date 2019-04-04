@@ -257,10 +257,10 @@ package body SCSC.Graph is
 
    procedure Calculate_Params (Params    :     Graph_Params_Type;
                                Data      :     Data_Type;
-                               Positions :     Positions_Type;
                                ID        :     String;
+                               Length    : out Natural;
                                Sectors   : out Annular_Sectors_Type;
-                               Length    : out Natural)
+                               Positions :     Positions_Type := (1 .. 0 => 1))
    is
       I       : Positive;
       Start   : Types.Angle := 0.0;
@@ -301,9 +301,9 @@ package body SCSC.Graph is
                                                                           Radius => Params.Radius,
                                                                           Start  => Start,
                                                                           Stop   => Start + Size);
-                  AS      : constant SXML.Document_Type := Annular_Sector (Params    => AP,
-                                                                         Text => Data (I).Get_Label,
-                                                                         ID   => ID & "_AS_" & To_ID (I));
+                  AS      : constant SXML.Document_Type := Annular_Sector (Params => AP,
+                                                                           Text   => Data (I).Get_Label,
+                                                                           ID     => ID & "_AS_" & To_ID (I));
                begin
                   Sectors (Index) := AP;
                   Length := Length + AS'Length;
@@ -339,29 +339,20 @@ package body SCSC.Graph is
    -- Create_Graph --
    ------------------
 
-   function Create_Graph
-     (Params    : Graph_Params_Type;
-      Data      : Data_Type;
-      Positions : Positions_Type := (1 .. 0 => 1);
-      ID        : String := "") return SXML.Document_Type
+   function Create_Graph (Params    : Graph_Params_Type;
+                          Sectors   : Annular_Sectors_Type;
+                          Length    : Natural;
+                          Data      : Data_Type;
+                          Positions : Positions_Type := (1 .. 0 => 1);
+                          ID        : String := "") return SXML.Document_Type
    is
-      use type SXML.Offset_Type;
-
-      Sectors : Annular_Sectors_Type (1 .. Data'Length);
-      Length  : Natural;
       Offset  : SXML.Offset_Type := 0;
       I       : Positive;
    begin
-      Calculate_Params (Params    => Params,
-                        Data      => Data,
-                        Sectors   => Sectors,
-                        ID        => ID,
-                        Positions => Positions,
-                        Length    => Length);
 
       declare
-         L : constant Natural := Length;
-         S : SXML.Document_Type (1 .. SXML.Index_Type (L)) := (others => SXML.Null_Node);
+         S : SXML.Document_Type (1 .. SXML.Index_Type (Length)) := (others => SXML.Null_Node);
+         use type SXML.Offset_Type;
       begin
          for Index in Data'Range
          loop

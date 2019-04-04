@@ -35,21 +35,34 @@ is
 
    package SA is new SCSC.Simulated_Annealing;
 
-   Graph_Energy : constant Natural := SA.Energy (Params, Data);
+   Sectors : Graph.Annular_Sectors_Type (Data'Range);
+   Length  : Natural;
 
-   Doc : SVG.Document_Type := SVG.Create_SVG
-      (Width  => 400,
-       Height => 400,
-       Child  => SVG.Circle (Center, 2)
-               + Graph.Create_Graph (Params => Params,
-                                     Data   => Data,
-                                     ID     => "G1")
-               + SVG.Text (P (20, 20), Graph_Energy'Img),
-
-       Style => ".circle { fill: red; stroke: none; } "
-                & "#G1 { fill: yellow; stroke: green; }"
-                & "#G1 .text { fill: black; stroke: none; font-size: 10px; }"
-      );
 begin
-   Put_Line (SVG.To_String (Doc));
+
+   Graph.Calculate_Params (Params  => Params,
+                           Data    => Data,
+                           ID      => "G1",
+                           Sectors => Sectors,
+                           Length  => Length);
+   declare
+      Graph_Energy : constant Natural := SA.Energy (Params, Data, Sectors);
+      Doc          : constant SVG.Document_Type := SVG.Create_SVG
+         (Width  => 400,
+          Height => 400,
+          Child  => SVG.Circle (Center, 2)
+                  + Graph.Create_Graph (Params  => Params,
+                                        Data    => Data,
+                                        ID      => "G1",
+                                        Sectors => Sectors,
+                                        Length  => Length)
+                  + SVG.Text (P (20, 20), Graph_Energy'Img),
+
+          Style => ".circle { fill: red; stroke: none; } "
+                   & "#G1 { fill: yellow; stroke: green; }"
+                   & "#G1 .text { fill: black; stroke: none; font-size: 10px; }"
+         );
+   begin
+      Put_Line (SVG.To_String (Doc));
+   end;
 end Main;

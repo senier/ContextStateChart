@@ -10,7 +10,8 @@ package SCSC.Simulated_Annealing  is
                     Text   : String;
                     Size   : Natural) return Natural;
 
-   function Energy (Params : Graph.Graph_Params_Type;
-                    Data   : Graph.Data_Type) return Natural;
+   function Energy (Params  : Graph.Graph_Params_Type;
+                    Data    : Graph.Data_Type;
+                    Sectors : Graph.Annular_Sectors_Type) return Natural;
 
 end SCSC.Simulated_Annealing;
