@@ -37,7 +37,7 @@ package body SCSC.Simulated_Annealing is
       for S of Graph.Get_Spacing (Params)
       loop
          declare
-            Diff : constant Integer := 2 * Graph.Get_Radius (Params) - S;
+            Diff : constant Integer := Factor_Radius_Spacing * Graph.Get_Radius (Params) - S;
          begin
             Result := Result + (if Diff < 0
                                 then (-Diff) * Factor_Level_Spacing_Too_Wide
