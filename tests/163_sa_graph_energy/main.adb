@@ -28,12 +28,12 @@ is
 
    Params1 : constant Graph.Graph_Params_Type := Graph.Create_Polar (Center  => P (100, 250),
                                                                      Radius  => 20,
-                                                                     Spacing => (20, 20),
+                                                                     Spacing => (0, 0),
                                                                      Padding => 3);
 
    Params2 : constant Graph.Graph_Params_Type := Graph.Create_Polar (Center  => P (380, 250),
                                                                      Radius  => 20,
-                                                                     Spacing => (150, 40),
+                                                                     Spacing => (130, 20),
                                                                      Padding => 3);
 
    package SA is new SCSC.Simulated_Annealing;

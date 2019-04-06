@@ -237,14 +237,14 @@ package body SCSC.Graph is
    -- Calculate_Offset --
    ----------------------
 
-   function Calculate_Offset (Spacing : Spacing_Type;
-                              Level   : Natural) return Integer is
+   function Calculate_Offset (Params : Graph_Params_Type;
+                              Level  : Natural) return Integer is
       Result : Integer := 0;
    begin
-      for I in Natural (Spacing'First) .. Level loop
-         Result := Result + (if I in Natural (Spacing'First) .. Natural (Spacing'Last)
-                             then Integer (Spacing (Spacing_Index (I)))
-                             else 20);
+      for I in Natural (Params.Spacing'First) .. Level loop
+         Result := Result + (if I <= Natural (Params.Spacing'Last)
+                             then Params.Radius + Integer (Params.Spacing (Spacing_Index (I)))
+                             else Params.Radius);
       end loop;
 
       return Result;
@@ -288,7 +288,7 @@ package body SCSC.Graph is
                declare
                   use type Types.Angle;
                   use Primitives;
-                  Offset  : constant Natural := Calculate_Offset (Params.Spacing, L);
+                  Offset  : constant Natural := Calculate_Offset (Params, L);
                   Spacing : constant Types.Angle := Types.Angle
                      (Math.Arcsin (Float (Params.Padding) / Float (Offset + Params.Radius / 2),
                                    Cycle => 360.0));
