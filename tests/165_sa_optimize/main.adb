@@ -42,8 +42,6 @@ is
                         (Max_Unsuccessful_Iterations => 5,
                          Threshold_Decay             => 0.8);
 
-   Positions : SCSC.Graph.Positions_Type  := (1 .. 0 => 1);
-
 begin
    Import (GEXF_Data => GEXF_File,
            Data      => Data.all,
@@ -58,9 +56,11 @@ begin
    end if;
 
    declare
-      Sectors : SCSC.Graph.Annular_Sectors_Type (Data.all'First .. Last);
-      Length  : Natural;
+      Sectors   : SCSC.Graph.Annular_Sectors_Type (Data.all'First .. Last);
+      Positions : SCSC.Graph.Positions_Type (Data.all'First .. Last);
+      Length    : Natural;
    begin
+      SCSC.Graph.Identity (Positions);
       SA.Optimize (ID        => "G1",
                    Font_Size => Fontsize,
                    Params    => Params,

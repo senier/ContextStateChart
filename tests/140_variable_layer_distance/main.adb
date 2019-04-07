@@ -31,25 +31,29 @@ is
                                                                          Spacing  => (40, 30, 60),
                                                                          Radius   => 20);
 
-   Sectors : Graph.Annular_Sectors_Type (Data'Range);
-   Length  : Natural;
+   Sectors   : Graph.Annular_Sectors_Type (Data'Range);
+   Positions : Graph.Positions_Type (Data'Range);
+   Length    : Natural;
 
 begin
-   Graph.Calculate_Params (Params  => Params,
-                           Data    => Data,
-                           ID      => "G1",
-                           Sectors => Sectors,
-                           Length  => Length);
+   Graph.Identity (Positions);
+   Graph.Calculate_Params (Params    => Params,
+                           Data      => Data,
+                           ID        => "G1",
+                           Sectors   => Sectors,
+                           Length    => Length,
+                           Positions => Positions);
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG
          (Width  => 400,
           Height => 400,
           Child  => SVG.Circle (Center, 2, Class => "fill_black")
-                  + Graph.Create_Graph (Params  => Params,
-                                        Data    => Data,
-                                        Sectors => Sectors,
-                                        Length  => Length,
-                                        ID      => "G1"),
+                  + Graph.Create_Graph (Params    => Params,
+                                        Data      => Data,
+                                        Sectors   => Sectors,
+                                        Length    => Length,
+                                        ID        => "G1",
+                                        Positions => Positions),
           Style  => ".arrow { fill: blue; } .fill_black { fill: black; stroke: none; } "
                     & ".connector { fill: none; stroke: blue; } "
                     & ".text { fill: green; stroke: none; font-size: 10px; } "

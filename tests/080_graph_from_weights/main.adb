@@ -24,24 +24,28 @@ is
                                                                     Spacing => (0 => 20),
                                                                     Padding => 20);
 
-   Sectors : Graph.Annular_Sectors_Type (Data'Range);
-   Length  : Natural;
+   Sectors   : Graph.Annular_Sectors_Type (Data'Range);
+   Positions : Graph.Positions_Type (Data'Range);
+   Length    : Natural;
 
 begin
-   Graph.Calculate_Params (Params  => Params,
-                           Data    => Data,
-                           ID      => "G1",
-                           Sectors => Sectors,
-                           Length  => Length);
+   Graph.Identity (Positions);
+   Graph.Calculate_Params (Params    => Params,
+                           Data      => Data,
+                           ID        => "G1",
+                           Sectors   => Sectors,
+                           Length    => Length,
+                           Positions => Positions);
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG
          (Width  => 400,
           Height => 400,
           Child  => SVG.Circle (Center, 2)
-                  + Graph.Create_Graph (Params  => Params,
-                                        Sectors => Sectors,
-                                        Length  => Length,
-                                        Data    => Data),
+                  + Graph.Create_Graph (Params    => Params,
+                                        Sectors   => Sectors,
+                                        Length    => Length,
+                                        Data      => Data,
+                                        Positions => Positions),
           Style => ".circle { fill: black; stroke: none; } .annular_sector { fill: yellow; stroke: green; } ");
    begin
       Put_Line (SVG.To_String (Doc));

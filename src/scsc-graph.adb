@@ -210,12 +210,8 @@ package body SCSC.Graph is
    is
       Source_Port : constant Port_Type := Edge.Source_Port;
       Dest_Port   : constant Port_Type := Edge.Dest_Port;
-      Dest        : constant Natural := (if Positions'Length = Data'Length
-                                         then Positions (Edge.Dest)
-                                         else Edge.Dest);
-      I : constant Natural := (if Positions'Length = Data'Length
-                               then Positions (Index)
-                               else Index);
+      Dest        : constant Natural   := Positions (Edge.Dest);
+      I           : constant Natural   := Positions (Index);
    begin
       return Primitives.Connector
          (Center     => Params.Center,
@@ -279,7 +275,7 @@ package body SCSC.Graph is
                                ID        :     String;
                                Length    : out Natural;
                                Sectors   : out Annular_Sectors_Type;
-                               Positions :     Positions_Type := (1 .. 0 => 1))
+                               Positions :     Positions_Type)
    is
       I       : Positive;
       Start   : Types.Angle := 0.0;
@@ -301,7 +297,7 @@ package body SCSC.Graph is
 
          for Index in Data'Range
          loop
-            I := (if Positions'Length > 0 then Positions (Index) else Index);
+            I := Positions (Index);
             if Data (I).Level = Levels (L).Value
             then
                declare
@@ -334,7 +330,7 @@ package body SCSC.Graph is
 
       for Index in Data'Range
       loop
-         I := (if Positions'Length > 0 then Positions (Index) else Index);
+         I := Positions (Index);
          for E of Data (I).Get_Edges
          loop
             declare
@@ -362,7 +358,7 @@ package body SCSC.Graph is
                           Sectors   : Annular_Sectors_Type;
                           Length    : Natural;
                           Data      : Data_Type;
-                          Positions : Positions_Type := (1 .. 0 => 1);
+                          Positions : Positions_Type;
                           ID        : String := "") return SXML.Document_Type
    is
       Offset  : SXML.Offset_Type := 0;
@@ -375,7 +371,7 @@ package body SCSC.Graph is
       begin
          for Index in Data'Range
          loop
-            I := (if Positions'Length > 0 then Positions (Index) else Index);
+            I := Positions (Index);
             declare
                Sector : constant SXML.Document_Type :=
                   Primitives.Annular_Sector (Params => Sectors (Index),
@@ -433,5 +429,18 @@ package body SCSC.Graph is
                          & (Label_Type'First + Label_Length .. Label_Type'Last => ' '),
           Label_Len   => Label_Length);
    end Create_Edge;
+
+   --------------
+   -- Identity --
+   --------------
+
+   procedure Identity (Positions : out Positions_Type)
+   is
+   begin
+      for P in Positions'Range
+      loop
+         Positions (P) := P;
+      end loop;
+   end Identity;
 
 end SCSC.Graph;

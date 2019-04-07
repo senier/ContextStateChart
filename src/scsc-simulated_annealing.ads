@@ -25,10 +25,11 @@ package SCSC.Simulated_Annealing  is
                     Text   : String;
                     Size   : Natural) return Long_Integer;
 
-   function Energy (Params  : Graph.Graph_Params_Type;
-                    Data    : Graph.Data_Type;
-                    Sectors : Graph.Annular_Sectors_Type;
-                    Size    : Natural) return Long_Integer;
+   function Energy (Params    : Graph.Graph_Params_Type;
+                    Data      : Graph.Data_Type;
+                    Sectors   : Graph.Annular_Sectors_Type;
+                    Positions : Graph.Positions_Type;
+                    Size      : Natural) return Long_Integer;
 
    procedure Print_Debug (Iteration : Long_Integer;
                           Energy_1  : Long_Integer;

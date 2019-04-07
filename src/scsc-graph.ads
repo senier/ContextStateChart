@@ -7,7 +7,12 @@ is
    type Graph_Params_Type is private;
    type Node_Type is tagged private;
    type Data_Type is array (Positive range <>) of Node_Type;
-   type Positions_Type is array (Positive range <>) of Positive;
+
+   type Positions_Type is array (Positive range <>) of Positive with
+      Predicate => (for all I in Positions_Type'Range =>
+                       (for all J in Positions_Type'Range =>
+                           (if I /= J then Positions_Type (I) /= Positions_Type (J))));
+
    type Annular_Sectors_Type is array (Positive range <>) of Primitives.Annular_Sector_Params_Type;
 
    type Spacing_Index is new Natural range 0 .. 20;
@@ -114,7 +119,7 @@ is
                           Sectors   : Annular_Sectors_Type;
                           Length    : Natural;
                           Data      : Data_Type;
-                          Positions : Positions_Type := (1 .. 0 => 1);
+                          Positions : Positions_Type;
                           ID        : String := "") return SXML.Document_Type with
       Pre => (Sectors'Length = Data'Length and
               (if Positions'Length > 0
@@ -127,9 +132,13 @@ is
                                ID        :     String;
                                Length    : out Natural;
                                Sectors   : out Annular_Sectors_Type;
-                               Positions :     Positions_Type := (1 .. 0 => 1)) with
-      Pre => Data'Length = Sectors'Length;
+                               Positions :     Positions_Type) with
+      Pre => Data'Length = Sectors'Length
+             and Data'Length = Positions'Length;
    --  Calculate graph parameters
+
+   procedure Identity (Positions : out Positions_Type);
+   --  Initialize @Positions@ with identity mapping
 
 private
 

@@ -43,25 +43,29 @@ is
                                                                    Spacing => (0 => 120),
                                                                    Padding => 5);
 
-   Sectors : SCSC.Graph.Annular_Sectors_Type (Data'Range);
+   Sectors   : SCSC.Graph.Annular_Sectors_Type (Data'Range);
+   Positions : SCSC.Graph.Positions_Type (Data'Range);
    Length  : Natural;
 
 begin
-   SCSC.Graph.Calculate_Params (Params  => Params,
-                                Data    => Data,
-                                ID      => "Graph",
-                                Sectors => Sectors,
-                                Length  => Length);
+   SCSC.Graph.Identity (Positions);
+   SCSC.Graph.Calculate_Params (Params    => Params,
+                                Data      => Data,
+                                ID        => "Graph",
+                                Sectors   => Sectors,
+                                Length    => Length,
+                                Positions => Positions);
    declare
       Doc : Document_Type := Create_SVG
          (Width  => 400,
           Height => 400,
           Child  => Circle (Center, 2, Class => "fill_black")
-                  + Create_Graph (Params  => Params,
-                                  Data    => Data,
-                                  Sectors => Sectors,
-                                  Length  => Length,
-                                  ID      => "Graph1"),
+                  + Create_Graph (Params    => Params,
+                                  Data      => Data,
+                                  Sectors   => Sectors,
+                                  Length    => Length,
+                                  ID        => "Graph1",
+                                  Positions => Positions),
           Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "End_Arrow"),
           Style  => ".arrow { fill: blue; } .fill_black { fill: black; stroke: none; } "
                     & ".connector { fill: none; stroke: blue; } "

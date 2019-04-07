@@ -38,11 +38,13 @@ is
 
    package SA is new SCSC.Simulated_Annealing;
 
-   Sectors1 : Graph.Annular_Sectors_Type (Data'Range);
-   Length1  : Natural;
+   Sectors1   : Graph.Annular_Sectors_Type (Data'Range);
+   Positions1 : Graph.Positions_Type (Data'Range);
+   Length1    : Natural;
 
-   Sectors2 : Graph.Annular_Sectors_Type (Data'Range);
-   Length2  : Natural;
+   Sectors2   : Graph.Annular_Sectors_Type (Data'Range);
+   Positions2 : Graph.Positions_Type (Data'Range);
+   Length2    : Natural;
 
    Fontsize : constant Natural := 10;
 
@@ -53,40 +55,48 @@ is
                               & "#G2 .text { fill: black; stroke: none; font-size:" & Fontsize'Img & "px; }";
 begin
 
-   Graph.Calculate_Params (Params  => Params1,
-                           Data    => Data,
-                           ID      => "G1",
-                           Sectors => Sectors1,
-                           Length  => Length1);
+   Graph.Identity (Positions1);
+   Graph.Calculate_Params (Params    => Params1,
+                           Data      => Data,
+                           ID        => "G1",
+                           Sectors   => Sectors1,
+                           Length    => Length1,
+                           Positions => Positions1);
 
-   Graph.Calculate_Params (Params  => Params2,
-                           Data    => Data,
-                           ID      => "G2",
-                           Sectors => Sectors2,
-                           Length  => Length2);
+   Graph.Identity (Positions2);
+   Graph.Calculate_Params (Params    => Params2,
+                           Data      => Data,
+                           ID        => "G2",
+                           Sectors   => Sectors2,
+                           Length    => Length2,
+                           Positions => Positions2);
    declare
-      Graph_Energy1 : constant Long_Integer := SA.Energy (Params  => Params1,
-                                                          Data    => Data,
-                                                          Sectors => Sectors1,
-                                                          Size    => Fontsize);
-      Graph_Energy2 : constant Long_Integer := SA.Energy (Params  => Params2,
-                                                          Data    => Data,
-                                                          Sectors => Sectors2,
-                                                          Size    => Fontsize);
+      Graph_Energy1 : constant Long_Integer := SA.Energy (Params    => Params1,
+                                                          Data      => Data,
+                                                          Sectors   => Sectors1,
+                                                          Size      => Fontsize,
+                                                          Positions => Positions1);
+      Graph_Energy2 : constant Long_Integer := SA.Energy (Params    => Params2,
+                                                          Data      => Data,
+                                                          Sectors   => Sectors2,
+                                                          Size      => Fontsize,
+                                                          Positions => Positions2);
       Doc : constant SVG.Document_Type := SVG.Create_SVG
          (Width  => 600,
           Height => 500,
-          Child  => Graph.Create_Graph (Params  => Params1,
-                                        Data    => Data,
-                                        ID      => "G1",
-                                        Sectors => Sectors1,
-                                        Length  => Length1)
+          Child  => Graph.Create_Graph (Params    => Params1,
+                                        Data      => Data,
+                                        ID        => "G1",
+                                        Sectors   => Sectors1,
+                                        Length    => Length1,
+                                        Positions => Positions1)
                   + SVG.Text (P (20, 20), Graph_Energy1'Img)
-                  + Graph.Create_Graph (Params  => Params2,
-                                        Data    => Data,
-                                        ID      => "G2",
-                                        Sectors => Sectors2,
-                                        Length  => Length2)
+                  + Graph.Create_Graph (Params    => Params2,
+                                        Data      => Data,
+                                        ID        => "G2",
+                                        Sectors   => Sectors2,
+                                        Length    => Length2,
+                                        Positions => Positions2)
                   + SVG.Text (P (250, 20), Graph_Energy2'Img),
           Style => Style);
    begin

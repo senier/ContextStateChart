@@ -38,40 +38,49 @@ is
                                                                      Spacing => (0 => 60),
                                                                      Padding => 3);
 
-   Sectors1 : Graph.Annular_Sectors_Type (Data1'Range);
-   Sectors2 : Graph.Annular_Sectors_Type (Data2'Range);
+   Sectors1   : Graph.Annular_Sectors_Type (Data1'Range);
+   Positions1 : Graph.Positions_Type (Data1'Range);
+
+   Sectors2   : Graph.Annular_Sectors_Type (Data2'Range);
+   Positions2 : Graph.Positions_Type (Data2'Range);
 
    Length1, Length2  : Natural;
 
 begin
 
-   Graph.Calculate_Params (Params  => Params1,
-                           Data    => Data1,
-                           ID      => "G1",
-                           Sectors => Sectors1,
-                           Length  => Length1);
+   Graph.Identity (Positions1);
+   Graph.Calculate_Params (Params    => Params1,
+                           Data      => Data1,
+                           ID        => "G1",
+                           Sectors   => Sectors1,
+                           Length    => Length1,
+                           Positions => Positions1);
 
-   Graph.Calculate_Params (Params  => Params2,
-                           Data    => Data2,
-                           ID      => "G2",
-                           Sectors => Sectors2,
-                           Length  => Length2);
+   Graph.Identity (Positions2);
+   Graph.Calculate_Params (Params    => Params2,
+                           Data      => Data2,
+                           ID        => "G2",
+                           Sectors   => Sectors2,
+                           Length    => Length2,
+                           Positions => Positions2);
 
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG
          (Width  => 400,
           Height => 400,
           Child  => SVG.Circle (Center, 2)
-                  + Graph.Create_Graph (Params  => Params1,
-                                        Data    => Data1,
-                                        Sectors => Sectors1,
-                                        Length  => Length1,
-                                        ID      => "G1")
-                  + Graph.Create_Graph (Params  => Params2,
-                                        Data    => Data2,
-                                        Sectors => Sectors2,
-                                        Length  => Length2,
-                                        ID      => "G2"),
+                  + Graph.Create_Graph (Params    => Params1,
+                                        Data      => Data1,
+                                        Sectors   => Sectors1,
+                                        Length    => Length1,
+                                        ID        => "G1",
+                                        Positions => Positions1)
+                  + Graph.Create_Graph (Params    => Params2,
+                                        Data      => Data2,
+                                        Sectors   => Sectors2,
+                                        Length    => Length2,
+                                        ID        => "G2",
+                                        Positions => Positions2),
           Style => ".circle { fill: red; stroke: none; } "
                    & "#G1 { fill: yellow; stroke: green; }"
                    & "#G1 .text { fill: black; stroke: none; font-size: 10px; }"

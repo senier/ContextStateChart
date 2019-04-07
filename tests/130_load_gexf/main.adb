@@ -48,22 +48,26 @@ begin
    end if;
 
    declare
-      Sectors : SCSC.Graph.Annular_Sectors_Type (Data.all'First .. Last);
-      Length  : Natural;
+      Sectors   : SCSC.Graph.Annular_Sectors_Type (Data.all'First .. Last);
+      Positions : SCSC.Graph.Positions_Type (Data.all'First .. Last);
+      Length    : Natural;
    begin
-      SCSC.Graph.Calculate_Params (Params  => Params,
-                                   Data    => Data.all (Data.all'First .. Last),
-                                   ID      => "G1",
-                                   Sectors => Sectors,
-                                   Length  => Length);
+      SCSC.Graph.Identity (Positions);
+      SCSC.Graph.Calculate_Params (Params    => Params,
+                                   Data      => Data.all (Data.all'First .. Last),
+                                   ID        => "G1",
+                                   Sectors   => Sectors,
+                                   Length    => Length,
+                                   Positions => Positions);
       declare
          Doc : Document_Type := Create_SVG
             (Width  => 2000,
              Height => 2000,
-             Child  => Create_Graph (Params  => Params,
-                                     Sectors => Sectors,
-                                     Length  => Length,
-                                     Data    => Data.all (Data.all'First .. Last)),
+             Child  => Create_Graph (Params    => Params,
+                                     Sectors   => Sectors,
+                                     Length    => Length,
+                                     Data      => Data.all (Data.all'First .. Last),
+                                     Positions => Positions),
              Defs   => Marker (Element => Arrow_End, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "End_Arrow"),
              Style  => ".arrow { fill: blue; } .fill_black { fill: black; stroke: none; } "
                        & ".connector { fill: none; stroke: blue; } "

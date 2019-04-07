@@ -69,8 +69,10 @@ package body SCSC.Simulated_Annealing is
    function Energy (Params    : Graph.Graph_Params_Type;
                     Data      : Graph.Data_Type;
                     Sectors   : Graph.Annular_Sectors_Type;
+                    Positions : Graph.Positions_Type;
                     Size      : Natural) return Long_Integer
    is
+      pragma Unreferenced (Positions);
       Result : Long_Integer := 0;
    begin
       for I in Sectors'Range
@@ -232,7 +234,7 @@ package body SCSC.Simulated_Annealing is
                                     Length    => Length,
                                     Sectors   => Sectors,
                                     Positions => Positions);
-            Energy_2 := Energy (Params, Data, Sectors, Font_Size);
+            Energy_2 := Energy (Params, Data, Sectors, Positions, Font_Size);
             Print_Debug (I, Energy_1, Energy_2, Long_Integer (Threshold));
 
             if Energy_2 < Energy_1

@@ -31,12 +31,11 @@ is
                                                            Spacing => (0, 0),
                                                            Padding => 3);
 
-   Positions : Graph.Positions_Type  := (1 .. 0 => 0);
-
    package SA is new SCSC.Simulated_Annealing;
 
-   Sectors : Graph.Annular_Sectors_Type (Data'Range);
-   Length  : Natural;
+   Sectors   : Graph.Annular_Sectors_Type (Data'Range);
+   Positions : Graph.Positions_Type (Data'Range);
+   Length    : Natural;
 
    Font_Size : constant Natural := 10;
 
@@ -46,7 +45,7 @@ is
                               & "#G2 { fill: yellow; stroke: green; }"
                               & "#G2 .text { fill: black; stroke: none; font-size:" & Font_Size'Img & "px; }";
 begin
-
+   Graph.Identity (Positions);
    SA.Optimize (ID        => "G1",
                 Font_Size => Font_Size,
                 Params    => Params,
@@ -65,7 +64,7 @@ begin
                                         Sectors   => Sectors,
                                         Length    => Length,
                                         Positions => Positions)
-                  + SVG.Text (P (20, 20), SA.Energy (Params, Data, Sectors, Font_Size)'Img),
+                  + SVG.Text (P (20, 20), SA.Energy (Params, Data, Sectors, Positions, Font_Size)'Img),
           Style => Style);
    begin
       Put_Line (SVG.To_String (Doc));
