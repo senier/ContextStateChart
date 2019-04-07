@@ -17,6 +17,8 @@ generic
    Level_Spacing_Increase_Step     : Natural := 20;
    Level_Spacing_Decrease_Step     : Natural := 20;
 
+   Debug : Boolean := False;
+
 package SCSC.Simulated_Annealing  is
 
    function Energy (Params : Primitives.Annular_Sector_Params_Type;
@@ -27,6 +29,11 @@ package SCSC.Simulated_Annealing  is
                     Data    : Graph.Data_Type;
                     Sectors : Graph.Annular_Sectors_Type;
                     Size    : Natural) return Long_Integer;
+
+   procedure Print_Debug (Iteration : Long_Integer;
+                          Energy_1  : Long_Integer;
+                          Energy_2  : Long_Integer;
+                          Threshold : Long_Integer);
 
    procedure Optimize (ID        :        String;
                        Font_Size :        Natural;

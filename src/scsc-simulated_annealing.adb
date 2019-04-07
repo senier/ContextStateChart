@@ -1,6 +1,7 @@
 with SCSC.Text;
 with SCSC.Random;
 with Ada.Numerics.Float_Random;
+with Ada.Text_IO;
 
 package body SCSC.Simulated_Annealing is
 
@@ -185,6 +186,23 @@ package body SCSC.Simulated_Annealing is
       end case;
    end Move;
 
+   -----------------
+   -- Print_Debug --
+   -----------------
+
+   procedure Print_Debug (Iteration : Long_Integer;
+                          Energy_1  : Long_Integer;
+                          Energy_2  : Long_Integer;
+                          Threshold : Long_Integer)
+   is
+      use Ada.Text_IO;
+   begin
+      if Debug then
+         Put_Line (Standard_Error, "I:" & Iteration'Img & " E1:" & Energy_1'Img & " E2:" & Energy_2'Img
+                   & " Threshold:" & Threshold'Img);
+      end if;
+   end Print_Debug;
+
    --------------
    -- Optimize --
    --------------
@@ -214,6 +232,7 @@ package body SCSC.Simulated_Annealing is
                                     Sectors   => Sectors,
                                     Positions => Positions);
             Energy_2 := Energy (Params, Data, Sectors, Font_Size);
+            Print_Debug (I, Energy_1, Energy_2, Long_Integer (Threshold));
 
             if Energy_2 < Energy_1
             then
