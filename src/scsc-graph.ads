@@ -98,6 +98,15 @@ is
    function Get_Spacing (Params : Graph_Params_Type) return Spacing_Type;
    --  Return spacing array from graph parameters
 
+   function Get_Spacing (Params : Graph_Params_Type;
+                         Index  : Spacing_Index) return Natural;
+   --  Get spacing at given index
+
+   procedure Set_Spacing (Params : in out Graph_Params_Type;
+                          Index  :        Spacing_Index;
+                          Value  :        Natural);
+   --  Set spacing at given index
+
    function Get_Radius (Params : Graph_Params_Type) return Natural;
    --  Return radius from graph parameters
 

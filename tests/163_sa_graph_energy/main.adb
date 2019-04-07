@@ -65,14 +65,14 @@ begin
                            Sectors => Sectors2,
                            Length  => Length2);
    declare
-      Graph_Energy1 : constant Natural := SA.Energy (Params  => Params1,
-                                                     Data    => Data,
-                                                     Sectors => Sectors1,
-                                                     Size    => Fontsize);
-      Graph_Energy2 : constant Natural := SA.Energy (Params  => Params2,
-                                                     Data    => Data,
-                                                     Sectors => Sectors2,
-                                                     Size    => Fontsize);
+      Graph_Energy1 : constant Long_Integer := SA.Energy (Params  => Params1,
+                                                          Data    => Data,
+                                                          Sectors => Sectors1,
+                                                          Size    => Fontsize);
+      Graph_Energy2 : constant Long_Integer := SA.Energy (Params  => Params2,
+                                                          Data    => Data,
+                                                          Sectors => Sectors2,
+                                                          Size    => Fontsize);
       Doc : constant SVG.Document_Type := SVG.Create_SVG
          (Width  => 600,
           Height => 500,

@@ -2,39 +2,38 @@ with SCSC.Primitives;
 with SCSC.Graph;
 
 generic
-   Initial_Temperature             : Long_Integer := 1_000_000_000;
-   Temperature_Delta               : Long_Integer := 1;
+   Max_Unsuccessful_Iterations     : Long_Integer :=     10;
+   Initial_Acceptance_Threshold    : Float        := 2000.0;
+   Threshold_Decay                 : Float        :=   0.95;
 
-   Factor_Sector_Too_Wide          : Natural :=    3;
-   Factor_Sector_Too_Narrow        : Natural := 1000;
-   Factor_Level_Spacing_Too_Wide   : Natural :=   10;
-   Factor_Level_Spacing_Too_Narrow : Natural :=  100;
-   Factor_Radius_Spacing           : Natural :=    3;
+   Factor_Sector_Too_Wide          : Long_Integer :=   10;
+   Factor_Sector_Too_Narrow        : Long_Integer := 1000;
+   Factor_Level_Spacing_Too_Wide   : Long_Integer :=   10;
+   Factor_Level_Spacing_Too_Narrow : Long_Integer :=  500;
+
+   Factor_Radius_Spacing           : Long_Integer :=   5;
+   Text_Border                     : Long_Integer :=  20;
+
+   Level_Spacing_Increase_Step     : Natural := 20;
+   Level_Spacing_Decrease_Step     : Natural := 20;
+
 package SCSC.Simulated_Annealing  is
 
    function Energy (Params : Primitives.Annular_Sector_Params_Type;
                     Text   : String;
-                    Size   : Natural) return Natural;
+                    Size   : Natural) return Long_Integer;
 
    function Energy (Params  : Graph.Graph_Params_Type;
                     Data    : Graph.Data_Type;
                     Sectors : Graph.Annular_Sectors_Type;
-                    Size    : Natural) return Natural;
+                    Size    : Natural) return Long_Integer;
 
-   procedure Optimize (Params  : in out Graph.Graph_Params_Type;
-                       Data    : in out Graph.Data_Type;
-                       Sectors : in out Graph.Annular_Sectors_Type;
-                       Size    :        Natural);
-
-private
-
-   procedure Move (Params  : in out Graph.Graph_Params_Type;
-                   Data    : in out Graph.Data_Type;
-                   Sectors : in out Graph.Annular_Sectors_Type;
-                   Size    :        Natural);
-
-   function Accept_Worse (Energy_1    : Natural;
-                          Energy_2    : Natural;
-                          Temperature : Long_Integer) return Boolean;
+   procedure Optimize (ID        :        String;
+                       Font_Size :        Natural;
+                       Length    :    out Natural;
+                       Params    : in out Graph.Graph_Params_Type;
+                       Data      : in out Graph.Data_Type;
+                       Sectors   : in out Graph.Annular_Sectors_Type;
+                       Positions :        Graph.Positions_Type);
 
 end SCSC.Simulated_Annealing;

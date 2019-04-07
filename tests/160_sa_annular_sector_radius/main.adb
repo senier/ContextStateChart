@@ -33,12 +33,12 @@ begin
    declare
       package SA is new SCSC.Simulated_Annealing;
 
-      Energy0 : constant Natural := SA.Energy (AS0_Params, AS_Text, Fontsize);
-      Energy1 : constant Natural := SA.Energy (AS1_Params, AS_Text, Fontsize);
-      Energy2 : constant Natural := SA.Energy (AS2_Params, AS_Text, Fontsize);
-      Energy3 : constant Natural := SA.Energy (AS3_Params, AS_Text, Fontsize);
-      Energy4 : constant Natural := SA.Energy (AS4_Params, AS_Text, Fontsize);
-      Energy5 : constant Natural := SA.Energy (AS5_Params, AS_Text, Fontsize);
+      Energy0 : constant Long_Integer := SA.Energy (AS0_Params, AS_Text, Fontsize);
+      Energy1 : constant Long_Integer := SA.Energy (AS1_Params, AS_Text, Fontsize);
+      Energy2 : constant Long_Integer := SA.Energy (AS2_Params, AS_Text, Fontsize);
+      Energy3 : constant Long_Integer := SA.Energy (AS3_Params, AS_Text, Fontsize);
+      Energy4 : constant Long_Integer := SA.Energy (AS4_Params, AS_Text, Fontsize);
+      Energy5 : constant Long_Integer := SA.Energy (AS5_Params, AS_Text, Fontsize);
 
       SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
          (Width  => 400,
