@@ -142,6 +142,25 @@ package body SCSC.Graph is
    function Get_Spacing (Params : Graph_Params_Type) return Spacing_Type is
       (Params.Spacing (Params.Spacing'First .. Params.Spacing'First + Spacing_Index'Val (Params.Spacing_Length) - 1));
 
+   -----------------
+   -- Get_Spacing --
+   -----------------
+
+   function Get_Spacing (Params : Graph_Params_Type;
+                         Index  : Spacing_Index) return Natural is (Params.Spacing (Index));
+
+   -----------------
+   -- Set_Spacing --
+   -----------------
+
+   procedure Set_Spacing (Params : in out Graph_Params_Type;
+                          Index  :        Spacing_Index;
+                          Value  :        Natural)
+   is
+   begin
+      Params.Spacing (Index) := Value;
+   end Set_Spacing;
+
    ----------------
    -- Get_Radius --
    ----------------

@@ -27,7 +27,9 @@ TESTS = \
 	obj/160_sa_annular_sector_radius/document.svg \
 	obj/161_sa_text_length/document.svg \
 	obj/162_arc_length/document.svg \
-	obj/163_sa_graph_energy/document.svg
+	obj/163_sa_graph_energy/document.svg \
+	obj/164_sa_optimize_offset/document.svg \
+	obj/165_sa_optimize/document.svg
 
 VERBOSE ?= @
 
