@@ -179,7 +179,6 @@ private
    function Create_Connector (Params    : Graph_Params_Type;
                               Data      : Data_Type;
                               Sectors   : Annular_Sectors_Type;
-                              Positions : Positions_Type;
                               Edge      : Edge_Type;
                               Index     : Positive;
                               ID        : String) return SXML.Document_Type;

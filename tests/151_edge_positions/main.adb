@@ -23,11 +23,12 @@ is
                                       Class => "arrow");
 
    Data : constant SCSC.Graph.Data_Type :=
-      ( 1 => Create_Node (Label => "N1 (W2)", Weight => 2, Outer_Ports => 2, Inner_Ports => 1,
-                          Edges => (1 => Create_Edge (2, Dir_CW, 20, (2, Pos_Outer), (1, Pos_Outer), "1 ⇒ 2"))),
+      ( 1 => Create_Node (Label => "N1 (W2)", Weight => 2, Outer_Ports => 3, Inner_Ports => 1,
+                          Edges => (1 => Create_Edge (2, Dir_CW, 20, (2, Pos_Outer), (1, Pos_Outer), "1 ⇒ 2"),
+                                    2 => Create_Edge (3, Dir_CCW, 30, (3, Pos_Outer), (3, Pos_Outer), "1 ⇒ 3"))),
         2 => Create_Node (Label => "N2 (W4)", Weight => 4, Outer_Ports => 2, Inner_Ports => 1,
                           Edges => (1 => Create_Edge (3, Dir_CW, 40, (2, Pos_Outer), (1, Pos_Outer), "2 ⇒ 3"))),
-        3 => Create_Node (Label => "N3 (W8)", Weight => 8, Outer_Ports => 2, Inner_Ports => 1,
+        3 => Create_Node (Label => "N3 (W8)", Weight => 8, Outer_Ports => 3, Inner_Ports => 1,
                           Edges => (1 => Create_Edge (4, Dir_CW, 60, (2, Pos_Outer), (1, Pos_Outer), "3 ⇒ 4"))),
         4 => Create_Node (Label => "N4 (W16)", Weight => 16, Outer_Ports => 2, Inner_Ports => 1,
                           Edges => (1 => Create_Edge (1, Dir_CW, 80, (2, Pos_Outer), (1, Pos_Outer), "4 ⇒ 1"))));
