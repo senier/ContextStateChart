@@ -37,7 +37,6 @@ package SCSC.Simulated_Annealing  is
                           Threshold : Long_Integer);
 
    procedure Optimize (ID        :        String;
-                       Font_Size :        Natural;
                        Length    :    out Natural;
                        Params    : in out Graph.Graph_Params_Type;
                        Data      : in out Graph.Data_Type;

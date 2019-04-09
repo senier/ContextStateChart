@@ -42,15 +42,17 @@ is
 
    Sectors : SCSC.Graph.Annular_Sectors_Type (Data'Range);
    Length  : Natural;
+   Unused  : Long_Integer;
 
 begin
 
-   SCSC.Graph.Calculate_Params (Params    => Params,
-                                Data      => Data,
-                                ID        => "Graph1",
-                                Positions => Positions,
-                                Sectors   => Sectors,
-                                Length    => Length);
+   SCSC.Graph.Layout (Params    => Params,
+                      Data      => Data,
+                      ID        => "Graph1",
+                      Positions => Positions,
+                      Sectors   => Sectors,
+                      Length    => Length,
+                      Energy    => Unused);
    declare
       Doc : Document_Type := Create_SVG
          (Width  => 400,

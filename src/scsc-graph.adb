@@ -126,17 +126,18 @@ package body SCSC.Graph is
    -- Create_Polar --
    ------------------
 
-   function Create_Polar
-     (Center  : Types.Point;
-      Radius  : Natural;
-      Spacing : Spacing_Type;
-      Padding : Natural := 0) return Graph_Params_Type
+   function Create_Polar (Center    : Types.Point;
+                          Radius    : Natural;
+                          Spacing   : Spacing_Type;
+                          Padding   : Natural  := 0;
+                          Font_Size : Positive := 10) return Graph_Params_Type
    is
       Result : Graph_Params_Type := (Center         => Center,
                                      Radius         => Radius,
                                      Spacing        => (others => 0),
                                      Spacing_Length => Spacing'Length,
-                                     Padding        => Padding);
+                                     Padding        => Padding,
+                                     Font_Size      => Font_Size);
    begin
       Result.Spacing (Spacing'Range) := Spacing;
       return Result;
@@ -281,16 +282,17 @@ package body SCSC.Graph is
 
    end Calculate_Offset;
 
-   ----------------------
-   -- Calculate_Params --
-   ----------------------
+   ------------
+   -- Layout --
+   ------------
 
-   procedure Calculate_Params (Params    :     Graph_Params_Type;
-                               Data      :     Data_Type;
-                               ID        :     String;
-                               Length    : out Natural;
-                               Sectors   : out Annular_Sectors_Type;
-                               Positions :     Positions_Type)
+   procedure Layout (Params    :     Graph_Params_Type;
+                     Data      :     Data_Type;
+                     ID        :     String;
+                     Positions :     Positions_Type;
+                     Length    : out Natural;
+                     Sectors   : out Annular_Sectors_Type;
+                     Energy    : out Long_Integer)
    is
       I       : Positive;
       Start   : Types.Angle := 0.0;
@@ -298,6 +300,7 @@ package body SCSC.Graph is
       Levels  : constant Levels_Type := Get_Levels (Data);
    begin
       Length := 0;
+      Energy := 0;
 
       for L in Levels'Range
       loop
@@ -361,7 +364,7 @@ package body SCSC.Graph is
          end loop;
       end loop;
 
-   end Calculate_Params;
+   end Layout;
 
    ------------------
    -- Create_Graph --

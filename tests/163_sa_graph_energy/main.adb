@@ -53,34 +53,30 @@ is
                               & "#G1 .text { fill: black; stroke: none; font-size:" & Fontsize'Img & "px; }"
                               & "#G2 { fill: yellow; stroke: green; }"
                               & "#G2 .text { fill: black; stroke: none; font-size:" & Fontsize'Img & "px; }";
+
+   Graph_Energy1 : Long_Integer;
+   Graph_Energy2 : Long_Integer;
+
 begin
 
    Graph.Identity (Positions1);
-   Graph.Calculate_Params (Params    => Params1,
-                           Data      => Data,
-                           ID        => "G1",
-                           Sectors   => Sectors1,
-                           Length    => Length1,
-                           Positions => Positions1);
+   Graph.Layout (Params    => Params1,
+                 Data      => Data,
+                 ID        => "G1",
+                 Sectors   => Sectors1,
+                 Length    => Length1,
+                 Positions => Positions1,
+                 Energy    => Graph_Energy1);
 
    Graph.Identity (Positions2);
-   Graph.Calculate_Params (Params    => Params2,
-                           Data      => Data,
-                           ID        => "G2",
-                           Sectors   => Sectors2,
-                           Length    => Length2,
-                           Positions => Positions2);
+   Graph.Layout (Params    => Params2,
+                 Data      => Data,
+                 ID        => "G2",
+                 Sectors   => Sectors2,
+                 Length    => Length2,
+                 Positions => Positions2,
+                 Energy    => Graph_Energy2);
    declare
-      Graph_Energy1 : constant Long_Integer := SA.Energy (Params    => Params1,
-                                                          Data      => Data,
-                                                          Sectors   => Sectors1,
-                                                          Size      => Fontsize,
-                                                          Positions => Positions1);
-      Graph_Energy2 : constant Long_Integer := SA.Energy (Params    => Params2,
-                                                          Data      => Data,
-                                                          Sectors   => Sectors2,
-                                                          Size      => Fontsize,
-                                                          Positions => Positions2);
       Doc : constant SVG.Document_Type := SVG.Create_SVG
          (Width  => 600,
           Height => 500,

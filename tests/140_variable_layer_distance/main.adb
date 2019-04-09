@@ -34,15 +34,17 @@ is
    Sectors   : Graph.Annular_Sectors_Type (Data'Range);
    Positions : Graph.Positions_Type (Data'Range);
    Length    : Natural;
+   Unused    : Long_Integer;
 
 begin
    Graph.Identity (Positions);
-   Graph.Calculate_Params (Params    => Params,
-                           Data      => Data,
-                           ID        => "G1",
-                           Sectors   => Sectors,
-                           Length    => Length,
-                           Positions => Positions);
+   Graph.Layout (Params    => Params,
+                 Data      => Data,
+                 ID        => "G1",
+                 Sectors   => Sectors,
+                 Length    => Length,
+                 Positions => Positions,
+                 Energy    => Unused);
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG
          (Width  => 400,

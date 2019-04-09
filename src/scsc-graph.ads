@@ -102,10 +102,11 @@ is
                         Ports :        Ports_Type);
    --  Set ports
 
-   function Create_Polar (Center        : Types.Point;
-                          Radius        : Natural;
-                          Spacing       : Spacing_Type;
-                          Padding       : Natural := 0) return Graph_Params_Type;
+   function Create_Polar (Center    : Types.Point;
+                          Radius    : Natural;
+                          Spacing   : Spacing_Type;
+                          Padding   : Natural  := 0;
+                          Font_Size : Positive := 10) return Graph_Params_Type;
    --  Create graph parameters from center point, offset and radius. Different
    --  layers of the graph have Layer_Spacing pixels of spacing. Ensure padding
    --  (in pixels) between sectors.
@@ -140,15 +141,16 @@ is
                     and (for all P in Positions'Range => P in Data'Range)));
    --  Create graph
 
-   procedure Calculate_Params (Params    :     Graph_Params_Type;
-                               Data      :     Data_Type;
-                               ID        :     String;
-                               Length    : out Natural;
-                               Sectors   : out Annular_Sectors_Type;
-                               Positions :     Positions_Type) with
+   procedure Layout (Params    :     Graph_Params_Type;
+                     Data      :     Data_Type;
+                     ID        :     String;
+                     Positions :     Positions_Type;
+                     Length    : out Natural;
+                     Sectors   : out Annular_Sectors_Type;
+                     Energy    : out Long_Integer) with
       Pre => Data'Length = Sectors'Length
              and Data'Length = Positions'Length;
-   --  Calculate graph parameters
+   --  Layout graph and calculate energy
 
    procedure Identity (Positions : out Positions_Type);
    --  Initialize @Positions@ with identity mapping
@@ -176,6 +178,7 @@ private
       Spacing        : Spacing_Type (Spacing_Index);
       Spacing_Length : Natural;
       Padding        : Natural;
+      Font_Size      : Positive;
    end record;
 
    type Edge_Type is tagged

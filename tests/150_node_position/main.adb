@@ -34,14 +34,16 @@ is
    Positions : SCSC.Graph.Positions_Type := (6, 5, 3, 9, 8, 10, 7, 4, 1, 2);
    Sectors   : SCSC.Graph.Annular_Sectors_Type (Data'Range);
    Length    : Natural;
+   Unused    : Long_Integer;
 
 begin
-   Graph.Calculate_Params (Params    => Params,
-                           Data      => Data,
-                           ID        => "G1",
-                           Sectors   => Sectors,
-                           Positions => Positions,
-                           Length    => Length);
+   Graph.Layout (Params    => Params,
+                 Data      => Data,
+                 ID        => "G1",
+                 Sectors   => Sectors,
+                 Positions => Positions,
+                 Length    => Length,
+                 Energy    => Unused);
 
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG

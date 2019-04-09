@@ -43,8 +43,7 @@ package body SCSC.Simulated_Annealing is
 
    function Move (Params  : Graph.Graph_Params_Type;
                   Data    : Graph.Data_Type;
-                  Sectors : Graph.Annular_Sectors_Type;
-                  Size    : Natural) return Move_Type;
+                  Sectors : Graph.Annular_Sectors_Type) return Move_Type;
 
    package Random_Move is new SCSC.Random (Effective_Moves);
    package Random_Spacing_Index is new SCSC.Random (Graph.Spacing_Index);
@@ -200,10 +199,9 @@ package body SCSC.Simulated_Annealing is
 
    function Move (Params  : Graph.Graph_Params_Type;
                   Data    : Graph.Data_Type;
-                  Sectors : Graph.Annular_Sectors_Type;
-                  Size    : Natural) return Move_Type
+                  Sectors : Graph.Annular_Sectors_Type) return Move_Type
    is
-      pragma Unreferenced (Sectors, Size);
+      pragma Unreferenced (Sectors);
       use type Graph.Spacing_Index;
       Next : constant Moves := Random_Move.Get_Random;
    begin
@@ -269,7 +267,6 @@ package body SCSC.Simulated_Annealing is
    --------------
 
    procedure Optimize (ID        :        String;
-                       Font_Size :        Natural;
                        Length    :    out Natural;
                        Params    : in out Graph.Graph_Params_Type;
                        Data      : in out Graph.Data_Type;
@@ -283,16 +280,16 @@ package body SCSC.Simulated_Annealing is
    begin
       loop
          declare
-            M : Move_Type := Move (Params, Data, Sectors, Font_Size);
+            M : Move_Type := Move (Params, Data, Sectors);
          begin
             Apply (M, Params, Data, Sectors);
-            Graph.Calculate_Params (Params    => Params,
-                                    Data      => Data,
-                                    ID        => ID,
-                                    Length    => Length,
-                                    Sectors   => Sectors,
-                                    Positions => Positions);
-            Energy_2 := Energy (Params, Data, Sectors, Positions, Font_Size);
+            Graph.Layout (Params    => Params,
+                          Data      => Data,
+                          ID        => ID,
+                          Positions => Positions,
+                          Length    => Length,
+                          Sectors   => Sectors,
+                          Energy    => Energy_2);
             Print_Debug (I, Energy_1, Energy_2, Long_Integer (Threshold));
 
             if Energy_2 < Energy_1

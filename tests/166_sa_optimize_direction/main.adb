@@ -53,7 +53,6 @@ is
    Sectors   : SCSC.Graph.Annular_Sectors_Type (Data'Range);
    Length    : Natural;
    Positions : SCSC.Graph.Positions_Type  := (8, 3, 2, 4, 9, 7, 6, 1, 5);
-   --  Positions : SCSC.Graph.Positions_Type  := (1, 2, 3, 4, 6, 5, 7, 8, 9);
    Font_Size : constant := 10;
 
    package SA is new SCSC.Simulated_Annealing (Debug                       => False,
@@ -62,7 +61,6 @@ is
 
 begin
    SA.Optimize (ID        => "G1",
-                Font_Size => Font_Size,
                 Params    => Params,
                 Data      => Data,
                 Sectors   => Sectors,

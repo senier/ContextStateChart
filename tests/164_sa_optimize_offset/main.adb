@@ -44,26 +44,35 @@ is
                               & "#G1 .text { fill: black; stroke: none; font-size:" & Font_Size'Img & "px; }"
                               & "#G2 { fill: yellow; stroke: green; }"
                               & "#G2 .text { fill: black; stroke: none; font-size:" & Font_Size'Img & "px; }";
+
+   Energy : Long_Integer;
+
 begin
    Graph.Identity (Positions);
    SA.Optimize (ID        => "G1",
-                Font_Size => Font_Size,
                 Params    => Params,
                 Data      => Data,
                 Sectors   => Sectors,
                 Length    => Length,
                 Positions => Positions);
 
+      Graph.Layout (Params    => Params,
+                    Data      => Data,
+                    ID        => "G1",
+                    Sectors   => Sectors,
+                    Length    => Length,
+                    Positions => Positions,
+                    Energy    => Energy);
    declare
       Doc : constant SVG.Document_Type := SVG.Create_SVG
          (Width  => 600,
           Height => 500,
           Child  => Graph.Create_Graph (Params    => Params,
-                                        Data      => Data,
-                                        ID        => "G1",
                                         Sectors   => Sectors,
                                         Length    => Length,
-                                        Positions => Positions)
+                                        Data      => Data,
+                                        Positions => Positions,
+                                        ID        => "G1")
                   + SVG.Text (P (20, 20), SA.Energy (Params, Data, Sectors, Positions, Font_Size)'Img),
           Style => Style);
    begin

@@ -62,7 +62,6 @@ begin
    begin
       SCSC.Graph.Identity (Positions);
       SA.Optimize (ID        => "G1",
-                   Font_Size => Fontsize,
                    Params    => Params,
                    Data      => Data.all (Data.all'First .. Last),
                    Sectors   => Sectors,

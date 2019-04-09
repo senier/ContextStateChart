@@ -45,24 +45,27 @@ is
    Positions2 : Graph.Positions_Type (Data2'Range);
 
    Length1, Length2  : Natural;
+   Unused : Long_Integer;
 
 begin
 
    Graph.Identity (Positions1);
-   Graph.Calculate_Params (Params    => Params1,
-                           Data      => Data1,
-                           ID        => "G1",
-                           Sectors   => Sectors1,
-                           Length    => Length1,
-                           Positions => Positions1);
+   Graph.Layout (Params    => Params1,
+                 Data      => Data1,
+                 ID        => "G1",
+                 Sectors   => Sectors1,
+                 Length    => Length1,
+                 Positions => Positions1,
+                 Energy    => Unused);
 
    Graph.Identity (Positions2);
-   Graph.Calculate_Params (Params    => Params2,
-                           Data      => Data2,
-                           ID        => "G2",
-                           Sectors   => Sectors2,
-                           Length    => Length2,
-                           Positions => Positions2);
+   Graph.Layout (Params    => Params2,
+                 Data      => Data2,
+                 ID        => "G2",
+                 Sectors   => Sectors2,
+                 Length    => Length2,
+                 Positions => Positions2,
+                 Energy    => Unused);
 
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG

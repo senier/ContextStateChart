@@ -34,6 +34,9 @@ is
                                                                    Radius  => 20,
                                                                    Spacing => (150, 300, 450),
                                                                    Padding => 5);
+
+   Unused : Long_Integer;
+
 begin
    Import (GEXF_Data => GEXF_File,
            Data      => Data.all,
@@ -53,12 +56,13 @@ begin
       Length    : Natural;
    begin
       SCSC.Graph.Identity (Positions);
-      SCSC.Graph.Calculate_Params (Params    => Params,
-                                   Data      => Data.all (Data.all'First .. Last),
-                                   ID        => "G1",
-                                   Sectors   => Sectors,
-                                   Length    => Length,
-                                   Positions => Positions);
+      SCSC.Graph.Layout (Params    => Params,
+                         Data      => Data.all (Data.all'First .. Last),
+                         ID        => "G1",
+                         Sectors   => Sectors,
+                         Length    => Length,
+                         Positions => Positions,
+                         Energy    => Unused);
       declare
          Doc : Document_Type := Create_SVG
             (Width  => 2000,
