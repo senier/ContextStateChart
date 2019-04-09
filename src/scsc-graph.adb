@@ -209,21 +209,26 @@ package body SCSC.Graph is
    is
       Source_Port : constant Port_Type := Edge.Source_Port;
       Dest_Port   : constant Port_Type := Edge.Dest_Port;
+
+      Start : constant Types.Point := Types.P (Primitives.Port (Params    => Sectors (Index),
+                                                                Position  => Source_Port.Pos,
+                                                                Port_No   => Source_Port.Num,
+                                                                Num_Ports => Data (Index).Ports (Source_Port.Pos)));
+
+      Stop : constant Types.Point  := Types.P (Primitives.Port (Params    => Sectors (Edge.Dest),
+                                                                Position  => Dest_Port.Pos,
+                                                                Port_No   => Dest_Port.Num,
+                                                                Num_Ports => Data (Edge.Dest).Ports (Dest_Port.Pos)));
+
+      P : constant Primitives.Connector_Params_Type := Primitives.Cartesian (Center    => Params.Center,
+                                                                             Start     => Start,
+                                                                             Stop      => Stop,
+                                                                             Radius    => Edge.Radius,
+                                                                             Direction => Edge.Dir);
    begin
-      return Primitives.Connector
-         (Center     => Params.Center,
-          Start      => Types.P (Primitives.Port (Params    => Sectors (Index),
-                                                  Position  => Source_Port.Pos,
-                                                  Port_No   => Source_Port.Num,
-                                                  Num_Ports => Data (Index).Ports (Source_Port.Pos))),
-          Stop       => Types.P (Primitives.Port (Params    => Sectors (Edge.Dest),
-                                                  Position  => Dest_Port.Pos,
-                                                  Port_No   => Dest_Port.Num,
-                                                  Num_Ports => Data (Edge.Dest).Ports (Dest_Port.Pos))),
-          Radius     => Edge.Radius,
-          ID         => ID,
-          Text       => Edge.Get_Label,
-          Direction  => Edge.Dir);
+      return Primitives.Connector (Params => P,
+                                   ID     => ID,
+                                   Text   => Edge.Get_Label);
    end Create_Connector;
 
    ---------------------

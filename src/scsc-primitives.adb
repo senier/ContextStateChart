@@ -192,54 +192,69 @@ is
    end To_Angle;
 
    ---------------
-   -- Connector --
+   -- Cartesian --
    ---------------
 
-   function Connector (Center       : Types.Point;
+   function Cartesian (Center       : Types.Point;
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
-                       ID           : String;
-                       Class        : String         := "";
-                       Text         : String         := "";
-                       Align        : SVG.Align_Type := SVG.Align_Centered;
-                       Direction    : Dir_Type       := Dir_CW;
-                       Position     : Pos_Type       := Pos_Outer) return SXML.Document_Type
+                       Direction    : Dir_Type := Dir_CW) return Connector_Params_Type
    is
-      use Types;
-      use SXML.Generator;
-
       LP_1    : constant Line_Params_Type := Cartesian (Center, Start, Radius);
       Arc_Off : constant Natural          := Types.Distance (Center, LP_1.To);
       LP_2    : constant Line_Params_Type := Cartesian (Center, Stop, Arc_Off - Types.Distance (Center, Stop));
-      R       : constant Natural          := Types.Distance (Center, LP_1.To);
 
       Start_Angle : constant Types.Angle := To_Angle (Center, LP_1.To);
       Stop_Angle  : constant Types.Angle := To_Angle (Center, LP_2.To);
-      Diff_Angle  : constant Types.Angle := Difference (Start_Angle, Stop_Angle);
+      Diff_Angle  : constant Types.Angle := Types.Difference (Start_Angle, Stop_Angle);
 
-      Arc_Params  : constant Arc_Params_Type :=
+      R   : constant Natural := Types.Distance (Center, LP_1.To);
+
+      A : constant Arc_Params_Type :=
          Cartesian (From   => (if Direction = Dir_CW then LP_1.To else LP_2.To),
                     To     => (if Direction = Dir_CW then LP_2.To else LP_1.To),
                     Radius => R,
                     Large  => (if Direction = Dir_CW then Diff_Angle >= 180.0 else Diff_Angle <= 180.0),
                     Sweep  => True);
+   begin
+      return
+         (LP_1   => LP_1,
+          LP_2   => LP_2,
+          Arc    => A,
+          Dir    => Direction,
+          Center => Center);
+   end Cartesian;
 
-      DY        : constant Types.Length := (if Direction = Dir_CW
-                                            then (if Position = Pos_Outer then (Em, -0.3) else (Em, 1.0))
-                                            else (if Position = Pos_Outer then (Em, -0.4) else (Em, 0.3)));
+   ---------------
+   -- Connector --
+   ---------------
+
+   function Connector (Params   : Connector_Params_Type;
+                       ID       : String;
+                       Class    : String         := "";
+                       Text     : String         := "";
+                       Align    : SVG.Align_Type := SVG.Align_Centered;
+                       Position : Pos_Type       := Pos_Outer) return SXML.Document_Type
+   is
+      use Types;
+      use SXML.Generator;
+
+      DY : constant Types.Length := (if Params.Dir = Dir_CW
+                                     then (if Position = Pos_Outer then (Em, -0.3) else (Em, 1.0))
+                                     else (if Position = Pos_Outer then (Em, -0.4) else (Em, 0.3)));
 
    begin
-      return SVG.Group (Line (Params       => LP_1,
+      return SVG.Group (Line (Params       => Params.LP_1,
                               ID           => ID & "_1",
                               Class        => "connector connector_start" & (if Class = "" then "" else " " & Class))
 
-                       + Arc (Params => Arc_Params,
+                       + Arc (Params => Params.Arc,
                               ID     => ID & "_2",
                               Class        => "connector connector_arc" & (if Class = "" then "" else " " & Class))
 
                        + (if Text /= ""
-                          then SVG.Text (Center,
+                          then SVG.Text (Params.Center,
                                          Data      => Text,
                                          Align     => Align,
                                          DY        => DY,
@@ -247,7 +262,7 @@ is
                                          Class     => (if Class = "" then "connector" else "connector " & Class))
                           else SXML.Null_Document)
 
-                       + Line (Params => Points (LP_2.From, LP_2.To),
+                       + Line (Params => Points (Params.LP_2.From, Params.LP_2.To),
                                ID     => ID & "_3",
                                Class  => "connector connector_end" & (if Class = "" then "" else " " & Class)),
                         ID => ID);

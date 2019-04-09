@@ -22,6 +22,7 @@ is
    type Arc_Params_Type is new Params_Type with private;
    type Line_Params_Type is new Params_Type with private;
    type Annular_Sector_Params_Type is tagged private;
+   type Connector_Params_Type is tagged private;
 
    function Arc (Params : Arc_Params_Type;
                  ID     : String := "";
@@ -77,16 +78,19 @@ is
    function Inner (Params : Annular_Sector_Params_Type'Class) return Arc_Params_Type;
    --  Return inner arc parameters
 
-   function Connector (Center       : Types.Point;
+   function Cartesian (Center       : Types.Point;
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
-                       ID           : String;
-                       Class        : String         := "";
-                       Text         : String         := "";
-                       Align        : SVG.Align_Type := SVG.Align_Centered;
-                       Direction    : Dir_Type       := Dir_CW;
-                       Position     : Pos_Type       := Pos_Outer) return SXML.Document_Type;
+                       Direction    : Dir_Type := Dir_CW) return Connector_Params_Type;
+   --  Calculate connector parameters from two points, radius and direction
+
+   function Connector (Params   : Connector_Params_Type;
+                       ID       : String;
+                       Class    : String         := "";
+                       Text     : String         := "";
+                       Align    : SVG.Align_Type := SVG.Align_Centered;
+                       Position : Pos_Type       := Pos_Outer) return SXML.Document_Type;
    --  Return connector
 
    function Annular_Sector (Params : Annular_Sector_Params_Type;
@@ -126,6 +130,15 @@ private
    record
       Inner : Arc_Params_Type;
       Outer : Arc_Params_Type;
+   end record;
+
+   type Connector_Params_Type is tagged
+   record
+      LP_1   : Line_Params_Type;
+      LP_2   : Line_Params_Type;
+      Arc    : Arc_Params_Type;
+      Dir    : Dir_Type;
+      Center : Types.Point;
    end record;
 
 end SCSC.Primitives;

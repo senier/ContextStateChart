@@ -33,54 +33,44 @@ is
        Child  => Circle (Center,   2, Class => "black_circle")
                + Circle (Center, 200, ID => "border")
 
-               + Connector (Center, P (56, 300), P (68, 116),
+               + Connector (Cartesian (Center, P (56, 300), P (68, 116), 10),
                             Text      => "Outer/Default",
-                            Radius    => 10,
                             ID        => "C1")
 
-               + Connector (Center, P (65, 100), P (180, 50),
+               + Connector (Cartesian (Center, P (65, 100), P (180, 50), 20),
                             Text      => "Outer/Start/CW",
-                            Radius    => 20,
                             Align     => SCSC.SVG.Align_Start,
                             ID        => "C2")
 
-               + Connector (Center, P (200, 30), P (320, 100),
+               + Connector (Cartesian (Center, P (200, 30), P (320, 100), 15),
                             Text      => "Outer/Center/CW",
-                            Radius    => 15,
                             Align     => SCSC.SVG.Align_Centered,
                             ID        => "C3")
 
                + Circle (P (340, 130), 5, Class => "red_circle")
                + Circle (P (380, 240), 5, Class => "green_circle")
 
-               + Connector (Center, P (340, 130), P (380, 240),
+               + Connector (Cartesian (Center, P (340, 130), P (380, 240), 15),
                             Text      => "Outer/End/CW",
-                            Radius    => 15,
                             Align     => SCSC.SVG.Align_End,
                             ID        => "C4")
 
                + Circle (P (360, 250), 5, Class => "red_circle")
                + Circle (P (270, 330), 5, Class => "green_circle")
 
-               + Connector (Center, P (270, 330), P (360, 250),
+               + Connector (Cartesian (Center, P (270, 330), P (360, 250), 15, Dir_CCW),
                             Text      => "Outer/Start/CCW",
-                            Radius    => 15,
                             Align     => SCSC.SVG.Align_Start,
-                            Direction => Dir_CCW,
                             ID        => "C5")
 
-               + Connector (Center, P (140, 330), P (250, 340),
+               + Connector (Cartesian (Center, P (140, 330), P (250, 340), 25, Dir_CCW),
                             Text      => "Outer/Center/CCW",
-                            Radius    => 25,
                             Align     => SCSC.SVG.Align_Centered,
-                            Direction => Dir_CCW,
                             ID        => "C6")
 
-               + Connector (Center, P (80, 130), P (140, 280),
+               + Connector (Cartesian (Center, P (80, 130), P (140, 280), 15, Dir_CCW),
                             Text      => "Outer/End/CCW",
-                            Radius    => 15,
                             Align     => SCSC.SVG.Align_End,
-                            Direction => Dir_CCW,
                             Position  => Pos_Outer,
                             ID        => "C7")
                ,

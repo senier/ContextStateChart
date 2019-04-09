@@ -33,6 +33,11 @@ is
                                                      (ZClosepath, Absolute)),
                                         Class => "arrow");
 
+   C1 : Connector_Params_Type := Cartesian (Center, Start_1, Stop_1, Radius =>  50);
+   C2 : Connector_Params_Type := Cartesian (Center, Start_2, Stop_2, Radius =>  30);
+   C3 : Connector_Params_Type := Cartesian (Center, Start_3, Stop_3, Radius => -30);
+   C4 : Connector_Params_Type := Cartesian (Center, Start_4, Stop_4, Radius => -80);
+
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (
        Width  => 400,
@@ -43,19 +48,19 @@ is
 
                + Circle (Start_1, 2, Class => "red_filled")
                + Circle (Stop_1, 2, Class => "green_filled")
-               + Connector (Center, Start_1, Stop_1, Radius => 50, Class => "red", ID => "C1")
+               + Connector (Params => C1, Class => "red", ID => "C1")
 
                + Circle (Start_2, 2, Class => "red_filled")
                + Circle (Stop_2, 2, Class => "green_filled")
-               + Connector (Center, Start_2, Stop_2, Radius => 30, Class => "blue", ID => "C2")
+               + Connector (Params => C2, Class => "blue", ID => "C2")
 
                + Circle (Start_3, 2, Class => "red_filled")
                + Circle (Stop_3, 2, Class => "green_filled")
-               + Connector (Center, Stop_3, Start_3, Radius => -30, Class => "green", ID => "C3")
+               + Connector (Params => C3, Class => "green", ID => "C3")
 
                + Circle (Start_4, 2, Class => "red_filled")
                + Circle (Stop_4, 2, Class => "green_filled")
-               + Connector (Center, Start_4, Stop_4, Radius => -80, Class => "orange", ID => "C4"),
+               + Connector (Params => C4, Class => "orange", ID => "C4"),
 
        Defs   => Marker (Element => Arrow_End,   Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_End")
                + Marker (Element => Arrow_Start, Width => 4, Height => 4, RefX => 0.1, RefY => 2.0, ID => "Arrow_Start"),
