@@ -44,4 +44,9 @@ package SCSC.Simulated_Annealing  is
                        Sectors   : in out Graph.Annular_Sectors_Type;
                        Positions :        Graph.Positions_Type);
 
+   procedure Set_Direction (Data : in out Graph.Data_Type;
+                            NI   :        Positive;
+                            EI   :        Natural;
+                            Dir  :        Primitives.Dir_Type);
+
 end SCSC.Simulated_Annealing;

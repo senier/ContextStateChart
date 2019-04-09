@@ -93,6 +93,19 @@ package body SCSC.Graph is
 
    function Get_Edges (Node : Node_Type) return Edges_Type is (Node.Edges_Data (1 .. Node.Edges_Len));
 
+   --------------
+   -- Set_Edge --
+   --------------
+
+   procedure Set_Edge (Data       : in out Data_Type;
+                       Node_Index :        Positive;
+                       Edge_Index :        Positive;
+                       Edge       :        Edge_Type)
+   is
+   begin
+      Data (Node_Index).Edges_Data (Edge_Index) := Edge;
+   end Set_Edge;
+
    ---------------
    -- Get_Ports --
    ---------------
@@ -441,5 +454,22 @@ package body SCSC.Graph is
          Positions (P) := P;
       end loop;
    end Identity;
+
+   -------------
+   -- Get_Dir --
+   -------------
+
+   function Get_Dir (Edge : Edge_Type) return Primitives.Dir_Type is (Edge.Dir);
+
+   -------------
+   -- Set_Dir --
+   -------------
+
+   procedure Set_Dir (Edge : in out Edge_Type;
+                      Dir  :        Primitives.Dir_Type)
+   is
+   begin
+      Edge.Dir := Dir;
+   end Set_Dir;
 
 end SCSC.Graph;

@@ -10,9 +10,10 @@ package body SCSC.Simulated_Annealing is
    type Moves is
       (Move_Noop,
        Move_Decrease_Random_Level_Spacing,
-       Move_Increase_Random_Level_Spacing);
+       Move_Increase_Random_Level_Spacing,
+       Move_Switch_Random_Direction);
 
-   subtype Effective_Moves is Moves range Move_Decrease_Random_Level_Spacing .. Move_Increase_Random_Level_Spacing;
+   subtype Effective_Moves is Moves range Move_Decrease_Random_Level_Spacing .. Move_Switch_Random_Direction;
 
    type Move_Type (Kind : Moves := Move_Noop) is
    record
@@ -21,6 +22,10 @@ package body SCSC.Simulated_Annealing is
             | Move_Increase_Random_Level_Spacing =>
             Index : Graph.Spacing_Index;
             Value : Natural;
+         when Move_Switch_Random_Direction =>
+            Dir : Primitives.Dir_Type;
+            NI  : Positive;
+            EI  : Natural;
          when Move_Noop =>
             null;
       end case;
@@ -43,6 +48,10 @@ package body SCSC.Simulated_Annealing is
 
    package Random_Move is new SCSC.Random (Effective_Moves);
    package Random_Spacing_Index is new SCSC.Random (Graph.Spacing_Index);
+   package Random_Natural is new SCSC.Random (Natural);
+
+   subtype Valid_Dir_Type is Primitives.Dir_Type range Primitives.Dir_CW .. Primitives.Dir_CCW;
+   package Random_Direction is new SCSC.Random (Valid_Dir_Type);
 
    ------------
    -- Energy --
@@ -96,6 +105,22 @@ package body SCSC.Simulated_Annealing is
       return Result;
    end Energy;
 
+   -------------------
+   -- Set_Direction --
+   -------------------
+
+   procedure Set_Direction (Data : in out Graph.Data_Type;
+                            NI   :        Positive;
+                            EI   :        Natural;
+                            Dir  :        Primitives.Dir_Type)
+   is
+      Edges : constant Graph.Edges_Type := Graph.Get_Edges (Data (NI));
+      E     : Graph.Edge_Type           := Edges (EI);
+   begin
+      Graph.Set_Dir (E, Dir);
+      Graph.Set_Edge (Data, NI, EI, E);
+   end Set_Direction;
+
    -----------
    -- Apply --
    -----------
@@ -106,7 +131,7 @@ package body SCSC.Simulated_Annealing is
                     Sectors : in out Graph.Annular_Sectors_Type)
    is
       Spacing : Natural;
-      pragma Unreferenced (Data, Sectors);
+      pragma Unreferenced (Sectors);
    begin
       case M.Kind is
          when Move_Noop =>
@@ -127,6 +152,9 @@ package body SCSC.Simulated_Annealing is
             else
                M.Value := 0;
             end if;
+
+         when Move_Switch_Random_Direction =>
+            Set_Direction (Data, M.NI, M.EI, M.Dir);
       end case;
    end Apply;
 
@@ -140,7 +168,8 @@ package body SCSC.Simulated_Annealing is
                      Sectors : in out Graph.Annular_Sectors_Type)
    is
       Spacing : Natural;
-      pragma Unreferenced (Data, Sectors);
+      pragma Unreferenced (Sectors);
+      use type Primitives.Dir_Type;
    begin
       case M.Kind is
          when Move_Noop =>
@@ -157,6 +186,11 @@ package body SCSC.Simulated_Annealing is
             if Spacing >= M.Value then
                Graph.Set_Spacing (Params, M.Index, Spacing - M.Value);
             end if;
+
+         when Move_Switch_Random_Direction =>
+            Set_Direction (Data, M.NI, M.EI, (if M.Dir = Primitives.Dir_CW
+                                              then Primitives.Dir_CCW
+                                              else Primitives.Dir_CW));
       end case;
    end Revert;
 
@@ -169,21 +203,45 @@ package body SCSC.Simulated_Annealing is
                   Sectors : Graph.Annular_Sectors_Type;
                   Size    : Natural) return Move_Type
    is
+      pragma Unreferenced (Sectors, Size);
       use type Graph.Spacing_Index;
-      Next : constant Moves               := Random_Move.Get_Random;
-      S    : constant Graph.Spacing_Type  := Graph.Get_Spacing (Params);
-      I    : constant Graph.Spacing_Index := S'First + Random_Spacing_Index.Get_Random mod S'Length;
-      pragma Unreferenced (Data, Sectors, Size);
+      Next : constant Moves := Random_Move.Get_Random;
    begin
       case Next is
          when Move_Decrease_Random_Level_Spacing =>
-            return (Kind  => Move_Decrease_Random_Level_Spacing,
-                    Index => I,
-                    Value => Level_Spacing_Decrease_Step);
+            declare
+               S : constant Graph.Spacing_Type := Graph.Get_Spacing (Params);
+            begin
+               return
+                  (Kind  => Move_Decrease_Random_Level_Spacing,
+                   Index => S'First + Random_Spacing_Index.Get_Random mod S'Length,
+                   Value => Level_Spacing_Decrease_Step);
+            end;
          when Move_Increase_Random_Level_Spacing =>
-            return (Kind  => Move_Increase_Random_Level_Spacing,
-                    Index => I,
-                    Value => Level_Spacing_Increase_Step);
+            declare
+               S : constant Graph.Spacing_Type := Graph.Get_Spacing (Params);
+            begin
+               return (Kind  => Move_Increase_Random_Level_Spacing,
+                       Index => S'First + Random_Spacing_Index.Get_Random mod S'Length,
+                       Value => Level_Spacing_Increase_Step);
+            end;
+         when Move_Switch_Random_Direction =>
+            declare
+               NI    : constant Positive         := Data'First + Random_Natural.Get_Random mod Data'Length;
+               Edges : constant Graph.Edges_Type := Graph.Get_Edges (Data (NI));
+               EI    : constant Integer          := (if Edges'Length > 0
+                                                     then Edges'First + Random_Natural.Get_Random mod Edges'Length
+                                                     else -1);
+            begin
+               if EI = -1 then
+                  return (Kind => Move_Noop);
+               else
+                  return (Kind => Move_Switch_Random_Direction,
+                          Dir  => Random_Direction.Get_Random,
+                          NI   => NI,
+                          EI   => EI);
+               end if;
+            end;
          when Move_Noop =>
             return (Kind  => Move_Noop);
       end case;

@@ -82,6 +82,19 @@ is
    function Get_Edges (Node : Node_Type) return Edges_Type;
    --  Return edges
 
+   procedure Set_Edge (Data       : in out Data_Type;
+                       Node_Index :        Positive;
+                       Edge_Index :        Positive;
+                       Edge       :        Edge_Type);
+   --  Set value of edge
+
+   function Get_Dir (Edge : Edge_Type) return Primitives.Dir_Type;
+   --  Get direction of an edge
+
+   procedure Set_Dir (Edge : in out Edge_Type;
+                      Dir  :        Primitives.Dir_Type);
+   --  Set direction of an edge
+
    function Get_Ports (Node : Node_Type) return Ports_Type;
    --  Return ports
 
