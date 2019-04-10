@@ -29,6 +29,8 @@ is
    type Edge_Type is tagged private;
    Null_Edge : constant Edge_Type;
 
+   type Energy_Params_Type is private;
+
    function Create_Edge (Dest        : Natural;
                          Dir         : Primitives.Dir_Type;
                          Radius      : Integer;
@@ -155,6 +157,26 @@ is
    procedure Identity (Positions : out Positions_Type);
    --  Initialize @Positions@ with identity mapping
 
+   function Create_Energy_Params (Factor_Sector_Too_Wide          : Long_Integer :=   10;
+                                  Factor_Sector_Too_Narrow        : Long_Integer := 1000;
+                                  Factor_Level_Spacing_Too_Wide   : Long_Integer :=   10;
+                                  Factor_Level_Spacing_Too_Narrow : Long_Integer :=  500;
+                                  Factor_Radius_Spacing           : Long_Integer :=   5;
+                                  Text_Border                     : Long_Integer :=  20) return Energy_Params_Type;
+   --  Initialize energy calculation parameters
+
+   function Calculate_Energy (Params : Primitives.Annular_Sector_Params_Type;
+                              EP     : Energy_Params_Type;
+                              Label  : String;
+                              Size   : Natural) return Long_Integer;
+
+   function Calculate_Energy (Params    : Graph.Graph_Params_Type;
+                              EP        : Energy_Params_Type;
+                              Data      : Graph.Data_Type;
+                              Sectors   : Graph.Annular_Sectors_Type;
+                              Positions : Graph.Positions_Type;
+                              Size      : Natural) return Long_Integer;
+
 private
 
    subtype Label_Type is String (1 .. 100);
@@ -229,4 +251,27 @@ private
 
    function Calculate_Offset (Params : Graph_Params_Type;
                               Level  : Natural) return Integer;
+
+   type Energy_Params_Type is
+   record
+      Factor_Sector_Too_Wide          : Long_Integer;
+      Factor_Sector_Too_Narrow        : Long_Integer;
+      Factor_Level_Spacing_Too_Wide   : Long_Integer;
+      Factor_Level_Spacing_Too_Narrow : Long_Integer;
+      Factor_Radius_Spacing           : Long_Integer;
+      Text_Border                     : Long_Integer;
+   end record;
+
+   function Create_Energy_Params (Factor_Sector_Too_Wide          : Long_Integer :=   10;
+                                  Factor_Sector_Too_Narrow        : Long_Integer := 1000;
+                                  Factor_Level_Spacing_Too_Wide   : Long_Integer :=   10;
+                                  Factor_Level_Spacing_Too_Narrow : Long_Integer :=  500;
+                                  Factor_Radius_Spacing           : Long_Integer :=   5;
+                                  Text_Border                     : Long_Integer :=  20) return Energy_Params_Type is
+   ((Factor_Sector_Too_Wide,
+     Factor_Sector_Too_Narrow,
+     Factor_Level_Spacing_Too_Wide,
+     Factor_Level_Spacing_Too_Narrow,
+     Factor_Radius_Spacing,
+     Text_Border));
 end SCSC.Graph;

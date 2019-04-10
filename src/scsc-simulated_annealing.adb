@@ -1,4 +1,3 @@
-with SCSC.Text;
 with SCSC.Random;
 with Ada.Numerics.Float_Random;
 with Ada.Text_IO;
@@ -51,58 +50,6 @@ package body SCSC.Simulated_Annealing is
 
    subtype Valid_Dir_Type is Primitives.Dir_Type range Primitives.Dir_CW .. Primitives.Dir_CCW;
    package Random_Direction is new SCSC.Random (Valid_Dir_Type);
-
-   ------------
-   -- Energy --
-   ------------
-
-   function Energy (Params : Primitives.Annular_Sector_Params_Type;
-                    Text   : String;
-                    Size   : Natural) return Long_Integer
-   is
-      Diff : constant Long_Integer :=
-         Long_Integer (SCSC.Text.Estimate_Width (Text, Size))
-         + Text_Border
-         - Long_Integer (Params.Inner.Length);
-   begin
-      return (if Diff < 0
-              then (-Diff) * Factor_Sector_Too_Wide
-              else Diff * Factor_Sector_Too_Narrow);
-   end Energy;
-
-   ------------
-   -- Energy --
-   ------------
-
-   function Energy (Params    : Graph.Graph_Params_Type;
-                    Data      : Graph.Data_Type;
-                    Sectors   : Graph.Annular_Sectors_Type;
-                    Positions : Graph.Positions_Type;
-                    Size      : Natural) return Long_Integer
-   is
-      pragma Unreferenced (Positions);
-      Result : Long_Integer := 0;
-   begin
-      for I in Sectors'Range
-      loop
-         --  FIXME: Only one font size supported
-         Result := Result + Energy (Sectors (I), Data (I).Get_Label, Size);
-      end loop;
-
-      for S of Graph.Get_Spacing (Params)
-      loop
-         declare
-            Diff : constant Long_Integer := (Factor_Radius_Spacing * Long_Integer (Graph.Get_Radius (Params))
-                                             - Long_Integer (S));
-         begin
-            Result := Result + (if Diff < 0
-                                then (-Diff) * Factor_Level_Spacing_Too_Wide
-                                else Diff * Factor_Level_Spacing_Too_Narrow);
-         end;
-      end loop;
-
-      return Result;
-   end Energy;
 
    -------------------
    -- Set_Direction --

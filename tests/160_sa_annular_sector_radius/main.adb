@@ -3,6 +3,7 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Simulated_Annealing;
+with SCSC.Graph;
 with SXML.Generator;
 
 procedure Main
@@ -31,14 +32,14 @@ is
                                    & ".circle { fill: black; stroke: none; } ";
 begin
    declare
-      package SA is new SCSC.Simulated_Annealing;
+      EP : SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
 
-      Energy0 : constant Long_Integer := SA.Energy (AS0_Params, AS_Text, Fontsize);
-      Energy1 : constant Long_Integer := SA.Energy (AS1_Params, AS_Text, Fontsize);
-      Energy2 : constant Long_Integer := SA.Energy (AS2_Params, AS_Text, Fontsize);
-      Energy3 : constant Long_Integer := SA.Energy (AS3_Params, AS_Text, Fontsize);
-      Energy4 : constant Long_Integer := SA.Energy (AS4_Params, AS_Text, Fontsize);
-      Energy5 : constant Long_Integer := SA.Energy (AS5_Params, AS_Text, Fontsize);
+      Energy0 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS0_Params, EP, AS_Text, Fontsize);
+      Energy1 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS1_Params, EP, AS_Text, Fontsize);
+      Energy2 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS2_Params, EP, AS_Text, Fontsize);
+      Energy3 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS3_Params, EP, AS_Text, Fontsize);
+      Energy4 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS4_Params, EP, AS_Text, Fontsize);
+      Energy5 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS5_Params, EP, AS_Text, Fontsize);
 
       SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
          (Width  => 400,

@@ -64,6 +64,8 @@ begin
                     Positions => Positions,
                     Energy    => Energy);
    declare
+      EP : Graph.Energy_Params_Type := Graph.Create_Energy_Params;
+
       Doc : constant SVG.Document_Type := SVG.Create_SVG
          (Width  => 600,
           Height => 500,
@@ -73,7 +75,7 @@ begin
                                         Data      => Data,
                                         Positions => Positions,
                                         ID        => "G1")
-                  + SVG.Text (P (20, 20), SA.Energy (Params, Data, Sectors, Positions, Font_Size)'Img),
+                  + SVG.Text (P (20, 20), Graph.Calculate_Energy (Params, EP, Data, Sectors, Positions, Font_Size)'Img),
           Style => Style);
    begin
       Put_Line (SVG.To_String (Doc));

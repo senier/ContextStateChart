@@ -56,8 +56,7 @@ is
    Font_Size : constant := 10;
 
    package SA is new SCSC.Simulated_Annealing (Debug                       => False,
-                                               Max_Unsuccessful_Iterations => 50,
-                                               Factor_Radius_Spacing       => 3);
+                                               Max_Unsuccessful_Iterations => 50);
 
 begin
    SA.Optimize (ID        => "G1",

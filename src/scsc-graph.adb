@@ -1,6 +1,7 @@
 with Ada.Containers.Generic_Array_Sort;
 with SCSC.SVG;
 with SCSC.Math;
+with SCSC.Text;
 
 package body SCSC.Graph is
 
@@ -474,5 +475,59 @@ package body SCSC.Graph is
    begin
       Edge.Dir := Dir;
    end Set_Dir;
+
+   ----------------------
+   -- Calculate_Energy --
+   ----------------------
+
+   function Calculate_Energy (Params : Primitives.Annular_Sector_Params_Type;
+                              EP     : Energy_Params_Type;
+                              Label  : String;
+                              Size   : Natural) return Long_Integer
+   is
+      Diff : constant Long_Integer :=
+         Long_Integer (SCSC.Text.Estimate_Width (Label, Size))
+         + EP.Text_Border
+         - Long_Integer (Params.Inner.Length);
+   begin
+      return (if Diff < 0
+              then (-Diff) * EP.Factor_Sector_Too_Wide
+              else Diff * EP.Factor_Sector_Too_Narrow);
+   end Calculate_Energy;
+
+   ----------------------
+   -- Calculate_Energy --
+   ----------------------
+
+   function Calculate_Energy (Params    : Graph.Graph_Params_Type;
+                              EP        : Energy_Params_Type;
+                              Data      : Graph.Data_Type;
+                              Sectors   : Graph.Annular_Sectors_Type;
+                              Positions : Graph.Positions_Type;
+                              Size      : Natural) return Long_Integer
+   is
+      pragma Unreferenced (Positions);
+      Result : Long_Integer := 0;
+   begin
+      for I in Sectors'Range
+      loop
+         --  FIXME: Only one font size supported
+         Result := Result + Calculate_Energy (Sectors (I), EP, Data (I).Get_Label, Size);
+      end loop;
+
+      for S of Graph.Get_Spacing (Params)
+      loop
+         declare
+            Diff : constant Long_Integer := (EP.Factor_Radius_Spacing * Long_Integer (Graph.Get_Radius (Params))
+                                             - Long_Integer (S));
+         begin
+            Result := Result + (if Diff < 0
+                                then (-Diff) * EP.Factor_Level_Spacing_Too_Wide
+                                else Diff * EP.Factor_Level_Spacing_Too_Narrow);
+         end;
+      end loop;
+
+      return Result;
+   end Calculate_Energy;
 
 end SCSC.Graph;
