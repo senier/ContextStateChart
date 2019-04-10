@@ -45,24 +45,18 @@ is
                               & "#G2 { fill: yellow; stroke: green; }"
                               & "#G2 .text { fill: black; stroke: none; font-size:" & Font_Size'Img & "px; }";
 
-   Energy : Long_Integer;
+   OP : constant SA.Params_Type := SA.Create_Opt_Params;
 
 begin
    Graph.Identity (Positions);
-   SA.Optimize (ID        => "G1",
-                Params    => Params,
-                Data      => Data,
-                Sectors   => Sectors,
-                Length    => Length,
-                Positions => Positions);
+   SA.Optimize (ID         => "G1",
+                Opt_Params => OP,
+                Params     => Params,
+                Data       => Data,
+                Sectors    => Sectors,
+                Length     => Length,
+                Positions  => Positions);
 
-      Graph.Layout (Params    => Params,
-                    Data      => Data,
-                    ID        => "G1",
-                    Sectors   => Sectors,
-                    Length    => Length,
-                    Positions => Positions,
-                    Energy    => Energy);
    declare
       EP : Graph.Energy_Params_Type := Graph.Create_Energy_Params;
 

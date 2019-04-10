@@ -40,9 +40,10 @@ package body SCSC.Simulated_Annealing is
                      Data    : in out Graph.Data_Type;
                      Sectors : in out Graph.Annular_Sectors_Type);
 
-   function Move (Params  : Graph.Graph_Params_Type;
-                  Data    : Graph.Data_Type;
-                  Sectors : Graph.Annular_Sectors_Type) return Move_Type;
+   function Move (Params     : Graph.Graph_Params_Type;
+                  Opt_Params : Params_Type;
+                  Data       : Graph.Data_Type;
+                  Sectors    : Graph.Annular_Sectors_Type) return Move_Type;
 
    package Random_Move is new SCSC.Random (Effective_Moves);
    package Random_Spacing_Index is new SCSC.Random (Graph.Spacing_Index);
@@ -144,9 +145,10 @@ package body SCSC.Simulated_Annealing is
    -- Move --
    ----------
 
-   function Move (Params  : Graph.Graph_Params_Type;
-                  Data    : Graph.Data_Type;
-                  Sectors : Graph.Annular_Sectors_Type) return Move_Type
+   function Move (Params     : Graph.Graph_Params_Type;
+                  Opt_Params : Params_Type;
+                  Data       : Graph.Data_Type;
+                  Sectors    : Graph.Annular_Sectors_Type) return Move_Type
    is
       pragma Unreferenced (Sectors);
       use type Graph.Spacing_Index;
@@ -160,7 +162,7 @@ package body SCSC.Simulated_Annealing is
                return
                   (Kind  => Move_Decrease_Random_Level_Spacing,
                    Index => S'First + Random_Spacing_Index.Get_Random mod S'Length,
-                   Value => Level_Spacing_Decrease_Step);
+                   Value => Opt_Params.Level_Spacing_Decrease_Step);
             end;
          when Move_Increase_Random_Level_Spacing =>
             declare
@@ -168,7 +170,7 @@ package body SCSC.Simulated_Annealing is
             begin
                return (Kind  => Move_Increase_Random_Level_Spacing,
                        Index => S'First + Random_Spacing_Index.Get_Random mod S'Length,
-                       Value => Level_Spacing_Increase_Step);
+                       Value => Opt_Params.Level_Spacing_Increase_Step);
             end;
          when Move_Switch_Random_Direction =>
             declare
@@ -203,31 +205,30 @@ package body SCSC.Simulated_Annealing is
    is
       use Ada.Text_IO;
    begin
-      if Debug then
-         Put_Line (Standard_Error, "I:" & Iteration'Img & " E1:" & Energy_1'Img & " E2:" & Energy_2'Img
-                   & " Threshold:" & Threshold'Img);
-      end if;
+      Put_Line (Standard_Error, "I:" & Iteration'Img & " E1:" & Energy_1'Img & " E2:" & Energy_2'Img
+                & " Threshold:" & Threshold'Img);
    end Print_Debug;
 
    --------------
    -- Optimize --
    --------------
 
-   procedure Optimize (ID        :        String;
-                       Length    :    out Natural;
-                       Params    : in out Graph.Graph_Params_Type;
-                       Data      : in out Graph.Data_Type;
-                       Sectors   : in out Graph.Annular_Sectors_Type;
-                       Positions :        Graph.Positions_Type)
+   procedure Optimize (ID         :        String;
+                       Opt_Params :        Params_Type;
+                       Length     :    out Natural;
+                       Params     : in out Graph.Graph_Params_Type;
+                       Data       : in out Graph.Data_Type;
+                       Sectors    : in out Graph.Annular_Sectors_Type;
+                       Positions  :        Graph.Positions_Type)
    is
       I         : Long_Integer := 0;
       Energy_1  : Long_Integer := Long_Integer'Last;
       Energy_2  : Long_Integer;
-      Threshold : Float := Initial_Acceptance_Threshold;
+      Threshold : Float := Opt_Params.Initial_Acceptance_Threshold;
    begin
       loop
          declare
-            M : Move_Type := Move (Params, Data, Sectors);
+            M : Move_Type := Move (Params, Opt_Params, Data, Sectors);
          begin
             Apply (M, Params, Data, Sectors);
             Graph.Layout (Params    => Params,
@@ -237,7 +238,9 @@ package body SCSC.Simulated_Annealing is
                           Length    => Length,
                           Sectors   => Sectors,
                           Energy    => Energy_2);
-            Print_Debug (I, Energy_1, Energy_2, Long_Integer (Threshold));
+            if Opt_Params.Debug then
+               Print_Debug (I, Energy_1, Energy_2, Long_Integer (Threshold));
+            end if;
 
             if Energy_2 < Energy_1
             then
@@ -251,8 +254,8 @@ package body SCSC.Simulated_Annealing is
                I := I + 1;
             end if;
          end;
-         Threshold := Threshold * Threshold_Decay;
-         exit when I > Max_Unsuccessful_Iterations;
+         Threshold := Threshold * Opt_Params.Threshold_Decay;
+         exit when I > Opt_Params.Max_Unsuccessful_Iterations;
       end loop;
    end Optimize;
 

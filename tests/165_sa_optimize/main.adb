@@ -38,9 +38,9 @@ is
                                                           Spacing => (150, 300, 450),
                                                           Padding => 5);
 
-   package SA is new SCSC.Simulated_Annealing
-                        (Max_Unsuccessful_Iterations => 5,
-                         Threshold_Decay             => 0.8);
+   package SA is new SCSC.Simulated_Annealing;
+   OP : constant SA.Params_Type := SA.Create_Opt_Params (Max_Unsuccessful_Iterations => 5,
+                                                         Threshold_Decay             => 0.8);
 
 begin
    Import (GEXF_Data => GEXF_File,
@@ -61,12 +61,13 @@ begin
       Length    : Natural;
    begin
       SCSC.Graph.Identity (Positions);
-      SA.Optimize (ID        => "G1",
-                   Params    => Params,
-                   Data      => Data.all (Data.all'First .. Last),
-                   Sectors   => Sectors,
-                   Length    => Length,
-                   Positions => Positions);
+      SA.Optimize (ID         => "G1",
+                   Params     => Params,
+                   Opt_Params => OP,
+                   Data       => Data.all (Data.all'First .. Last),
+                   Sectors    => Sectors,
+                   Length     => Length,
+                   Positions  => Positions);
 
       declare
          Doc : Document_Type := Create_SVG
