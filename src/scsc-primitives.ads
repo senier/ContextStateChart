@@ -82,8 +82,12 @@ is
                        Start        : Types.Point;
                        Stop         : Types.Point;
                        Radius       : Integer;
-                       Direction    : Dir_Type := Dir_CW) return Connector_Params_Type;
-   --  Calculate connector parameters from two points, radius and direction
+                       Direction    : Dir_Type := Dir_CW;
+                       Label        : String   := "") return Connector_Params_Type;
+   --  Calculate connector parameters from two points, radius, direction and label
+
+   function Get_Label (Params : Connector_Params_Type) return String;
+   --  Return label of connector
 
    function Connector (Params   : Connector_Params_Type;
                        ID       : String;
@@ -132,13 +136,17 @@ private
       Outer : Arc_Params_Type;
    end record;
 
+   subtype Label_Type is String (1 .. 100);
+
    type Connector_Params_Type is tagged
    record
-      LP_1   : Line_Params_Type;
-      LP_2   : Line_Params_Type;
-      Arc    : Arc_Params_Type;
-      Dir    : Dir_Type;
-      Center : Types.Point;
+      LP_1       : Line_Params_Type;
+      LP_2       : Line_Params_Type;
+      Arc        : Arc_Params_Type;
+      Dir        : Dir_Type;
+      Center     : Types.Point;
+      Label_Text : Label_Type;
+      Label_Len  : Natural;
    end record;
 
 end SCSC.Primitives;

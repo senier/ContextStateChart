@@ -214,12 +214,11 @@ private
       Radius      : Integer;
    end record;
 
-   function Create_Connector (Params    : Graph_Params_Type;
-                              Data      : Data_Type;
-                              Sectors   : Annular_Sectors_Type;
-                              Edge      : Edge_Type;
-                              Index     : Positive;
-                              ID        : String) return SXML.Document_Type;
+   function Create_Connector (Graph_Params : Graph_Params_Type;
+                              Graph_Data   : Data_Type;
+                              Sectors      : Annular_Sectors_Type;
+                              Edge         : Edge_Type;
+                              Index        : Positive) return Primitives.Connector_Params_Type;
 
    Null_Edge  : constant Edge_Type :=
       (Dest        => 0,

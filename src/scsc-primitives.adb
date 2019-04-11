@@ -195,11 +195,12 @@ is
    -- Cartesian --
    ---------------
 
-   function Cartesian (Center       : Types.Point;
-                       Start        : Types.Point;
-                       Stop         : Types.Point;
-                       Radius       : Integer;
-                       Direction    : Dir_Type := Dir_CW) return Connector_Params_Type
+   function Cartesian (Center    : Types.Point;
+                       Start     : Types.Point;
+                       Stop      : Types.Point;
+                       Radius    : Integer;
+                       Direction : Dir_Type := Dir_CW;
+                       Label     : String   := "") return Connector_Params_Type
    is
       LP_1    : constant Line_Params_Type := Cartesian (Center, Start, Radius);
       Arc_Off : constant Natural          := Types.Distance (Center, LP_1.To);
@@ -217,14 +218,27 @@ is
                     Radius => R,
                     Large  => (if Direction = Dir_CW then Diff_Angle >= 180.0 else Diff_Angle <= 180.0),
                     Sweep  => True);
+
+      Label_Length : constant Natural := (if Label'Length > Label_Type'Last - Label_Type'First + 1
+                                          then Label_Type'Last - Label_Type'First + 1
+                                          else Label'Length);
    begin
       return
-         (LP_1   => LP_1,
-          LP_2   => LP_2,
-          Arc    => A,
-          Dir    => Direction,
-          Center => Center);
+         (LP_1       => LP_1,
+          LP_2       => LP_2,
+          Arc        => A,
+          Dir        => Direction,
+          Center     => Center,
+          Label_Text => Label (Label'First .. Label'First + Label_Length - 1)
+                               & (Label_Type'First + Label_Length .. Label_Type'Last => ' '),
+          Label_Len  => Label_Length);
    end Cartesian;
+
+   ---------------
+   -- Get_Label --
+   ---------------
+
+   function Get_Label (Params : Connector_Params_Type) return String is (Params.Label_Text (1 .. Params.Label_Len));
 
    ---------------
    -- Connector --
