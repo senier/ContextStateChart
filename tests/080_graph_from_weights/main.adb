@@ -33,14 +33,14 @@ is
 
 begin
    Graph.Identity (Positions);
-   Graph.Layout (Params    => Params,
-                 EP        => EP,
-                 Data      => Data,
-                 ID        => "G1",
-                 Positions => Positions,
-                 Sectors   => Sectors,
-                 Length    => Length,
-                 Energy    => Unused);
+   Graph.Layout (Params        => Params,
+                 Data          => Data,
+                 Energy_Params => EP,
+                 ID            => "G1",
+                 Positions     => Positions,
+                 Sectors       => Sectors,
+                 Length        => Length,
+                 Energy        => Unused);
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG
          (Width  => 400,

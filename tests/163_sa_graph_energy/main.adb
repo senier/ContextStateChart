@@ -60,24 +60,24 @@ is
 begin
 
    Graph.Identity (Positions1);
-   Graph.Layout (Params    => Params1,
-                 EP        => EP,
-                 Data      => Data,
-                 ID        => "G1",
-                 Sectors   => Sectors1,
-                 Length    => Length1,
-                 Positions => Positions1,
-                 Energy    => Graph_Energy1);
+   Graph.Layout (Params        => Params1,
+                 Energy_Params => EP,
+                 Data          => Data,
+                 ID            => "G1",
+                 Sectors       => Sectors1,
+                 Length        => Length1,
+                 Positions     => Positions1,
+                 Energy        => Graph_Energy1);
 
    Graph.Identity (Positions2);
-   Graph.Layout (Params    => Params2,
-                 EP        => EP,
-                 Data      => Data,
-                 ID        => "G2",
-                 Sectors   => Sectors2,
-                 Length    => Length2,
-                 Positions => Positions2,
-                 Energy    => Graph_Energy2);
+   Graph.Layout (Params        => Params2,
+                 Energy_Params => EP,
+                 Data          => Data,
+                 ID            => "G2",
+                 Sectors       => Sectors2,
+                 Length        => Length2,
+                 Positions     => Positions2,
+                 Energy        => Graph_Energy2);
    declare
       Doc : constant SVG.Document_Type := SVG.Create_SVG
          (Width  => 600,

@@ -58,14 +58,14 @@ begin
       Length    : Natural;
    begin
       SCSC.Graph.Identity (Positions);
-      SCSC.Graph.Layout (Params    => Params,
-                         EP        => EP,
-                         Data      => Data.all (Data.all'First .. Last),
-                         ID        => "G1",
-                         Sectors   => Sectors,
-                         Length    => Length,
-                         Positions => Positions,
-                         Energy    => Unused);
+      SCSC.Graph.Layout (Params        => Params,
+                         Energy_Params => EP,
+                         Data          => Data.all (Data.all'First .. Last),
+                         ID            => "G1",
+                         Sectors       => Sectors,
+                         Length        => Length,
+                         Positions     => Positions,
+                         Energy        => Unused);
       declare
          Doc : Document_Type := Create_SVG
             (Width  => 2000,

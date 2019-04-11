@@ -52,14 +52,14 @@ is
 
 begin
    SCSC.Graph.Identity (Positions);
-   SCSC.Graph.Layout (Params    => Params,
-                      EP        => EP,
-                      Data      => Data,
-                      ID        => "Graph",
-                      Sectors   => Sectors,
-                      Length    => Length,
-                      Positions => Positions,
-                      Energy    => Unused);
+   SCSC.Graph.Layout (Params        => Params,
+                      Energy_Params => EP,
+                      Data          => Data,
+                      ID            => "Graph",
+                      Sectors       => Sectors,
+                      Length        => Length,
+                      Positions     => Positions,
+                      Energy        => Unused);
    declare
       Doc : Document_Type := Create_SVG
          (Width  => 400,

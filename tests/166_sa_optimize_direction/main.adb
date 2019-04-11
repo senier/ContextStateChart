@@ -55,20 +55,20 @@ is
    Positions : SCSC.Graph.Positions_Type  := (8, 3, 2, 4, 9, 7, 6, 1, 5);
    Font_Size : constant := 10;
 
-   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Opt_Params (Debug                       => False,
-                                                                   Max_Unsuccessful_Iterations => 50);
+   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Optimize_Params (Debug                       => False,
+                                                                        Max_Unsuccessful_Iterations => 50);
 
    EP : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
 
 begin
-   SCSC.SA.Optimize (ID         => "G1",
-                     Opt_Params => OP,
-                     EP         => EP,
-                     Params     => Params,
-                     Data       => Data,
-                     Sectors    => Sectors,
-                     Length     => Length,
-                     Positions  => Positions);
+   SCSC.SA.Optimize (ID              => "G1",
+                     Optimize_Params => OP,
+                     Energy_Params   => EP,
+                     Graph_Params    => Params,
+                     Graph_Data      => Data,
+                     Sectors         => Sectors,
+                     Length          => Length,
+                     Positions       => Positions);
    declare
       Doc : Document_Type := Create_SVG
          (Width  => 400,

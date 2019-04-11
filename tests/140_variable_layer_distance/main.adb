@@ -40,14 +40,14 @@ is
 
 begin
    Graph.Identity (Positions);
-   Graph.Layout (Params    => Params,
-                 EP        => EP,
-                 Data      => Data,
-                 ID        => "G1",
-                 Sectors   => Sectors,
-                 Length    => Length,
-                 Positions => Positions,
-                 Energy    => Unused);
+   Graph.Layout (Params        => Params,
+                 Energy_Params => EP,
+                 Data          => Data,
+                 ID            => "G1",
+                 Sectors       => Sectors,
+                 Length        => Length,
+                 Positions     => Positions,
+                 Energy        => Unused);
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG
          (Width  => 400,

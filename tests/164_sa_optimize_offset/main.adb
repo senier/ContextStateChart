@@ -43,20 +43,20 @@ is
                               & "#G2 { fill: yellow; stroke: green; }"
                               & "#G2 .text { fill: black; stroke: none; font-size:" & Font_Size'Img & "px; }";
 
-   OP : constant SA.Params_Type := SA.Create_Opt_Params;
+   OP : constant SA.Params_Type := SA.Create_Optimize_Params;
 
    EP : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
 
 begin
    Graph.Identity (Positions);
-   SA.Optimize (ID         => "G1",
-                Opt_Params => OP,
-                EP         => EP,
-                Params     => Params,
-                Data       => Data,
-                Sectors    => Sectors,
-                Length     => Length,
-                Positions  => Positions);
+   SA.Optimize (ID              => "G1",
+                Optimize_Params => OP,
+                Energy_Params   => EP,
+                Graph_Params    => Params,
+                Graph_Data      => Data,
+                Sectors         => Sectors,
+                Length          => Length,
+                Positions       => Positions);
 
    declare
       EP : Graph.Energy_Params_Type := Graph.Create_Energy_Params;

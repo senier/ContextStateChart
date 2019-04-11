@@ -38,8 +38,8 @@ is
                                                           Spacing => (150, 300, 450),
                                                           Padding => 5);
 
-   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Opt_Params (Max_Unsuccessful_Iterations => 5,
-                                                                   Threshold_Decay             => 0.8);
+   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Optimize_Params (Max_Unsuccessful_Iterations => 5,
+                                                                        Threshold_Decay             => 0.8);
 
    EP : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
 
@@ -62,14 +62,14 @@ begin
       Length    : Natural;
    begin
       SCSC.Graph.Identity (Positions);
-      SCSC.SA.Optimize (ID         => "G1",
-                        Params     => Params,
-                        Opt_Params => OP,
-                        EP         => EP,
-                        Data       => Data.all (Data.all'First .. Last),
-                        Sectors    => Sectors,
-                        Length     => Length,
-                        Positions  => Positions);
+      SCSC.SA.Optimize (ID              => "G1",
+                        Optimize_Params => OP,
+                        Energy_Params   => EP,
+                        Graph_Params    => Params,
+                        Graph_Data      => Data.all (Data.all'First .. Last),
+                        Sectors         => Sectors,
+                        Length          => Length,
+                        Positions       => Positions);
 
       declare
          Doc : Document_Type := Create_SVG

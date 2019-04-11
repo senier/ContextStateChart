@@ -39,14 +39,14 @@ is
    Unused    : Long_Integer;
 
 begin
-   Graph.Layout (Params    => Params,
-                 EP        => EP,
-                 Data      => Data,
-                 ID        => "G1",
-                 Sectors   => Sectors,
-                 Positions => Positions,
-                 Length    => Length,
-                 Energy    => Unused);
+   Graph.Layout (Params        => Params,
+                 Energy_Params => EP,
+                 Data          => Data,
+                 ID            => "G1",
+                 Sectors       => Sectors,
+                 Positions     => Positions,
+                 Length        => Length,
+                 Energy        => Unused);
 
    declare
       Doc : SVG.Document_Type := SVG.Create_SVG

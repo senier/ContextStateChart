@@ -48,14 +48,14 @@ is
 
 begin
 
-   SCSC.Graph.Layout (Params    => Params,
-                      EP        => EP,
-                      Data      => Data,
-                      ID        => "Graph1",
-                      Positions => Positions,
-                      Sectors   => Sectors,
-                      Length    => Length,
-                      Energy    => Unused);
+   SCSC.Graph.Layout (Params        => Params,
+                      Energy_Params => EP,
+                      Data          => Data,
+                      ID            => "Graph1",
+                      Positions     => Positions,
+                      Sectors       => Sectors,
+                      Length        => Length,
+                      Energy        => Unused);
    declare
       Doc : Document_Type := Create_SVG
          (Width  => 400,

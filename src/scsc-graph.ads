@@ -143,14 +143,14 @@ is
                     and (for all P in Positions'Range => P in Data'Range)));
    --  Create graph
 
-   procedure Layout (Params    :     Graph_Params_Type;
-                     EP        :     Energy_Params_Type;
-                     Data      :     Data_Type;
-                     ID        :     String;
-                     Positions :     Positions_Type;
-                     Length    : out Natural;
-                     Sectors   : out Annular_Sectors_Type;
-                     Energy    : out Long_Integer) with
+   procedure Layout (Params        :     Graph_Params_Type;
+                     Data          :     Data_Type;
+                     Energy_Params :     Energy_Params_Type;
+                     ID            :     String;
+                     Positions     :     Positions_Type;
+                     Length        : out Natural;
+                     Sectors       : out Annular_Sectors_Type;
+                     Energy        : out Long_Integer) with
       Pre => Data'Length = Sectors'Length
              and Data'Length = Positions'Length;
    --  Layout graph and calculate energy
@@ -167,15 +167,15 @@ is
                                   Font_Size                       : Positive     :=   10) return Energy_Params_Type;
    --  Initialize energy calculation parameters
 
-   function Calculate_Energy (Params : Primitives.Annular_Sector_Params_Type;
-                              EP     : Energy_Params_Type;
-                              Label  : String) return Long_Integer;
+   function Calculate_Energy (Annular_Sector_Params : Primitives.Annular_Sector_Params_Type;
+                              Energy_Params         : Energy_Params_Type;
+                              Label                 : String) return Long_Integer;
 
-   function Calculate_Energy (Params    : Graph.Graph_Params_Type;
-                              EP        : Energy_Params_Type;
-                              Data      : Graph.Data_Type;
-                              Sectors   : Graph.Annular_Sectors_Type;
-                              Positions : Graph.Positions_Type) return Long_Integer;
+   function Calculate_Energy (Graph_Params  : Graph.Graph_Params_Type;
+                              Energy_Params : Energy_Params_Type;
+                              Graph_Data    : Graph.Data_Type;
+                              Sectors       : Graph.Annular_Sectors_Type;
+                              Positions     : Graph.Positions_Type) return Long_Integer;
 
 private
 

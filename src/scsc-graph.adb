@@ -287,14 +287,14 @@ package body SCSC.Graph is
    -- Layout --
    ------------
 
-   procedure Layout (Params    :     Graph_Params_Type;
-                     EP        :     Energy_Params_Type;
-                     Data      :     Data_Type;
-                     ID        :     String;
-                     Positions :     Positions_Type;
-                     Length    : out Natural;
-                     Sectors   : out Annular_Sectors_Type;
-                     Energy    : out Long_Integer)
+   procedure Layout (Params        :     Graph_Params_Type;
+                     Data          :     Data_Type;
+                     Energy_Params :     Energy_Params_Type;
+                     ID            :     String;
+                     Positions     :     Positions_Type;
+                     Length        : out Natural;
+                     Sectors       : out Annular_Sectors_Type;
+                     Energy        : out Long_Integer)
    is
       I       : Positive;
       Start   : Types.Angle := 0.0;
@@ -361,7 +361,7 @@ package body SCSC.Graph is
                                                                     Index     => I,
                                                                     ID        => Connector_ID);
             begin
-               Energy := Energy + Calculate_Energy (Sectors (I), EP, Data (I).Get_Label);
+               Energy := Energy + Calculate_Energy (Sectors (I), Energy_Params, Data (I).Get_Label);
                Length := Length + C'Length;
             end;
          end loop;
@@ -482,29 +482,29 @@ package body SCSC.Graph is
    -- Calculate_Energy --
    ----------------------
 
-   function Calculate_Energy (Params : Primitives.Annular_Sector_Params_Type;
-                              EP     : Energy_Params_Type;
-                              Label  : String) return Long_Integer
+   function Calculate_Energy (Annular_Sector_Params : Primitives.Annular_Sector_Params_Type;
+                              Energy_Params         : Energy_Params_Type;
+                              Label                 : String) return Long_Integer
    is
       Diff : constant Long_Integer :=
-         Long_Integer (SCSC.Text.Estimate_Width (Label, EP.Font_Size))
-         + EP.Text_Border
-         - Long_Integer (Params.Inner.Length);
+         Long_Integer (SCSC.Text.Estimate_Width (Label, Energy_Params.Font_Size))
+         + Energy_Params.Text_Border
+         - Long_Integer (Annular_Sector_Params.Inner.Length);
    begin
       return (if Diff < 0
-              then (-Diff) * EP.Factor_Sector_Too_Wide
-              else Diff * EP.Factor_Sector_Too_Narrow);
+              then (-Diff) * Energy_Params.Factor_Sector_Too_Wide
+              else Diff * Energy_Params.Factor_Sector_Too_Narrow);
    end Calculate_Energy;
 
    ----------------------
    -- Calculate_Energy --
    ----------------------
 
-   function Calculate_Energy (Params    : Graph.Graph_Params_Type;
-                              EP        : Energy_Params_Type;
-                              Data      : Graph.Data_Type;
-                              Sectors   : Graph.Annular_Sectors_Type;
-                              Positions : Graph.Positions_Type) return Long_Integer
+   function Calculate_Energy (Graph_Params  : Graph.Graph_Params_Type;
+                              Energy_Params : Energy_Params_Type;
+                              Graph_Data    : Graph.Data_Type;
+                              Sectors       : Graph.Annular_Sectors_Type;
+                              Positions     : Graph.Positions_Type) return Long_Integer
    is
       pragma Unreferenced (Positions);
       Result : Long_Integer := 0;
@@ -512,18 +512,19 @@ package body SCSC.Graph is
       for I in Sectors'Range
       loop
          --  FIXME: Only one font size supported
-         Result := Result + Calculate_Energy (Sectors (I), EP, Data (I).Get_Label);
+         Result := Result + Calculate_Energy (Sectors (I), Energy_Params, Graph_Data (I).Get_Label);
       end loop;
 
-      for S of Graph.Get_Spacing (Params)
+      for S of Graph.Get_Spacing (Graph_Params)
       loop
          declare
-            Diff : constant Long_Integer := (EP.Factor_Radius_Spacing * Long_Integer (Graph.Get_Radius (Params))
+            Diff : constant Long_Integer := (Energy_Params.Factor_Radius_Spacing
+                                             * Long_Integer (Graph.Get_Radius (Graph_Params))
                                              - Long_Integer (S));
          begin
             Result := Result + (if Diff < 0
-                                then (-Diff) * EP.Factor_Level_Spacing_Too_Wide
-                                else Diff * EP.Factor_Level_Spacing_Too_Narrow);
+                                then (-Diff) * Energy_Params.Factor_Level_Spacing_Too_Wide
+                                else Diff * Energy_Params.Factor_Level_Spacing_Too_Narrow);
          end;
       end loop;
 
