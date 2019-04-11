@@ -367,6 +367,11 @@ package body SCSC.Graph is
          end loop;
       end loop;
 
+      Energy := Energy + Calculate_Energy (Graph_Params  => Params,
+                                           Energy_Params => Energy_Params,
+                                           Graph_Data    => Data,
+                                           Sectors       => Sectors,
+                                           Positions     => Positions);
    end Layout;
 
    ------------------
