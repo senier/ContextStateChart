@@ -3,7 +3,7 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
-with SCSC.Simulated_Annealing;
+with SCSC.SA;
 with SXML.Generator;
 
 procedure Main
@@ -55,18 +55,20 @@ is
    Positions : SCSC.Graph.Positions_Type  := (8, 3, 2, 4, 9, 7, 6, 1, 5);
    Font_Size : constant := 10;
 
-   package SA is new SCSC.Simulated_Annealing;
+   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Opt_Params (Debug                       => False,
+                                                                   Max_Unsuccessful_Iterations => 50);
 
-   OP : constant SA.Params_Type := SA.Create_Opt_Params (Debug                       => False,
-                                                         Max_Unsuccessful_Iterations => 50);
+   EP : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
+
 begin
-   SA.Optimize (ID         => "G1",
-                Opt_Params => OP,
-                Params     => Params,
-                Data       => Data,
-                Sectors    => Sectors,
-                Length     => Length,
-                Positions  => Positions);
+   SCSC.SA.Optimize (ID         => "G1",
+                     Opt_Params => OP,
+                     EP         => EP,
+                     Params     => Params,
+                     Data       => Data,
+                     Sectors    => Sectors,
+                     Length     => Length,
+                     Positions  => Positions);
    declare
       Doc : Document_Type := Create_SVG
          (Width  => 400,

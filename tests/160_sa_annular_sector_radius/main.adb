@@ -2,7 +2,6 @@ with Ada.Text_IO; use Ada.Text_IO;
 with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
-with SCSC.Simulated_Annealing;
 with SCSC.Graph;
 with SXML.Generator;
 
@@ -34,12 +33,12 @@ begin
    declare
       EP : SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
 
-      Energy0 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS0_Params, EP, AS_Text, Fontsize);
-      Energy1 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS1_Params, EP, AS_Text, Fontsize);
-      Energy2 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS2_Params, EP, AS_Text, Fontsize);
-      Energy3 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS3_Params, EP, AS_Text, Fontsize);
-      Energy4 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS4_Params, EP, AS_Text, Fontsize);
-      Energy5 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS5_Params, EP, AS_Text, Fontsize);
+      Energy0 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS0_Params, EP, AS_Text);
+      Energy1 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS1_Params, EP, AS_Text);
+      Energy2 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS2_Params, EP, AS_Text);
+      Energy3 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS3_Params, EP, AS_Text);
+      Energy4 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS4_Params, EP, AS_Text);
+      Energy5 : constant Long_Integer := SCSC.Graph.Calculate_Energy (AS5_Params, EP, AS_Text);
 
       SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
          (Width  => 400,

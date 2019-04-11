@@ -288,6 +288,7 @@ package body SCSC.Graph is
    ------------
 
    procedure Layout (Params    :     Graph_Params_Type;
+                     EP        :     Energy_Params_Type;
                      Data      :     Data_Type;
                      ID        :     String;
                      Positions :     Positions_Type;
@@ -360,6 +361,7 @@ package body SCSC.Graph is
                                                                     Index     => I,
                                                                     ID        => Connector_ID);
             begin
+               Energy := Energy + Calculate_Energy (Sectors (I), EP, Data (I).Get_Label);
                Length := Length + C'Length;
             end;
          end loop;
@@ -482,11 +484,10 @@ package body SCSC.Graph is
 
    function Calculate_Energy (Params : Primitives.Annular_Sector_Params_Type;
                               EP     : Energy_Params_Type;
-                              Label  : String;
-                              Size   : Natural) return Long_Integer
+                              Label  : String) return Long_Integer
    is
       Diff : constant Long_Integer :=
-         Long_Integer (SCSC.Text.Estimate_Width (Label, Size))
+         Long_Integer (SCSC.Text.Estimate_Width (Label, EP.Font_Size))
          + EP.Text_Border
          - Long_Integer (Params.Inner.Length);
    begin
@@ -503,8 +504,7 @@ package body SCSC.Graph is
                               EP        : Energy_Params_Type;
                               Data      : Graph.Data_Type;
                               Sectors   : Graph.Annular_Sectors_Type;
-                              Positions : Graph.Positions_Type;
-                              Size      : Natural) return Long_Integer
+                              Positions : Graph.Positions_Type) return Long_Integer
    is
       pragma Unreferenced (Positions);
       Result : Long_Integer := 0;
@@ -512,7 +512,7 @@ package body SCSC.Graph is
       for I in Sectors'Range
       loop
          --  FIXME: Only one font size supported
-         Result := Result + Calculate_Energy (Sectors (I), EP, Data (I).Get_Label, Size);
+         Result := Result + Calculate_Energy (Sectors (I), EP, Data (I).Get_Label);
       end loop;
 
       for S of Graph.Get_Spacing (Params)

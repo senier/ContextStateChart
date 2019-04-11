@@ -38,6 +38,8 @@ is
                                                                      Spacing => (0 => 60),
                                                                      Padding => 3);
 
+   EP         : constant Graph.Energy_Params_Type := Graph.Create_Energy_Params;
+
    Sectors1   : Graph.Annular_Sectors_Type (Data1'Range);
    Positions1 : Graph.Positions_Type (Data1'Range);
 
@@ -51,6 +53,7 @@ begin
 
    Graph.Identity (Positions1);
    Graph.Layout (Params    => Params1,
+                 EP        => EP,
                  Data      => Data1,
                  ID        => "G1",
                  Sectors   => Sectors1,
@@ -60,6 +63,7 @@ begin
 
    Graph.Identity (Positions2);
    Graph.Layout (Params    => Params2,
+                 EP        => EP,
                  Data      => Data2,
                  ID        => "G2",
                  Sectors   => Sectors2,

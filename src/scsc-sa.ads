@@ -1,8 +1,9 @@
 with SCSC.Primitives;
 with SCSC.Graph;
 
-generic
-package SCSC.Simulated_Annealing  is
+package SCSC.SA
+   with SPARK_Mode
+is
 
    type Params_Type is private;
 
@@ -20,6 +21,7 @@ package SCSC.Simulated_Annealing  is
 
    procedure Optimize (ID         :        String;
                        Opt_Params :        Params_Type;
+                       EP         :        Graph.Energy_Params_Type;
                        Length     :    out Natural;
                        Params     : in out Graph.Graph_Params_Type;
                        Data       : in out Graph.Data_Type;
@@ -56,4 +58,4 @@ private
      Level_Spacing_Decrease_Step  =>     20,
      Debug                        => False));
 
-end SCSC.Simulated_Annealing;
+end SCSC.SA;

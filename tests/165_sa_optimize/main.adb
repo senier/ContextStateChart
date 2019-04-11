@@ -6,7 +6,7 @@ with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
 with SCSC.GEXF;
-with SCSC.Simulated_Annealing;
+with SCSC.SA;
 
 procedure Main
 is
@@ -38,9 +38,10 @@ is
                                                           Spacing => (150, 300, 450),
                                                           Padding => 5);
 
-   package SA is new SCSC.Simulated_Annealing;
-   OP : constant SA.Params_Type := SA.Create_Opt_Params (Max_Unsuccessful_Iterations => 5,
-                                                         Threshold_Decay             => 0.8);
+   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Opt_Params (Max_Unsuccessful_Iterations => 5,
+                                                                   Threshold_Decay             => 0.8);
+
+   EP : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
 
 begin
    Import (GEXF_Data => GEXF_File,
@@ -61,13 +62,14 @@ begin
       Length    : Natural;
    begin
       SCSC.Graph.Identity (Positions);
-      SA.Optimize (ID         => "G1",
-                   Params     => Params,
-                   Opt_Params => OP,
-                   Data       => Data.all (Data.all'First .. Last),
-                   Sectors    => Sectors,
-                   Length     => Length,
-                   Positions  => Positions);
+      SCSC.SA.Optimize (ID         => "G1",
+                        Params     => Params,
+                        Opt_Params => OP,
+                        EP         => EP,
+                        Data       => Data.all (Data.all'First .. Last),
+                        Sectors    => Sectors,
+                        Length     => Length,
+                        Positions  => Positions);
 
       declare
          Doc : Document_Type := Create_SVG

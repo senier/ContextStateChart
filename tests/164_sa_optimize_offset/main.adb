@@ -3,7 +3,7 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
-with SCSC.Simulated_Annealing;
+with SCSC.SA;
 with SXML.Generator;
 
 with GNAT.Traceback;
@@ -31,8 +31,6 @@ is
                                                            Spacing => (0, 0),
                                                            Padding => 3);
 
-   package SA is new SCSC.Simulated_Annealing;
-
    Sectors   : Graph.Annular_Sectors_Type (Data'Range);
    Positions : Graph.Positions_Type (Data'Range);
    Length    : Natural;
@@ -47,10 +45,13 @@ is
 
    OP : constant SA.Params_Type := SA.Create_Opt_Params;
 
+   EP : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
+
 begin
    Graph.Identity (Positions);
    SA.Optimize (ID         => "G1",
                 Opt_Params => OP,
+                EP         => EP,
                 Params     => Params,
                 Data       => Data,
                 Sectors    => Sectors,
@@ -69,7 +70,7 @@ begin
                                         Data      => Data,
                                         Positions => Positions,
                                         ID        => "G1")
-                  + SVG.Text (P (20, 20), Graph.Calculate_Energy (Params, EP, Data, Sectors, Positions, Font_Size)'Img),
+                  + SVG.Text (P (20, 20), Graph.Calculate_Energy (Params, EP, Data, Sectors, Positions)'Img),
           Style => Style);
    begin
       Put_Line (SVG.To_String (Doc));

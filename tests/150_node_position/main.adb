@@ -31,6 +31,8 @@ is
                                                                          Spacing  => (40, 30, 60),
                                                                          Radius   => 20);
 
+   EP     : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
+
    Positions : SCSC.Graph.Positions_Type := (6, 5, 3, 9, 8, 10, 7, 4, 1, 2);
    Sectors   : SCSC.Graph.Annular_Sectors_Type (Data'Range);
    Length    : Natural;
@@ -38,6 +40,7 @@ is
 
 begin
    Graph.Layout (Params    => Params,
+                 EP        => EP,
                  Data      => Data,
                  ID        => "G1",
                  Sectors   => Sectors,

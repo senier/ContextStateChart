@@ -3,7 +3,7 @@ with SCSC.SVG;
 with SCSC.Types;
 with SCSC.Primitives;
 with SCSC.Graph;
-with SCSC.Simulated_Annealing;
+with SCSC.SA;
 with SXML.Generator;
 
 with GNAT.Traceback;
@@ -36,8 +36,6 @@ is
                                                                      Spacing => (130, 20),
                                                                      Padding => 3);
 
-   package SA is new SCSC.Simulated_Annealing;
-
    Sectors1   : Graph.Annular_Sectors_Type (Data'Range);
    Positions1 : Graph.Positions_Type (Data'Range);
    Length1    : Natural;
@@ -54,6 +52,8 @@ is
                               & "#G2 { fill: yellow; stroke: green; }"
                               & "#G2 .text { fill: black; stroke: none; font-size:" & Fontsize'Img & "px; }";
 
+   EP    : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
+
    Graph_Energy1 : Long_Integer;
    Graph_Energy2 : Long_Integer;
 
@@ -61,6 +61,7 @@ begin
 
    Graph.Identity (Positions1);
    Graph.Layout (Params    => Params1,
+                 EP        => EP,
                  Data      => Data,
                  ID        => "G1",
                  Sectors   => Sectors1,
@@ -70,6 +71,7 @@ begin
 
    Graph.Identity (Positions2);
    Graph.Layout (Params    => Params2,
+                 EP        => EP,
                  Data      => Data,
                  ID        => "G2",
                  Sectors   => Sectors2,

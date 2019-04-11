@@ -35,6 +35,8 @@ is
                                                                    Spacing => (150, 300, 450),
                                                                    Padding => 5);
 
+   EP     : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
+
    Unused : Long_Integer;
 
 begin
@@ -57,6 +59,7 @@ begin
    begin
       SCSC.Graph.Identity (Positions);
       SCSC.Graph.Layout (Params    => Params,
+                         EP        => EP,
                          Data      => Data.all (Data.all'First .. Last),
                          ID        => "G1",
                          Sectors   => Sectors,

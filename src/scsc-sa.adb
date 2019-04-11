@@ -1,10 +1,7 @@
 with SCSC.Random;
-with Ada.Numerics.Float_Random;
 with Ada.Text_IO;
 
-package body SCSC.Simulated_Annealing is
-
-   G : Ada.Numerics.Float_Random.Generator;
+package body SCSC.SA is
 
    type Moves is
       (Move_Noop,
@@ -158,35 +155,43 @@ package body SCSC.Simulated_Annealing is
          when Move_Decrease_Random_Level_Spacing =>
             declare
                S : constant Graph.Spacing_Type := Graph.Get_Spacing (Params);
+               R : constant Graph.Spacing_Index := Random_Spacing_Index.Get_Random;
             begin
                return
                   (Kind  => Move_Decrease_Random_Level_Spacing,
-                   Index => S'First + Random_Spacing_Index.Get_Random mod S'Length,
+                   Index => S'First + R mod S'Length,
                    Value => Opt_Params.Level_Spacing_Decrease_Step);
             end;
          when Move_Increase_Random_Level_Spacing =>
             declare
                S : constant Graph.Spacing_Type := Graph.Get_Spacing (Params);
+               R : constant Graph.Spacing_Index := Random_Spacing_Index.Get_Random;
             begin
                return (Kind  => Move_Increase_Random_Level_Spacing,
-                       Index => S'First + Random_Spacing_Index.Get_Random mod S'Length,
+                       Index => S'First + R mod S'Length,
                        Value => Opt_Params.Level_Spacing_Increase_Step);
             end;
          when Move_Switch_Random_Direction =>
             declare
-               NI    : constant Positive         := Data'First + Random_Natural.Get_Random mod Data'Length;
+               RN    : constant Natural          := Random_Natural.Get_Random;
+               NI    : constant Positive         := Data'First + RN mod Data'Length;
                Edges : constant Graph.Edges_Type := Graph.Get_Edges (Data (NI));
+               RE    : constant Natural          := Random_Natural.Get_Random;
                EI    : constant Integer          := (if Edges'Length > 0
-                                                     then Edges'First + Random_Natural.Get_Random mod Edges'Length
+                                                     then Edges'First + RE mod Edges'Length
                                                      else -1);
             begin
                if EI = -1 then
                   return (Kind => Move_Noop);
                else
-                  return (Kind => Move_Switch_Random_Direction,
-                          Dir  => Random_Direction.Get_Random,
-                          NI   => NI,
-                          EI   => EI);
+                  declare
+                     R : constant Valid_Dir_Type := Random_Direction.Get_Random;
+                  begin
+                     return (Kind => Move_Switch_Random_Direction,
+                             Dir  => R,
+                             NI   => NI,
+                             EI   => EI);
+                  end;
                end if;
             end;
          when Move_Noop =>
@@ -202,6 +207,7 @@ package body SCSC.Simulated_Annealing is
                           Energy_1  : Long_Integer;
                           Energy_2  : Long_Integer;
                           Threshold : Long_Integer)
+      with SPARK_Mode => Off
    is
       use Ada.Text_IO;
    begin
@@ -215,6 +221,7 @@ package body SCSC.Simulated_Annealing is
 
    procedure Optimize (ID         :        String;
                        Opt_Params :        Params_Type;
+                       EP         :        Graph.Energy_Params_Type;
                        Length     :    out Natural;
                        Params     : in out Graph.Graph_Params_Type;
                        Data       : in out Graph.Data_Type;
@@ -232,6 +239,7 @@ package body SCSC.Simulated_Annealing is
          begin
             Apply (M, Params, Data, Sectors);
             Graph.Layout (Params    => Params,
+                          EP        => EP,
                           Data      => Data,
                           ID        => ID,
                           Positions => Positions,
@@ -259,6 +267,4 @@ package body SCSC.Simulated_Annealing is
       end loop;
    end Optimize;
 
-begin
-   Ada.Numerics.Float_Random.Reset (G);
-end SCSC.Simulated_Annealing;
+end SCSC.SA;

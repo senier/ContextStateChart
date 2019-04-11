@@ -40,6 +40,8 @@ is
 
    Positions : constant SCSC.Graph.Positions_Type := (1, 3, 2, 4);
 
+   EP        : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;
+
    Sectors : SCSC.Graph.Annular_Sectors_Type (Data'Range);
    Length  : Natural;
    Unused  : Long_Integer;
@@ -47,6 +49,7 @@ is
 begin
 
    SCSC.Graph.Layout (Params    => Params,
+                      EP        => EP,
                       Data      => Data,
                       ID        => "Graph1",
                       Positions => Positions,
