@@ -3,29 +3,7 @@ with Ada.Text_IO;
 
 package body SCSC.SA is
 
-   type Moves is
-      (Move_Noop,
-       Move_Decrease_Random_Level_Spacing,
-       Move_Increase_Random_Level_Spacing,
-       Move_Switch_Random_Direction);
-
    subtype Effective_Moves is Moves range Move_Decrease_Random_Level_Spacing .. Move_Switch_Random_Direction;
-
-   type Move_Type (Kind : Moves := Move_Noop) is
-   record
-      case Kind is
-         when Move_Decrease_Random_Level_Spacing
-            | Move_Increase_Random_Level_Spacing =>
-            Spacing_Index : Graph.Spacing_Index;
-            Spacing_Value : Natural;
-         when Move_Switch_Random_Direction =>
-            Direction  : Primitives.Dir_Type;
-            Node_Index : Positive;
-            Edge_Index : Natural;
-         when Move_Noop =>
-            null;
-      end case;
-   end record;
 
    procedure Apply (M            : in out Move_Type;
                     Graph_Params : in out Graph.Graph_Params_Type;
@@ -202,6 +180,7 @@ package body SCSC.SA is
    -----------------
 
    procedure Print_Debug (Iteration : Long_Integer;
+                          M         : Move_Type;
                           Energy_1  : Long_Integer;
                           Energy_2  : Long_Integer;
                           Threshold : Long_Integer)
@@ -209,8 +188,8 @@ package body SCSC.SA is
    is
       use Ada.Text_IO;
    begin
-      Put_Line (Standard_Error, "I:" & Iteration'Img & " E1:" & Energy_1'Img & " E2:" & Energy_2'Img
-                & " Threshold:" & Threshold'Img);
+      Put_Line (Standard_Error, "I:" & Iteration'Img & " M: " & M.Kind'Img & " E1:" & Energy_1'Img
+                & " E2:" & Energy_2'Img & " Threshold:" & Threshold'Img);
    end Print_Debug;
 
    --------------
@@ -235,29 +214,31 @@ package body SCSC.SA is
          declare
             M : Move_Type := Move (Graph_Params, Optimize_Params, Graph_Data, Sectors);
          begin
-            Apply (M, Graph_Params, Graph_Data, Sectors);
-            Graph.Layout (Data          => Graph_Data,
-                          Params        => Graph_Params,
-                          Energy_Params => Energy_Params,
-                          ID            => ID,
-                          Positions     => Positions,
-                          Length        => Length,
-                          Sectors       => Sectors,
-                          Energy        => Energy_2);
-            if Optimize_Params.Debug then
-               Print_Debug (I, Energy_1, Energy_2, Long_Integer (Threshold));
-            end if;
-
-            if Energy_2 < Energy_1
-            then
-               Energy_1 := Energy_2;
-               I := 0;
-            else
-               if Energy_2 - Energy_1 >= Long_Integer (Threshold)
-               then
-                  Revert (M, Graph_Params, Graph_Data, Sectors);
+            if M.Kind /= Move_Noop then
+               Apply (M, Graph_Params, Graph_Data, Sectors);
+               Graph.Layout (Data          => Graph_Data,
+                             Params        => Graph_Params,
+                             Energy_Params => Energy_Params,
+                             ID            => ID,
+                             Positions     => Positions,
+                             Length        => Length,
+                             Sectors       => Sectors,
+                             Energy        => Energy_2);
+               if Optimize_Params.Debug then
+                  Print_Debug (I, M, Energy_1, Energy_2, Long_Integer (Threshold));
                end if;
-               I := I + 1;
+
+               if Energy_2 < Energy_1
+               then
+                  Energy_1 := Energy_2;
+                  I := 0;
+               else
+                  if Energy_2 - Energy_1 >= Long_Integer (Threshold)
+                  then
+                     Revert (M, Graph_Params, Graph_Data, Sectors);
+                  end if;
+                  I := I + 1;
+               end if;
             end if;
          end;
          Threshold := Threshold * Optimize_Params.Threshold_Decay;

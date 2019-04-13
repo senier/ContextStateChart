@@ -160,6 +160,8 @@ is
 
    function Create_Energy_Params (Factor_Sector_Too_Wide          : Long_Integer :=   10;
                                   Factor_Sector_Too_Narrow        : Long_Integer := 1000;
+                                  Factor_Arc_Label_Too_Wide       : Long_Integer := 1000;
+                                  Factor_Arc_Label_Too_Narrow     : Long_Integer := 1000;
                                   Factor_Level_Spacing_Too_Wide   : Long_Integer :=   10;
                                   Factor_Level_Spacing_Too_Narrow : Long_Integer :=  500;
                                   Factor_Radius_Spacing           : Long_Integer :=    5;
@@ -177,6 +179,8 @@ is
                               Sectors       : Graph.Annular_Sectors_Type;
                               Positions     : Graph.Positions_Type) return Long_Integer;
 
+   function Calculate_Energy (Connector_Params : Primitives.Connector_Params_Type;
+                              Energy_Params    : Energy_Params_Type) return Long_Integer;
 private
 
    subtype Label_Type is String (1 .. 100);
@@ -255,6 +259,8 @@ private
    record
       Factor_Sector_Too_Wide          : Long_Integer;
       Factor_Sector_Too_Narrow        : Long_Integer;
+      Factor_Arc_Label_Too_Wide       : Long_Integer;
+      Factor_Arc_Label_Too_Narrow     : Long_Integer;
       Factor_Level_Spacing_Too_Wide   : Long_Integer;
       Factor_Level_Spacing_Too_Narrow : Long_Integer;
       Factor_Radius_Spacing           : Long_Integer;
@@ -264,6 +270,8 @@ private
 
    function Create_Energy_Params (Factor_Sector_Too_Wide          : Long_Integer :=   10;
                                   Factor_Sector_Too_Narrow        : Long_Integer := 1000;
+                                  Factor_Arc_Label_Too_Wide       : Long_Integer := 1000;
+                                  Factor_Arc_Label_Too_Narrow     : Long_Integer := 1000;
                                   Factor_Level_Spacing_Too_Wide   : Long_Integer :=   10;
                                   Factor_Level_Spacing_Too_Narrow : Long_Integer :=  500;
                                   Factor_Radius_Spacing           : Long_Integer :=    5;
@@ -273,8 +281,17 @@ private
      Factor_Sector_Too_Narrow,
      Factor_Level_Spacing_Too_Wide,
      Factor_Level_Spacing_Too_Narrow,
+     Factor_Arc_Label_Too_Wide,
+     Factor_Arc_Label_Too_Narrow,
      Factor_Radius_Spacing,
      Text_Border,
      Font_Size));
+
+   function Labeled_Arc_Energy (Arc         : Primitives.Arc_Params_Type;
+                                Label       : String;
+                                Font_Size   : Integer;
+                                Text_Border : Long_Integer;
+                                Too_Wide    : Long_Integer;
+                                Too_Narrow  : Long_Integer) return Long_Integer;
 
 end SCSC.Graph;

@@ -30,7 +30,8 @@ TESTS = \
 	obj/163_sa_graph_energy/document.svg \
 	obj/164_sa_optimize_offset/document.svg \
 	obj/165_sa_optimize/document.svg \
-	obj/166_sa_optimize_direction/document.svg
+	obj/166_sa_optimize_direction/document.svg \
+	obj/167_connector_energy/document.svg
 
 VERBOSE ?= @
 

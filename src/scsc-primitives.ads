@@ -36,6 +36,7 @@ is
 
    function Cartesian (From       : Types.Point;
                        To         : Types.Point;
+                       Center     : Types.Point;
                        Radius     : Natural;
                        X_Rotation : Natural := 0;
                        Large      : Boolean := False;
@@ -88,6 +89,9 @@ is
 
    function Get_Label (Params : Connector_Params_Type) return String;
    --  Return label of connector
+
+   function Get_Arc (Params : Connector_Params_Type'Class) return Arc_Params_Type;
+   --  Return arc params of connector
 
    function Connector (Params   : Connector_Params_Type;
                        ID       : String;
@@ -148,5 +152,8 @@ private
       Label_Text : Label_Type;
       Label_Len  : Natural;
    end record;
+
+   function To_Angle (Center : Types.Point;
+                      P      : Types.Point) return Types.Angle;
 
 end SCSC.Primitives;

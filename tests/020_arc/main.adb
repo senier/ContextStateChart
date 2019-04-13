@@ -11,15 +11,18 @@ is
    use SCSC.Types;
    use SXML.Generator;
 
+   C : constant SCSC.Types.Point := P (50, 50);
+
    SVG : SCSC.SVG.Document_Type := SCSC.SVG.Create_SVG
       (Width  => 400,
        Height => 400,
        Child  => Group (Arc (Cartesian (From   => P (200, 400),
                                         To     => P (400, 200),
+                                        Center => C,
                                         Radius => 200,
                                         Sweep  => False),
                              ID => "myarc") +
-                        Circle (Center => P (50, 50),
+                        Circle (Center => C,
                                 Radius => 2)),
        Style => ".circle { fill: black; } #myarc { fill:none; stroke: green; }");
 begin

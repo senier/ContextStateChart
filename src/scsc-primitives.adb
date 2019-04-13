@@ -13,17 +13,20 @@ is
 
    function Cartesian (From       : Types.Point;
                        To         : Types.Point;
+                       Center     : Types.Point;
                        Radius     : Natural;
                        X_Rotation : Natural := 0;
                        Large      : Boolean := False;
                        Sweep      : Boolean := False) return Arc_Params_Type
    is
+      Angle  : constant Types.Angle := Types.Difference (To_Angle (Center, From), To_Angle (Center, To));
+      Length : constant Natural     := Natural (Float (Radius) * Float (Angle) / 180.0 * Ada.Numerics.Pi);
    begin
       return
         (From       => From,
          To         => To,
-         Center     => Types.P (0, 0), -- FIXME
-         Length     => 0,
+         Center     => Center,
+         Length     => Length,
          Radius     => Radius,
          X_Rotation => X_Rotation,
          Large      => Large,
@@ -177,9 +180,6 @@ is
    --------------
 
    function To_Angle (Center : Types.Point;
-                      P      : Types.Point) return Types.Angle;
-
-   function To_Angle (Center : Types.Point;
                       P      : Types.Point) return Types.Angle
    is
       use Math;
@@ -215,6 +215,7 @@ is
       A : constant Arc_Params_Type :=
          Cartesian (From   => (if Direction = Dir_CW then LP_1.To else LP_2.To),
                     To     => (if Direction = Dir_CW then LP_2.To else LP_1.To),
+                    Center => Center,
                     Radius => R,
                     Large  => (if Direction = Dir_CW then Diff_Angle >= 180.0 else Diff_Angle <= 180.0),
                     Sweep  => True);
@@ -239,6 +240,12 @@ is
    ---------------
 
    function Get_Label (Params : Connector_Params_Type) return String is (Params.Label_Text (1 .. Params.Label_Len));
+
+   -------------
+   -- Get_Arc --
+   -------------
+
+   function Get_Arc (Params : Connector_Params_Type'Class) return Arc_Params_Type is (Params.Arc);
 
    ---------------
    -- Connector --

@@ -290,6 +290,143 @@ package body SCSC.Graph is
 
    end Calculate_Offset;
 
+   -----------------
+   -- Create_Edge --
+   -----------------
+
+   function Create_Edge (Dest        : Natural;
+                         Dir         : Primitives.Dir_Type;
+                         Radius      : Integer;
+                         Source_Port : Port_Type;
+                         Dest_Port   : Port_Type;
+                         Label       : String := "") return Edge_Type
+   is
+      Label_Length : constant Natural := (if Label'Length > Label_Type'Last - Label_Type'First + 1
+                                          then Label_Type'Last - Label_Type'First + 1
+                                          else Label'Length);
+   begin
+      return
+         (Dest        => Dest,
+          Dir         => Dir,
+          Radius      => Radius,
+          Source_Port => Source_Port,
+          Dest_Port   => Dest_Port,
+          Label_Text  => Label (Label'First .. Label'First + Label_Length - 1)
+                         & (Label_Type'First + Label_Length .. Label_Type'Last => ' '),
+          Label_Len   => Label_Length);
+   end Create_Edge;
+
+   --------------
+   -- Identity --
+   --------------
+
+   procedure Identity (Positions : out Positions_Type)
+   is
+   begin
+      for P in Positions'Range
+      loop
+         Positions (P) := P;
+      end loop;
+   end Identity;
+
+   -------------
+   -- Get_Dir --
+   -------------
+
+   function Get_Dir (Edge : Edge_Type) return Primitives.Dir_Type is (Edge.Dir);
+
+   -------------
+   -- Set_Dir --
+   -------------
+
+   procedure Set_Dir (Edge : in out Edge_Type;
+                      Dir  :        Primitives.Dir_Type)
+   is
+   begin
+      Edge.Dir := Dir;
+   end Set_Dir;
+
+   ------------------------
+   -- Labeled_Arc_Energy --
+   ------------------------
+
+   function Labeled_Arc_Energy (Arc         : Primitives.Arc_Params_Type;
+                                Label       : String;
+                                Font_Size   : Integer;
+                                Text_Border : Long_Integer;
+                                Too_Wide    : Long_Integer;
+                                Too_Narrow  : Long_Integer) return Long_Integer
+   is
+      Sector_Diff : constant Long_Integer :=
+         Long_Integer (SCSC.Text.Estimate_Width (Label, Font_Size))
+         + Text_Border
+         - Long_Integer (Arc.Length);
+   begin
+      return (if Sector_Diff < 0 then (-Sector_Diff) * Too_Wide else Sector_Diff * Too_Narrow);
+   end Labeled_Arc_Energy;
+
+   ----------------------
+   -- Calculate_Energy --
+   ----------------------
+
+   function Calculate_Energy (Annular_Sector_Params : Primitives.Annular_Sector_Params_Type;
+                              Energy_Params         : Energy_Params_Type;
+                              Label                 : String) return Long_Integer
+   is (Labeled_Arc_Energy (Arc         => Annular_Sector_Params.Inner,
+                           Label       => Label,
+                           Font_Size   => Energy_Params.Font_Size,
+                           Text_Border => Energy_Params.Text_Border,
+                           Too_Wide    => Energy_Params.Factor_Sector_Too_Wide,
+                           Too_Narrow  => Energy_Params.Factor_Sector_Too_Narrow));
+
+   ----------------------
+   -- Calculate_Energy --
+   ----------------------
+
+   function Calculate_Energy (Connector_Params : Primitives.Connector_Params_Type;
+                              Energy_Params    : Energy_Params_Type) return Long_Integer
+   is (Labeled_Arc_Energy (Arc         => Connector_Params.Get_Arc,
+                           Label       => Connector_Params.Get_Label,
+                           Font_Size   => Energy_Params.Font_Size,
+                           Text_Border => Energy_Params.Text_Border,
+                           Too_Wide    => Energy_Params.Factor_Arc_Label_Too_Wide,
+                           Too_Narrow  => Energy_Params.Factor_Arc_Label_Too_Narrow));
+
+   ----------------------
+   -- Calculate_Energy --
+   ----------------------
+
+   function Calculate_Energy (Graph_Params  : Graph.Graph_Params_Type;
+                              Energy_Params : Energy_Params_Type;
+                              Graph_Data    : Graph.Data_Type;
+                              Sectors       : Graph.Annular_Sectors_Type;
+                              Positions     : Graph.Positions_Type) return Long_Integer
+   is
+      pragma Unreferenced (Positions);
+      Result : Long_Integer := 0;
+   begin
+      for I in Sectors'Range
+      loop
+         --  FIXME: Only one font size supported
+         Result := Result + Calculate_Energy (Sectors (I), Energy_Params, Graph_Data (I).Get_Label);
+      end loop;
+
+      for S of Graph.Get_Spacing (Graph_Params)
+      loop
+         declare
+            Diff : constant Long_Integer := (Energy_Params.Factor_Radius_Spacing
+                                             * Long_Integer (Graph.Get_Radius (Graph_Params))
+                                             - Long_Integer (S));
+         begin
+            Result := Result + (if Diff < 0
+                                then (-Diff) * Energy_Params.Factor_Level_Spacing_Too_Wide
+                                else Diff * Energy_Params.Factor_Level_Spacing_Too_Narrow);
+         end;
+      end loop;
+
+      return Result;
+   end Calculate_Energy;
+
    ------------
    -- Layout --
    ------------
@@ -371,6 +508,7 @@ package body SCSC.Graph is
                                                              ID     => Connector_ID);
             begin
                Energy := Energy + Calculate_Energy (Sectors (I), Energy_Params, E.Get_Label);
+               Energy := Energy + Calculate_Energy (P, Energy_Params);
                Length := Length + C'Length;
             end;
          end loop;
@@ -436,114 +574,5 @@ package body SCSC.Graph is
                            ID      => ID);
       end;
    end Create_Graph;
-
-   -----------------
-   -- Create_Edge --
-   -----------------
-
-   function Create_Edge (Dest        : Natural;
-                         Dir         : Primitives.Dir_Type;
-                         Radius      : Integer;
-                         Source_Port : Port_Type;
-                         Dest_Port   : Port_Type;
-                         Label       : String := "") return Edge_Type
-   is
-      Label_Length : constant Natural := (if Label'Length > Label_Type'Last - Label_Type'First + 1
-                                          then Label_Type'Last - Label_Type'First + 1
-                                          else Label'Length);
-   begin
-      return
-         (Dest        => Dest,
-          Dir         => Dir,
-          Radius      => Radius,
-          Source_Port => Source_Port,
-          Dest_Port   => Dest_Port,
-          Label_Text  => Label (Label'First .. Label'First + Label_Length - 1)
-                         & (Label_Type'First + Label_Length .. Label_Type'Last => ' '),
-          Label_Len   => Label_Length);
-   end Create_Edge;
-
-   --------------
-   -- Identity --
-   --------------
-
-   procedure Identity (Positions : out Positions_Type)
-   is
-   begin
-      for P in Positions'Range
-      loop
-         Positions (P) := P;
-      end loop;
-   end Identity;
-
-   -------------
-   -- Get_Dir --
-   -------------
-
-   function Get_Dir (Edge : Edge_Type) return Primitives.Dir_Type is (Edge.Dir);
-
-   -------------
-   -- Set_Dir --
-   -------------
-
-   procedure Set_Dir (Edge : in out Edge_Type;
-                      Dir  :        Primitives.Dir_Type)
-   is
-   begin
-      Edge.Dir := Dir;
-   end Set_Dir;
-
-   ----------------------
-   -- Calculate_Energy --
-   ----------------------
-
-   function Calculate_Energy (Annular_Sector_Params : Primitives.Annular_Sector_Params_Type;
-                              Energy_Params         : Energy_Params_Type;
-                              Label                 : String) return Long_Integer
-   is
-      Diff : constant Long_Integer :=
-         Long_Integer (SCSC.Text.Estimate_Width (Label, Energy_Params.Font_Size))
-         + Energy_Params.Text_Border
-         - Long_Integer (Annular_Sector_Params.Inner.Length);
-   begin
-      return (if Diff < 0
-              then (-Diff) * Energy_Params.Factor_Sector_Too_Wide
-              else Diff * Energy_Params.Factor_Sector_Too_Narrow);
-   end Calculate_Energy;
-
-   ----------------------
-   -- Calculate_Energy --
-   ----------------------
-
-   function Calculate_Energy (Graph_Params  : Graph.Graph_Params_Type;
-                              Energy_Params : Energy_Params_Type;
-                              Graph_Data    : Graph.Data_Type;
-                              Sectors       : Graph.Annular_Sectors_Type;
-                              Positions     : Graph.Positions_Type) return Long_Integer
-   is
-      pragma Unreferenced (Positions);
-      Result : Long_Integer := 0;
-   begin
-      for I in Sectors'Range
-      loop
-         --  FIXME: Only one font size supported
-         Result := Result + Calculate_Energy (Sectors (I), Energy_Params, Graph_Data (I).Get_Label);
-      end loop;
-
-      for S of Graph.Get_Spacing (Graph_Params)
-      loop
-         declare
-            Diff : constant Long_Integer := (Energy_Params.Factor_Radius_Spacing
-                                             * Long_Integer (Graph.Get_Radius (Graph_Params))
-                                             - Long_Integer (S));
-         begin
-            Result := Result + (if Diff < 0
-                                then (-Diff) * Energy_Params.Factor_Level_Spacing_Too_Wide
-                                else Diff * Energy_Params.Factor_Level_Spacing_Too_Narrow);
-         end;
-      end loop;
-
-      return Result;
-   end Calculate_Energy;
 
 end SCSC.Graph;
