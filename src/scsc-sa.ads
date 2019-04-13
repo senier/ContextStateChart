@@ -11,7 +11,8 @@ is
       (Move_Noop,
        Move_Decrease_Random_Level_Spacing,
        Move_Increase_Random_Level_Spacing,
-       Move_Switch_Random_Direction);
+       Move_Switch_Random_Direction,
+       Move_Switch_Random_Connector);
 
    type Move_Type (Kind : Moves := Move_Noop) is private;
 
@@ -55,6 +56,10 @@ private
             Direction  : Primitives.Dir_Type;
             Node_Index : Positive;
             Edge_Index : Natural;
+         when Move_Switch_Random_Connector =>
+            Node_Index_C : Positive;
+            Edge_Index_1 : Natural;
+            Edge_Index_2 : Natural;
          when Move_Noop =>
             null;
       end case;
@@ -82,5 +87,10 @@ private
      Level_Spacing_Increase_Step  => Level_Spacing_Increase_Step,
      Level_Spacing_Decrease_Step  => Level_Spacing_Decrease_Step,
      Debug                        => Debug));
+
+   procedure Swap_Source_Ports (Graph_Data   : in out Graph.Data_Type;
+                                Node_Index   :        Positive;
+                                Edge_Index_1 :        Natural;
+                                Edge_Index_2 :        Natural);
 
 end SCSC.SA;

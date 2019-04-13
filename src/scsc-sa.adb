@@ -3,7 +3,7 @@ with Ada.Text_IO;
 
 package body SCSC.SA is
 
-   subtype Effective_Moves is Moves range Move_Decrease_Random_Level_Spacing .. Move_Switch_Random_Direction;
+   subtype Effective_Moves is Moves range Move_Decrease_Random_Level_Spacing .. Moves'Last;
 
    procedure Apply (M            : in out Move_Type;
                     Graph_Params : in out Graph.Graph_Params_Type;
@@ -43,6 +43,25 @@ package body SCSC.SA is
       Graph.Set_Edge (Graph_Data, Node_Index, Edge_Index, E);
    end Set_Direction;
 
+   -----------------------
+   -- Swap_Source_Ports --
+   -----------------------
+
+   procedure Swap_Source_Ports (Graph_Data   : in out Graph.Data_Type;
+                                Node_Index   :        Positive;
+                                Edge_Index_1 :        Natural;
+                                Edge_Index_2 :        Natural)
+   is
+      Tmp : Graph.Port_Type;
+   begin
+      Tmp := Graph.Get_Source_Port (Graph_Data, Node_Index, Edge_Index_1);
+      Graph.Set_Source_Port (Data       => Graph_Data,
+                             Node_Index => Node_Index,
+                             Edge_Index => Edge_Index_1,
+                             Port       => Graph.Get_Source_Port (Graph_Data, Node_Index, Edge_Index_2));
+      Graph.Set_Source_Port (Graph_Data, Node_Index, Edge_Index_2, Tmp);
+   end Swap_Source_Ports;
+
    -----------
    -- Apply --
    -----------
@@ -77,6 +96,10 @@ package body SCSC.SA is
 
          when Move_Switch_Random_Direction =>
             Set_Direction (Graph_Data, M.Node_Index, M.Edge_Index, M.Direction);
+
+         when Move_Switch_Random_Connector =>
+            Swap_Source_Ports (Graph_Data, M.Node_Index_C, M.Edge_Index_1, M.Edge_Index_2);
+
       end case;
    end Apply;
 
@@ -113,6 +136,10 @@ package body SCSC.SA is
             Set_Direction (Graph_Data, M.Node_Index, M.Edge_Index, (if M.Direction = Primitives.Dir_CW
                                                                    then Primitives.Dir_CCW
                                                                    else Primitives.Dir_CW));
+
+         when Move_Switch_Random_Connector =>
+            Swap_Source_Ports (Graph_Data, M.Node_Index_C, M.Edge_Index_1, M.Edge_Index_2);
+
       end case;
    end Revert;
 
@@ -154,13 +181,13 @@ package body SCSC.SA is
                RN    : constant Natural          := Random_Natural.Get_Random;
                NI    : constant Positive         := Graph_Data'First + RN mod Graph_Data'Length;
                Edges : constant Graph.Edges_Type := Graph.Get_Edges (Graph_Data (NI));
-               RE    : constant Natural          := Random_Natural.Get_Random;
             begin
                if Edges'Length = 0 then
                   return (Kind => Move_Noop);
                end if;
 
                declare
+                  RE : constant Natural        := Random_Natural.Get_Random;
                   EI : constant Integer        := Edges'First + RE mod Edges'Length;
                   R  : constant Valid_Dir_Type := Random_Direction.Get_Random;
                begin
@@ -170,6 +197,29 @@ package body SCSC.SA is
                           Edge_Index => EI);
                end;
             end;
+         when Move_Switch_Random_Connector =>
+            declare
+               RN    : constant Natural          := Random_Natural.Get_Random;
+               NI    : constant Positive         := Graph_Data'First + RN mod Graph_Data'Length;
+               Edges : constant Graph.Edges_Type := Graph.Get_Edges (Graph_Data (NI));
+            begin
+               if Edges'Length < 2 then
+                  return (Kind => Move_Noop);
+               end if;
+
+               declare
+                  RE_1 : constant Natural := Random_Natural.Get_Random;
+                  EI_1 : constant Integer := Edges'First + RE_1 mod Edges'Length;
+                  RE_2 : constant Natural := Random_Natural.Get_Random;
+                  EI_2 : constant Integer := Edges'First + RE_2 mod Edges'Length;
+               begin
+                  return (Kind         => Move_Switch_Random_Connector,
+                          Node_Index_C => NI,
+                          Edge_Index_1 => EI_1,
+                          Edge_Index_2 => EI_2);
+               end;
+            end;
+
          when Move_Noop =>
             return (Kind  => Move_Noop);
       end case;

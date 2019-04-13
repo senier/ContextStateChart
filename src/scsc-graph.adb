@@ -40,12 +40,23 @@ package body SCSC.Graph is
    ---------------------
 
    procedure Set_Source_Port (Data       : in out Data_Type;
-                              Node_Index :        Natural;
+                              Node_Index :        Positive;
                               Edge_Index :        Natural;
                               Port       :        Port_Type) is
    begin
       Data (Node_Index).Edges_Data (Edge_Index).Source_Port := Port;
    end Set_Source_Port;
+
+   ---------------------
+   -- Get_Source_Port --
+   ---------------------
+
+   function Get_Source_Port (Data       : Data_Type;
+                             Node_Index : Positive;
+                             Edge_Index : Natural) return Port_Type is
+   begin
+      return Data (Node_Index).Edges_Data (Edge_Index).Source_Port;
+   end Get_Source_Port;
 
    -----------------
    -- Create_Node --

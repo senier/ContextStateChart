@@ -55,10 +55,15 @@ is
    --  Set destination port
 
    procedure Set_Source_Port (Data       : in out Data_Type;
-                              Node_Index :        Natural;
+                              Node_Index :        Positive;
                               Edge_Index :        Natural;
                               Port       :        Port_Type);
    --  Set source port
+
+   function Get_Source_Port (Data       : Data_Type;
+                             Node_Index : Positive;
+                             Edge_Index : Natural) return Port_Type;
+   --  Get source port
 
    type Edges_Type is array (Natural range <>) of Edge_Type;
    Null_Edges : constant Edges_Type;
