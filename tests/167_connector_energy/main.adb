@@ -55,7 +55,7 @@ begin
    declare
       Doc : constant SVG.Document_Type := SVG.Create_SVG
          (Width  => 1000,
-          Height => 500,
+          Height =>  700,
        Child  => Connector (Params => Params_1, ID => "C1")
                + SVG.Text (P (70, 150), Energy_1'Img, ID => "E1")
                + SVG.Text (P (70, 170), Params_1.Get_Arc.Length'Img, ID => "L1")

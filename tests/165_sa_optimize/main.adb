@@ -38,8 +38,8 @@ is
                                                           Spacing => (150, 300, 450),
                                                           Padding => 5);
 
-   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Optimize_Params (Max_Unsuccessful_Iterations => 5,
-                                                                        Threshold_Decay             => 0.8,
+   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Optimize_Params (Max_Unsuccessful_Iterations => 100,
+                                                                        Threshold_Decay             => 0.99,
                                                                         Debug                       => True);
 
    EP : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params;

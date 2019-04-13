@@ -55,7 +55,7 @@ is
    Positions : SCSC.Graph.Positions_Type  := (8, 3, 2, 4, 9, 7, 6, 1, 5);
    Font_Size : constant := 10;
 
-   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Optimize_Params (Debug                       => True,
+   OP : constant SCSC.SA.Params_Type := SCSC.SA.Create_Optimize_Params (Debug                       => False,
                                                                         Max_Unsuccessful_Iterations => 200);
 
    EP : constant SCSC.Graph.Energy_Params_Type := SCSC.Graph.Create_Energy_Params (Factor_Arc_Label_Too_Wide => 10000);
